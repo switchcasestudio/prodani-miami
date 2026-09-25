@@ -39,6 +39,10 @@ The duplicate `prodani-brand-assets.zip` went to the macOS Trash.
     the waterline.
   - Previewed on dev theme 188774613302 (`shopify theme dev`). Staging and live
     untouched. Moses reviewed and approved.
+  - Pushed to Dani's preview theme **188434121014 "prodani - 3d hero preview"**
+    (same share link: `https://prodanimiami.com/?preview_theme_id=188434121014&skin=current`).
+    Verified: preview HTML serves the new wordmark, seal, icons, favicon and
+    marquee css; old badge logo gone. Staging and live still untouched.
 
 **Open:** a teal "hand" corner button Moses saw could not be found in the DOM or
 any app embed — likely a browser extension (check in Incognito). Chocolate band's
