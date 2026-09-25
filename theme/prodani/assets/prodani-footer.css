@@ -25,7 +25,7 @@
 
 /* 1. brand — the logo is the anchor of the left box, so it runs big. */
 .pd-foot__brand img{
-  width:100%; max-width:230px; height:auto; display:block; opacity:.95;
+  width:100%; max-width:190px; height:auto; display:block; opacity:.95;
 }
 
 /* 2. the three menus. Equal columns and one shared line rhythm, so the link rows

@@ -9,12 +9,18 @@
 {%- endcomment -%}
 
 {%- assign uid = 'mq-' | append: section.id | append: modifier -%}
-{%- assign sep = '  ·  ' -%}
+{%- comment -%} No-break spaces: SVG collapses ordinary runs and drops the trailing one,
+   which glued the last word to the first where the loop joins ("caramel ·chocolate"). {%- endcomment -%}
+{%- assign sep = ' · ' -%}
 {%- assign words = items | split: ',' -%}
 {%- comment -%} Once only. Emitting the list twice made the two textPaths overlap. {%- endcomment -%}
 {%- capture text -%}
   {%- for w in words -%}{{ w | strip }}{{ sep }}{%- endfor -%}
 {%- endcapture -%}
+
+{%- comment -%} Loaded here, not by one section: the video hero used to carry it, and when the
+   3D hero replaced it the ribbon lost display:block and showed a cocoa gap beneath. {%- endcomment -%}
+{{ 'prodani-marquee.css' | asset_url | stylesheet_tag }}
 
 <div class="pd-marquee {{ modifier }}" data-pd-marquee data-speed="{{ speed | default: 26 }}">
   <svg class="pd-marquee__svg" viewBox="16 0 1568 158" xmlns="http://www.w3.org/2000/svg"

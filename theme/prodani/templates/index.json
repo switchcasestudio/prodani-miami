@@ -321,42 +321,42 @@
           "type": "badge",
           "settings": {
             "label": "High Protein",
-            "icon": "prodani-badge-high-protein"
+            "icon": "prodani-icon-protein"
           }
         },
         "n2": {
           "type": "badge",
           "settings": {
-            "label": "Non GMO",
-            "icon": "prodani-badge-non-gmo"
+            "label": "Small Batch",
+            "icon": "prodani-icon-small-batch"
           }
         },
         "n3": {
           "type": "badge",
           "settings": {
             "label": "No Sugar Added",
-            "icon": "prodani-badge-no-sugar-added"
+            "icon": "prodani-icon-no-added-sugar"
           }
         },
         "n4": {
           "type": "badge",
           "settings": {
             "label": "Gluten Free",
-            "icon": "prodani-badge-gluten-free"
+            "icon": "prodani-icon-gluten-free"
           }
         },
         "n5": {
           "type": "badge",
           "settings": {
-            "label": "High Fiber",
-            "icon": "prodani-badge-high-fiber"
+            "label": "Baked in Miami",
+            "icon": "prodani-icon-baked-in-miami"
           }
         },
         "n6": {
           "type": "badge",
           "settings": {
-            "label": "Low Calorie",
-            "icon": "prodani-badge-low-calorie"
+            "label": "132 Verified Reviews",
+            "icon": "prodani-icon-verified-reviews"
           }
         }
       },

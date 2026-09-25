@@ -21,16 +21,14 @@
   <div class="pd-wrap pd-nav__in">
     <a href="{{ routes.root_url }}" class="pd-nav__logo" aria-label="{{ shop.name | escape }} — home">
       {%- comment -%}
-        The store's own wordmark (Asset_4) is cream-on-transparent, drawn for a dark
-        header. Ours is cream, so painting it as a mask lets it take the brand colour
-        instead of vanishing. Falls back to the text logo where masks are unsupported.
+        The 2026 wordmark: SVG with the type outlined, cocoa ink and a caramel full
+        stop. Drawn as an <img>, not a mask, so the caramel dot keeps its own colour.
       {%- endcomment -%}
       {%- if section.settings.logo != blank -%}
         {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, class: 'pd-nav__logo-img' }}
       {%- elsif section.settings.use_brand_logo -%}
-        <span class="pd-nav__logo-mark" role="img" aria-label="{{ shop.name | escape }}"
-              style="--pd-logo:url({{ 'prodani-wordmark.png' | asset_url }});"></span>
-        <span class="pd-nav__logo-text">{{ section.settings.logo_text | default: shop.name | escape | downcase }}</span>
+        <img class="pd-nav__logo-img pd-nav__logo-img--brand" src="{{ 'prodani-wordmark.svg' | asset_url }}"
+             alt="{{ shop.name | escape }}" width="1144" height="435">
       {%- else -%}
         {{ section.settings.logo_text | default: shop.name | escape | downcase }}
       {%- endif -%}

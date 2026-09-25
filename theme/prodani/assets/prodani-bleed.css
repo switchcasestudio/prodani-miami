@@ -20,6 +20,11 @@
      simply merges into the matching ground and the word looks submerged. */
   color:var(--pd-bleed-text);
 
+  /* Lifted .1em: Fraunces caps sit low in a .82 line box, so at a 75% split
+     barely half of each letter cleared the waterline. em-based, so it holds at
+     every size of the clamp. top, not transform — the drift animation owns that. */
+  position:relative; top:-.1em;
+
   animation:pd-bleed-drift var(--pd-bleed-speed, 40s) linear infinite;
 }
 /* Clear space between repeats so it reads "DELICIOUS  DELICIOUS", not run together. */

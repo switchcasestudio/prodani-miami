@@ -9,8 +9,8 @@
 .pd-marquee--hero path[stroke]{ stroke:var(--cream); }
 .pd-marquee--hero text{ display:none; }
 
-/* v4: the shout ribbon whispers — ecru band, espresso mono, tone-on-tone. */
-.pd-marquee--shout path[stroke]{ stroke:var(--butter); }
+/* The shout ribbon stays caramel (--pink in the blend skin): this sheet went
+   unloaded for weeks and the caramel band is the look that got approved. */
 .pd-marquee--shout text{ fill:var(--cocoa); }
 
 /* Mobile: the SVG scales with viewport width, shrinking the ribbon text to

@@ -30,6 +30,10 @@
                    alt="" loading="lazy" width="340" height="245">
             {%- endif -%}
           </span>
+          {%- if block.settings.icon contains 'prodani-icon-' and block.settings.image == blank -%}
+            {%- comment -%} 2026 line icons: inlined so stroke="currentColor" takes the text colour. {%- endcomment -%}
+            <span class="pd-badge-item__line" aria-hidden="true">{{ block.settings.icon | append: '.svg' | inline_asset_content }}</span>
+          {%- endif -%}
           <span class="pd-badge-item__label">{{ block.settings.label | escape }}</span>
         </li>
       {%- endfor -%}
@@ -71,6 +75,14 @@
         {
           "type": "select", "id": "icon", "label": "Bundled icon",
           "options": [
+            { "value": "prodani-icon-protein",          "label": "Line: Protein" },
+            { "value": "prodani-icon-no-added-sugar",   "label": "Line: No added sugar" },
+            { "value": "prodani-icon-gluten-free",      "label": "Line: Gluten free" },
+            { "value": "prodani-icon-small-batch",      "label": "Line: Small batch" },
+            { "value": "prodani-icon-baked-in-miami",   "label": "Line: Baked in Miami" },
+            { "value": "prodani-icon-verified-reviews", "label": "Line: Verified reviews" },
+            { "value": "prodani-icon-subscribe",        "label": "Line: Subscribe" },
+            { "value": "prodani-icon-build-your-box",   "label": "Line: Build your box" },
             { "value": "prodani-badge-high-protein",  "label": "High protein" },
             { "value": "prodani-badge-non-gmo",       "label": "Non GMO" },
             { "value": "prodani-badge-no-sugar-added","label": "No sugar added" },

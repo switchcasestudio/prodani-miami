@@ -4,6 +4,50 @@ Newest entries first. One entry per working session — what was done, what was 
 
 ---
 
+## 2026-09-24 — 2026 brand kit added and wired into the theme (branch `feat/brand-assets`)
+
+New brand assets from Dani's rebrand (wordmark, coin/monogram, lockups, stamps,
+line icons, web icons — 77 files, all SVG type outlined) now live in `brand/` at
+the repo root as the source of truth. Only the files the theme uses are copied
+into `theme/prodani/assets/` (Shopify assets is flat and ships everything).
+The duplicate `prodani-brand-assets.zip` went to the macOS Trash.
+
+  - **Header:** new `prodani-wordmark.svg` as an `<img>` (the old mask trick
+    would have killed the caramel full stop), sized up to 36–46px tall.
+  - **Header type:** nav links, dropdown, Cart, mobile Shop and the announcement
+    strip set in JetBrains Mono caps, tracked — the logo's descriptor voice.
+    Pinned to `var(--mono)`, which no skin overrides.
+  - **Footer:** the misspelled badge logo replaced by the ivory brand seal
+    (`prodani-stamp-seal-ivory.svg`).
+  - **Meet-your-baker photo (index "baker"):** muffin photo stamp replaced by the
+    cocoa seal, un-rotated per the brand rules; the "Baked in Miami" pill is kept
+    for screen readers only (the seal carries its own lines).
+  - **Benefit strip:** new line icons inlined (`inline_asset_content`, so
+    `currentColor` works). The icon set has no Non GMO / High Fiber / Low Calorie,
+    so the six claims are now High Protein, Small Batch, No Sugar Added, Gluten
+    Free, Baked in Miami, 132 Verified Reviews. Old PNG options stay selectable.
+  - **Favicon:** SVG + 32px PNG + apple-touch icon ship with the theme and
+    override the admin favicon setting.
+  - **Fixed — dark line under the chocolate-band ribbon:** `prodani-marquee.css`
+    was only loaded by the old video hero, so since the 3D hero swap the ribbon
+    SVG rendered inline and left a ~9px cocoa gap. The snippet now loads its own
+    stylesheet. Its v4 "ecru shout ribbon" rule was dropped to keep the approved
+    caramel band.
+  - **Fixed — ribbon seam:** separator uses no-break spaces; SVG had collapsed
+    the trailing space ("caramel ·chocolate").
+  - **"BUILD YOUR BOX" bleed word** lifted .1em so more of each letter clears
+    the waterline.
+  - Previewed on dev theme 188774613302 (`shopify theme dev`). Staging and live
+    untouched. Moses reviewed and approved.
+
+**Open:** a teal "hand" corner button Moses saw could not be found in the DOM or
+any app embed — likely a browser extension (check in Incognito). Chocolate band's
+"Read my story" button wraps to three lines. README suggests the seal replace
+the spinning cupcake badge there (it rotates and sits on the photo). OG image and
+Instagram/Google profile picture need uploading in admin.
+
+---
+
 ## 2026-09-13 — 3D cake hero swapped into the real homepage (branch `experiment/3d-hero-theme`)
 
 Replaces only the homepage video hero with the Astra 3D scroll story; every other

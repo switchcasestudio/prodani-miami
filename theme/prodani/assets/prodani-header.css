@@ -21,20 +21,9 @@
 }
 .pd-nav__logo-img{ height:clamp(24px,2.4vw,32px); width:auto; display:block; }
 
-/* Wordmark painted through a mask, so one cream PNG serves any ground colour. */
-.pd-nav__logo-mark{ display:none; }
-.pd-nav__logo-text{ display:inline; }
-@supports (mask-image: url('')) or (-webkit-mask-image: url('')) {
-  .pd-nav__logo-mark{
-    display:block;
-    height:clamp(22px,2.2vw,30px);
-    aspect-ratio:3.7 / 1;      /* 900x243 */
-    background:var(--cocoa);
-    -webkit-mask:var(--pd-logo) no-repeat center / contain;
-    mask:var(--pd-logo) no-repeat center / contain;
-  }
-  .pd-nav__logo-text{ display:none; }
-}
+/* 2026 wordmark SVG (1144x435). The descender of the "p" hangs below the
+   baseline, so the box is taller than the x-height reads — sized by height. */
+.pd-nav__logo-img--brand{ height:clamp(36px,3.4vw,46px); }
 .pd-nav__links{ display:flex; gap:6px; }
 .pd-nav__link{
   font-weight:600; font-size:14.5px; color:var(--ink-soft); text-decoration:none;
@@ -98,3 +87,17 @@
 .pd-nav__sublink:hover{ background:var(--pink); }
 .pd-nav__sublink:focus-visible{ outline:3px solid var(--pink-deep); outline-offset:2px; }
 @media (prefers-reduced-motion:reduce){ .pd-nav__sub, .pd-nav__caret{ transition:none; } }
+
+/* ---- 2026 brand type ----
+   The header speaks the logo's secondary voice: JetBrains Mono caps, tracked
+   like the "HIGH-PROTEIN CAKE · MIAMI" descriptor under the wordmark. Pinned to
+   var(--mono), which no skin overrides, so it reads the same in every skin. */
+.pd-nav__link, .pd-nav__sublink, .pd-nav__cart, .pd-nav__shop-mobile{
+  font-family:var(--mono); font-weight:500; text-transform:uppercase; letter-spacing:.14em;
+}
+.pd-nav__link{ font-size:12px; color:var(--cocoa); }
+.pd-nav__sublink{ font-size:11.5px; }
+.pd-nav__cart{ font-size:11.5px; }
+.pd-nav__count{ font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:0; }
+.pd-nav__shop-mobile{ font-size:12px; }
+.pd-announce .pd-label{ font-family:var(--mono); font-weight:500; letter-spacing:.18em; }
