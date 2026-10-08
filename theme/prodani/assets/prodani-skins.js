@@ -52,11 +52,23 @@
     });
   }
 
+  /* The live v2 ribbon separates claims with a sparkle, the 2026 kit with a
+     middle dot. Swap the glyph in the ribbon text for the current skin only. */
+  var trackCache = new WeakMap(); /* textPath → original text */
+  function applyRibbon(skin) {
+    document.querySelectorAll('[data-pd-track]').forEach(function (t) {
+      var orig = trackCache.get(t);
+      if (orig === undefined) { orig = t.textContent; trackCache.set(t, orig); }
+      t.textContent = skin === 'current' ? orig.replace(/\u00a0\u00b7\u00a0/g, '\u00a0\u00a0\u2726\u00a0\u00a0') : orig;
+    });
+  }
+
   function apply(skin) {
     if (SKINS.indexOf(skin) === -1) skin = 'blend';
     if (skin === 'blend') delete document.documentElement.dataset.pdSkin;
     else document.documentElement.dataset.pdSkin = skin;
     applyLiterals(skin);
+    applyRibbon(skin);
     try { localStorage.setItem('pd-skin', skin); } catch (e) { /* private mode */ }
     document.querySelectorAll('.pd-skins__dot').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.skin === skin));

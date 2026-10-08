@@ -7,8 +7,24 @@
    these two assets) before this theme is ever promoted.
    ============================================================ */
 
-/* Fonts the non-default skins need. Fugaz/Damion already ship in assets;
-   Konnect comes from the store's own Files CDN (same URLs as v2 tokens). */
+/* Fonts the non-default skins need. Konnect comes from the store's own Files
+   CDN (same URLs as v2 tokens). Fugaz/Damion files ship in assets, but their
+   @font-face rules lived only in the v2 tokens; without them here the current
+   skin silently fell back to Trebuchet and Brush Script (found 2026-10-08). */
+@font-face {
+  font-family: 'Damion';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('damion-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fugaz One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fugaz-one-latin.woff2') format('woff2');
+}
 @font-face {
   font-family: 'Space Grotesk';
   font-style: normal;
@@ -82,6 +98,30 @@ html[data-pd-skin="current"] {
   --r: 22px; --r-soft: 30px;
 }
 html[data-pd-skin="current"] body::after { display: none; } /* v2 had no grain */
+
+/* Hero in the current skin = the live v2 hero (theme 187797995830), not the v4
+   restyle: warm-brown scrim, Fugaz kicker, Konnect 800 caps headline in pink,
+   ribbon lettering in Konnect bold. Values copied from the live prodani-hero.css
+   and prodani-marquee.liquid. */
+html[data-pd-skin="current"] .pd-hero__video::after {
+  background:
+    linear-gradient(90deg, rgba(58,39,33,.86) 0%, rgba(58,39,33,.74) 34%, rgba(58,39,33,.46) 64%, rgba(58,39,33,.16) 100%),
+    linear-gradient(180deg, rgba(58,39,33,.24) 0%, rgba(58,39,33,.1) 40%, rgba(58,39,33,.4) 100%);
+}
+@media (max-width: 820px) {
+  html[data-pd-skin="current"] .pd-hero__video::after { background: linear-gradient(180deg, rgba(58,39,33,.62), rgba(58,39,33,.7)); }
+}
+html[data-pd-skin="current"] .pd-hero__kicker {
+  font-family: var(--display); font-weight: 400; font-size: clamp(16.8px, 2vw, 27.2px); opacity: .9;
+}
+html[data-pd-skin="current"] .pd-giant__line {
+  font-family: var(--sans); font-weight: 800; text-transform: uppercase;
+  line-height: .92; letter-spacing: -.012em; word-spacing: .06em; color: var(--pink);
+}
+html[data-pd-skin="current"] .pd-hero__note { color: rgba(251,245,232,.62); }
+html[data-pd-skin="current"] .pd-marquee text {
+  font-family: Konnect, sans-serif; font-weight: 700; letter-spacing: .01em;
+}
 
 /* ---- the widget ---- */
 .pd-skins {
