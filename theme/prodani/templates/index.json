@@ -474,7 +474,8 @@
         "sub_badge": "Save 10%",
         "sub_blurb": "Delivered on your schedule. Skip, pause, change or cancel anytime.",
         "build_tab_label": "Build your own",
-        "curated_tab_label": "Curated boxes"
+        "curated_tab_label": "Curated boxes",
+        "box_product": "build-your-box"
       }
     },
     "instagram": {

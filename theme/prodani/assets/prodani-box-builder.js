@@ -243,10 +243,31 @@
 
   elAdd.addEventListener('click', addToCart);
 
+  // Box-product mode: the variant for the current size, set in Liquid on the size
+  // buttons (curated boxes resolve through the same buttons by size).
+  function boxVariant() {
+    var btn = sizeBtns.filter(function (b) { return (parseInt(b.getAttribute('data-size'), 10) || 0) === state.size; })[0];
+    var v = btn ? btn.getAttribute('data-box-variant') : '';
+    return /^\d+$/.test(v || '') ? v : null;
+  }
+
   function addToCart() {
     if (elAdd.disabled) return;
     var items = [], missing = false, boxId = 'box-' + Date.now();
     var plan = planId();
+
+    if (root.hasAttribute('data-pd-box-product')) {
+      var bv = boxVariant();
+      if (!bv) {
+        elNote.textContent = 'The ' + state.size + '-cake box is not available right now.';
+        return;
+      }
+      var mix = flavorEls.filter(function (el) { return state.sel[el.getAttribute('data-flavor')] > 0; })
+        .map(function (el) { return el.getAttribute('data-name') + ' \u00d7 ' + state.sel[el.getAttribute('data-flavor')]; });
+      var boxItem = { id: parseInt(bv, 10), quantity: 1, properties: { 'Flavors': mix.join(', '), _box_id: boxId } };
+      if (plan) boxItem.selling_plan = parseInt(plan, 10);
+      return post([boxItem]);
+    }
 
     flavorEls.forEach(function (el) {
       var q = state.sel[el.getAttribute('data-flavor')];
@@ -267,13 +288,17 @@
       return;
     }
 
+    post(items);
+  }
+
+  function post(items) {
     var label = elAdd.textContent;
     elAdd.disabled = true; elAdd.textContent = 'Adding…';
     fetch((window.routes && window.routes.cart_add_url ? window.routes.cart_add_url : '/cart/add') + '.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ items: items })
-    }).then(function (r) { return r.json(); }).then(function () {
+    }).then(function (r) { if (!r.ok) throw r; return r.json(); }).then(function () {
       window.location.href = (window.routes && window.routes.cart_url) ? window.routes.cart_url : '/cart';
     }).catch(function () {
       elAdd.disabled = false; elAdd.textContent = label;
