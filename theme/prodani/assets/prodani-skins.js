@@ -19,11 +19,24 @@
   };
   var HEX_RE = /#(FAF4E9|F3ECDD|362619|241811|54402D|E0A458|C68A42|8A5A24|6D6B48|D6CCB9)/gi;
 
+  /* Shopify renders color settings as rgb(r, g, b), not hex, so the hex pattern
+     alone never matched the stack cards, bleed band etc. (found 2026-10-08).
+     Normalise those rgb() forms back to the blend hex before mapping. */
+  var RGB_RE = /rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)/gi;
+  function hex2(n) { return ('0' + parseInt(n, 10).toString(16)).slice(-2).toUpperCase(); }
+  function rgbToHex(text) {
+    return text.replace(RGB_RE, function (m, r, g, b) {
+      var h = hex2(r) + hex2(g) + hex2(b);
+      return new RegExp('^(' + HEX_RE.source.slice(2, -1) + ')$', 'i').test(h) ? '#' + h : m;
+    });
+  }
+  function hasLiteral(text) { HEX_RE.lastIndex = 0; return HEX_RE.test(rgbToHex(text)); }
+
   var styleAttrCache = new WeakMap(); /* element → original style attribute */
   var styleTagCache = new WeakMap();  /* <style> → original text */
 
   function rewrite(text, map) {
-    return text.replace(HEX_RE, function (_, hex) {
+    return rgbToHex(text).replace(HEX_RE, function (_, hex) {
       var to = map && map[hex.toUpperCase()];
       return to ? '#' + to : '#' + hex;
     });
@@ -35,7 +48,7 @@
       if (el.closest('.pd-skins')) return;
       var orig = styleAttrCache.get(el);
       if (orig === undefined) {
-        if (!el.getAttribute('style').match(HEX_RE)) return;
+        if (!hasLiteral(el.getAttribute('style'))) return;
         orig = el.getAttribute('style');
         styleAttrCache.set(el, orig);
       }
@@ -44,7 +57,7 @@
     document.querySelectorAll('style').forEach(function (tag) {
       var orig = styleTagCache.get(tag);
       if (orig === undefined) {
-        if (!tag.textContent.match(HEX_RE)) return;
+        if (!hasLiteral(tag.textContent)) return;
         orig = tag.textContent;
         styleTagCache.set(tag, orig);
       }
@@ -99,8 +112,10 @@
 
   function init() {
     buildWidget();
-    var saved = 'blend';
-    try { saved = localStorage.getItem('pd-skin') || 'blend'; } catch (e) { /* ignore */ }
+    /* Calm (champagne) chosen by Moses 2026-10-08: the default for anyone who
+       hasn't picked a skin. */
+    var saved = 'calm';
+    try { saved = localStorage.getItem('pd-skin') || 'calm'; } catch (e) { /* ignore */ }
     /* ?skin=current in a shared preview link opens straight into that palette */
     var linked = new URLSearchParams(location.search).get('skin');
     apply(linked || saved);

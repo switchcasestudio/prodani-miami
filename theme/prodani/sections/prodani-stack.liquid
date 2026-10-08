@@ -2,10 +2,10 @@
   Scroll-stacking proof cards. Each card pins to the top of its slot and scales
   down as the next rides over it, so they gather into a deck.
 
-  The product shots are 620px squares dropped into a ~1.6:1 slot, so `cover`
-  discards about 40% of the height — and centring that crop lands on the backdrop,
-  because the cake sits in the lower half of every one of these photos. Hence the
-  50% 88% default, overridable per card.
+  The slot is ~1.9:1, so `cover` crops the product shots top and bottom. The
+  current photos (2026 container shots) hold the cake between ~20% and ~75% of
+  the frame height, so the default focus is 50% 40%. The old 50% 88% suited the
+  launch photos and cut the top off these. Overridable per card.
 {%- endcomment -%}
 
 {{ 'prodani-stack.css' | asset_url | stylesheet_tag }}
@@ -63,7 +63,7 @@
 
           <div class="pd-stack__media">
             <div class="pd-stack__media-inner" data-pd-card-media
-                 style="--pd-focus:{{ block.settings.focus | default: '50% 88%' }};">
+                 style="--pd-focus:{{ block.settings.focus | default: '50% 40%' }};">
               {%- if product != blank and product.featured_image != blank -%}
                 {{ product.featured_image
                    | image_url: width: 1200
@@ -118,7 +118,7 @@
         { "type": "url", "id": "cta_link", "label": "Link" },
         { "type": "product", "id": "product", "label": "Product (uses its photo)" },
         { "type": "image_picker", "id": "image", "label": "Image (if no product)" },
-        { "type": "text", "id": "focus", "label": "Image focus", "info": "e.g. 50% 88% — these photos put the cake low in frame.", "default": "50% 88%" },
+        { "type": "text", "id": "focus", "label": "Image focus", "info": "Vertical % picks which band of the photo stays visible, e.g. 50% 40%.", "default": "50% 40%" },
         { "type": "color", "id": "color", "label": "Card colour", "default": "#E0A458" },
         { "type": "color", "id": "text_color", "label": "Text colour", "default": "#362619" }
       ]

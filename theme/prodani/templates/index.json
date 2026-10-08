@@ -44,7 +44,7 @@
             "product": "moist-chocolate-fudge-cake-copy",
             "color": "#E0A458",
             "text_color": "#362619",
-            "focus": "50% 88%"
+            "focus": "50% 40%"
           }
         },
         "c2": {
@@ -57,7 +57,7 @@
             "product": "personal-hazelnuts-cake",
             "color": "#F3ECDD",
             "text_color": "#362619",
-            "focus": "50% 88%"
+            "focus": "50% 40%"
           }
         },
         "c3": {
@@ -71,7 +71,7 @@
             "product": "personal-chocolate-fudge-cake-copy",
             "color": "#362619",
             "text_color": "#FAF4E9",
-            "focus": "50% 88%"
+            "focus": "50% 40%"
           }
         },
         "c4": {
@@ -84,7 +84,7 @@
             "product": "dubai-dream-cake-copy",
             "color": "#C68A42",
             "text_color": "#362619",
-            "focus": "50% 88%"
+            "focus": "50% 40%"
           }
         }
       },
