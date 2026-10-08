@@ -56,7 +56,10 @@
 .pd-stack__figure{ font-family:var(--display); font-weight:400; line-height:.9;
   font-size:clamp(48px,6.4vw,89.6px); display:block; }
 .pd-stack__title{ margin:clamp(10px,1.4vw,18px) 0 0; font-weight:700;
-  font-size:clamp(16.8px,1.6vw,22.4px); letter-spacing:-.01em; }
+  font-size:clamp(16.8px,1.6vw,22.4px); letter-spacing:-.01em;
+  /* Dawn paints every h3 cocoa; take the card's text colour so the title
+     shows on the dark card too. */
+  color:inherit; }
 .pd-stack__desc{ margin:10px 0 0; font-size:clamp(14.08px,1.05vw,16px); line-height:1.55;
   font-weight:500; opacity:.72; max-width:34ch; }
 .pd-stack__link{

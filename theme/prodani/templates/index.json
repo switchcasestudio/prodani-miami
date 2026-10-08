@@ -12,14 +12,14 @@
       "settings": {
         "anchor": "nutrition",
         "heading": "Meet your baker",
-        "body": "<p>I'm Daniel, the brain and brawn behind ProDani. As a personal trainer, I couldn't find cakes and muffins that were high in protein, gluten-free and low in sugar, so I started baking my own.</p><p>Every cake is my labor of love: small batches, top-notch ingredients and a dash of passion. If I wouldn't give it to my own clients, it doesn't go in the box.</p>",
+        "body": "<p>I'm Daniel, the brain and brawn behind ProDani. As a personal trainer, I couldn't find cakes that were high in protein, gluten-free and low in sugar, so I started baking my own.</p><p>Every cake is my labor of love: small batches, top-notch ingredients and a dash of passion. If I wouldn't give it to my own clients, it doesn't go in the box.</p>",
         "cta_label": "Read my story",
         "cta_link": "/pages/meet-your-baker",
         "image_alt": "Dani with a ProDani strawberry short cake",
         "badge_text": "dessert you can feel good about ✦ ",
         "badge_speed": 26,
         "bundled_photo": "prodani-dani-2",
-        "ribbon_items": "chocolate fudge, vanilla bean, strawberry, cookie butter, matcha, salted caramel",
+        "ribbon_items": "hazelnut fudge, ganache fudge, pistachio cream, white chocolate cherry, carrot cake, banana bread, apple cinnamon",
         "ribbon_speed": 38,
         "photo_focus": "50% 12%"
       }
@@ -31,53 +31,53 @@
           "type": "card",
           "settings": {
             "figure": "20g",
-            "title": "Protein in a personal cake",
-            "description": "The same protein as a bar, in the shape of an actual dessert. No chalk, no aftertaste.",
-            "cta_label": "Shop personal cakes",
-            "product": "strawberry-short-cake",
-            "focus": "50% 88%",
+            "title": "Not just more protein. Better protein.",
+            "description": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. Around 80 of the calories come straight from protein.",
+            "cta_label": "Shop the cakes",
+            "product": "moist-chocolate-fudge-cake-copy",
             "color": "#E0A458",
-            "text_color": "#362619"
+            "text_color": "#362619",
+            "focus": "50% 88%"
           }
         },
         "c2": {
           "type": "card",
           "settings": {
             "figure": "0g",
-            "title": "Added sugar. Across everything.",
-            "description": "Sweetness comes from fruit and the ingredients themselves. Nothing refined, nothing hidden.",
-            "cta_label": "See the ingredients",
-            "product": "carrot-cake-copy",
-            "focus": "50% 88%",
+            "title": "Added sugar. Sweetness starts with real food.",
+            "description": "Ingredients like sweet potato do most of the work, with a touch of allulose and monk fruit when a flavor needs it.",
+            "cta_label": "See the flavors",
+            "product": "personal-hazelnuts-cake",
             "color": "#F3ECDD",
-            "text_color": "#362619"
+            "text_color": "#362619",
+            "focus": "50% 88%"
           }
         },
         "c3": {
           "type": "card",
           "settings": {
-            "figure": "6",
-            "title": "Core flavors, built to mix",
-            "description": "One hero product, the Personal Protein Cake, in a focused flavor lineup. Pick a box of 6, 12 or 18 and mix them however you like.",
+            "figure": "30s",
+            "title": "Heat. Cut. Melt. Enjoy.",
+            "description": "Thirty seconds in the microwave and it's a warm, soft cake with a melting middle. A real cake, not a protein bar pretending to be dessert.",
             "cta_label": "Build your box",
             "cta_link": "/#box",
-            "product": "vegan-personal-chocolate-banana-cake-copy",
-            "focus": "50% 88%",
+            "product": "personal-chocolate-fudge-cake-copy",
             "color": "#362619",
-            "text_color": "#FAF4E9"
+            "text_color": "#FAF4E9",
+            "focus": "50% 88%"
           }
         },
         "c4": {
           "type": "card",
           "settings": {
-            "figure": "4.92★",
-            "title": "From 132 verified reviews",
-            "description": "Every one left by someone who actually ordered. Read them before you decide.",
-            "cta_label": "Read the reviews",
-            "product": "vegan-family-banana-bread",
-            "focus": "50% 88%",
+            "figure": "GF",
+            "title": "Gluten free. Never dessert-free.",
+            "description": "Egg whites, sweet potato, almond flour, cocoa and whey. Every ingredient earns its place. Less filler, more purpose.",
+            "cta_label": "Shop the cakes",
+            "product": "dubai-dream-cake-copy",
             "color": "#C68A42",
-            "text_color": "#362619"
+            "text_color": "#362619",
+            "focus": "50% 88%"
           }
         }
       },
@@ -89,75 +89,62 @@
       ],
       "settings": {
         "heading": "What makes prodani different",
-        "eyebrow": "Four reasons",
+        "eyebrow": "Dessert first. Protein powered.",
         "anchor": "why"
       }
     },
     "collection": {
       "type": "prodani-collection",
       "blocks": {
-        "p1": {
-          "type": "filter",
-          "settings": {
-            "collection": "personal-protein-cakes",
-            "label": "Personal"
-          }
-        },
-        "p2": {
-          "type": "filter",
-          "settings": {
-            "collection": "family-cake",
-            "label": "Family"
-          }
-        },
-        "p3": {
-          "type": "filter",
-          "settings": {
-            "collection": "protein-muffins",
-            "label": "Muffins"
-          }
-        },
-        "p4": {
-          "type": "filter",
-          "settings": {
-            "collection": "vegan",
-            "label": "Vegan"
-          }
-        },
         "r1": {
           "type": "row",
           "settings": {
-            "collection": "family-cake",
-            "heading": "Family cakes",
-            "link_label": "Shop all family cakes",
-            "count": 4
+            "collection": "personal-protein-cakes",
+            "heading": "Personal Protein Cakes",
+            "link_label": "Shop all cakes",
+            "count": 8
           }
         },
-        "r2": {
-          "type": "row",
+        "s1": {
+          "type": "soon",
           "settings": {
-            "collection": "personal-protein-cakes",
-            "heading": "Personal cakes",
-            "link_label": "Shop all personal cakes",
-            "count": 4
+            "name": "Lemon",
+            "note": "Bright, zesty, in the test kitchen now.",
+            "color": "#EFD9A0"
+          }
+        },
+        "s2": {
+          "type": "soon",
+          "settings": {
+            "name": "Matcha",
+            "note": "Earthy green tea, in development.",
+            "color": "#C9CDA6"
+          }
+        },
+        "s3": {
+          "type": "soon",
+          "settings": {
+            "name": "Birthday Cake",
+            "note": "Sprinkles, vanilla, a reason to celebrate.",
+            "color": "#E0A458"
           }
         }
       },
       "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4",
-        "r2",
-        "r1"
+        "r1",
+        "s1",
+        "s2",
+        "s3"
       ],
       "settings": {
         "heading": "The prodani collection",
-        "eyebrow": "mix & match",
+        "eyebrow": "7 flavors",
         "anchor": "shop",
         "collection": "all-products",
-        "cta_label": "View everything",
-        "cta_link": "/collections/all-products"
+        "cta_label": "Shop all cakes",
+        "cta_link": "/collections/personal-protein-cakes",
+        "soon_heading": "Coming soon",
+        "soon_note": "Not available to order yet"
       }
     },
     "bleed": {
@@ -380,72 +367,75 @@
         "f1": {
           "type": "flavor",
           "settings": {
-            "name": "Chocolate Fudge",
-            "macro": "21g protein · 180 cal",
-            "color": "#362619",
-            "sold_out": false,
-            "product": "personal-protein-cake-chocolate-fudge"
+            "name": "Chocolate Hazelnut Fudge",
+            "macro": "20g protein",
+            "color": "#54402D",
+            "sold_out": false
           }
         },
         "f2": {
           "type": "flavor",
           "settings": {
-            "name": "Vanilla Bean",
-            "macro": "20g protein · 170 cal",
-            "color": "#F3ECDD",
-            "sold_out": false,
-            "product": "personal-protein-cake-vanilla-bean"
+            "name": "Chocolate Ganache Fudge",
+            "macro": "20g protein",
+            "color": "#362619",
+            "sold_out": false
           }
         },
         "f3": {
           "type": "flavor",
           "settings": {
-            "name": "Strawberry",
-            "macro": "19g protein · 175 cal",
-            "color": "#E0A458",
-            "sold_out": false,
-            "product": "personal-protein-cake-strawberry"
+            "name": "Pistachio Cream Fudge",
+            "macro": "20g protein",
+            "color": "#A7A77A",
+            "sold_out": false
           }
         },
         "f4": {
           "type": "flavor",
           "settings": {
-            "name": "Cookie Butter",
-            "macro": "20g protein · 190 cal",
-            "color": "#8A5A24",
-            "sold_out": false,
-            "product": "personal-protein-cake-cookie-butter"
+            "name": "White Chocolate & Dried Cherry Fudge",
+            "macro": "20g protein",
+            "color": "#8A3B32",
+            "sold_out": false
           }
         },
         "f5": {
           "type": "flavor",
           "settings": {
-            "name": "Matcha",
-            "macro": "20g protein · 165 cal",
-            "color": "#6D6B48",
-            "sold_out": false,
-            "product": "personal-protein-cake-matcha"
+            "name": "Carrot Cake",
+            "macro": "20g protein",
+            "color": "#C68A42",
+            "sold_out": false
           }
         },
         "f6": {
           "type": "flavor",
           "settings": {
-            "name": "Salted Caramel",
-            "macro": "21g protein · 185 cal",
-            "color": "#54402D",
-            "sold_out": false,
-            "product": "personal-protein-cake-salted-caramel"
+            "name": "Banana Bread",
+            "macro": "20g protein",
+            "color": "#E0A458",
+            "sold_out": false
+          }
+        },
+        "f7": {
+          "type": "flavor",
+          "settings": {
+            "name": "Apple Cinnamon",
+            "macro": "20g protein",
+            "color": "#8A5A24",
+            "sold_out": false
           }
         },
         "cb1": {
           "type": "curated",
           "settings": {
-            "name": "Best Sellers",
-            "blurb": "Our most-ordered flavors, in one box.",
-            "badge": "Most Popular",
+            "name": "The Fudge Box",
+            "blurb": "All four fudge cakes, three of each.",
+            "badge": "Chocolate lovers",
             "size": 12,
             "price": 89,
-            "mix": "Chocolate Fudge:4, Cookie Butter:4, Salted Caramel:4"
+            "mix": "Chocolate Hazelnut Fudge:3, Chocolate Ganache Fudge:3, Pistachio Cream Fudge:3, White Chocolate & Dried Cherry Fudge:3"
           }
         },
         "cb2": {
@@ -466,6 +456,7 @@
         "f4",
         "f5",
         "f6",
+        "f7",
         "cb1",
         "cb2"
       ],

@@ -6,72 +6,75 @@
         "f1": {
           "type": "flavor",
           "settings": {
-            "name": "Chocolate Fudge",
-            "macro": "21g protein · 180 cal",
-            "color": "#362619",
-            "sold_out": false,
-            "product": "personal-protein-cake-chocolate-fudge"
+            "name": "Chocolate Hazelnut Fudge",
+            "macro": "20g protein",
+            "color": "#54402D",
+            "sold_out": false
           }
         },
         "f2": {
           "type": "flavor",
           "settings": {
-            "name": "Vanilla Bean",
-            "macro": "20g protein · 170 cal",
-            "color": "#F3ECDD",
-            "sold_out": false,
-            "product": "personal-protein-cake-vanilla-bean"
+            "name": "Chocolate Ganache Fudge",
+            "macro": "20g protein",
+            "color": "#362619",
+            "sold_out": false
           }
         },
         "f3": {
           "type": "flavor",
           "settings": {
-            "name": "Strawberry",
-            "macro": "19g protein · 175 cal",
-            "color": "#E0A458",
-            "sold_out": false,
-            "product": "personal-protein-cake-strawberry"
+            "name": "Pistachio Cream Fudge",
+            "macro": "20g protein",
+            "color": "#A7A77A",
+            "sold_out": false
           }
         },
         "f4": {
           "type": "flavor",
           "settings": {
-            "name": "Cookie Butter",
-            "macro": "20g protein · 190 cal",
-            "color": "#8A5A24",
-            "sold_out": false,
-            "product": "personal-protein-cake-cookie-butter"
+            "name": "White Chocolate & Dried Cherry Fudge",
+            "macro": "20g protein",
+            "color": "#8A3B32",
+            "sold_out": false
           }
         },
         "f5": {
           "type": "flavor",
           "settings": {
-            "name": "Matcha",
-            "macro": "20g protein · 165 cal",
-            "color": "#6D6B48",
-            "sold_out": false,
-            "product": "personal-protein-cake-matcha"
+            "name": "Carrot Cake",
+            "macro": "20g protein",
+            "color": "#C68A42",
+            "sold_out": false
           }
         },
         "f6": {
           "type": "flavor",
           "settings": {
-            "name": "Salted Caramel",
-            "macro": "21g protein · 185 cal",
-            "color": "#54402D",
-            "sold_out": false,
-            "product": "personal-protein-cake-salted-caramel"
+            "name": "Banana Bread",
+            "macro": "20g protein",
+            "color": "#E0A458",
+            "sold_out": false
+          }
+        },
+        "f7": {
+          "type": "flavor",
+          "settings": {
+            "name": "Apple Cinnamon",
+            "macro": "20g protein",
+            "color": "#8A5A24",
+            "sold_out": false
           }
         },
         "cb1": {
           "type": "curated",
           "settings": {
-            "name": "Best Sellers",
-            "blurb": "Our most-ordered flavors, in one box.",
-            "badge": "Most Popular",
+            "name": "The Fudge Box",
+            "blurb": "All four fudge cakes, three of each.",
+            "badge": "Chocolate lovers",
             "size": 12,
             "price": 89,
-            "mix": "Chocolate Fudge:4, Cookie Butter:4, Salted Caramel:4"
+            "mix": "Chocolate Hazelnut Fudge:3, Chocolate Ganache Fudge:3, Pistachio Cream Fudge:3, White Chocolate & Dried Cherry Fudge:3"
           }
         },
         "cb2": {
@@ -92,6 +95,7 @@
         "f4",
         "f5",
         "f6",
+        "f7",
         "cb1",
         "cb2"
       ],
