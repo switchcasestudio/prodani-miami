@@ -1,14 +1,17 @@
 {%- comment -%}
   Below-fold PDP proof accordions (brief §08 "Proof"): ingredients, nutrition,
   allergens, storage/shelf life, shipping & returns, FAQ. Metafield-driven
-  (namespace `prodani`). Missing values show a flagged sample on staging; Dani sets
-  real content before launch. Shipping/returns fall back to the store's own policies.
+  (namespace `prodani`). Go-live rule (2026-10-08): an accordion with no real
+  content is left out on the storefront; its flagged sample shows only inside the
+  theme editor. Shipping/returns fall back to the store's own policies.
 {%- endcomment -%}
 {%- liquid
   assign mf = product.metafields.prodani
+  assign edit = request.design_mode
 -%}
 <div class="pd-info">
 
+  {%- if mf.nutrition_facts != blank or edit -%}
   <details class="pd-acc" open>
     <summary>Nutrition</summary>
     <div class="pd-acc__body">
@@ -21,7 +24,9 @@
       {%- endif -%}
     </div>
   </details>
+  {%- endif -%}
 
+  {%- if mf.ingredients != blank or edit -%}
   <details class="pd-acc">
     <summary>Ingredients</summary>
     <div class="pd-acc__body">
@@ -33,7 +38,9 @@
       {%- endif -%}
     </div>
   </details>
+  {%- endif -%}
 
+  {%- if mf.allergens != blank or edit -%}
   <details class="pd-acc">
     <summary>Allergens</summary>
     <div class="pd-acc__body">
@@ -45,7 +52,9 @@
       {%- endif -%}
     </div>
   </details>
+  {%- endif -%}
 
+  {%- if mf.storage != blank or mf.shelf_life != blank or edit -%}
   <details class="pd-acc">
     <summary>Storage &amp; shelf life</summary>
     <div class="pd-acc__body">
@@ -58,13 +67,15 @@
       {%- endif -%}
     </div>
   </details>
+  {%- endif -%}
 
+  {%- if shop.shipping_policy.body != blank or shop.refund_policy.body != blank or edit -%}
   <details class="pd-acc">
     <summary>Shipping &amp; returns</summary>
     <div class="pd-acc__body">
       {%- if shop.shipping_policy.body != blank -%}
         {{ shop.shipping_policy.body }}
-      {%- else -%}
+      {%- elsif edit -%}
         <p class="is-sample">Sample — U.S. shipping details and the free-shipping threshold
           appear here once confirmed (ticket T5).</p>
       {%- endif -%}
@@ -73,6 +84,7 @@
       {%- endif -%}
     </div>
   </details>
+  {%- endif -%}
 
   {%- if mf.faq != blank -%}
     <details class="pd-acc">

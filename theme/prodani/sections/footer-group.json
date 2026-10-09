@@ -59,7 +59,7 @@
     "email_popup": {
       "type": "prodani-email-popup",
       "settings": {
-        "enable": true
+        "enable": false
       }
     }
   },

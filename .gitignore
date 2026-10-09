@@ -165,3 +165,6 @@ WORKLOG.md
 
 # Packaging artwork + generator prompts — large media, not part of the theme build
 prodani-packaging/
+
+# Theme backups pulled before a deploy — local only
+backups/
