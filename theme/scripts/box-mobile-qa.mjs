@@ -20,7 +20,7 @@ const PORT = 9344
 const WIDTH = 390
 const HEIGHT = 844
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
-const URL = process.argv[2] || 'https://prodanimiami.com/?preview_theme_id=187797799222'
+const URL = process.argv[2] || 'https://prodanimiami.com/?preview_theme_id=189211050294'
 const OUT = process.env.OUT_DIR || '/tmp/prodani-box-mobile'
 mkdirSync(OUT, { recursive: true })
 

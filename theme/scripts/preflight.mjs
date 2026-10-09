@@ -13,13 +13,13 @@ const here = dirname(fileURLToPath(import.meta.url))
    SHOP_URL lets it run against the customer-facing domain, not just myshopify. */
 const SHOP = process.env.SHOP_URL || 'https://dani-pro-miami.myshopify.com'
 const LIVE = process.env.LIVE === '1'
-const THEME = process.env.PREVIEW_THEME_ID || '187797995830'
+const THEME = process.env.PREVIEW_THEME_ID || '189211050294'  // staging v2 (2026-10-08)
 /* The theme that SHOULD be live right now. This was 154419691830 (v.0.0.1) before
    launch; v.1.0.0 has been live since 2026-08-23. Leaving the old id here meant a
    default run reported "LIVE THEME CHANGED" on a perfectly untouched store — a check
    that cries wolf gets ignored, which is worse than not having it. Update this when
    a new theme is published. */
-const EXPECT_LIVE_ID = Number(process.env.EXPECT_LIVE_ID || 187797995830)
+const EXPECT_LIVE_ID = Number(process.env.EXPECT_LIVE_ID || 187797799222)  // Prodani - v.2.0.0, live since 2026-10-08
 const UA = { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) preflight' }
 
 let pass = 0, fail = 0, warn = 0
