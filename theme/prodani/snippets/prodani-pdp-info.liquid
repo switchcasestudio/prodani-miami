@@ -16,7 +16,9 @@
     <summary>Nutrition</summary>
     <div class="pd-acc__body">
       {%- if mf.nutrition_facts != blank -%}
-        {{ mf.nutrition_facts }}
+        {%- comment -%} Rich text metafield: a bare {{ }} prints its JSON tree, so
+           render it through metafield_tag (live bug, 2026-10-08). {%- endcomment -%}
+        <div class="pd-nutrition">{{ mf.nutrition_facts | metafield_tag }}</div>
       {%- else -%}
         <p class="is-sample">Sample — full nutrition facts per serving will appear here once
           <code>prodani.nutrition_facts</code> is set in admin (ticket T4). Protein source:
@@ -89,7 +91,7 @@
   {%- if mf.faq != blank -%}
     <details class="pd-acc">
       <summary>FAQ</summary>
-      <div class="pd-acc__body">{{ mf.faq }}</div>
+      <div class="pd-acc__body">{{ mf.faq | metafield_tag }}</div>
     </details>
   {%- endif -%}
 
