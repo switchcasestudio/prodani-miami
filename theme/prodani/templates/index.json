@@ -42,8 +42,8 @@
             "description": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. Around 80 of the calories come straight from protein.",
             "cta_label": "Shop the cakes",
             "product": "moist-chocolate-fudge-cake-copy",
-            "color": "#E0A458",
-            "text_color": "#362619",
+            "color": "#C0A472",
+            "text_color": "#211913",
             "focus": "50% 40%"
           }
         },
@@ -55,8 +55,8 @@
             "description": "Ingredients like sweet potato do most of the work, with a touch of allulose and monk fruit when a flavor needs it.",
             "cta_label": "See the flavors",
             "product": "personal-hazelnuts-cake",
-            "color": "#F3ECDD",
-            "text_color": "#362619",
+            "color": "#EFEAE0",
+            "text_color": "#211913",
             "focus": "50% 40%"
           }
         },
@@ -69,8 +69,8 @@
             "cta_label": "Build your box",
             "cta_link": "/#box",
             "product": "personal-chocolate-fudge-cake-copy",
-            "color": "#362619",
-            "text_color": "#FAF4E9",
+            "color": "#211913",
+            "text_color": "#F8F5EF",
             "focus": "50% 40%"
           }
         },
@@ -82,8 +82,8 @@
             "description": "Egg whites, sweet potato, almond flour, cocoa and whey. Every ingredient earns its place. Less filler, more purpose.",
             "cta_label": "Shop the cakes",
             "product": "dubai-dream-cake-copy",
-            "color": "#C68A42",
-            "text_color": "#362619",
+            "color": "#A98D5D",
+            "text_color": "#211913",
             "focus": "50% 40%"
           }
         }
@@ -133,7 +133,7 @@
           "settings": {
             "name": "Birthday Cake",
             "note": "Sprinkles, vanilla, a reason to celebrate.",
-            "color": "#E0A458"
+            "color": "#C0A472"
           }
         }
       },
@@ -158,9 +158,9 @@
       "type": "prodani-bleed",
       "settings": {
         "text": "Build Your Box",
-        "color_top": "#FAF4E9",
-        "color_bottom": "#E0A458",
-        "color_text": "#E0A458",
+        "color_top": "#F8F5EF",
+        "color_bottom": "#C0A472",
+        "color_text": "#C0A472",
         "split": 75,
         "speed": 40
       }
@@ -364,7 +364,7 @@
       ],
       "settings": {
         "heading": "",
-        "background": "#FAF4E9",
+        "background": "#F8F5EF",
         "bottom_marquee": false
       }
     },
@@ -376,7 +376,7 @@
           "settings": {
             "name": "Chocolate Hazelnut Fudge",
             "macro": "20g protein",
-            "color": "#54402D",
+            "color": "#3A2E24",
             "sold_out": false
           }
         },
@@ -385,7 +385,7 @@
           "settings": {
             "name": "Chocolate Ganache Fudge",
             "macro": "20g protein",
-            "color": "#362619",
+            "color": "#211913",
             "sold_out": false
           }
         },
@@ -412,7 +412,7 @@
           "settings": {
             "name": "Carrot Cake",
             "macro": "20g protein",
-            "color": "#C68A42",
+            "color": "#A98D5D",
             "sold_out": false
           }
         },
@@ -421,7 +421,7 @@
           "settings": {
             "name": "Banana Bread",
             "macro": "20g protein",
-            "color": "#E0A458",
+            "color": "#C0A472",
             "sold_out": false
           }
         },
@@ -430,7 +430,7 @@
           "settings": {
             "name": "Apple Cinnamon",
             "macro": "20g protein",
-            "color": "#8A5A24",
+            "color": "#7E6537",
             "sold_out": false
           }
         },

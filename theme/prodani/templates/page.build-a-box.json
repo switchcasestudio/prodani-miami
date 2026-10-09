@@ -8,7 +8,7 @@
           "settings": {
             "name": "Chocolate Hazelnut Fudge",
             "macro": "20g protein",
-            "color": "#54402D",
+            "color": "#3A2E24",
             "sold_out": false
           }
         },
@@ -17,7 +17,7 @@
           "settings": {
             "name": "Chocolate Ganache Fudge",
             "macro": "20g protein",
-            "color": "#362619",
+            "color": "#211913",
             "sold_out": false
           }
         },
@@ -44,7 +44,7 @@
           "settings": {
             "name": "Carrot Cake",
             "macro": "20g protein",
-            "color": "#C68A42",
+            "color": "#A98D5D",
             "sold_out": false
           }
         },
@@ -53,7 +53,7 @@
           "settings": {
             "name": "Banana Bread",
             "macro": "20g protein",
-            "color": "#E0A458",
+            "color": "#C0A472",
             "sold_out": false
           }
         },
@@ -62,7 +62,7 @@
           "settings": {
             "name": "Apple Cinnamon",
             "macro": "20g protein",
-            "color": "#8A5A24",
+            "color": "#7E6537",
             "sold_out": false
           }
         },
@@ -173,7 +173,7 @@
       ],
       "settings": {
         "heading": "",
-        "background": "#FAF4E9",
+        "background": "#F8F5EF",
         "bottom_marquee": false
       }
     },
