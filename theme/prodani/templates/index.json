@@ -9,7 +9,7 @@
         "line_two": "Balance",
         "cta_label": "Shop the collection",
         "cta_link": "/collections/all",
-        "note": "0g added sugar · 20g protein · gluten-free",
+        "note": "0g added sugar · 15–20g protein · gluten-free",
         "ribbon_items": "high protein, no sugar added, gluten free, small batch, miami made",
         "ribbon_speed": 26
       }
@@ -37,9 +37,9 @@
         "c1": {
           "type": "card",
           "settings": {
-            "figure": "20g",
+            "figure": "15–20g",
             "title": "Not just more protein. Better protein.",
-            "description": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. Around 80 of the calories come straight from protein.",
+            "description": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. 60 to 80 of the calories come straight from protein.",
             "cta_label": "Shop the cakes",
             "product": "moist-chocolate-fudge-cake-copy",
             "color": "#C0A472",
