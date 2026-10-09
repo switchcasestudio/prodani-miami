@@ -7,7 +7,7 @@
           "type": "flavor",
           "settings": {
             "name": "Chocolate Hazelnut Fudge",
-            "macro": "20g protein",
+            "macro": "20g protein · 180 cal",
             "color": "#3A2E24",
             "sold_out": false
           }
@@ -16,7 +16,7 @@
           "type": "flavor",
           "settings": {
             "name": "Chocolate Ganache Fudge",
-            "macro": "20g protein",
+            "macro": "18g protein · 150 cal",
             "color": "#211913",
             "sold_out": false
           }
@@ -25,7 +25,7 @@
           "type": "flavor",
           "settings": {
             "name": "Pistachio Cream Fudge",
-            "macro": "20g protein",
+            "macro": "20g protein · 180 cal",
             "color": "#A7A77A",
             "sold_out": false
           }
@@ -34,7 +34,7 @@
           "type": "flavor",
           "settings": {
             "name": "White Chocolate & Dried Cherry Fudge",
-            "macro": "20g protein",
+            "macro": "20g protein · 170 cal",
             "color": "#8A3B32",
             "sold_out": false
           }
@@ -43,7 +43,7 @@
           "type": "flavor",
           "settings": {
             "name": "Carrot Cake",
-            "macro": "20g protein",
+            "macro": "15g protein · 100 cal",
             "color": "#A98D5D",
             "sold_out": false
           }
@@ -52,7 +52,7 @@
           "type": "flavor",
           "settings": {
             "name": "Banana Bread",
-            "macro": "20g protein",
+            "macro": "",
             "color": "#C0A472",
             "sold_out": false
           }
@@ -61,7 +61,7 @@
           "type": "flavor",
           "settings": {
             "name": "Apple Cinnamon",
-            "macro": "20g protein",
+            "macro": "15g protein · 120 cal",
             "color": "#7E6537",
             "sold_out": false
           }

@@ -5,9 +5,9 @@
 
   Go-live rule (2026-10-08): nothing sampled reaches shoppers. A missing value shows
   its flagged SAMPLE only inside the theme editor (request.design_mode); on the
-  storefront the line or chip is simply left out. Protein is the exception: Dani's
-  2026-10-08 brand doc states 20g for every Personal Protein Cake, so 20 is the
-  sourced fallback. Calories and sugar appear only when set in admin.
+  storefront the line or chip is simply left out. No fallbacks: the real labels
+  (entered 2026-10-08) range 15–20g protein, so a blanket "20g" would be wrong for
+  some cakes. A product with no values shows no macro strip at all.
 
   Badges: NEVER sampled. Each badge is a nutrition/ingredient claim, so a badge only
   appears when the matching boolean metafield is explicitly true in admin (ticket T2).
@@ -24,7 +24,10 @@
 
 {%- liquid
   assign edit = request.design_mode
-  assign protein_shown = protein | default: 20
+  assign has_any = false
+  if protein != blank or calories != blank or sugar != blank
+    assign has_any = true
+  endif
 -%}
 
 {%- if taste != blank -%}
@@ -33,11 +36,15 @@
   <p class="pd-taste is-sample">A sample flavor description — set <code>prodani.taste</code> in admin.</p>
 {%- endif -%}
 
+{%- if has_any or edit -%}
 <div class="pd-macros" role="list" aria-label="Nutrition per serving">
-  <div class="pd-macro" role="listitem">
-    <span class="pd-macro__n">{{ protein_shown }}g</span>
-    <span class="pd-macro__l">Protein</span>
-  </div>
+  {%- if protein != blank or edit -%}
+    <div class="pd-macro{% if protein == blank %} is-sample{% endif %}" role="listitem">
+      {%- if protein == blank %}<span class="pd-sample-flag">sample</span>{% endif -%}
+      <span class="pd-macro__n">{{ protein | default: 20 }}g</span>
+      <span class="pd-macro__l">Protein</span>
+    </div>
+  {%- endif -%}
   {%- if calories != blank or edit -%}
     <div class="pd-macro{% if calories == blank %} is-sample{% endif %}" role="listitem">
       {%- if calories == blank %}<span class="pd-sample-flag">sample</span>{% endif -%}
@@ -53,6 +60,7 @@
     </div>
   {%- endif -%}
 </div>
+{%- endif -%}
 
 <div class="pd-badges">
   {%- if mf.high_protein.value -%}<img src="{{ 'prodani-badge-high-protein.png' | asset_url }}" alt="High protein" width="46" height="46" loading="lazy">{%- endif -%}
