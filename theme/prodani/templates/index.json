@@ -37,10 +37,11 @@
         "c1": {
           "type": "card",
           "settings": {
-            "figure": "15–20g",
-            "title": "Not just more protein. Better protein.",
-            "description": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. 60 to 80 of the calories come straight from protein.",
+            "figure": "Cake",
+            "title": "A real cake, not a protein bar pretending.",
+            "description": "Soft, moist and rich, with a creamy or melt-in-the-middle center where the flavor calls for it. Taste creates the craving. Nutrition makes it an easy choice.",
             "cta_label": "Shop the cakes",
+            "cta_link": "/collections/personal-protein-cakes",
             "product": "moist-chocolate-fudge-cake-copy",
             "color": "#C0A472",
             "text_color": "#211913",
@@ -50,10 +51,11 @@
         "c2": {
           "type": "card",
           "settings": {
-            "figure": "0g",
-            "title": "Added sugar. Sweetness starts with real food.",
-            "description": "Ingredients like sweet potato do most of the work, with a touch of allulose and monk fruit when a flavor needs it.",
+            "figure": "15–20g",
+            "title": "Not just more protein. Better protein.",
+            "description": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. More of the calories you want, less of what you don't.",
             "cta_label": "See the flavors",
+            "cta_link": "/collections/personal-protein-cakes",
             "product": "personal-hazelnuts-cake",
             "color": "#EFEAE0",
             "text_color": "#211913",
@@ -63,12 +65,12 @@
         "c3": {
           "type": "card",
           "settings": {
-            "figure": "30s",
-            "title": "Heat. Cut. Melt. Enjoy.",
-            "description": "Thirty seconds in the microwave and it's a warm, soft cake with a melting middle. A real cake, not a protein bar pretending to be dessert.",
-            "cta_label": "Build your box",
-            "cta_link": "/#box",
-            "product": "personal-chocolate-fudge-cake-copy",
+            "figure": "0g",
+            "title": "All the dessert. Zero added sugar.",
+            "description": "Sweetness starts with real food, like the sweet potato in our chocolate cake, plus a touch of allulose and monk fruit only when a flavor needs it.",
+            "cta_label": "Shop the cakes",
+            "cta_link": "/collections/personal-protein-cakes",
+            "product": "dubai-dream-cake-copy",
             "color": "#211913",
             "text_color": "#F8F5EF",
             "focus": "50% 40%"
@@ -79,10 +81,25 @@
           "settings": {
             "figure": "GF",
             "title": "Gluten free. Never dessert-free.",
-            "description": "Egg whites, sweet potato, almond flour, cocoa and whey. Every ingredient earns its place. Less filler, more purpose.",
-            "cta_label": "Shop the cakes",
-            "product": "dubai-dream-cake-copy",
+            "description": "Egg whites, sweet potato, almond flour, cocoa and whey, depending on the flavor. Every ingredient earns its place: less filler, more purpose.",
+            "cta_label": "See the flavors",
+            "cta_link": "/collections/personal-protein-cakes",
+            "product": "personal-chocolate-fudge-cake-copy",
             "color": "#A98D5D",
+            "text_color": "#211913",
+            "focus": "50% 40%"
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "figure": "30s",
+            "title": "Heat. Cut. Melt. Enjoy.",
+            "description": "Thirty seconds in the microwave or 3 to 5 minutes in the oven, and it's warm and soft. With coffee, after a workout or after dinner: dessert that fits your everyday.",
+            "cta_label": "Build your box",
+            "cta_link": "/#box",
+            "product": "carrot-cake",
+            "color": "#EFEAE0",
             "text_color": "#211913",
             "focus": "50% 40%"
           }
@@ -92,7 +109,8 @@
         "c1",
         "c2",
         "c3",
-        "c4"
+        "c4",
+        "c5"
       ],
       "settings": {
         "heading": "What makes prodani different",
@@ -172,28 +190,28 @@
           "type": "pillar",
           "settings": {
             "label": "Ingredients",
-            "text": "Minimal, quality ingredients. If it doesn't earn its place, it's not in the cake."
+            "text": "Simple, functional ingredients. Each one earns its place through taste, texture, protein, structure or sweetness."
           }
         },
         "b2": {
           "type": "pillar",
           "settings": {
             "label": "Sugar",
-            "text": "None added. Sweetness comes from fruit and the ingredients themselves."
+            "text": "Zero added. Sweetness starts with real food like sweet potato, plus a touch of allulose and monk fruit."
           }
         },
         "b3": {
           "type": "pillar",
           "settings": {
             "label": "Flour",
-            "text": "Gluten-free by design, not by substitution. Coconut flour, not filler."
+            "text": "Gluten free. Almond flour, egg whites and cocoa, depending on the flavor."
           }
         },
         "b4": {
           "type": "pillar",
           "settings": {
             "label": "Protein",
-            "text": "Whey concentrate and isolate. Real macros, printed honestly."
+            "text": "Complete protein from egg whites and grass-fed whey isolate. Real macros, printed honestly."
           }
         }
       },
@@ -208,7 +226,7 @@
         "eyebrow": "Miami · since 2023",
         "use_page_content": false,
         "lede": "<p>Desserts that support your lifestyle, not work against it.</p>",
-        "body": "<p>High-protein, low-sugar treats made to satisfy cravings while staying mindful of how your body feels. Indulgence should feel satisfying, not heavy.</p>",
+        "body": "<p>High-protein treats with zero added sugar, made to satisfy cravings while staying mindful of how your body feels. Indulgence should feel satisfying, not heavy.</p>",
         "bundled_photo": "prodani-trays",
         "image_alt": "A tray spread of ProDani protein cakes",
         "stamp": "<p>Baked in Miami</p>",

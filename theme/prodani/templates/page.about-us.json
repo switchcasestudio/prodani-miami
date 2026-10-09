@@ -7,28 +7,28 @@
           "type": "pillar",
           "settings": {
             "label": "Batch",
-            "text": "Minimal, quality ingredients. If it doesn't earn its place, it's not in the cake."
+            "text": "Simple, functional ingredients. Each one earns its place through taste, texture, protein, structure or sweetness."
           }
         },
         "b2": {
           "type": "pillar",
           "settings": {
             "label": "Sugar",
-            "text": "None added. Sweetness comes from fruit and the ingredients themselves."
+            "text": "Zero added. Sweetness starts with real food like sweet potato, plus a touch of allulose and monk fruit."
           }
         },
         "b3": {
           "type": "pillar",
           "settings": {
             "label": "Flour",
-            "text": "Gluten-free by design, not by substitution. Coconut flour, not filler."
+            "text": "Gluten free. Almond flour, egg whites and cocoa, depending on the flavor."
           }
         },
         "b4": {
           "type": "pillar",
           "settings": {
             "label": "Protein",
-            "text": "Whey concentrate and isolate. Real macros, printed honestly."
+            "text": "Complete protein from egg whites and grass-fed whey isolate. Real macros, printed honestly."
           }
         }
       },
