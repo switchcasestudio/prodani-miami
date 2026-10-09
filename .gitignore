@@ -156,8 +156,15 @@ Prodani_Web_Design_Brief.pdf
 Prodani_Web_Design_Brief.md
 PRODANI_INPUT_REQUEST.md
 INSTAGRAM_FEED_SETUP.md
+INSTAGRAM_FEED_SETUP.pdf
 theme/BOX-BUILDER-OPTIONS.md
 PRODANI_QUESTIONS_2026-08-31.md
 
 # Internal session log — kept locally only, never published (repo is public)
 WORKLOG.md
+
+# Packaging artwork + generator prompts — large media, not part of the theme build
+prodani-packaging/
+
+# Theme backups pulled before a deploy — local only
+backups/

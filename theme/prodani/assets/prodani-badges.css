@@ -85,3 +85,7 @@
 .pd-badge-item__label{ font-family:var(--mono); font-weight:500; font-size:clamp(11px,.9vw,12px);
   letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); }
 .pd-badges__row--wave{ padding-bottom:0; }
+
+/* 2026 line icons above the mono labels. Line-only, 24 grid, currentColor. */
+.pd-badge-item__line{ display:block; width:clamp(26px,2.4vw,34px); color:var(--cocoa); }
+.pd-badge-item__line svg{ width:100%; height:auto; display:block; }

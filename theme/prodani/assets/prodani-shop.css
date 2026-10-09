@@ -152,3 +152,28 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
   .pd-collection__row:not([data-pd-only]) .pd-grid::-webkit-scrollbar{ display:none; }
   .pd-collection__row:not([data-pd-only]) .pd-grid .pd-card{ flex:0 0 68%; scroll-snap-align:start; }
 }
+
+/* ---- Coming soon row (Dani 2026-10-08): flavors in development, not orderable.
+   Not a link, so no hover lift; a concept visual is labelled as one. ---- */
+.pd-collection__rownote{ font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--berry); }
+.pd-card--soon{ cursor:default; }
+.pd-card--soon:hover{ transform:none; box-shadow:0 2px 0 rgba(54, 38, 25,.07); }
+.pd-card--soon:hover .pd-card__img{ transform:none; }
+.pd-soon__media{
+  background:var(--pd-soon, var(--pink));
+  display:flex; align-items:center; justify-content:center;
+}
+.pd-soon__mark{
+  font-family:var(--display); font-style:italic; font-weight:400;
+  font-size:clamp(26px,2.6vw,38px); line-height:1.05; letter-spacing:-.01em;
+  color:var(--cocoa); text-align:center; padding:0 12%;
+}
+.pd-soon__img{ object-fit:cover; }
+.pd-soon__concept{
+  position:absolute; right:10px; bottom:10px; z-index:3;
+  font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 9px; border-radius:999px; background:rgba(250,244,233,.88); color:var(--cocoa);
+}
+.pd-badge--soon{ background:var(--cocoa); color:var(--cream); }
+.pd-soon__note{ margin:0; font-size:14px; line-height:1.45; color:var(--cocoa-soft, var(--cocoa)); }

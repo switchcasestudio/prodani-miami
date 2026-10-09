@@ -15,8 +15,9 @@
     <div class="pd-foot__grid">
       {%- comment -%} 1. brand {%- endcomment -%}
       <div class="pd-foot__brand">
-        <img src="{{ 'prodani-badge-logo.png' | asset_url }}" alt="{{ shop.name | escape }}"
-             width="871" height="819" loading="lazy">
+        {%- comment -%} 2026 brand seal, ivory hairlines over the cocoa footer. {%- endcomment -%}
+        <img class="pd-foot__seal" src="{{ 'prodani-stamp-seal-ivory.svg' | asset_url }}" alt="{{ shop.name | escape }}"
+             width="1000" height="1000" loading="lazy">
       </div>
 
       {%- comment -%} 2. the three menus {%- endcomment -%}

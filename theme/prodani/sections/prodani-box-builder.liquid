@@ -22,12 +22,26 @@
   Prices are placeholders extrapolated from the launch price points and are subject to
   the pricing check in T1 before anything goes live. Flavor names are placeholders
   pending T17.
+
+  Box product (2026-10-08): the live flavor products are 5-cake packs, so a box can't
+  be built from them. When "Box product" is set, the whole box goes to the cart as ONE
+  line: the variant whose title starts with the box size ("12 cakes"), with the flavor
+  mix as a line-item property. The variant's price is what checkout charges, so keep
+  the size prices below equal to the variant prices. Flavors then need no product
+  link. Without a box product the old per-flavor path is used.
 {%- endcomment -%}
 {{ 'prodani-box-builder.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  assign box_product = section.settings.box_product
   assign sub_group = nil
+  if box_product != blank and box_product.selling_plan_groups.size > 0
+    assign sub_group = box_product.selling_plan_groups | first
+  endif
   for block in section.blocks
+    if sub_group != nil
+      break
+    endif
     if block.type == 'flavor' and block.settings.product != blank
       if block.settings.product.selling_plan_groups.size > 0
         assign sub_group = block.settings.product.selling_plan_groups | first
@@ -41,7 +55,7 @@
   endif
 -%}
 
-<section class="pd-box pd-section" data-pd-box aria-labelledby="pd-box-title"
+<section class="pd-box pd-section" data-pd-box{% if box_product != blank %} data-pd-box-product{% endif %} aria-labelledby="pd-box-title"
          {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}>
   <div class="pd-wrap">
     <header class="pd-sec-head">
@@ -82,6 +96,13 @@
           {%- assign price = prices[i] | strip | plus: 0 -%}
           {%- comment -%} float math so 49/6 reads $8.17, not integer $8 {%- endcomment -%}
           {%- assign per = price | times: 100.0 | divided_by: count | round: 0 | money_without_currency -%}
+          {%- assign box_variant = '' -%}
+          {%- if box_product != blank -%}
+            {%- for v in box_product.variants -%}
+              {%- assign v_size = v.title | split: ' ' | first | plus: 0 -%}
+              {%- if v_size == count and v.available -%}{%- assign box_variant = v.id -%}{%- break -%}{%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
           <button
             type="button"
             class="pd-box__size"
@@ -89,6 +110,7 @@
             aria-checked="{% if forloop.index == section.settings.default_size_index %}true{% else %}false{% endif %}"
             data-size="{{ count }}"
             data-price="{{ price }}"
+            data-box-variant="{{ box_variant }}"
           >
             {%- if count == section.settings.popular_count -%}<span class="pd-box__tag pd-box__tag--popular">Most Popular</span>{%- endif -%}
             {%- if count == section.settings.value_count -%}<span class="pd-box__tag pd-box__tag--value">Best Value</span>{%- endif -%}
@@ -137,6 +159,20 @@
         </div>
       {%- endif -%}
     </div>
+
+    {%- comment -%}
+      Steps 2–4 start folded (Moses, 2026-10-08: the full builder reads as too
+      technical up front). Picking a size, choosing a curated box, or the arrow
+      below opens them. `inert` keeps the folded controls out of the tab order.
+    {%- endcomment -%}
+    <button type="button" class="pd-box__expand" data-pd-expand aria-expanded="false" aria-controls="pd-box-more-{{ section.id }}">
+      <span data-pd-expand-label>Choose your flavors</span>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="pd-box__more" id="pd-box-more-{{ section.id }}" data-pd-more inert>
+    <div class="pd-box__more-in">
 
     {%- comment -%} Step 2 — flavors {%- endcomment -%}
     <div class="pd-box__step">
@@ -239,7 +275,7 @@
           </div>
 
           {%- unless has_plans -%}
-            <p class="pd-sub__note">Preview: subscriptions activate once Shopify Subscriptions is set up and plans are attached to the flavor products (ticket T12).</p>
+            <p class="pd-sub__note">Preview: subscriptions activate once Shopify Subscriptions is set up and plans are attached to the {% if box_product != blank %}box product{% else %}flavor products{% endif %} (ticket T12).</p>
           {%- endunless -%}
         </fieldset>
       </div>
@@ -254,6 +290,8 @@
       <button type="button" class="pd-box__add" data-pd-add disabled>Choose a box to start</button>
     </div>
     <p class="pd-box__note" data-pd-note role="status"></p>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -277,6 +315,7 @@
     { "type": "checkbox", "id": "upsell_enabled", "label": "Show upsell nudges", "default": true },
     { "type": "header", "content": "Curated boxes" },
     { "type": "text", "id": "curated_tab_label", "label": "\"Curated\" tab label", "default": "Curated boxes" },
+    { "type": "product", "id": "box_product", "label": "Box product", "info": "One product with a variant per box size, titled \"6 cakes\", \"12 cakes\"… The whole box is added as one line at that variant's price, with the flavors listed on it." },
     { "type": "header", "content": "Subscriptions" },
     { "type": "checkbox", "id": "sub_enabled", "label": "Show one-time / subscribe step", "default": true },
     { "type": "text", "id": "sub_badge", "label": "Savings badge", "info": "Discount is set on the selling plan in the Shopify Subscriptions app — this is only the label.", "default": "Save 10%" },
@@ -290,7 +329,7 @@
         { "type": "text", "id": "name", "label": "Name", "default": "New flavor" },
         { "type": "text", "id": "macro", "label": "Macro label", "default": "20g protein" },
         { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "color", "id": "color", "label": "Chip accent", "default": "#E0A458" },
+        { "type": "color", "id": "color", "label": "Chip accent", "default": "#C0A472" },
         { "type": "product", "id": "product", "label": "Linked product", "info": "Required for real add-to-cart and for subscription plans (T3)." },
         { "type": "checkbox", "id": "sold_out", "label": "Sold out", "info": "A sold-out flavor is skipped by curated boxes, so a curated mix that names one will under-fill and say so.", "default": false }
       ]
@@ -313,12 +352,12 @@
     {
       "name": "Box builder",
       "blocks": [
-        { "type": "flavor", "settings": { "name": "Chocolate Fudge", "macro": "21g protein · 180 cal", "color": "#362619" } },
-        { "type": "flavor", "settings": { "name": "Vanilla Bean", "macro": "20g protein · 170 cal", "color": "#F3ECDD" } },
-        { "type": "flavor", "settings": { "name": "Strawberry", "macro": "19g protein · 175 cal", "color": "#E0A458" } },
-        { "type": "flavor", "settings": { "name": "Cookie Butter", "macro": "20g protein · 190 cal", "color": "#8A5A24" } },
-        { "type": "flavor", "settings": { "name": "Matcha", "macro": "20g protein · 165 cal", "color": "#6D6B48" } },
-        { "type": "flavor", "settings": { "name": "Salted Caramel", "macro": "21g protein · 185 cal", "color": "#54402D" } },
+        { "type": "flavor", "settings": { "name": "Chocolate Fudge", "macro": "21g protein · 180 cal", "color": "#211913" } },
+        { "type": "flavor", "settings": { "name": "Vanilla Bean", "macro": "20g protein · 170 cal", "color": "#EFEAE0" } },
+        { "type": "flavor", "settings": { "name": "Strawberry", "macro": "19g protein · 175 cal", "color": "#C0A472" } },
+        { "type": "flavor", "settings": { "name": "Cookie Butter", "macro": "20g protein · 190 cal", "color": "#7E6537" } },
+        { "type": "flavor", "settings": { "name": "Matcha", "macro": "20g protein · 165 cal", "color": "#67654A" } },
+        { "type": "flavor", "settings": { "name": "Salted Caramel", "macro": "21g protein · 185 cal", "color": "#3A2E24" } },
         { "type": "curated", "settings": { "name": "Best Sellers", "blurb": "Our most-ordered flavors, in one box.", "badge": "Most Popular", "size": 12, "price": 89, "mix": "Chocolate Fudge:4, Cookie Butter:4, Salted Caramel:4" } },
         { "type": "curated", "settings": { "name": "Variety Box", "blurb": "A little of everything — the easiest way to find your favourite.", "size": 12, "price": 89, "mix": "" } }
       ]

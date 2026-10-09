@@ -5,6 +5,11 @@
   labelled row of products from one collection. Pills filter the cards across
   every row at once; a row whose cards are all filtered out hides itself, so you
   never get a stranded heading over an empty grid.
+
+  With no `filter` blocks the pill bar is not rendered at all (Dani's 2026-10-08
+  menu is one category, so "All" would be the only pill). A third block type,
+  `soon`, adds a not-orderable "Coming soon" card after the product rows. Those
+  cards are not links and carry no data-pd-item, so the pill filter ignores them.
 {%- endcomment -%}
 
 {{ 'prodani-shop.css' | asset_url | stylesheet_tag }}
@@ -26,6 +31,19 @@
       {%- endif -%}
     </div>
 
+    {%- liquid
+      assign filter_count = 0
+      assign soon_count = 0
+      for b in section.blocks
+        if b.type == 'filter' and b.settings.collection != blank
+          assign filter_count = filter_count | plus: 1
+        elsif b.type == 'soon'
+          assign soon_count = soon_count | plus: 1
+        endif
+      endfor
+    -%}
+
+    {%- if filter_count > 0 -%}
     <div class="pd-filters" role="group" aria-label="Filter products">
       <button class="pd-filter" type="button" data-pd-filter="*" data-on="true">
         All <sup>{{ source.products_count }}</sup>
@@ -41,6 +59,7 @@
     </div>
 
     <p class="pd-count" data-pd-count aria-live="polite"></p>
+    {%- endif -%}
 
     {%- capture row_handles -%}
       {%- for b in section.blocks -%}
@@ -99,6 +118,43 @@
       {%- endif -%}
     {%- endfor -%}
 
+    {%- if soon_count > 0 -%}
+      <div class="pd-collection__row pd-collection__row--soon">
+        <div class="pd-collection__rowhead">
+          <h3 class="pd-collection__rowtitle">{{ section.settings.soon_heading | default: 'Coming soon' | escape }}</h3>
+          {%- if section.settings.soon_note != blank -%}
+            <span class="pd-collection__rownote">{{ section.settings.soon_note | escape }}</span>
+          {%- endif -%}
+        </div>
+        <div class="pd-grid">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'soon' -%}
+              <div class="pd-card pd-card--soon" style="--pd-soon:{{ block.settings.color }};" {{ block.shopify_attributes }}>
+                <div class="pd-card__media pd-soon__media">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 800
+                       | image_tag: loading: 'lazy', class: 'pd-card__img pd-soon__img',
+                         alt: block.settings.name,
+                         sizes: '(min-width:1181px) 22vw, (min-width:821px) 30vw, 46vw',
+                         widths: '300, 450, 600, 800' }}
+                    <span class="pd-soon__concept">Concept visual</span>
+                  {%- else -%}
+                    <span class="pd-soon__mark" aria-hidden="true">{{ block.settings.name | escape }}</span>
+                  {%- endif -%}
+                  <div class="pd-card__badges"><span class="pd-badge pd-badge--soon">Coming soon</span></div>
+                </div>
+                <p class="pd-card__cat">In development</p>
+                <h3 class="pd-card__name">{{ block.settings.name | escape }}</h3>
+                {%- if block.settings.note != blank -%}
+                  <p class="pd-soon__note">{{ block.settings.note | escape }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
     {%- if section.settings.cta_label != blank -%}
       <div class="pd-shop__foot">
         <a class="pd-btn" href="{{ section.settings.cta_link | default: source.url }}">
@@ -126,7 +182,10 @@
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "shop" },
     { "type": "collection", "id": "collection", "label": "Catalogue (for the All count)" },
     { "type": "text", "id": "cta_label", "label": "Button label", "default": "View everything" },
-    { "type": "url", "id": "cta_link", "label": "Button link" }
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "header", "content": "Coming soon" },
+    { "type": "text", "id": "soon_heading", "label": "Row heading", "default": "Coming soon" },
+    { "type": "text", "id": "soon_note", "label": "Row note" }
   ],
   "blocks": [
     {
@@ -145,6 +204,17 @@
         { "type": "text", "id": "heading", "label": "Row heading (defaults to collection title)" },
         { "type": "text", "id": "link_label", "label": "Row link label", "default": "Shop all" },
         { "type": "range", "id": "count", "label": "Products in the row", "min": 2, "max": 8, "step": 1, "default": 4 }
+      ]
+    },
+    {
+      "type": "soon",
+      "name": "Coming soon flavor",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "name", "label": "Flavor name", "default": "New flavor" },
+        { "type": "text", "id": "note", "label": "Short note" },
+        { "type": "image_picker", "id": "image", "label": "Concept visual", "info": "Shown with a \"Concept visual\" label. Leave empty for a type-only card." },
+        { "type": "color", "id": "color", "label": "Card colour", "default": "#C0A472" }
       ]
     }
   ],

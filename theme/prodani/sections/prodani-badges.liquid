@@ -18,7 +18,7 @@
       {%- for block in section.blocks -%}
         <li class="pd-badge-item" {{ block.shopify_attributes }}>
           {%- comment -%} The icon slices are cocoa circles clipped at the bottom edge. The
-             disc is a cocoa circle behind them (exact colour match, #362619) that completes
+             disc is a cocoa circle behind them (exact colour match, #211913) that completes
              the round shape; object-fit:contain keeps the whole symbol visible, never cut. {%- endcomment -%}
           <span class="pd-badge-item__disc">
             {%- if block.settings.image != blank -%}
@@ -30,6 +30,10 @@
                    alt="" loading="lazy" width="340" height="245">
             {%- endif -%}
           </span>
+          {%- if block.settings.icon contains 'prodani-icon-' and block.settings.image == blank -%}
+            {%- comment -%} 2026 line icons: inlined so stroke="currentColor" takes the text colour. {%- endcomment -%}
+            <span class="pd-badge-item__line" aria-hidden="true">{{ block.settings.icon | append: '.svg' | inline_asset_content }}</span>
+          {%- endif -%}
           <span class="pd-badge-item__label">{{ block.settings.label | escape }}</span>
         </li>
       {%- endfor -%}
@@ -54,7 +58,7 @@
   "class": "pd-section",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading (optional)" },
-    { "type": "color", "id": "background", "label": "Background", "default": "#E0A458" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#C0A472" },
     { "type": "checkbox", "id": "wave_icons", "label": "Lay icons along a wave (desktop)", "default": true },
     { "type": "header", "content": "Bottom marquee" },
     { "type": "checkbox", "id": "bottom_marquee", "label": "Show bottom wave marquee", "default": false },
@@ -71,6 +75,14 @@
         {
           "type": "select", "id": "icon", "label": "Bundled icon",
           "options": [
+            { "value": "prodani-icon-protein",          "label": "Line: Protein" },
+            { "value": "prodani-icon-no-added-sugar",   "label": "Line: No added sugar" },
+            { "value": "prodani-icon-gluten-free",      "label": "Line: Gluten free" },
+            { "value": "prodani-icon-small-batch",      "label": "Line: Small batch" },
+            { "value": "prodani-icon-baked-in-miami",   "label": "Line: Baked in Miami" },
+            { "value": "prodani-icon-verified-reviews", "label": "Line: Verified reviews" },
+            { "value": "prodani-icon-subscribe",        "label": "Line: Subscribe" },
+            { "value": "prodani-icon-build-your-box",   "label": "Line: Build your box" },
             { "value": "prodani-badge-high-protein",  "label": "High protein" },
             { "value": "prodani-badge-non-gmo",       "label": "Non GMO" },
             { "value": "prodani-badge-no-sugar-added","label": "No sugar added" },

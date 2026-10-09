@@ -18,7 +18,7 @@
           "type": "menu",
           "settings": {
             "heading": "Shop",
-            "links": "Personal cakes|/collections/personal-protein-cakes\nFamily cakes|/collections/family-cake\nMuffins|/collections/protein-muffins\nVegan range|/collections/vegan\nShop all|/collections/all"
+            "links": "Personal Protein Cakes|/collections/personal-protein-cakes\nBuild your box|/#box\nShop all|/collections/all"
           }
         },
         "c2": {
@@ -43,7 +43,7 @@
       ],
       "settings": {
         "wordmark": "prodani",
-        "signup_product": "vegan-personal-chocolate-banana-cake-copy",
+        "signup_product": "moist-chocolate-fudge-cake-copy",
         "signup_title": "First dibs on new bakes",
         "signup_copy": "New flavors, restocks and the odd Miami pop-up. Once a month, nothing else.",
         "signup_button": "Subscribe",
@@ -59,7 +59,7 @@
     "email_popup": {
       "type": "prodani-email-popup",
       "settings": {
-        "enable": true
+        "enable": false
       }
     }
   },

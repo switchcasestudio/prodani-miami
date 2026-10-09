@@ -35,6 +35,24 @@
 
   var state = { size: 0, price: 0, sel: {}, curated: null };
 
+  /* ---- fold: steps 2–4 stay closed until the shopper engages ---- */
+  var more = root.querySelector('[data-pd-more]');
+  var expand = root.querySelector('[data-pd-expand]');
+  function openMore() {
+    if (!more || more.classList.contains('is-open')) return;
+    more.classList.add('is-open');
+    more.removeAttribute('inert');
+    if (expand) expand.setAttribute('aria-expanded', 'true');
+    // Scroll-triggered reveals measured the page with the panel folded; re-measure
+    // once it has opened or the progress bar and anything below stay hidden.
+    setTimeout(function () { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); }, 650);
+  }
+  if (expand) expand.addEventListener('click', function () {
+    openMore();
+    var flavors = root.querySelector('.pd-box__flavors');
+    if (flavors && flavors.scrollIntoView) setTimeout(function () { flavors.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 250);
+  });
+
   function money(n) { return '$' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, ''); }
   function totalQty() { return Object.keys(state.sel).reduce(function (s, k) { return s + state.sel[k]; }, 0); }
 
@@ -49,7 +67,7 @@
   }
 
   sizeBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () { selectSize(btn); });
+    btn.addEventListener('click', function () { openMore(); selectSize(btn); });
   });
 
   /* ---- step 1b: curated presets ---- */
@@ -112,11 +130,12 @@
     }
 
     var flavors = root.querySelector('.pd-box__flavors');
-    if (flavors && flavors.scrollIntoView) flavors.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Wait for the fold to open, or the scroll target is measured at zero height.
+    if (flavors && flavors.scrollIntoView) setTimeout(function () { flavors.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 350);
   }
 
   curatedCards.forEach(function (card) {
-    card.addEventListener('click', function () { applyCurated(card); });
+    card.addEventListener('click', function () { openMore(); applyCurated(card); });
   });
 
   /* ---- step 1: mode tabs ---- */
@@ -243,10 +262,31 @@
 
   elAdd.addEventListener('click', addToCart);
 
+  // Box-product mode: the variant for the current size, set in Liquid on the size
+  // buttons (curated boxes resolve through the same buttons by size).
+  function boxVariant() {
+    var btn = sizeBtns.filter(function (b) { return (parseInt(b.getAttribute('data-size'), 10) || 0) === state.size; })[0];
+    var v = btn ? btn.getAttribute('data-box-variant') : '';
+    return /^\d+$/.test(v || '') ? v : null;
+  }
+
   function addToCart() {
     if (elAdd.disabled) return;
     var items = [], missing = false, boxId = 'box-' + Date.now();
     var plan = planId();
+
+    if (root.hasAttribute('data-pd-box-product')) {
+      var bv = boxVariant();
+      if (!bv) {
+        elNote.textContent = 'The ' + state.size + '-cake box is not available right now.';
+        return;
+      }
+      var mix = flavorEls.filter(function (el) { return state.sel[el.getAttribute('data-flavor')] > 0; })
+        .map(function (el) { return el.getAttribute('data-name') + ' \u00d7 ' + state.sel[el.getAttribute('data-flavor')]; });
+      var boxItem = { id: parseInt(bv, 10), quantity: 1, properties: { 'Flavors': mix.join(', '), _box_id: boxId } };
+      if (plan) boxItem.selling_plan = parseInt(plan, 10);
+      return post([boxItem]);
+    }
 
     flavorEls.forEach(function (el) {
       var q = state.sel[el.getAttribute('data-flavor')];
@@ -267,13 +307,17 @@
       return;
     }
 
+    post(items);
+  }
+
+  function post(items) {
     var label = elAdd.textContent;
     elAdd.disabled = true; elAdd.textContent = 'Adding…';
     fetch((window.routes && window.routes.cart_add_url ? window.routes.cart_add_url : '/cart/add') + '.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ items: items })
-    }).then(function (r) { return r.json(); }).then(function () {
+    }).then(function (r) { if (!r.ok) throw r; return r.json(); }).then(function () {
       window.location.href = (window.routes && window.routes.cart_url) ? window.routes.cart_url : '/cart';
     }).catch(function () {
       elAdd.disabled = false; elAdd.textContent = label;
