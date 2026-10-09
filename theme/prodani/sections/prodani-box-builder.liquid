@@ -160,6 +160,20 @@
       {%- endif -%}
     </div>
 
+    {%- comment -%}
+      Steps 2–4 start folded (Moses, 2026-10-08: the full builder reads as too
+      technical up front). Picking a size, choosing a curated box, or the arrow
+      below opens them. `inert` keeps the folded controls out of the tab order.
+    {%- endcomment -%}
+    <button type="button" class="pd-box__expand" data-pd-expand aria-expanded="false" aria-controls="pd-box-more-{{ section.id }}">
+      <span data-pd-expand-label>Choose your flavors</span>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="pd-box__more" id="pd-box-more-{{ section.id }}" data-pd-more inert>
+    <div class="pd-box__more-in">
+
     {%- comment -%} Step 2 — flavors {%- endcomment -%}
     <div class="pd-box__step">
       <p class="pd-box__step-label"><span>2</span> Choose your flavors</p>
@@ -276,6 +290,8 @@
       <button type="button" class="pd-box__add" data-pd-add disabled>Choose a box to start</button>
     </div>
     <p class="pd-box__note" data-pd-note role="status"></p>
+    </div>
+    </div>
   </div>
 </section>
 

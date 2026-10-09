@@ -160,3 +160,24 @@
   .pd-box__size, .pd-box__step-btn, .pd-box__add, .pd-box__bar span,
   .pd-box__mode, .pd-box__curated-card{ transition:none; }
 }
+
+/* ---- Fold: only step 1 shows until the shopper engages (2026-10-08) ---- */
+.pd-box__expand{
+  display:flex; align-items:center; gap:10px; margin:0 auto; padding:12px 22px;
+  border:0; border-radius:999px; background:transparent; color:var(--cocoa);
+  font-family:var(--sans); font-weight:700; font-size:15px; cursor:pointer;
+}
+.pd-box__expand svg{ transition:transform .4s var(--ease); animation:pd-box-nudge 1.8s ease-in-out infinite; }
+.pd-box__expand:hover svg{ transform:translateY(2px); }
+.pd-box__expand[aria-expanded="true"]{ display:none; }
+.pd-box__expand:focus-visible{ outline:3px solid var(--pink-deep); outline-offset:2px; }
+@keyframes pd-box-nudge{ 0%,100%{ translate:0 0; } 50%{ translate:0 4px; } }
+
+.pd-box__more{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .6s var(--ease); }
+.pd-box__more.is-open{ grid-template-rows:1fr; }
+.pd-box__more-in{ min-height:0; overflow:hidden; }
+.pd-box__more.is-open .pd-box__more-in{ overflow:visible; }
+@media (prefers-reduced-motion: reduce){
+  .pd-box__more{ transition:none; }
+  .pd-box__expand svg{ animation:none; }
+}
