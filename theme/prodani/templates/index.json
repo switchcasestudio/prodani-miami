@@ -495,7 +495,8 @@
         "follow_label": "Follow @prodanimiami",
         "count": 6,
         "behold_feed_id": ""
-      }
+      },
+      "disabled": true
     }
   },
   "order": [
