@@ -108,9 +108,6 @@
    down to 375px (iPhone SE / mini). */
 @media (max-width:480px){
   .pd-nav__in{ gap:10px; }
-  .pd-nav__shop-mobile{ margin-left:0; }
-  .pd-nav__right{ gap:6px; }
-  .pd-nav__cart{ padding:0 6px 0 12px; gap:6px; }
 }
 @media (max-width:389px){
   .pd-nav__in{ gap:8px; }
@@ -145,8 +142,19 @@
   }
   .pd-nav__menu-btn svg{ width:24px; height:24px; }
   .pd-nav__menu-btn:focus-visible{ outline:3px solid var(--pink); outline-offset:-3px; }
-  /* Account lives in the menu below 960px; the icon row needs the room. */
-  .pd-nav__account{ display:none; }
+  /* Account and Search live in the menu below 960px. */
+  .pd-nav__account, .pd-nav__search{ display:none; }
+
+  /* Shop + Cart sit together on the right as two plain links (Moses 2026-10-10:
+     no dark pill, a regular link like Shop). */
+  .pd-nav__shop-mobile{ margin-left:auto; border-bottom:0; padding:0 8px; }
+  .pd-nav__right{ margin-left:0; gap:0; }
+  .pd-nav__cart{
+    height:auto; min-height:44px; padding:0 4px 0 8px; gap:6px; border-radius:0;
+    background:transparent; color:var(--cocoa); font-size:12px;
+  }
+  .pd-nav__cart:hover{ transform:none; }
+  .pd-nav__count{ min-width:18px; height:18px; padding:0 5px; font-size:10.5px; }
 }
 
 .pd-menu[hidden]{ display:none; }
@@ -175,12 +183,13 @@
   border-radius:999px; background:var(--cocoa); color:var(--cream); text-decoration:none;
   font-family:var(--sans); font-weight:700; font-size:16px;
 }
-.pd-menu__account{
-  display:inline-flex; align-items:center; gap:10px; min-height:48px; margin-top:12px; align-self:center;
+.pd-menu__utils{ display:flex; justify-content:center; gap:28px; margin-top:12px; }
+.pd-menu__util{
+  display:inline-flex; align-items:center; gap:10px; min-height:48px;
   color:var(--cocoa); text-decoration:none; font-family:var(--mono); font-size:12px;
   letter-spacing:.14em; text-transform:uppercase;
 }
-.pd-menu__account svg{ width:18px; height:18px; }
+.pd-menu__util svg{ width:18px; height:18px; }
 html.pd-menu-open{ overflow:hidden; }
 @media (min-width:961px){ .pd-menu{ display:none !important; } }
 @media (prefers-reduced-motion:reduce){ .pd-menu{ transition:none; transform:none; } }
