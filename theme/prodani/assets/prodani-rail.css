@@ -1,24 +1,27 @@
 /* "There's more" cues under horizontal carousels on phones. Moses 2026-10-10:
-   shoppers saw the first cakes and never found the rest. A count, a progress bar
-   and arrows; prodani-rail.js builds them only when a row actually overflows, so
-   desktop grids never show them. */
-.pd-rail{ display:flex; align-items:center; gap:10px; margin-top:16px; color:var(--cocoa); }
+   shoppers saw the first cakes and never found the rest. prodani-rail.js builds
+   them only when a row actually overflows, so desktop grids never show them.
+   Kept quiet on purpose (2026-10-11: the first pass was "too vulgar"): a hairline
+   instead of a bar, mono numerals, and the site's own long arrows with no buttons
+   drawn around them. */
+.pd-rail{ display:flex; align-items:center; gap:16px; margin-top:18px; color:var(--cocoa); }
 .pd-rail[hidden]{ display:none; }
 .pd-rail__count{
-  flex:none; min-width:42px; font-family:var(--mono); font-size:12px; font-weight:500;
-  letter-spacing:.06em; font-variant-numeric:tabular-nums; color:var(--cocoa);
+  flex:none; font-family:var(--mono); font-size:10.5px; font-weight:400;
+  letter-spacing:.16em; font-variant-numeric:tabular-nums; color:var(--ink-soft);
 }
-.pd-rail__track{ position:relative; flex:1; height:3px; border-radius:999px; background:rgba(33, 25, 19, .14); overflow:hidden; }
-.pd-rail__thumb{ position:absolute; top:0; bottom:0; left:0; border-radius:inherit; background:var(--cocoa);
-  transition:left .15s linear, width .15s linear; }
+.pd-rail__track{ position:relative; flex:1; height:1px; background:rgba(33, 25, 19, .18); }
+.pd-rail__thumb{ position:absolute; top:-0.5px; height:2px; left:0; background:var(--cocoa);
+  transition:left .2s var(--ease), width .2s var(--ease); }
+.pd-rail__nav{ flex:none; display:flex; margin-right:-10px; }
 .pd-rail__btn{
-  flex:none; width:44px; height:44px; padding:0; display:grid; place-items:center; cursor:pointer;
-  border-radius:999px; border:1.5px solid rgba(33, 25, 19, .22); background:transparent; color:var(--cocoa);
-  transition:opacity .2s, background .2s;
+  width:44px; height:44px; padding:0; display:grid; place-items:center; cursor:pointer;
+  border:0; background:transparent; color:var(--cocoa); transition:opacity .25s, transform .3s var(--ease);
 }
-.pd-rail__btn svg{ width:18px; height:18px; }
-.pd-rail__btn[disabled]{ opacity:.28; cursor:default; }
-.pd-rail__btn:focus-visible{ outline:3px solid var(--pink); outline-offset:2px; }
+.pd-rail__btn svg{ width:24px; height:13px; }
+.pd-rail__btn[data-dir="-1"] svg{ transform:scaleX(-1); }
+.pd-rail__btn[disabled]{ opacity:.22; cursor:default; }
+.pd-rail__btn:focus-visible{ outline:2px solid var(--pink); outline-offset:-6px; border-radius:999px; }
 
 /* One-time nudge when a row first scrolls into view: the cards slide left and back. */
 .pd-rail-nudge > *{ animation:pd-rail-nudge 1.1s var(--ease) .15s 1; }

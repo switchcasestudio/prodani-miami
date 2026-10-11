@@ -46,6 +46,8 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit).catch(function () {});
 
     var seconds = parseFloat(el.dataset.speed) || 26;
+    // Phones draw the ribbon 1.8x wide (prodani-marquee.css); slow it to match.
+    if (window.matchMedia('(max-width: 749px)').matches) seconds *= 1.8;
     var last = null;
     var offset = 0;                       // 0 → 100 over `seconds`
 

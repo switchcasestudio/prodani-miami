@@ -134,6 +134,24 @@
         });
       }
 
+      // "Choose your flavors" rises in just after the sizes are dealt (Moses
+      // 2026-10-11: it had no entrance). Transform is cleared afterwards so the
+      // button's own CSS hover/press transforms work again.
+      var expandBtn = box.querySelector('.pd-box__expand');
+      if (expandBtn) {
+        gsap.set(expandBtn, { y: 28, scale: 0.9, autoAlpha: 0 });
+        ScrollTrigger.create({
+          trigger: expandBtn, start: 'top 94%', once: true,
+          onEnter: function () {
+            gsap.to(expandBtn, {
+              y: 0, scale: 1, autoAlpha: 1, duration: 0.85, delay: 0.3,
+              ease: 'back.out(1.7)', overwrite: true,
+              onComplete: function () { gsap.set(expandBtn, { clearProps: 'transform' }); }
+            });
+          }
+        });
+      }
+
       // Flavor tiles cascade in tighter than the generic grids
       var flavors = gsap.utils.toArray(box.querySelectorAll('.pd-box__flavor'));
       if (flavors.length) {

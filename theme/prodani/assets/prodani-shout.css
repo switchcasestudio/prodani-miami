@@ -39,7 +39,20 @@
 }
 .pd-badge__core{ position:absolute; font-size:34px; line-height:1; }
 @keyframes pd-badge-spin{ to{ transform:rotate(360deg); } }
-@media (max-width:1100px){ .pd-badge{ display:none; } }
+/* Under 1100px there's no gap beside the photo to hang it in, so it used to be hidden.
+   Moses 2026-10-11 wanted it back: it sits on the photo's lower-left corner as a
+   cocoa stamp, so the caramel ring reads over the picture. */
+@media (max-width:1100px){
+  /* padding/radius reset: .pd-badge is also the product-card chip class in
+     prodani-shop.css (loaded earlier on the homepage) and its pill padding leaks in. */
+  .pd-shout .pd-badge{
+    width:128px; height:128px; left:-28px; top:auto; bottom:-30px; margin-top:0;
+    padding:0; border-radius:50%;
+    background:var(--cocoa); box-shadow:0 10px 26px rgba(0, 0, 0, .28);
+  }
+  .pd-shout .pd-badge svg{ width:86%; height:86%; }
+  .pd-shout .pd-badge__core{ font-size:26px; }
+}
 
 /* The ribbon is the band's bottom edge, so the band stops padding beneath it. */
 .pd-shout:has(.pd-marquee--shout){ padding-bottom:0; }

@@ -101,6 +101,14 @@
    Four full-height photo cards read as an endless wall on a phone. The photos
    go; each card collapses to number + claim + link, so all four reasons fit
    in about one screen. */
+/* Phones/tablets (Moses 2026-10-11): a hairline so every card holds its edge on the
+   cream page (the two light cards had melted into it), and each card's link sits
+   bottom-right, where the thumb lands. */
+@media (max-width:980px){
+  .pd-stack__card{ box-shadow:0 12px 30px rgba(54, 38, 25,.12), inset 0 0 0 1px rgba(33, 25, 19,.08); }
+  .pd-stack__link{ align-self:flex-end; }
+}
+
 @media (max-width:749px){
   .pd-stack__media{ display:none; }
   .pd-stack__card{ padding:22px 20px 20px; min-height:0; }

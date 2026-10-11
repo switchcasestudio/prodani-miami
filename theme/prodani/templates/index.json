@@ -57,7 +57,7 @@
             "cta_label": "See the flavors",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "personal-hazelnuts-cake",
-            "color": "#EFEAE0",
+            "color": "#E4D5BA",
             "text_color": "#211913",
             "focus": "50% 40%"
           }
@@ -99,7 +99,7 @@
             "cta_label": "Build your box",
             "cta_link": "/#box",
             "product": "carrot-cake",
-            "color": "#EFEAE0",
+            "color": "#E4D5BA",
             "text_color": "#211913",
             "focus": "50% 40%"
           }

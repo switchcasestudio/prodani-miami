@@ -8,9 +8,9 @@
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var uid = 0;
-  var arrow = function (d) {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
-  };
+  // The site's own long arrow (as in "Shop all cakes"); CSS mirrors it for "back".
+  var arrow = '<svg viewBox="0 0 22 12" fill="none" aria-hidden="true"><path d="M21.53 6.53a.75.75 0 0 0 0-1.06L16.76.7a.75.75 0 1 0-1.06 1.06L19.94 6l-4.24 4.24a.75.75 0 1 0 1.06 1.06l4.77-4.77ZM0 6.75h21v-1.5H0v1.5Z" fill="currentColor"/></svg>';
+  var pad = function (n) { return n < 10 ? '0' + n : String(n); };
 
   function items(rail) {
     return Array.prototype.filter.call(rail.children, function (el) {
@@ -29,8 +29,10 @@
     ui.innerHTML =
       '<span class="pd-rail__count" aria-hidden="true"></span>' +
       '<span class="pd-rail__track" aria-hidden="true"><span class="pd-rail__thumb"></span></span>' +
-      '<button type="button" class="pd-rail__btn" data-dir="-1" aria-label="Scroll back" aria-controls="' + rail.id + '">' + arrow('M15 6l-6 6 6 6') + '</button>' +
-      '<button type="button" class="pd-rail__btn" data-dir="1" aria-label="Scroll for more" aria-controls="' + rail.id + '">' + arrow('M9 6l6 6-6 6') + '</button>';
+      '<span class="pd-rail__nav">' +
+      '<button type="button" class="pd-rail__btn" data-dir="-1" aria-label="Scroll back" aria-controls="' + rail.id + '">' + arrow + '</button>' +
+      '<button type="button" class="pd-rail__btn" data-dir="1" aria-label="Scroll for more" aria-controls="' + rail.id + '">' + arrow + '</button>' +
+      '</span>';
     rail.insertAdjacentElement('afterend', ui);
 
     var count = ui.querySelector('.pd-rail__count');
@@ -51,7 +53,7 @@
         var r = el.getBoundingClientRect();
         if (r.left + r.width * 0.6 <= right + 1) seen++;
       });
-      count.textContent = Math.max(1, seen) + ' / ' + list.length;
+      count.textContent = pad(Math.max(1, seen)) + ' / ' + pad(list.length);
       var share = rail.clientWidth / rail.scrollWidth;
       thumb.style.width = (share * 100).toFixed(2) + '%';
       thumb.style.left = ((rail.scrollLeft / max) * (1 - share) * 100).toFixed(2) + '%';

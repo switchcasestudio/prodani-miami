@@ -16,7 +16,8 @@
 
     var circumference = path.getTotalLength();
     // Zero while the badge is display:none — measuring then would fit it to nothing.
-    var once = probe.getComputedTextLength();
+    // max() with the bbox: Safari's getComputedTextLength leaves out letter-spacing.
+    var once = Math.max(probe.getComputedTextLength(), probe.getBBox().width);
     if (!once || !circumference) return;
 
     var reps = Math.max(1, Math.round(circumference / once));
@@ -26,9 +27,10 @@
     for (var i = 0; i < reps; i++) out += phrase;
 
     tp.textContent = out;
-    tp.setAttribute('textLength', circumference);
-    tp.setAttribute('lengthAdjust', 'spacing');
-    vis.style.fontSize = (base * (circumference / (once * reps))) + 'px';
+    // Sized by font only: textLength on a textPath scrambles glyphs in iOS Safari.
+    tp.removeAttribute('textLength');
+    tp.removeAttribute('lengthAdjust');
+    vis.style.fontSize = (base * (circumference / (once * reps)) * 0.995) + 'px';
     vis.style.opacity = '1';
   }
 

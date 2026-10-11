@@ -8,15 +8,67 @@
 
 <section class="pd-reviews" {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}>
   <div class="pd-wrap">
-    <div class="pd-sec-head">
-      <div>
-        <h2 class="pd-sec-title">{{ section.settings.heading | escape }}</h2>
-        {% render 'prodani-squiggle' %}
+    {%- comment -%}
+      The count IS the headline (Moses 2026-10-11: "132 is a lot, it doesn't feel like it").
+      When the heading starts with a number it splits into a giant numeral plus the rest.
+      Count and rating come from Judge.me's own aggregate (the all-reviews header it
+      writes to the shop metafields), so they stay true as reviews arrive. The heading's
+      number is only the fallback, and there are no stars unless Judge.me has a rating.
+    {%- endcomment -%}
+    {%- liquid
+      assign heading = section.settings.heading | strip
+      assign lead = heading | split: ' ' | first
+      assign lead_num = lead | plus: 0
+      assign lead_str = lead_num | append: ''
+      assign jm = shop.metafields.judgeme.all_reviews_header | append: ''
+      assign jm_count = ''
+      assign jm_rating = ''
+      if jm contains "data-number-of-reviews='"
+        assign jm_count = jm | split: "data-number-of-reviews='" | last | split: "'" | first
+      endif
+      if jm contains "data-average-rating='"
+        assign jm_rating = jm | split: "data-average-rating='" | last | split: "'" | first
+      endif
+      if jm_count == '0'
+        assign jm_count = ''
+      endif
+    -%}
+    {%- if lead_str == lead and lead_num > 0 -%}
+      {%- liquid
+        assign big = jm_count | default: lead
+        assign label = heading | remove_first: lead | strip
+        if jm_rating != ''
+          assign rating = jm_rating | times: 1.0 | round: 1
+          assign rating_pct = jm_rating | times: 20.0
+        endif
+      -%}
+      <div class="pd-reviews__head">
+        <h2 class="visually-hidden">{{ big }} {{ label | escape }}{% if rating %}, rated {{ rating }} out of 5{% endif %}</h2>
+        <div class="pd-reviews__hero" aria-hidden="true">
+          <span class="pd-reviews__count">{{ big }}</span>
+          <span class="pd-reviews__side">
+            {%- if rating -%}
+              <span class="pd-reviews__stars"><span style="width:{{ rating_pct }}%">★★★★★</span>★★★★★</span>
+            {%- endif -%}
+            <span class="pd-reviews__label">{{ label | escape }}</span>
+          </span>
+        </div>
+        <p class="pd-reviews__sub">
+          {%- if rating -%}<b>{{ rating }}</b> out of 5{%- if section.settings.eyebrow != blank %} · {% endif -%}{%- endif -%}
+          {{ section.settings.eyebrow | escape }}
+        </p>
       </div>
-      {%- if section.settings.eyebrow != blank -%}
-        <span class="pd-eyebrow">{{ section.settings.eyebrow | escape }}</span>
-      {%- endif -%}
-    </div>
+    {%- else -%}
+      <div class="pd-sec-head">
+        <div>
+          <h2 class="pd-sec-title">{{ heading | escape }}</h2>
+          {% render 'prodani-squiggle' %}
+        </div>
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="pd-eyebrow">{{ section.settings.eyebrow | escape }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
       <div class="pd-reviews__grid">

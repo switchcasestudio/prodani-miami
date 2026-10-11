@@ -16,4 +16,9 @@
    near-invisible. Bumping the SVG-unit font size restores legibility. */
 @media (max-width:749px){
   .pd-marquee text{ font-size:52px; }
+  /* Still read small (Moses 2026-10-11): the whole claim string has to fit one
+     path length for the loop to be seamless, so on a 402px screen the lettering
+     shrank to ~10px. Drawing the ribbon at 180% of the screen (centre showing)
+     scales the band and the type by 1.8 without breaking the loop. */
+  .pd-marquee__svg{ width:180%; max-width:none; margin-left:-40%; }
 }

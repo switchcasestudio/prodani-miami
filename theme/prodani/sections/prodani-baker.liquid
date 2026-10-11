@@ -38,9 +38,31 @@
         {%- if section.blocks.size > 0 -%}
           <ul class="pd-story__list">
             {%- for block in section.blocks -%}
+              {%- comment -%} Line icon per pillar (Moses 2026-10-11: the rows read empty). The
+                  same 2026 line set as the benefit strip; "Auto" picks it from the label. {%- endcomment -%}
+              {%- liquid
+                assign icon = block.settings.icon | default: 'auto'
+                if icon == 'auto'
+                  assign key = block.settings.label | downcase
+                  if key contains 'sugar' or key contains 'sweet'
+                    assign icon = 'prodani-icon-no-added-sugar'
+                  elsif key contains 'flour' or key contains 'gluten'
+                    assign icon = 'prodani-icon-gluten-free'
+                  elsif key contains 'protein'
+                    assign icon = 'prodani-icon-protein'
+                  else
+                    assign icon = 'prodani-icon-small-batch'
+                  endif
+                endif
+              -%}
               <li {{ block.shopify_attributes }}>
-                <b>{{ block.settings.label | escape }}</b>
-                <span>{{ block.settings.text | escape }}</span>
+                {%- if icon != 'none' -%}
+                  <span class="pd-story__icon" aria-hidden="true">{{ icon | append: '.svg' | inline_asset_content }}</span>
+                {%- endif -%}
+                <span class="pd-story__copy">
+                  <b>{{ block.settings.label | escape }}</b>
+                  <span>{{ block.settings.text | escape }}</span>
+                </span>
               </li>
             {%- endfor -%}
           </ul>
@@ -136,7 +158,19 @@
       "limit": 6,
       "settings": [
         { "type": "text", "id": "label", "label": "Label" },
-        { "type": "text", "id": "text", "label": "Text" }
+        { "type": "text", "id": "text", "label": "Text" },
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "auto",
+          "options": [
+            { "value": "auto", "label": "Auto (from the label)" },
+            { "value": "prodani-icon-small-batch", "label": "Small batch" },
+            { "value": "prodani-icon-no-added-sugar", "label": "No added sugar" },
+            { "value": "prodani-icon-gluten-free", "label": "Gluten free" },
+            { "value": "prodani-icon-protein", "label": "Protein" },
+            { "value": "prodani-icon-baked-in-miami", "label": "Baked in Miami" },
+            { "value": "none", "label": "No icon" }
+          ]
+        }
       ]
     }
   ],
