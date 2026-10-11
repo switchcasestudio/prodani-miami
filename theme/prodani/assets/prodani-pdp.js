@@ -54,14 +54,21 @@
   });
 
   if ('IntersectionObserver' in window) {
+    // Show only once the real buy button has scrolled up out of view, and step aside
+    // for the footer: on iPhone the bar sat on top of the newsletter field.
+    var pastButton = false;
+    var footerInView = false;
+    var footer = document.querySelector('.pd-foot');
+    function update() { bar.classList.toggle('is-visible', pastButton && !footerInView); }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        // Show only once the real buy button has scrolled up out of view.
-        var scrolledPast = !e.isIntersecting && e.boundingClientRect.top < 0;
-        bar.classList.toggle('is-visible', scrolledPast);
+        if (e.target === anchor) pastButton = !e.isIntersecting && e.boundingClientRect.top < 0;
+        else footerInView = e.isIntersecting;
       });
+      update();
     }, { threshold: 0 });
     io.observe(anchor);
+    if (footer) io.observe(footer);
   }
 
   var mo = new MutationObserver(function (records) {

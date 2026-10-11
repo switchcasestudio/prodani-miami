@@ -62,7 +62,7 @@
   box-shadow:inset 0 0 0 2px var(--pink-deep);
 }
 .pd-btn--outline:hover{ background:var(--pink); color:var(--cocoa); box-shadow:none; }
-.pd-reviews__more > summary svg{ width:16px; height:16px; transition:transform .3s ease; }
+.pd-reviews__more > summary svg{ transition:transform .3s ease; }
 .pd-reviews__more[open] > summary svg{ transform:rotate(180deg); }
 .pd-reviews__more .pd-reviews__more-close{ display:none; }
 .pd-reviews__more[open] .pd-reviews__more-open{ display:none; }

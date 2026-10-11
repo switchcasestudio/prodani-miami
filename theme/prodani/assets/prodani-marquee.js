@@ -15,17 +15,30 @@
 
     /* Fit the text to the path. Without this the string overruns the path length
        and the two copies collide into each other — which is exactly the doubled,
-       overlapping lettering the first build showed. */
+       overlapping lettering the first build showed.
+       Fitted by shrinking the font, not with textLength + lengthAdjust: iOS Safari
+       mis-places glyphs when it squeezes text on a textPath, and the ribbon read as
+       scrambled letters on every iPhone (the bumped mobile font size is what made it
+       overrun). The natural width is measured off-path, on a throwaway <text>, so it
+       doesn't depend on how each engine counts glyphs that fall past the path's end. */
     var path = el.querySelector('defs path');
+    var text = el.querySelector('text');
     function fit() {
-      if (!path || !path.getTotalLength) return;
+      if (!path || !path.getTotalLength || !text) return;
+      text.style.fontSize = '';
+      var probe = text.cloneNode(false);
+      probe.textContent = tracks[0].textContent;
+      probe.setAttribute('visibility', 'hidden');
+      text.parentNode.appendChild(probe);
+      // Safari's getComputedTextLength leaves out letter-spacing (the ribbon's 0.08em
+      // is ~4 letters' worth across the string); the bbox includes it. Take the larger,
+      // plus 1% so the two copies meet with a hair of air instead of overlapping.
+      var natural = Math.max(probe.getComputedTextLength(), probe.getBBox().width) * 1.01;
+      var size = parseFloat(getComputedStyle(probe).fontSize);
+      probe.parentNode.removeChild(probe);
       var pathLen = path.getTotalLength();
-      for (var i = 0; i < tracks.length; i++) {
-        var natural = tracks[i].getComputedTextLength();
-        if (natural > pathLen) {
-          tracks[i].setAttribute('textLength', pathLen);
-          tracks[i].setAttribute('lengthAdjust', 'spacingAndGlyphs');
-        }
+      if (natural > pathLen && size) {
+        text.style.fontSize = (size * pathLen / natural).toFixed(2) + 'px';
       }
     }
     fit();

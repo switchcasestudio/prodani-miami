@@ -67,18 +67,23 @@
 .pd-sub__badge{ font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
   background:var(--leaf); color:var(--cream); border-radius:999px; padding:2px 8px; }
 .pd-sub__freq{ display:flex; align-items:center; gap:10px; padding:2px 2px 0; }
-.pd-sub__freq-label{ font-size:13px; font-weight:600; color:var(--ink-soft); }
+.pd-sub__freq-label{ font-size:13px; font-weight:600; color:var(--ink-soft); white-space:nowrap; flex:none; }
 .pd-sub__select{ flex:1; border:2px solid var(--line); background:var(--butter); border-radius:999px;
   padding:10px 16px; font-family:var(--sans); font-weight:700; font-size:14px; color:var(--cocoa); }
 .pd-sub__select:focus-visible{ outline:none; border-color:var(--pink-deep); }
+/* Under 16px, iOS Safari zooms the page in on focus and leaves it zoomed. */
+@media (max-width:749px){ .pd-sub__select{ font-size:16px; min-width:0; } }
 .pd-sub__note{ margin:2px 0 0; font-size:12px; color:var(--ink-faint); font-style:italic; }
 
 /* ---- mobile sticky add-to-cart ---- */
 .pd-sticky-atc{ position:fixed; left:0; right:0; bottom:0; z-index:30; display:none;
   align-items:center; gap:12px; padding:10px 14px calc(10px + env(safe-area-inset-bottom));
   background:var(--cream); border-top:1px solid var(--line); box-shadow:0 -8px 24px rgba(54, 38, 25,.10);
-  transform:translateY(115%); transition:transform .4s var(--ease); }
-.pd-sticky-atc.is-visible{ transform:translateY(0); }
+  transform:translateY(115%); transition:transform .4s var(--ease), visibility 0s .4s;
+  /* iOS Safari lays fixed content under its floating toolbar, where a 115% nudge still
+     left the hidden bar showing at the top of every product page. */
+  visibility:hidden; }
+.pd-sticky-atc.is-visible{ transform:translateY(0); visibility:visible; transition:transform .4s var(--ease), visibility 0s; }
 .pd-sticky-atc__info{ display:flex; flex-direction:column; min-width:0; flex:1; }
 .pd-sticky-atc__title{ font-weight:700; color:var(--cocoa); font-size:13px; white-space:nowrap;
   overflow:hidden; text-overflow:ellipsis; }

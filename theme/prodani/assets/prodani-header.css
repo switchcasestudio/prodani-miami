@@ -101,3 +101,18 @@
 .pd-nav__count{ font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:0; }
 .pd-nav__shop-mobile{ font-size:12px; }
 .pd-announce .pd-label{ font-family:var(--mono); font-weight:500; letter-spacing:.18em; }
+
+/* Phones: logo + Shop + two 44px icons + the Cart pill with 34px gaps measured
+   441pt on a 402pt iPhone 17 in real Safari. The Cart pill hung off the edge and the
+   whole page could be dragged sideways. Tighter gaps keep the row inside the screen
+   down to 375px (iPhone SE / mini). */
+@media (max-width:480px){
+  .pd-nav__in{ gap:10px; }
+  .pd-nav__shop-mobile{ margin-left:0; }
+  .pd-nav__right{ gap:6px; }
+  .pd-nav__cart{ padding:0 6px 0 12px; gap:6px; }
+}
+@media (max-width:389px){
+  .pd-nav__in{ gap:8px; }
+  .pd-nav__logo-img--brand{ height:32px; }
+}

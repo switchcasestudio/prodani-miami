@@ -152,8 +152,13 @@
     grid-template-columns:none; grid-auto-flow:column; grid-template-rows:repeat(2,1fr);
     grid-auto-columns:calc(50% - 7px); overflow-x:auto; scroll-snap-type:x mandatory;
     scrollbar-width:none; padding-bottom:2px;
+    /* overflow-x:auto turns overflow-y into auto too, so a vertical drag on the cards
+       scrolled the cards inside their box instead of scrolling the page. */
+    overflow-y:hidden; overscroll-behavior-x:contain;
   }
   .pd-box__flavors::-webkit-scrollbar{ display:none; }
+  /* Under 16px, iOS Safari zooms the page in on focus and leaves it zoomed. */
+  .pd-box .pd-sub__select{ font-size:16px; }
   .pd-box__flavor{ scroll-snap-align:start; }
 }
 @media (prefers-reduced-motion:reduce){
@@ -183,9 +188,13 @@
 .pd-box__expand:focus-visible{ outline:3px solid var(--pink-deep); outline-offset:3px; }
 @keyframes pd-box-nudge{ 0%,100%{ translate:0 0; } 50%{ translate:0 4px; } }
 
-.pd-box__more{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .6s var(--ease); }
+.pd-box__more{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .6s var(--ease);
+  /* minmax(0,1fr), not the implicit auto column: in Safari the auto column grew to the
+     flavor carousel's full scroll width once the panel opened, so the sticky CTA was
+     689pt wide on a 402pt iPhone and "Add 6 more" ran off the screen. */
+  grid-template-columns:minmax(0,1fr); }
 .pd-box__more.is-open{ grid-template-rows:1fr; }
-.pd-box__more-in{ min-height:0; overflow:hidden; }
+.pd-box__more-in{ min-height:0; min-width:0; overflow:hidden; }
 .pd-box__more.is-open .pd-box__more-in{ overflow:visible; }
 @media (prefers-reduced-motion: reduce){
   .pd-box__more{ transition:none; }

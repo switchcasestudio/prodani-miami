@@ -87,6 +87,8 @@
   transition:border-color .18s ease;
 }
 .pd-field textarea{ resize:vertical; min-height:120px; }
+/* Under 16px, iOS Safari zooms the page in on focus and leaves it zoomed. */
+@media (max-width:749px){ .pd-field input, .pd-field select, .pd-field textarea{ font-size:16px; } }
 .pd-field input::placeholder{ color:var(--ink-faint); }
 .pd-field select{
   appearance:none;

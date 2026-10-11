@@ -71,6 +71,9 @@
 }
 .product-form__submit:hover:not([disabled]){ transform:translateY(-2px); background:var(--cocoa-deep); }
 .product-form__submit[disabled]{ background:var(--cocoa-soft); color:rgba(250, 244, 233,.7); }
+/* Dawn's ::before (shadow) and ::after (border ring) use the theme's 0 button radius,
+   so they drew a square box around this pill. The pill carries no border, so drop them. */
+.product-form__submit::before, .product-form__submit::after{ content:none; }
 /* Shop Pay's own brand colour is left alone; only its shape is matched. */
 .shopify-payment-button__button--unbranded,
 .shopify-payment-button__button{ border-radius:999px !important; }

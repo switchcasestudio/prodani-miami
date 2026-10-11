@@ -85,6 +85,8 @@
   background:transparent; border:2px solid var(--line-dark); color:var(--on-dark);
   font:inherit; font-size:14px; font-weight:500;
 }
+/* Under 16px, iOS Safari zooms the page in on focus and leaves it zoomed. */
+@media (max-width:749px){ .pd-foot__form input{ font-size:16px; } }
 .pd-foot__form input::placeholder{ color:rgba(250, 244, 233,.45); }
 .pd-foot__form input:focus-visible{ outline:none; border-color:var(--pink); }
 .pd-foot__form button{
