@@ -31,6 +31,7 @@
   link. Without a box product the old per-flavor path is used.
 {%- endcomment -%}
 {{ 'prodani-box-builder.css' | asset_url | stylesheet_tag }}
+{{ 'prodani-rail.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign box_product = section.settings.box_product
@@ -177,7 +178,7 @@
     {%- comment -%} Step 2 — flavors {%- endcomment -%}
     <div class="pd-box__step">
       <p class="pd-box__step-label"><span>2</span> Choose your flavors</p>
-      <div class="pd-box__flavors">
+      <div class="pd-box__flavors" data-pd-rail>
         {%- for block in section.blocks -%}
           {%- if block.type == 'flavor' -%}
             {%- assign variant_id = block.settings.product.selected_or_first_available_variant.id -%}
@@ -296,6 +297,7 @@
 </section>
 
 <script src="{{ 'prodani-box-builder.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'prodani-rail.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

@@ -25,6 +25,44 @@
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
     }
+
+    // Phone/tablet menu panel. It opens just under the bar wherever the bar sits
+    // (the announcement strip may still be on screen at the top of the page).
+    var toggle = document.querySelector('[data-pd-menu-toggle]');
+    var menu = document.querySelector('[data-pd-menu]');
+    if (toggle && menu && !toggle.dataset.pdBound) {
+      toggle.dataset.pdBound = '1';
+      var setOpen = function (open) {
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.documentElement.classList.toggle('pd-menu-open', open);
+        if (open) {
+          var bar = nav || toggle;
+          menu.style.top = Math.max(0, Math.round(bar.getBoundingClientRect().bottom)) + 'px';
+          menu.hidden = false;
+          requestAnimationFrame(function () { menu.classList.add('is-open'); });
+        } else {
+          menu.classList.remove('is-open');
+          menu.hidden = true;
+        }
+      };
+      toggle.addEventListener('click', function () {
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      });
+      // Any link closes it, including same-page anchors like /#box.
+      menu.addEventListener('click', function (e) {
+        if (e.target.closest('a')) setOpen(false);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
+      var wide = window.matchMedia('(min-width: 961px)');
+      var onWide = function (e) { if (e.matches) setOpen(false); };
+      if (wide.addEventListener) wide.addEventListener('change', onWide);
+    }
   }
 
   if (document.readyState === 'loading') {

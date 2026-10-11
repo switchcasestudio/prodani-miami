@@ -19,6 +19,15 @@
 
 <header class="pd-nav" data-pd-nav>
   <div class="pd-wrap pd-nav__in">
+    {%- comment -%} Phones/tablets: the link row is hidden under 960px, so this opens
+        the same menu as a panel (Moses 2026-10-10: "we have to have a menu in the top"). {%- endcomment -%}
+    <button class="pd-nav__menu-btn" type="button" aria-expanded="false" aria-controls="pd-menu"
+            aria-label="Open menu" data-pd-menu-toggle>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path class="pd-nav__menu-open" d="M4 7h16M4 12h16M4 17h16"/>
+        <path class="pd-nav__menu-close" d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
     <a href="{{ routes.root_url }}" class="pd-nav__logo" aria-label="{{ shop.name | escape }} — home">
       {%- comment -%}
         The 2026 wordmark: SVG with the type outlined, cocoa ink and a caramel full
@@ -64,7 +73,7 @@
           <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>
         </svg>
       </a>
-      <a class="pd-icon-btn" href="{{ routes.account_url }}" aria-label="Account">
+      <a class="pd-icon-btn pd-nav__account" href="{{ routes.account_url }}" aria-label="Account">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
           <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>
         </svg>
@@ -77,6 +86,37 @@
   </div>
 </header>
 
+{%- comment -%} Outside .pd-nav on purpose: its backdrop-filter would turn this
+    position:fixed panel into one positioned against the 60px bar. {%- endcomment -%}
+<div class="pd-menu" id="pd-menu" data-pd-menu hidden>
+  <nav class="pd-wrap pd-menu__in" aria-label="Menu">
+    <ul class="pd-menu__list">
+      {%- for link in section.settings.menu.links -%}
+        <li>
+          <a class="pd-menu__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- if link.links.size > 0 -%}
+            <ul class="pd-menu__sub">
+              {%- for child in link.links -%}
+                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    <a class="pd-menu__cta" href="{{ section.settings.box_url | default: '/#box' }}">
+      {{ section.settings.box_label | default: 'Build your box' | escape }}
+      <svg width="22" height="12" viewBox="0 0 22 12" fill="none" aria-hidden="true">
+        <path d="M21.53 6.53a.75.75 0 0 0 0-1.06L16.76.7a.75.75 0 1 0-1.06 1.06L19.94 6l-4.24 4.24a.75.75 0 1 0 1.06 1.06l4.77-4.77ZM0 6.75h21v-1.5H0v1.5Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <a class="pd-menu__account" href="{{ routes.account_url }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      {%- if customer -%}My account{%- else -%}Sign in{%- endif -%}
+    </a>
+  </nav>
+</div>
+
 <script src="{{ 'prodani-header.js' | asset_url }}" defer></script>
 
 {% schema %}
@@ -88,6 +128,8 @@
     { "type": "checkbox", "id": "use_brand_logo", "label": "Use the bundled prodani wordmark", "default": true },
     { "type": "text", "id": "logo_text", "label": "Logo text (if no image)", "default": "prodani" },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "box_label", "label": "Mobile menu button label", "default": "Build your box" },
+    { "type": "text", "id": "box_url", "label": "Mobile menu button link", "default": "/#box" },
     {
       "type": "textarea", "id": "claims", "label": "Announcement claims",
       "info": "Separate each with a | — they rotate.",

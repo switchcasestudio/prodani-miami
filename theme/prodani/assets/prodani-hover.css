@@ -54,4 +54,15 @@
     padding-block: 10px;
     margin-block: -10px;
   }
+  /* The padding above moved .pd-stack__link's border-bottom 10px under the text, so
+     the underline read as a stray rule (Moses 2026-10-10). Draw it
+     ~4px under the baseline (calibrated on the iPhone) and let the padding stay invisible. */
+  .pd-stack__link {
+    border-bottom: 0;
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 calc(100% - 10px) / 100% 2px;
+  }
+}
+/* Touch screens keep :hover after a tap, which left the arrow pushed out. */
+@media (hover: none) {
+  .pd-stack__link:hover, .pd-collection__rowlink:hover { gap: 10px; }
 }

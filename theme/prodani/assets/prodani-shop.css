@@ -150,6 +150,7 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
     display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
     scrollbar-width:none; gap:12px;
     margin-inline:calc(-1 * var(--pad)); padding-inline:var(--pad); padding-bottom:4px;
+    scroll-padding-inline:var(--pad); overflow-y:hidden; overscroll-behavior-x:contain;
   }
   .pd-collection__row:not([data-pd-only]) .pd-grid::-webkit-scrollbar{ display:none; }
   .pd-collection__row:not([data-pd-only]) .pd-grid .pd-card{ flex:0 0 68%; scroll-snap-align:start; }

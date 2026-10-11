@@ -7,6 +7,7 @@
 {%- endcomment -%}
 
 {{ 'prodani-shop.css' | asset_url | stylesheet_tag }}
+{{ 'prodani-rail.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%} On a collection page `collection` is the page's own; on the
    homepage it is nil, so we fall back to the whole catalogue. {%- endcomment -%}
@@ -52,7 +53,7 @@
       </nav>
     {%- endif -%}
 
-    <div class="pd-grid" data-pd-grid>
+    <div class="pd-grid" data-pd-grid data-pd-rail>
       {%- for product in source.products limit: limit -%}
         {% render 'prodani-card', product: product %}
       {%- endfor -%}
@@ -73,6 +74,7 @@
 </section>
 
 <script src="{{ 'prodani-shop.js' | asset_url }}" defer></script>
+<script src="{{ 'prodani-rail.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

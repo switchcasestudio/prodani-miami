@@ -13,6 +13,7 @@
 {%- endcomment -%}
 
 {{ 'prodani-shop.css' | asset_url | stylesheet_tag }}
+{{ 'prodani-rail.css' | asset_url | stylesheet_tag }}
 
 {%- assign source = section.settings.collection | default: collections['all-products'] -%}
 
@@ -80,7 +81,7 @@
               </svg>
             </a>
           </div>
-          <div class="pd-grid">
+          <div class="pd-grid" data-pd-rail>
             {%- for product in rc.products limit: block.settings.count -%}
               {% render 'prodani-card', product: product %}
             {%- endfor -%}
@@ -126,7 +127,7 @@
             <span class="pd-collection__rownote">{{ section.settings.soon_note | escape }}</span>
           {%- endif -%}
         </div>
-        <div class="pd-grid">
+        <div class="pd-grid" data-pd-rail>
           {%- for block in section.blocks -%}
             {%- if block.type == 'soon' -%}
               <div class="pd-card pd-card--soon" style="--pd-soon:{{ block.settings.color }};" {{ block.shopify_attributes }}>
@@ -170,6 +171,7 @@
 </section>
 
 <script src="{{ 'prodani-shop.js' | asset_url }}" defer></script>
+<script src="{{ 'prodani-rail.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
