@@ -40,7 +40,7 @@ reassigned to the default `page` template with the copy moved into the DB.
 | Admin store phone | 305-481-1441 |
 | Email | pdprodani@gmail.com |
 | Contact page address | 3131 NE 1st Ave, Miami, FL, 33137 |
-| Admin store address | 125 NE 32nd St, apt 1115, Miami FL 33137 |
+| Admin store address | (a private residential address; withheld from this public repo) |
 
 **Three different phone numbers and two different addresses are live.** Needs a
 decision from Daniel on which is correct before the new theme ships.
