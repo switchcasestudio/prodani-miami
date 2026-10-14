@@ -16,6 +16,7 @@
 
 <section class="pd-shop" {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}>
   <div class="pd-wrap">
+    {%- if request.page_type == 'collection' -%}{% render 'prodani-breadcrumbs' %}{%- endif -%}
     <div class="pd-sec-head">
       <div>
         <{{ section.settings.heading_tag | default: 'h2' }} class="pd-sec-title">{{ section.settings.heading | default: source.title | escape }}</{{ section.settings.heading_tag | default: 'h2' }}>

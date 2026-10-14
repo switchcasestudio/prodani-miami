@@ -30,12 +30,22 @@
      thread — the "PDP defeats capture" bug. Every write below is guarded so
      the sync converges, and the observer also ignores records that originate
      from the bar itself. */
+  /* Dawn swaps the price markup on variant change, so look it up fresh each
+     time. The pack size ("5 cakes") travels with the price so the bar and the
+     one-time option never read as the price of a single cake. */
+  var subPrice = scope.querySelector('[data-pd-sub-price]');
   function syncPrice() {
-    if (!priceEl || !sPrice) return;
-    var pick = priceEl.querySelector('.price-item--sale, .price-item--last, .price-item--regular');
-    var text = (pick ? pick.textContent : priceEl.textContent) || '';
-    text = text.trim();
-    if (text && sPrice.textContent !== text) sPrice.textContent = text;
+    var el = scope.querySelector('.product__info-wrapper .price') || priceEl;
+    if (!el) return;
+    var pick = el.classList.contains('price--on-sale') ?
+      el.querySelector('.price-item--sale') : el.querySelector('.price__regular .price-item--regular');
+    pick = pick || el.querySelector('.price-item--sale, .price-item--last, .price-item--regular');
+    var text = (pick ? pick.textContent : '').trim();
+    if (!text) return;
+    var pack = el.querySelector('[data-pd-pack]');
+    if (pack) text += ' for ' + pack.getAttribute('data-pd-pack');
+    if (sPrice && sPrice.textContent.trim() !== text) sPrice.textContent = text;
+    if (subPrice && subPrice.textContent.trim() !== text) subPrice.textContent = text;
   }
 
   function syncDisabled() {

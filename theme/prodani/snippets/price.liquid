@@ -38,6 +38,14 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+
+  # prodani: pack size beside the price ("for 5 cakes"), never on a "from" range.
+  assign pack_variant = nil
+  if use_variant
+    assign pack_variant = target
+  elsif product and product.price_varies == false
+    assign pack_variant = product.selected_or_first_available_variant
+  endif
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -88,6 +96,7 @@
           <span class="price-item price-item--regular">
             {{ money_price }}
           </span>
+          {%- if pack_variant %}{% render 'prodani-pack-price', variant: pack_variant, mode: 'for' %}{% endif -%}
         {%- endif -%}
       </div>
       <div class="price__sale">
@@ -107,7 +116,9 @@
         <span class="price-item price-item--sale price-item--last">
           {{ money_price }}
         </span>
+        {%- if pack_variant %}{% render 'prodani-pack-price', variant: pack_variant, mode: 'for' %}{% endif -%}
       </div>
+      {%- if pack_variant %}{% render 'prodani-pack-price', variant: pack_variant, mode: 'each' %}{% endif -%}
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}

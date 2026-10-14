@@ -105,3 +105,4 @@
 .pd-nutrition p:nth-child(-n+2){ font-weight:700; }
 .pd-nutrition p:nth-child(2){ font-size:17px; border-bottom:4px solid var(--ink); }
 .pd-nutrition p:last-child{ border-bottom:0; font-size:12.5px; color:var(--ink-soft); padding-top:9px; }
+.pd-sub__opt-price .pd-pack{ font-weight:500; color:var(--ink-soft); }

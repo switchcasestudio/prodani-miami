@@ -9,6 +9,7 @@
     <span class="pd-sticky-atc__title">{{ product.title | escape }}</span>
     <span class="pd-sticky-atc__price" data-pd-sticky-price>
       {{- product.selected_or_first_available_variant.price | money -}}
+      {%- render 'prodani-pack-price', variant: product.selected_or_first_available_variant, mode: 'for' -%}
     </span>
   </div>
   <button type="button" class="pd-sticky-atc__btn" data-pd-sticky-add>Add to cart</button>

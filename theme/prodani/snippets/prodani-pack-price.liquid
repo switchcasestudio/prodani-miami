@@ -1,0 +1,25 @@
+{%- comment -%}
+  Pack-size line for a price, so "$36.99" can't be read as the price of one cake.
+  The pack size is the leading number of the variant title ("5 Personal Cakes" → 5,
+  "1 family cake" → 1). Renders nothing for a single item or an unparseable title.
+
+  Accepts:
+  - variant: {Object} the variant whose price is shown
+  - mode: blank (default) → " for 5 cakes" + quiet per-cake line
+          'for'           → " for 5 cakes" only
+          'each'          → per-cake line only
+{%- endcomment -%}
+{%- liquid
+  assign pack_n = variant.title | split: ' ' | first | plus: 0
+  if pack_n > 1
+    assign per_cake = variant.price | times: 1.0 | divided_by: pack_n | round
+  endif
+-%}
+{%- if pack_n > 1 -%}
+  {%- unless mode == 'each' -%}
+    <span class="pd-pack" data-pd-pack="{{ pack_n }} cakes"> for {{ pack_n }} cakes</span>
+  {%- endunless -%}
+  {%- unless mode == 'for' -%}
+    <span class="pd-pack__each">{{ per_cake | money }} per cake</span>
+  {%- endunless -%}
+{%- endif -%}

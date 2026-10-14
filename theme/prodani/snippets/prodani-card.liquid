@@ -106,5 +106,8 @@
     </ul>
   {%- endif -%}
 
-  <p class="pd-card__price">{{ product.price | money }}</p>
+  <p class="pd-card__price">
+    {{- product.price | money -}}
+    {%- render 'prodani-pack-price', variant: product.selected_or_first_available_variant -%}
+  </p>
 </a>

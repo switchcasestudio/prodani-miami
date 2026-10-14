@@ -89,3 +89,9 @@
 /* ---- inline links ---- */
 .product__info-container a{ color:var(--berry); text-underline-offset:3px; }
 .product__info-container a:hover{ color:var(--cocoa); }
+
+/* ---- pack size next to the price (a 5-pack must never read as one cake) ---- */
+.product .pd-pack{ font-family:var(--sans); font-weight:500; font-size:.72em; letter-spacing:0;
+  color:var(--ink-soft); margin-left:.2em; white-space:nowrap; }
+.product .pd-pack__each{ display:block; margin-top:4px; font-family:var(--mono); font-size:11.5px;
+  font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }

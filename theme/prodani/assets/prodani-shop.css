@@ -187,3 +187,10 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 }
 .pd-badge--soon{ background:var(--cocoa); color:var(--cream); }
 .pd-soon__note{ margin:0; font-size:14px; line-height:1.45; color:var(--cocoa-soft, var(--cocoa)); }
+
+/* pack size on cards: "$36.99 for 5 cakes" + quiet per-cake price */
+.pd-card__price{ line-height:1.35; }
+.pd-card__price .pd-pack{ font-family:var(--sans); font-size:13px; font-weight:500; letter-spacing:0;
+  color:var(--ink-soft); white-space:nowrap; }
+.pd-card__price .pd-pack__each{ display:block; margin-top:3px; font-size:10.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-faint); }

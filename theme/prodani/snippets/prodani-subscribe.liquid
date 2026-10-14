@@ -26,7 +26,10 @@
     <input type="radio" name="pd-sub-mode-{{ section.id }}" value="onetime" checked data-pd-sub-onetime>
     <span class="pd-sub__opt-main">
       <span class="pd-sub__opt-title">One-time purchase</span>
-      <span class="pd-sub__opt-price">{{ onetime_price }}</span>
+      <span class="pd-sub__opt-price" data-pd-sub-price>
+        {{- onetime_price -}}
+        {%- render 'prodani-pack-price', variant: product.selected_or_first_available_variant, mode: 'for' -%}
+      </span>
     </span>
   </label>
 
