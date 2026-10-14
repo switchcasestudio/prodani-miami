@@ -44,20 +44,38 @@
     assign og_image = settings.share_image
     assign og_image_alt = og_image.alt | default: og_title
   endif
+
+  # Small 1200x630 JPG cards (assets/og-<handle>.jpg) for the cakes: their photos are 1MB+ PNGs,
+  # which WhatsApp won't preview, and Shopify's CDN won't convert PNG to JPG for crawlers.
+  # Add a handle here when its og-<handle>.jpg asset is uploaded.
+  assign og_cards = 'banana-bread-copy,carrot-cake,cinnamon-apple-cake-copy,dubai-dream-cake-copy,moist-chocolate-fudge-cake-copy,personal-chocolate-fudge-cake-copy,personal-hazelnuts-cake' | split: ','
+  assign og_card_handle = ''
+  if request.page_type == 'product'
+    assign og_card_handle = product.handle
+  elsif request.page_type == 'collection' and collection.image == blank
+    assign og_card_handle = collection.products.first.handle
+  endif
 -%}
 
-{%- if og_image != blank -%}
+{%- if og_card_handle != blank and og_cards contains og_card_handle -%}
+  {%- assign og_image_url = 'og-' | append: og_card_handle | append: '.jpg' | asset_url -%}
+  <meta property="og:image" content="https:{{ og_image_url }}">
+  <meta property="og:image:secure_url" content="https:{{ og_image_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https:{{ og_image_url }}">
+{%- elsif og_image != blank -%}
   {%- assign og_image_url = og_image | image_url: width: 1200 -%}
   {%- assign og_w = og_image.width | at_most: 1200 -%}
   {%- assign og_h = og_image.height | times: og_w | divided_by: og_image.width -%}
-  <meta property="og:image" content="http:{{ og_image_url }}">
+  <meta property="og:image" content="https:{{ og_image_url }}">
   <meta property="og:image:secure_url" content="https:{{ og_image_url }}">
   <meta property="og:image:width" content="{{ og_w }}">
   <meta property="og:image:height" content="{{ og_h }}">
   <meta name="twitter:image" content="https:{{ og_image_url }}">
 {%- else -%}
   {%- assign og_image_url = 'hero-poster.jpg' | asset_url -%}
-  <meta property="og:image" content="http:{{ og_image_url }}">
+  <meta property="og:image" content="https:{{ og_image_url }}">
   <meta property="og:image:secure_url" content="https:{{ og_image_url }}">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="720">
