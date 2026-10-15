@@ -30,8 +30,8 @@
     /* Desktop cap (Moses 2026-10-14: the hero ribbon read too big on wide screens).
        One copy of the phrase always spans one path, and the path spans the screen,
        so the type grows with the window: ~29px at 1440, ~41px at 2000. A smaller
-       font alone would leave a gap at the seam, so above the cap the separators
-       widen until the phrase fills the path at the capped size. Phones keep the
+       font alone would leave a gap at the seam, so above the cap the list of
+       claims continues until the type is back at the cap. Phones keep the
        1.8x ribbon from prodani-marquee.css untouched. */
     var CAP_PX = 26;
     function measure(str) {
@@ -61,25 +61,41 @@
       var vb = svg && svg.viewBox && svg.viewBox.baseVal;
       var shown = svg ? svg.getBoundingClientRect().width : 0;
       var cap = (desktop.matches && vb && vb.width && shown) ? CAP_PX * vb.width / shown : Infinity;
-      if (fitted <= cap) {
-        if (fitted < m.size) text.style.fontSize = fitted.toFixed(2) + 'px';
-        return;
+      // Keep adding claims until the fitted size is at or
+      // just under the cap (4% grace keeps a near miss from losing a whole size
+      // step to one extra claim). Separators stay
+      // the snippet's own, so it reads like the flavours ribbon; widening them
+      // instead left big holes between claims (Moses: "spacing is weird").
+      var items = phrase.split(SEP).filter(function (s) { return s.trim(); });
+      // Extras go in a stride-2 order (B D A C E for five claims), not A B C …:
+      // continuing the list put "high protein · no sugar added" twice in a row
+      // either side of the seam. Under three claims, whole copies only.
+      var n = items.length, order = [];
+      for (var o = 1; o < n; o += 2) order.push(o);
+      for (o = 0; o < n; o += 2) order.push(o);
+      if (n < 3) order = items.map(function (_, k) { return k; });
+      // A run is usable only if, read round the loop, no claim comes back within
+      // two places ("no sugar added · high protein · no sugar added" read as a
+      // stutter); with fewer than five claims that is impossible, so only
+      // adjacency is checked there.
+      function spaced(seq) {
+        var L = seq.length, need = n >= 5 ? 3 : 2;
+        for (var a = 0; a < L; a++)
+          for (var d = 1; d < need; d++)
+            if (seq[a] === seq[(a + d) % L]) return false;
+        return true;
       }
-      // Very wide screens repeat the phrase (whole copies only, so the seam still
-      // falls between two claims); the rest is made up by widening every separator
-      // a no-break space a side. Then the font is fitted to the path exactly.
-      var need = pathLen * m.size / cap;
-      var reps = Math.max(1, Math.round(need / m.natural));
-      var base = new Array(reps + 1).join(phrase);
-      var padded = base, pad = '';
-      m = measure(base);
-      for (var k = 0; k < 40 && m.natural < need; k++) {
-        pad += ' ';
-        padded = base.split(SEP).join(pad + SEP + pad);
-        m = measure(padded);
+      var limit = cap * 1.04;
+      var best = { str: phrase, font: fitted }, str = phrase, seq = items.map(function (_, k) { return k; });
+      for (var i = 0; best.font > limit && n > 1 && i < 60; i++) {
+        var idx = order[i % n];
+        str += items[idx] + SEP;
+        seq.push(idx);
+        if (n < 3 ? (i + 1) % n : !spaced(seq)) continue;
+        best = { str: str, font: m.size * pathLen / measure(str).natural };
       }
-      setText(padded);
-      text.style.fontSize = (m.size * pathLen / m.natural).toFixed(2) + 'px';
+      setText(best.str);
+      if (best.font < m.size) text.style.fontSize = best.font.toFixed(2) + 'px';
     }
     fit();
     // Konnect lands after first paint; refit against real metrics once it does.
