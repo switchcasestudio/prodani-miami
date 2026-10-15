@@ -27,13 +27,16 @@
 
 /* Hangs in the gap between the copy and the photo — filling the dead space that
    used to sit there, rather than covering the subject of the picture. */
-.pd-badge{
+/* Scoped by the snippet's data attribute: .pd-badge is also the product-card chip
+   in prodani-shop.css, and an unscoped rule here turned the home page's "Coming
+   soon" chip into a 168px off-card circle (a dark sliver in each card's corner). */
+.pd-badge[data-pd-badge]{
   display:none;
   position:absolute; width:168px; height:168px; z-index:4; display:grid; place-items:center;
   left:clamp(-164px,-10vw,-112px); top:50%; margin-top:-84px;
 }
-.pd-badge svg{ width:100%; height:100%; overflow:visible; }
-.pd-badge text{
+.pd-badge[data-pd-badge] svg{ width:100%; height:100%; overflow:visible; }
+.pd-badge[data-pd-badge] text{
   font-family:var(--sans); font-weight:700; font-size:17px;
   letter-spacing:.09em; text-transform:uppercase; fill:var(--pink);
 }

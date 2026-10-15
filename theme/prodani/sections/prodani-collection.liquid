@@ -138,7 +138,6 @@
                          alt: block.settings.name,
                          sizes: '(min-width:1181px) 22vw, (min-width:821px) 30vw, 46vw',
                          widths: '300, 450, 600, 800' }}
-                    <span class="pd-soon__concept">Concept visual</span>
                   {%- else -%}
                     <span class="pd-soon__mark" aria-hidden="true">{{ block.settings.name | escape }}</span>
                   {%- endif -%}
@@ -215,7 +214,7 @@
       "settings": [
         { "type": "text", "id": "name", "label": "Flavor name", "default": "New flavor" },
         { "type": "text", "id": "note", "label": "Short note" },
-        { "type": "image_picker", "id": "image", "label": "Concept visual", "info": "Shown with a \"Concept visual\" label. Leave empty for a type-only card." },
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "A real photo of the cake, under the Coming soon badge. Leave empty for a type-only card." },
         { "type": "color", "id": "color", "label": "Card colour", "default": "#C0A472" }
       ]
     }

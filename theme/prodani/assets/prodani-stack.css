@@ -1,7 +1,10 @@
 /* The last card used to sit flush against the next section with zero gap —
    read as "cut off", not intentional. A small fixed pad gives it room without
    reopening the big dead-air gap the comment below used to warn about. */
-.pd-stack{ background:var(--cream); position:relative; padding-bottom:clamp(48px,6vw,90px); }
+/* The pinned cards finish ~150px below their slots, past this padding, so the
+   next section's heading sat ~30px under the last card (Moses 2026-10-14: "too
+   close"). The extra 56px is desktop only; phones render a plain list (below). */
+.pd-stack{ background:var(--cream); position:relative; padding-bottom:calc(clamp(48px,6vw,90px) + 56px); }
 .pd-stack__head{
   display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
   flex-wrap:wrap; padding-top:clamp(40px,4.5vw,72px); padding-bottom:clamp(12px,1.4vw,20px);

@@ -23,11 +23,20 @@
        doesn't depend on how each engine counts glyphs that fall past the path's end. */
     var path = el.querySelector('defs path');
     var text = el.querySelector('text');
-    function fit() {
-      if (!path || !path.getTotalLength || !text) return;
-      text.style.fontSize = '';
+    var svg = el.querySelector('svg');
+    var phrase = tracks[0].textContent;
+    var SEP = ' · ';        // the snippet's no-break " · "
+    var desktop = window.matchMedia('(min-width: 750px)');
+    /* Desktop cap (Moses 2026-10-14: the hero ribbon read too big on wide screens).
+       One copy of the phrase always spans one path, and the path spans the screen,
+       so the type grows with the window: ~29px at 1440, ~41px at 2000. A smaller
+       font alone would leave a gap at the seam, so above the cap the separators
+       widen until the phrase fills the path at the capped size. Phones keep the
+       1.8x ribbon from prodani-marquee.css untouched. */
+    var CAP_PX = 26;
+    function measure(str) {
       var probe = text.cloneNode(false);
-      probe.textContent = tracks[0].textContent;
+      probe.textContent = str;
       probe.setAttribute('visibility', 'hidden');
       text.parentNode.appendChild(probe);
       // Safari's getComputedTextLength leaves out letter-spacing (the ribbon's 0.08em
@@ -36,14 +45,50 @@
       var natural = Math.max(probe.getComputedTextLength(), probe.getBBox().width) * 1.01;
       var size = parseFloat(getComputedStyle(probe).fontSize);
       probe.parentNode.removeChild(probe);
+      return { natural: natural, size: size };
+    }
+    function setText(str) {
+      for (var i = 0; i < tracks.length; i++) tracks[i].textContent = str;
+    }
+    function fit() {
+      if (!path || !path.getTotalLength || !text) return;
+      text.style.fontSize = '';
+      setText(phrase);
+      var m = measure(phrase);
       var pathLen = path.getTotalLength();
-      if (natural > pathLen && size) {
-        text.style.fontSize = (size * pathLen / natural).toFixed(2) + 'px';
+      if (!m.size) return;
+      var fitted = m.natural > pathLen ? m.size * pathLen / m.natural : m.size;
+      var vb = svg && svg.viewBox && svg.viewBox.baseVal;
+      var shown = svg ? svg.getBoundingClientRect().width : 0;
+      var cap = (desktop.matches && vb && vb.width && shown) ? CAP_PX * vb.width / shown : Infinity;
+      if (fitted <= cap) {
+        if (fitted < m.size) text.style.fontSize = fitted.toFixed(2) + 'px';
+        return;
       }
+      // Very wide screens repeat the phrase (whole copies only, so the seam still
+      // falls between two claims); the rest is made up by widening every separator
+      // a no-break space a side. Then the font is fitted to the path exactly.
+      var need = pathLen * m.size / cap;
+      var reps = Math.max(1, Math.round(need / m.natural));
+      var base = new Array(reps + 1).join(phrase);
+      var padded = base, pad = '';
+      m = measure(base);
+      for (var k = 0; k < 40 && m.natural < need; k++) {
+        pad += ' ';
+        padded = base.split(SEP).join(pad + SEP + pad);
+        m = measure(padded);
+      }
+      setText(padded);
+      text.style.fontSize = (m.size * pathLen / m.natural).toFixed(2) + 'px';
     }
     fit();
     // Konnect lands after first paint; refit against real metrics once it does.
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit).catch(function () {});
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(fit, 150);
+    });
 
     var seconds = parseFloat(el.dataset.speed) || 26;
     // Phones draw the ribbon 1.8x wide (prodani-marquee.css); slow it to match.
