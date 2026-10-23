@@ -1,0 +1,1407 @@
+{
+  "before": {
+    "label": "Old theme (Minimog 3.5.0)",
+    "pages": {
+      "home": {
+        "url": "https://prodanimiami.com/?pb=0",
+        "median": {
+          "ttfb": 42.10000002384186,
+          "fcp": 248,
+          "lcp": 468,
+          "domContentLoaded": 361.3000000715256,
+          "load": 700.6000000238419,
+          "cls": 0.006712668596408318,
+          "longTasks": 0,
+          "longTaskMs": 0,
+          "requests": 229,
+          "transfer": 7349597,
+          "decoded": 13229404,
+          "domNodes": 1152,
+          "domDepth": 18,
+          "scrollHeight": 6336,
+          "thirdPartyRequests": 77,
+          "thirdPartyTransfer": 6683111
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 10,
+              "transfer": 33562
+            },
+            "css": {
+              "count": 19,
+              "transfer": 393517
+            },
+            "js": {
+              "count": 170,
+              "transfer": 1151344
+            },
+            "img": {
+              "count": 7,
+              "transfer": 149841
+            },
+            "media": {
+              "count": 1,
+              "transfer": 5774257
+            },
+            "xhr": {
+              "count": 12,
+              "transfer": 1200
+            }
+          },
+          "stylesheets": 36,
+          "scripts": 69,
+          "images": 23,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "fonts.googleapis.com",
+            "monorail-edge.shopifysvc.com",
+            "otlp-http-production.shopifysvc.com",
+            "public-images.judge.me",
+            "shop.app",
+            "tracking.aws.judge.me"
+          ],
+          "title": "ProDani Miami",
+          "marker": "old",
+          "lcpElement": "VIDEO",
+          "slowest": [
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 2393,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 2157,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 1399,
+              "kb": 0
+            },
+            {
+              "n": "pify.com/videos/c/o/v/5cb3aeadf0864053899148b99e96d5ff.mp4",
+              "ms": 702,
+              "kb": 5639
+            },
+            {
+              "n": "p-assets/static_uploads/shoplift/GTStandard-MRegular.woff2",
+              "ms": 432,
+              "kb": 62
+            },
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "ms": 363,
+              "kb": 112
+            },
+            {
+              "n": "7287-9f8b-d374ec74de42/judgeme-784/assets/widget_others.js",
+              "ms": 357,
+              "kb": 24
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/section.png",
+              "ms": 356,
+              "kb": 43
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "pify.com/videos/c/o/v/5cb3aeadf0864053899148b99e96d5ff.mp4",
+              "kb": 5639
+            },
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/section.png",
+              "kb": 83
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "-assets/static_uploads/shoplift/GTStandard-MSemibold.woff2",
+              "kb": 63
+            },
+            {
+              "n": "p-assets/static_uploads/shoplift/GTStandard-MRegular.woff2",
+              "kb": 62
+            },
+            {
+              "n": "opify.com/s/files/1/0792/9475/9222/files/KonnectMedium.otf",
+              "kb": 54
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-home-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-home-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 1736,
+            "load": 2564.9000000953674,
+            "cls": 0.009267101488657845,
+            "transfer": 7549636
+          },
+          {
+            "lcp": 432,
+            "load": 688.5,
+            "cls": 0.006712668596408318,
+            "transfer": 7349948
+          },
+          {
+            "lcp": 440,
+            "load": 680.3000000715256,
+            "cls": 0.00671106722589792,
+            "transfer": 7349597
+          },
+          {
+            "lcp": 468,
+            "load": 700.6000000238419,
+            "cls": 0.006713469281663516,
+            "transfer": 7348897
+          },
+          {
+            "lcp": 828,
+            "load": 1095.6000000238419,
+            "cls": 0.00671106722589792,
+            "transfer": 7333881
+          }
+        ]
+      },
+      "product": {
+        "url": "https://prodanimiami.com/products/carrot-cake?pb=0",
+        "median": {
+          "ttfb": 34.299999952316284,
+          "fcp": 380,
+          "lcp": 1320,
+          "domContentLoaded": 585.2999999523163,
+          "load": 1613.1000000238419,
+          "cls": 0.06637670172495275,
+          "longTasks": 1,
+          "longTaskMs": 51,
+          "requests": 301,
+          "transfer": 1979160,
+          "decoded": 8536199,
+          "domNodes": 2009,
+          "domDepth": 23,
+          "scrollHeight": 4868,
+          "thirdPartyRequests": 98,
+          "thirdPartyTransfer": 893617
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 14,
+              "transfer": 34222
+            },
+            "css": {
+              "count": 20,
+              "transfer": 356879
+            },
+            "js": {
+              "count": 227,
+              "transfer": 1140037
+            },
+            "img": {
+              "count": 29,
+              "transfer": 397788
+            },
+            "xhr": {
+              "count": 33,
+              "transfer": 9455
+            }
+          },
+          "stylesheets": 56,
+          "scripts": 93,
+          "images": 44,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "error-analytics-sessions-production.shopifysvc.com",
+            "fonts.googleapis.com",
+            "monorail-edge.shopifysvc.com",
+            "otlp-http-production.shopifysvc.com",
+            "public-images.judge.me",
+            "shop.app",
+            "tracking.aws.judge.me"
+          ],
+          "title": "Personal Carrot Cake",
+          "marker": "old",
+          "lcpElement": "H2.section__heading",
+          "slowest": [
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 2313,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 1174,
+              "kb": 0
+            },
+            {
+              "n": "i.com/cdn/shop/files/ChatGPTImageMar26_2026_06_51_02AM.png",
+              "ms": 1147,
+              "kb": 18
+            },
+            {
+              "n": "prodanimiami.com/services/login_with_shop/authorize",
+              "ms": 1093,
+              "kb": 0
+            },
+            {
+              "n": "m/cdn/shop/files/ChatGPT_Image_Mar_26_2026_06_52_37_AM.png",
+              "ms": 1061,
+              "kb": 16
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/CARROTRE.png",
+              "ms": 961,
+              "kb": 19
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/BANANABREAD_6.png",
+              "ms": 936,
+              "kb": 14
+            },
+            {
+              "n": "m/cdn/shop/files/ChatGPT_Image_Mar_25_2026_10_49_18_AM.png",
+              "ms": 899,
+              "kb": 15
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "hopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "kb": 77
+            },
+            {
+              "n": "op-assets/static_uploads/shoplift/GTStandard-MMedium.woff2",
+              "kb": 63
+            },
+            {
+              "n": "-assets/static_uploads/shoplift/GTStandard-MSemibold.woff2",
+              "kb": 63
+            },
+            {
+              "n": "p-assets/static_uploads/shoplift/GTStandard-MRegular.woff2",
+              "kb": 62
+            },
+            {
+              "n": "opify.com/s/files/1/0792/9475/9222/files/KonnectMedium.otf",
+              "kb": 54
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-product-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-product-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 1700,
+            "load": 4854.399999976158,
+            "cls": 0.05453736034971644,
+            "transfer": 1987499
+          },
+          {
+            "lcp": 1412,
+            "load": 1437.2999999523163,
+            "cls": 0.14857491926984878,
+            "transfer": 1980955
+          },
+          {
+            "lcp": 948,
+            "load": 1106.2999999523163,
+            "cls": 0.06637670172495275,
+            "transfer": 1979017
+          },
+          {
+            "lcp": 1320,
+            "load": 1633.3000000715256,
+            "cls": 0.057282067840264655,
+            "transfer": 1979160
+          },
+          {
+            "lcp": 1096,
+            "load": 1613.1000000238419,
+            "cls": 0.07933590609640831,
+            "transfer": 1966049
+          }
+        ]
+      },
+      "baker": {
+        "url": "https://prodanimiami.com/pages/meet-your-baker?pb=0",
+        "median": {
+          "ttfb": 111.20000004768372,
+          "fcp": 308,
+          "lcp": 336,
+          "domContentLoaded": 373.5,
+          "load": 648,
+          "cls": 0.0033029603024574672,
+          "longTasks": 0,
+          "longTaskMs": 0,
+          "requests": 210,
+          "transfer": 1172037,
+          "decoded": 6045039,
+          "domNodes": 523,
+          "domDepth": 12,
+          "scrollHeight": 2358,
+          "thirdPartyRequests": 55,
+          "thirdPartyTransfer": 513068
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 10,
+              "transfer": 33562
+            },
+            "css": {
+              "count": 12,
+              "transfer": 256554
+            },
+            "js": {
+              "count": 190,
+              "transfer": 698562
+            },
+            "img": {
+              "count": 6,
+              "transfer": 117233
+            },
+            "xhr": {
+              "count": 12,
+              "transfer": 1800
+            }
+          },
+          "stylesheets": 23,
+          "scripts": 66,
+          "images": 6,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "fonts.googleapis.com",
+            "monorail-edge.shopifysvc.com",
+            "otlp-http-production.shopifysvc.com",
+            "shop.app"
+          ],
+          "title": "Meet Your Baker",
+          "marker": "old",
+          "lcpElement": "P",
+          "slowest": [
+            {
+              "n": "prodanimiami.com/cdn/shop/files/DSC04869_1.jpg",
+              "ms": 906,
+              "kb": 32
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 719,
+              "kb": 0
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/DSC04872.jpg",
+              "ms": 475,
+              "kb": 0
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/t/2/assets/about-us.css",
+              "ms": 397,
+              "kb": 1
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/DSC04872.jpg",
+              "ms": 370,
+              "kb": 48
+            },
+            {
+              "n": "oud/storefront/assets/storefront/origin_trials-318ab40a.js",
+              "ms": 337,
+              "kb": 1
+            },
+            {
+              "n": "ify-custom-pixel@0530/sandbox/modern/pages/meet-your-baker",
+              "ms": 294,
+              "kb": 29
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 272,
+              "kb": 0
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "-assets/static_uploads/shoplift/GTStandard-MSemibold.woff2",
+              "kb": 63
+            },
+            {
+              "n": "p-assets/static_uploads/shoplift/GTStandard-MRegular.woff2",
+              "kb": 62
+            },
+            {
+              "n": "opify.com/s/files/1/0792/9475/9222/files/KonnectMedium.otf",
+              "kb": 54
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/DSC04872.jpg",
+              "kb": 48
+            },
+            {
+              "n": "storefront.32ff6085714fe9c4d5859e332c5de5f8759a859e.min.js",
+              "kb": 35
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-baker-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-baker-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 360,
+            "load": 819.3000000715256,
+            "cls": 0.0033029603024574672,
+            "transfer": 1146962
+          },
+          {
+            "lcp": 484,
+            "load": 648,
+            "cls": 0.0033029603024574672,
+            "transfer": 1173581
+          },
+          {
+            "lcp": 252,
+            "load": 545.3000000715256,
+            "cls": 0.0033029603024574672,
+            "transfer": 1172229
+          },
+          {
+            "lcp": 272,
+            "load": 613.1000000238419,
+            "cls": 0.0033029603024574672,
+            "transfer": 1172037
+          },
+          {
+            "lcp": 336,
+            "load": 860,
+            "cls": 0.0033029603024574672,
+            "transfer": 1159068
+          }
+        ]
+      },
+      "contact": {
+        "url": "https://prodanimiami.com/pages/contact?pb=0",
+        "median": {
+          "ttfb": 181.70000004768372,
+          "fcp": 380,
+          "lcp": 424,
+          "domContentLoaded": 534,
+          "load": 794.7999999523163,
+          "cls": 0.001103563397920605,
+          "longTasks": 0,
+          "longTaskMs": 0,
+          "requests": 205,
+          "transfer": 1058181,
+          "decoded": 5850327,
+          "domNodes": 539,
+          "domDepth": 12,
+          "scrollHeight": 1449,
+          "thirdPartyRequests": 55,
+          "thirdPartyTransfer": 513068
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 10,
+              "transfer": 33562
+            },
+            "css": {
+              "count": 11,
+              "transfer": 255610
+            },
+            "js": {
+              "count": 188,
+              "transfer": 697862
+            },
+            "img": {
+              "count": 3,
+              "transfer": 35841
+            },
+            "xhr": {
+              "count": 12,
+              "transfer": 1800
+            }
+          },
+          "stylesheets": 22,
+          "scripts": 66,
+          "images": 4,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "fonts.googleapis.com",
+            "monorail-edge.shopifysvc.com",
+            "otlp-http-production.shopifysvc.com",
+            "shop.app"
+          ],
+          "title": "Contact",
+          "marker": "old",
+          "lcpElement": "P",
+          "slowest": [
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 2517,
+              "kb": 0
+            },
+            {
+              "n": "xel-shopify-custom-pixel@0530/sandbox/modern/pages/contact",
+              "ms": 315,
+              "kb": 29
+            },
+            {
+              "n": "monorail-edge.shopifysvc.com/v1/produce",
+              "ms": 246,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 191,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/logs",
+              "ms": 190,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 187,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 177,
+              "kb": 0
+            },
+            {
+              "n": "monorail-edge.shopifysvc.com/v1/produce",
+              "ms": 169,
+              "kb": 0
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "-assets/static_uploads/shoplift/GTStandard-MSemibold.woff2",
+              "kb": 63
+            },
+            {
+              "n": "p-assets/static_uploads/shoplift/GTStandard-MRegular.woff2",
+              "kb": 62
+            },
+            {
+              "n": "opify.com/s/files/1/0792/9475/9222/files/KonnectMedium.otf",
+              "kb": 54
+            },
+            {
+              "n": "storefront.32ff6085714fe9c4d5859e332c5de5f8759a859e.min.js",
+              "kb": 35
+            },
+            {
+              "n": "hopify.com/s/files/1/0792/9475/9222/files/Fuse-Regular.ttf",
+              "kb": 31
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-contact-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/before-contact-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 424,
+            "load": 888,
+            "cls": 0.06779720066162571,
+            "transfer": 1064204
+          },
+          {
+            "lcp": 312,
+            "load": 752.3000000715256,
+            "cls": 0.001103563397920605,
+            "transfer": 1051757
+          },
+          {
+            "lcp": 448,
+            "load": 794.7999999523163,
+            "cls": 0.001103563397920605,
+            "transfer": 1058181
+          },
+          {
+            "lcp": 268,
+            "load": 591.6000000238419,
+            "cls": 0.0011511126181474479,
+            "transfer": 1057191
+          },
+          {
+            "lcp": 680,
+            "load": 1548.5,
+            "cls": 0.001103563397920605,
+            "transfer": 1058690
+          }
+        ]
+      }
+    }
+  },
+  "after": {
+    "label": "New theme (prodani, Dawn 16 base) — live",
+    "pages": {
+      "home": {
+        "url": "https://prodanimiami.com/?pb=0",
+        "median": {
+          "ttfb": 28.600000023841858,
+          "fcp": 324,
+          "lcp": 388,
+          "domContentLoaded": 524.6999999284744,
+          "load": 1012.7000000476837,
+          "cls": 0.0025803119210775047,
+          "longTasks": 1,
+          "longTaskMs": 59,
+          "requests": 231,
+          "transfer": 2345301,
+          "decoded": 7453102,
+          "domNodes": 2129,
+          "domDepth": 16,
+          "scrollHeight": 12619,
+          "thirdPartyRequests": 48,
+          "thirdPartyTransfer": 485726
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 9,
+              "transfer": 32695
+            },
+            "js": {
+              "count": 156,
+              "transfer": 840342
+            },
+            "css": {
+              "count": 31,
+              "transfer": 294999
+            },
+            "font": {
+              "count": 3,
+              "transfer": 125400
+            },
+            "img": {
+              "count": 16,
+              "transfer": 621838
+            },
+            "media": {
+              "count": 1,
+              "transfer": 383555
+            },
+            "xhr": {
+              "count": 10,
+              "transfer": 1500
+            }
+          },
+          "stylesheets": 37,
+          "scripts": 74,
+          "images": 34,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "otlp-http-production.shopifysvc.com",
+            "public-images.judge.me",
+            "shop.app",
+            "tracking.aws.judge.me"
+          ],
+          "title": "ProDani Miami",
+          "marker": "new",
+          "lcpElement": "VIDEO",
+          "slowest": [
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 2565,
+              "kb": 0
+            },
+            {
+              "n": "tracking.aws.judge.me/widgets/track_bulk_events",
+              "ms": 282,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 204,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 201,
+              "kb": 0
+            },
+            {
+              "n": "n/shopifycloud/checkout-web/assets/c1/e39bc11c.XtswV7aF.js",
+              "ms": 187,
+              "kb": 0
+            },
+            {
+              "n": "n/shopifycloud/checkout-web/assets/c1/ca3e798e.CzzLpqae.js",
+              "ms": 184,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/logs",
+              "ms": 183,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 175,
+              "kb": 0
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "prodanimiami.com/cdn/shop/t/5/assets/hero.mp4",
+              "kb": 375
+            },
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/BananaResized.png",
+              "kb": 101
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "mi.com/cdn/shop/t/5/assets/fraunces-var-italic-latin.woff2",
+              "kb": 80
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/Copy_of_FAMILY.png",
+              "kb": 76
+            },
+            {
+              "n": "ami.com/cdn/shop/files/Pistachio_delight_in_Dubai_cake.png",
+              "kb": 75
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-home-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-home-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 344,
+            "load": 1012.7000000476837,
+            "cls": 0.002523934877126654,
+            "transfer": 2343810
+          },
+          {
+            "lcp": 808,
+            "load": 1326.2000000476837,
+            "cls": 0.002637211200378072,
+            "transfer": 2345249
+          },
+          {
+            "lcp": 388,
+            "load": 875.7999999523163,
+            "cls": 0.0025803119210775047,
+            "transfer": 2345301
+          },
+          {
+            "lcp": 320,
+            "load": 946,
+            "cls": 0.0014426495274102078,
+            "transfer": 2348296
+          },
+          {
+            "lcp": 776,
+            "load": 2034.6000000238419,
+            "cls": 0.0031794705222117203,
+            "transfer": 2345851
+          }
+        ]
+      },
+      "product": {
+        "url": "https://prodanimiami.com/products/carrot-cake?pb=0",
+        "median": {
+          "ttfb": 40,
+          "fcp": 248,
+          "lcp": 364,
+          "domContentLoaded": 462.39999997615814,
+          "load": 1166.1000000238419,
+          "cls": 0.00032852211720226844,
+          "longTasks": 1,
+          "longTaskMs": 50,
+          "requests": 264,
+          "transfer": 1939978,
+          "decoded": 7519182,
+          "domNodes": 788,
+          "domDepth": 17,
+          "scrollHeight": 4318,
+          "thirdPartyRequests": 74,
+          "thirdPartyTransfer": 727326
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 13,
+              "transfer": 33355
+            },
+            "js": {
+              "count": 159,
+              "transfer": 967948
+            },
+            "css": {
+              "count": 35,
+              "transfer": 486850
+            },
+            "font": {
+              "count": 3,
+              "transfer": 125400
+            },
+            "img": {
+              "count": 9,
+              "transfer": 276342
+            },
+            "xhr": {
+              "count": 24,
+              "transfer": 2391
+            }
+          },
+          "stylesheets": 39,
+          "scripts": 80,
+          "images": 10,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "error-analytics-sessions-production.shopifysvc.com",
+            "monorail-edge.shopifysvc.com",
+            "otlp-http-production.shopifysvc.com",
+            "shop.app",
+            "tracking.aws.judge.me"
+          ],
+          "title": "Personal Carrot Cake – ProDani Miami",
+          "marker": "new",
+          "lcpElement": "IMG.image-magnify-lightbox",
+          "slowest": [
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 2810,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 2588,
+              "kb": 0
+            },
+            {
+              "n": "n/shopifycloud/checkout-web/assets/c1/6a2fc6d6.B3Or15Cg.js",
+              "ms": 1158,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 1146,
+              "kb": 0
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/Copy_of_FAMILY.png",
+              "ms": 1142,
+              "kb": 52
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/Copy_of_FAMILY.png",
+              "ms": 637,
+              "kb": 112
+            },
+            {
+              "n": "prodanimiami.com/services/login_with_shop/authorize",
+              "ms": 550,
+              "kb": 0
+            },
+            {
+              "n": "monorail-edge.shopifysvc.com/v1/produce",
+              "ms": 468,
+              "kb": 0
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "prodanimiami.com/cdn/shop/files/Copy_of_FAMILY.png",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "mi.com/cdn/shop/t/5/assets/fraunces-var-italic-latin.woff2",
+              "kb": 80
+            },
+            {
+              "n": "hopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "kb": 77
+            },
+            {
+              "n": "danimiami.com/cdn/shop/t/5/assets/fraunces-var-latin.woff2",
+              "kb": 66
+            },
+            {
+              "n": "danimiami.com/cdn/shop/t/5/assets/fraunces-var-latin.woff2",
+              "kb": 66
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-product-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-product-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 700,
+            "load": 1960.6000000238419,
+            "cls": 0.00032852211720226844,
+            "transfer": 1931991
+          },
+          {
+            "lcp": 428,
+            "load": 1087.8999999761581,
+            "cls": 0.00007303709829867675,
+            "transfer": 1939978
+          },
+          {
+            "lcp": 356,
+            "load": 1053,
+            "cls": 0.0018796669777882797,
+            "transfer": 1940722
+          },
+          {
+            "lcp": 364,
+            "load": 2478,
+            "cls": 0.00016222641776937618,
+            "transfer": 1916685
+          },
+          {
+            "lcp": 320,
+            "load": 1166.1000000238419,
+            "cls": 0.0012926208530245746,
+            "transfer": 1941077
+          }
+        ]
+      },
+      "baker": {
+        "url": "https://prodanimiami.com/pages/meet-your-baker?pb=0",
+        "median": {
+          "ttfb": 134.60000002384186,
+          "fcp": 296,
+          "lcp": 404,
+          "domContentLoaded": 399.2999999523163,
+          "load": 673.3999999761581,
+          "cls": 0,
+          "longTasks": 0,
+          "longTaskMs": 0,
+          "requests": 186,
+          "transfer": 1093324,
+          "decoded": 5400146,
+          "domNodes": 439,
+          "domDepth": 11,
+          "scrollHeight": 2601,
+          "thirdPartyRequests": 31,
+          "thirdPartyTransfer": 260397
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 9,
+              "transfer": 32695
+            },
+            "js": {
+              "count": 147,
+              "transfer": 627059
+            },
+            "css": {
+              "count": 13,
+              "transfer": 154428
+            },
+            "font": {
+              "count": 3,
+              "transfer": 125400
+            },
+            "img": {
+              "count": 4,
+              "transfer": 120759
+            },
+            "xhr": {
+              "count": 8,
+              "transfer": 1200
+            }
+          },
+          "stylesheets": 14,
+          "scripts": 64,
+          "images": 4,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "otlp-http-production.shopifysvc.com",
+            "shop.app"
+          ],
+          "title": "Meet Your Baker – ProDani Miami",
+          "marker": "new",
+          "lcpElement": "IMG",
+          "slowest": [
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 1877,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 1861,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 1382,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 200,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/logs",
+              "ms": 194,
+              "kb": 0
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/RE1.png",
+              "ms": 163,
+              "kb": 34
+            },
+            {
+              "n": "miami.com/cdn/shop/t/5/assets/prodani-stamp-seal-ivory.svg",
+              "ms": 156,
+              "kb": 3
+            },
+            {
+              "n": "mi.com/.well-known/shopify/monorail/unstable/produce_batch",
+              "ms": 151,
+              "kb": 0
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "mi.com/cdn/shop/t/5/assets/fraunces-var-italic-latin.woff2",
+              "kb": 80
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/t/5/assets/prodani-dani-1.jpg",
+              "kb": 78
+            },
+            {
+              "n": "danimiami.com/cdn/shop/t/5/assets/fraunces-var-latin.woff2",
+              "kb": 66
+            },
+            {
+              "n": "imiami.com/cdn/shop/t/5/assets/inter-tight-var-latin.woff2",
+              "kb": 44
+            },
+            {
+              "n": "storefront.32ff6085714fe9c4d5859e332c5de5f8759a859e.min.js",
+              "kb": 35
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-baker-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-baker-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 476,
+            "load": 628.5,
+            "cls": 0,
+            "transfer": 1092995
+          },
+          {
+            "lcp": 404,
+            "load": 673.3999999761581,
+            "cls": 0,
+            "transfer": 1093324
+          },
+          {
+            "lcp": 380,
+            "load": 658.2000000476837,
+            "cls": 0,
+            "transfer": 1095219
+          },
+          {
+            "lcp": 1204,
+            "load": 1649.2000000476837,
+            "cls": 0,
+            "transfer": 1081702
+          },
+          {
+            "lcp": 348,
+            "load": 753.6000000238419,
+            "cls": 0,
+            "transfer": 1093676
+          }
+        ]
+      },
+      "contact": {
+        "url": "https://prodanimiami.com/pages/contact?pb=0",
+        "median": {
+          "ttfb": 112.39999997615814,
+          "fcp": 268,
+          "lcp": 304,
+          "domContentLoaded": 405.2000000476837,
+          "load": 940.3999999761581,
+          "cls": 0,
+          "longTasks": 0,
+          "longTaskMs": 0,
+          "requests": 181,
+          "transfer": 1009005,
+          "decoded": 5266558,
+          "domNodes": 417,
+          "domDepth": 10,
+          "scrollHeight": 1934,
+          "thirdPartyRequests": 32,
+          "thirdPartyTransfer": 260397
+        },
+        "static": {
+          "by": {
+            "other": {
+              "count": 10,
+              "transfer": 32695
+            },
+            "js": {
+              "count": 143,
+              "transfer": 625658
+            },
+            "css": {
+              "count": 13,
+              "transfer": 152854
+            },
+            "font": {
+              "count": 3,
+              "transfer": 125400
+            },
+            "img": {
+              "count": 3,
+              "transfer": 40611
+            },
+            "xhr": {
+              "count": 8,
+              "transfer": 1200
+            }
+          },
+          "stylesheets": 15,
+          "scripts": 64,
+          "images": 3,
+          "thirdPartyHosts": [
+            "cdn.shopify.com",
+            "connect.facebook.net",
+            "otlp-http-production.shopifysvc.com",
+            "shop.app",
+            "www.google.com"
+          ],
+          "title": "Contact – ProDani Miami",
+          "marker": "new",
+          "lcpElement": "H1.pd-sec-title",
+          "slowest": [
+            {
+              "n": "www.google.com/maps",
+              "ms": 934,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 204,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/logs",
+              "ms": 197,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 196,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 188,
+              "kb": 0
+            },
+            {
+              "n": "otlp-http-production.shopifysvc.com/v1/metrics",
+              "ms": 188,
+              "kb": 0
+            },
+            {
+              "n": "prodanimiami.com/checkouts/internal/preloads.js",
+              "ms": 175,
+              "kb": 4
+            },
+            {
+              "n": "mi.com/.well-known/shopify/monorail/unstable/produce_batch",
+              "ms": 157,
+              "kb": 0
+            }
+          ],
+          "heaviest": [
+            {
+              "n": "connect.facebook.net/en_US/fbevents.js",
+              "kb": 112
+            },
+            {
+              "n": "connect.facebook.net/signals/config/849064403522902",
+              "kb": 94
+            },
+            {
+              "n": "miami.com/cdn/wpm/bb5acf91awd18c8882p8c792781mb6692debm.js",
+              "kb": 82
+            },
+            {
+              "n": "mi.com/cdn/shop/t/5/assets/fraunces-var-italic-latin.woff2",
+              "kb": 80
+            },
+            {
+              "n": "danimiami.com/cdn/shop/t/5/assets/fraunces-var-latin.woff2",
+              "kb": 66
+            },
+            {
+              "n": "imiami.com/cdn/shop/t/5/assets/inter-tight-var-latin.woff2",
+              "kb": 44
+            },
+            {
+              "n": "storefront.32ff6085714fe9c4d5859e332c5de5f8759a859e.min.js",
+              "kb": 35
+            },
+            {
+              "n": "prodanimiami.com/cdn/shop/files/RE1.png",
+              "kb": 34
+            }
+          ]
+        },
+        "shots": {
+          "viewport": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-contact-viewport.jpg",
+          "full": "/private/tmp/claude-501/-Users-imac-Desktop-switch-case-studio/a5ba7bae-c42a-4f80-a549-4f7add99a9b6/scratchpad/v2-run/after-contact-full.jpg"
+        },
+        "runs": [
+          {
+            "lcp": 292,
+            "load": 1206.8999999761581,
+            "cls": 0,
+            "transfer": 1009005
+          },
+          {
+            "lcp": 304,
+            "load": 741.6000000238419,
+            "cls": 0,
+            "transfer": 1012645
+          },
+          {
+            "lcp": 368,
+            "load": 897.1999999284744,
+            "cls": 0,
+            "transfer": 1010754
+          },
+          {
+            "lcp": 392,
+            "load": 1050.7000000476837,
+            "cls": 0,
+            "transfer": 999028
+          },
+          {
+            "lcp": 304,
+            "load": 940.3999999761581,
+            "cls": 0,
+            "transfer": 1006866
+          }
+        ]
+      }
+    }
+  }
+}
