@@ -1,0 +1,88 @@
+/* ===== B3 · QUIET: the Flavor Drop layout at 30% volume =====
+   Geometric type instead of bubbly, cream/white surfaces, the flavour colour
+   survives only as a dot and a subtitle. Nothing tilts, nothing floats. */
+:root{
+  --paper:#FAF6F0; --card:#FFFFFF; --ecru:#F3EBE1; --line:#E9DED2;
+  --display:'Outfit',system-ui,sans-serif; --sans:'Outfit',system-ui,sans-serif;
+  --r:20px; --r-sm:14px; --r-lg:28px;
+  --shadow:0 12px 30px -22px rgba(72,49,42,.25); --shadow-sm:none; --cake-shadow:drop-shadow(0 10px 12px rgba(72,49,42,.18));
+  --hz-bg:var(--ecru); --ch-bg:var(--ecru); --pi-bg:var(--ecru); --cw-bg:var(--ecru); --ca-bg:var(--ecru); --ba-bg:var(--ecru); --ap-bg:var(--ecru);
+  --hz:#A86F3C; --ch:#5B3A2E; --pi:#6F8238; --cw:#C2446B; --ca:#C9651F; --ba:#B08418; --ap:#A46E35;
+}
+body{font-weight:500}
+.disp{font-weight:600;letter-spacing:-.025em}
+.pill{box-shadow:none;font-weight:500;font-size:16px;padding:15px 26px}.pill:hover{transform:translateY(-2px);box-shadow:none}
+.pill--ghost{border-width:1.5px}
+.badge{background:#fff;border:1px solid var(--line);font-weight:500}.badge--white{background:#fff}.badge--ink{background:var(--ink);color:#fff;border-color:var(--ink)}
+.eyebrow{background:transparent;padding:0;color:var(--pink-ink);font-weight:600;font-size:13px;letter-spacing:.02em}
+.eyebrow::before{background:var(--pink-ink)}
+.bar{background:var(--ink);color:#fff;font-weight:500}
+.nav__links{box-shadow:none;background:transparent;padding:0;gap:22px}
+.nav__links a{padding:8px 0;border-radius:0;font-weight:500;border-bottom:2px solid transparent}
+.nav__links a.on,.nav__links a:hover{background:transparent;border-bottom-color:var(--pink-deep)}
+.cart{box-shadow:none;border:1px solid var(--line)}
+.hero{background:var(--ecru);min-height:580px;border-radius:var(--r-lg)}
+.hero__copy{padding:56px 56px 48px}
+.hero__h{font-size:clamp(54px,6.4vw,100px);line-height:.95}
+.hero__h em{color:var(--cw)}
+.hero__p{font-size:18px}
+.hero__art img{transform:translate(-50%,-50%) rotate(0);height:84%;filter:drop-shadow(0 24px 30px rgba(72,49,42,.2));animation:none}
+.hero__macros span{box-shadow:none;background:#fff;font-weight:500}
+.hero__dots{bottom:34px}
+.hero__next{border:1px solid var(--line)}
+.trust{margin-top:18px;gap:0;background:transparent}
+.trust div{background:transparent;box-shadow:none;padding:14px 8px;font-weight:500;border-top:1px solid var(--line);border-radius:0}
+.trust i{background:#fff;border:1px solid var(--line)}
+.sec__h{font-size:clamp(34px,4.2vw,56px)}
+.fc{background:#fff;border:1px solid var(--line);padding:20px 20px 18px}
+.fc:hover{transform:translateY(-3px) rotate(0);box-shadow:var(--shadow)}
+.fc__name{font-weight:600;font-size:24px}
+.fc__name .dot{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--c);margin-right:8px;vertical-align:middle;position:relative;top:-2px}
+.fc__name em{display:block;color:var(--ink-2);font-weight:400;font-size:15px;margin-top:4px}
+.fc__img img,.fc__img.wide img,.fc__img.box img,.fc__img.slices img{transform:rotate(0)}
+.fc:hover .fc__img img{transform:translateY(-3px)}
+.fc__macros span{background:var(--ecru);font-weight:500}
+.fc__price{font-weight:600}
+.fc__add{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:none;font-weight:400}
+.fc:hover .fc__add{transform:none;background:var(--ink);color:#fff;border-color:var(--ink)}
+.fc--cta{background:var(--ink);border-color:var(--ink)}
+.fc--cta .fc__name{color:#fff;font-size:30px;display:block}
+.fc--cta .stack{transform:rotate(0);right:-30px;bottom:-40px;opacity:.85}
+.fc--cta .pill{background:#fff;color:var(--ink)}
+.how{box-shadow:none;border:1px solid var(--line);background:#fff}
+.step + .step{border-left-color:var(--line)}
+.step__n{background:var(--ecru)}.step__n::after{background:var(--pink-ink)}
+.step h4{font-weight:600;font-size:22px}
+.box{box-shadow:none;border:1px solid var(--line)}.box:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.box--pop{background:#fff;border-color:var(--ink)}
+.box__n{font-weight:600}
+.minis{background:var(--ecru)}
+.box .badge{background:var(--ecru);color:var(--ink)}
+.box .badge--ink{background:var(--ink);color:#fff}
+.sub{background:#fff;color:var(--ink);border:1px solid var(--line)}.sub b{color:var(--pink-ink)}
+.sub .pill--pink{background:var(--ink);color:#fff}
+.macro{background:var(--ecru)}
+.macro__h em{color:var(--pink-ink)}
+.macro__pills{justify-content:flex-start}
+.macro__pills span{transform:none;box-shadow:none;border:1px solid var(--line);font-weight:500;font-size:clamp(17px,1.6vw,22px);padding:13px 20px}
+.macro__pills span.p{background:#fff}.macro__pills span.k{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rev__sticker{background:transparent;transform:none;box-shadow:none;width:auto;height:auto;padding:0;text-align:left;justify-items:start}
+.rev__sticker b{font-size:140px;letter-spacing:-.04em}
+.rev__sticker span{color:var(--pink-ink)}
+.bub{box-shadow:none;border:1px solid var(--line);border-radius:var(--r)}.bub::after{display:none}
+.bub h4{font-weight:600;font-size:20px}
+.baker__img{transform:none;box-shadow:none;border-radius:var(--r-lg)}
+.baker__h{font-weight:600}
+.ig__grid a,.ig__grid a:nth-child(odd),.ig__grid a:nth-child(even){transform:none;box-shadow:none}
+.ig__grid a:hover{transform:scale(1.03)}
+.foot{background:var(--ink)}
+.foot__grid{font-weight:500}
+@media (max-width:900px){
+  .hero__copy{padding:26px 22px 18px}
+  .hero__art{height:250px}
+  .hero__art img{transform:translate(-50%,-50%) rotate(90deg);height:140%}
+  .trust{gap:8px}
+  .trust div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+  .fc__name{font-size:19px}
+  .fc__name em{font-size:13px}
+}

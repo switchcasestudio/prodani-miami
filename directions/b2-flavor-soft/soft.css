@@ -1,0 +1,49 @@
+/* ===== B2 · SOFT: the Flavor Drop layout at 60% volume =====
+   Flavour tints washed toward white, stickers become plain badges, nothing
+   is rotated, pink stays on badges and the subscribe button only. */
+:root{
+  --paper:#FBF8F3; --r:24px; --r-lg:32px;
+  --shadow:0 14px 34px -20px rgba(72,49,42,.22); --cake-shadow:drop-shadow(0 14px 16px rgba(72,49,42,.2));
+  --hz-bg:#F9EEE1; --ch-bg:#F3E8E0; --pi-bg:#F3F5E3; --cw-bg:#FBEAEE; --ca-bg:#FBEEE1; --ba-bg:#FBF4DD; --ap-bg:#F8EEE2;
+  --hz:#A86F3C; --ch:#5B3A2E; --pi:#6F8238; --cw:#C2446B; --ca:#C9651F; --ba:#B08418; --ap:#A46E35;
+}
+.disp{font-weight:600}
+.pill{box-shadow:none}.pill:hover{transform:translateY(-2px)}
+.badge{background:var(--cw-bg);color:var(--ink)}.badge--white{background:#fff}.badge--ink{background:var(--ink);color:#fff}
+.eyebrow{background:transparent;padding:0;color:var(--ink-2);font-family:var(--sans);font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.eyebrow::before{background:var(--pink-deep)}
+.nav__links a.on,.nav__links a:hover{background:var(--cw-bg)}
+.hero{background:var(--cw-bg);min-height:600px}
+.hero__h em{color:var(--cw)}
+.hero__halo{opacity:.7;width:min(40vw,460px)}
+.hero__art img{transform:translate(-50%,-50%) rotate(6deg);filter:drop-shadow(0 30px 40px rgba(72,49,42,.22))}
+@keyframes float{50%{transform:translate(-50%,-52%) rotate(5deg)}}
+.hero__sticker{position:absolute;right:48px;top:44px;z-index:3;width:auto;height:auto;border-radius:999px;transform:none;box-shadow:var(--shadow-sm);font-size:14px;padding:10px 16px;display:inline-flex}
+.hero__macros span{box-shadow:none;background:rgba(255,255,255,.8)}
+.trust{margin-top:22px}
+.trust div{box-shadow:none;border:1px solid #EFE5DA}
+.fc:hover{transform:translateY(-4px) rotate(0);box-shadow:var(--shadow)}
+.fc__img img,.fc__img.wide img,.fc__img.box img,.fc__img.slices img{transform:rotate(0)}
+.fc:hover .fc__img img{transform:translateY(-4px) scale(1.03)}
+.fc__add{box-shadow:none;background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.fc:hover .fc__add{transform:none;background:var(--ink);color:#fff}
+.fc--cta .stack{transform:rotate(0);right:-30px;bottom:-40px;opacity:.9}
+.how{box-shadow:none;border:1px solid #EFE5DA}
+.step__n{background:var(--cw-bg)}
+.box{box-shadow:none;border:1px solid #EFE5DA}.box:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.box--pop{background:var(--cw-bg);border-color:transparent}
+.minis{background:rgba(72,49,42,.06)}
+.sub .pill--pink{background:var(--pink)}
+.macro{background:var(--pi-bg)}
+.macro__pills span{transform:none;box-shadow:none;border:1px solid #E7EAD0}
+.macro__pills span.p{background:var(--cw-bg)}
+.rev__sticker{background:#fff;transform:none;box-shadow:none;border:1px solid #EFE5DA;border-radius:var(--r);width:260px;height:auto;padding:36px 20px}
+.rev__sticker b{color:var(--ink)}
+.bub{box-shadow:none;border:1px solid #EFE5DA}.bub::after{border-right:1px solid #EFE5DA;border-bottom:1px solid #EFE5DA}
+.baker__img{transform:none;box-shadow:none}
+.ig__grid a,.ig__grid a:nth-child(odd),.ig__grid a:nth-child(even){transform:none;box-shadow:none}
+.ig__grid a:hover{transform:scale(1.03)}
+@media (max-width:900px){
+  .hero__sticker{right:14px;top:14px;font-size:12px;padding:8px 12px}
+  .hero__art img{transform:translate(-50%,-50%) rotate(70deg)}
+}
