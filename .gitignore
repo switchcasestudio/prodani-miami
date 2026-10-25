@@ -168,3 +168,6 @@ prodani-packaging/
 
 # Theme backups pulled before a deploy — local only
 backups/
+
+# Design-direction renders (regenerate with node directions/render.mjs) — large media, local only
+directions/out/

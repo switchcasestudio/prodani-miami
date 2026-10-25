@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction B — Flavor Drop · Hazelnut Fudge · prodani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---- product page, direction B: the Hazelnut colour world ---- */
+.crumbs{padding:6px 0 14px;font-family:var(--display);font-weight:500;font-size:14px;color:var(--ink-2)}
+.crumbs b{color:var(--ink);font-weight:600}
+.pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
+.gal{position:sticky;top:20px;display:grid;gap:12px}
+.gal__main{border-radius:40px;background:var(--hz-bg);min-height:640px;display:grid;place-items:center;position:relative;overflow:hidden}
+.gal__main::before{content:"";position:absolute;width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,#fff 0,rgba(255,255,255,0) 65%);left:-20vw;top:-24vw;opacity:.7}
+.gal__main img{position:relative;height:84%;max-height:560px;width:auto;transform:rotate(12deg);filter:drop-shadow(0 40px 50px rgba(72,49,42,.35));animation:float 6s ease-in-out infinite}
+.gal__sticker{position:absolute;left:28px;top:28px;width:116px;height:116px;border-radius:50%;background:var(--pink);display:grid;place-items:center;text-align:center;font-family:var(--display);font-weight:700;font-size:14px;line-height:1.05;transform:rotate(-10deg);box-shadow:var(--shadow)}
+.gal__sticker b{display:block;font-size:34px;line-height:1}
+.gal__thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gal__thumbs div{aspect-ratio:1;border-radius:22px;overflow:hidden;background:#fff;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.gal__thumbs div:hover{transform:scale(1.05) rotate(-2deg)}
+.gal__thumbs .on{box-shadow:0 0 0 4px var(--hz)}
+.gal__thumbs img{width:100%;height:100%;object-fit:cover}
+.buy{display:flex;flex-direction:column;gap:20px;padding-top:8px}
+.buy__tags{display:flex;gap:8px;flex-wrap:wrap}
+.buy__h{font-size:clamp(50px,5.6vw,86px)}
+.buy__h em{font-style:normal;color:var(--hz);display:block}
+.buy__rating{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:15px}
+.buy__rating i{font-style:normal;color:var(--pink-ink);letter-spacing:.06em}
+.buy__price{display:flex;align-items:baseline;gap:12px}
+.buy__price b{font-family:var(--display);font-weight:700;font-size:48px;line-height:1}
+.buy__price span{font-size:15px;color:var(--ink-2);font-weight:700}
+.buy__p{font-size:17px;color:var(--ink-2)}
+.flav{display:flex;gap:8px;flex-wrap:wrap}
+.flav a{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:13px;padding:8px 14px 8px 8px;border-radius:999px;background:#fff;box-shadow:0 6px 18px -12px rgba(72,49,42,.3)}
+.flav a i{width:22px;height:22px;border-radius:50%;background:var(--c)}
+.flav a.on{background:var(--ink);color:#fff}
+.opt h5{font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink-2);margin-bottom:8px}
+.opt__row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt__row div{border-radius:18px;background:#fff;padding:14px 16px;font-family:var(--display);font-weight:600;font-size:16px;box-shadow:0 6px 18px -14px rgba(72,49,42,.3)}
+.opt__row small{display:block;font-family:var(--sans);font-weight:700;font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.opt__row .on{box-shadow:inset 0 0 0 3px var(--ink)}
+.opt__row .off{opacity:.5}
+.opt__row .on.pinkish{background:var(--pink)}
+.opt__row select{font:inherit;font-size:13px;margin-top:8px;padding:6px 10px;border-radius:999px;border:2px solid var(--ink);background:#fff;width:100%}
+.cta{display:grid;grid-template-columns:auto 1fr;gap:10px}
+.qty{display:flex;background:#fff;border-radius:999px;font-family:var(--display);font-weight:700;font-size:18px;box-shadow:0 6px 18px -14px rgba(72,49,42,.3)}
+.qty span{width:50px;height:58px;display:grid;place-items:center}
+.cta .pill{justify-content:center;font-size:18px}
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.macros div{background:#fff;border-radius:18px;padding:14px 10px;text-align:center;font-family:var(--display);font-weight:600;font-size:12px;color:var(--ink-2)}
+.macros b{display:block;font-size:26px;color:var(--ink);line-height:1;margin-bottom:4px}
+.ship{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:700;color:var(--ink-2)}
+.ship span::before{content:"●";color:var(--pink-deep);margin-right:6px;font-size:10px}
+
+/* details */
+.details{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.details div{background:#fff;border-radius:var(--r);padding:26px 24px}
+.details h3{font-family:var(--display);font-weight:700;font-size:24px;margin-bottom:10px}
+.details p,.details li{font-size:15px;color:var(--ink-2)}
+.details ul{list-style:none;display:grid;gap:8px}
+.details li::before{content:"✓";color:var(--hz);font-weight:800;margin-right:8px}
+.details .warn{display:inline-block;margin-top:12px;padding:6px 10px;border-radius:999px;background:var(--hz-bg);font-family:var(--display);font-weight:600;font-size:12px;color:var(--ink)}
+
+/* nutrition */
+.label{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;margin-top:60px;border-radius:40px;background:#fff;padding:40px;box-shadow:var(--shadow)}
+.label__img img{max-height:520px;border-radius:22px;margin:0 auto}
+.label__tbl h3{font-size:clamp(36px,4vw,60px);margin-bottom:18px}
+.label__tbl h3 em{font-style:normal;color:var(--hz)}
+.nut{width:100%;border-collapse:collapse;font-weight:700;font-size:15px}
+.nut td{padding:12px 0;border-bottom:1.5px solid var(--paper)}
+.nut td:last-child{text-align:right;font-family:var(--display);font-weight:700;font-size:20px}
+.nut tr.hl td{background:var(--pink);padding:12px 12px;border-radius:12px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px}
+.steps div{background:var(--hz-bg);border-radius:var(--r);padding:26px 24px;display:flex;flex-direction:column;gap:10px}
+.steps b{width:54px;height:54px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:22px}
+.steps h4{font-family:var(--display);font-weight:700;font-size:22px}
+.steps p{font-size:15px;color:var(--ink-2)}
+
+/* sticky */
+.sticky{position:fixed;left:16px;right:16px;bottom:16px;z-index:40;background:var(--ink);color:#fff;border-radius:999px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px 10px 24px;font-family:var(--display);font-weight:600;font-size:15px;transform:translateY(140%);transition:transform .4s cubic-bezier(.34,1.3,.64,1);box-shadow:var(--shadow)}
+.sticky.show{transform:none}
+.sticky .pill{background:var(--pink);color:var(--ink);padding:12px 22px;font-size:15px}
+html.capture .sticky{display:none}
+html.capture .gal{position:static}
+
+@media (max-width:900px){
+  .pdp{grid-template-columns:1fr;gap:18px}
+  .gal{position:static}
+  .gal__main{min-height:0;height:380px;border-radius:30px}
+  .gal__main img{height:92%;transform:rotate(90deg)}
+  @keyframes float{50%{transform:translateY(-3%) rotate(88deg)}}
+  .gal__sticker{width:90px;height:90px;font-size:11px;left:16px;top:16px}.gal__sticker b{font-size:26px}
+  .gal__thumbs{gap:8px}.gal__thumbs div{border-radius:16px}
+  .buy__h{font-size:clamp(46px,14vw,64px)}
+  .cta{grid-template-columns:1fr}
+  .macros{grid-template-columns:1fr 1fr}
+  .details{grid-template-columns:1fr}
+  .label{grid-template-columns:1fr;padding:24px;border-radius:30px;margin-top:40px}
+  .steps{grid-template-columns:1fr;margin-top:40px}
+  .sticky{font-size:13px;padding-left:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">Free Miami delivery over $75 &nbsp;·&nbsp; 0g added sugar, ever &nbsp;·&nbsp; 4.9★ from 132 reviews</div>
+
+<header class="nav wrap">
+  <a class="nav__logo" href="index.html" data-wordmark aria-label="prodani"></a>
+  <nav class="nav__links"><a class="on" href="#">Flavors</a><a href="#">Build a box</a><a href="#">Subscribe</a><a href="#">Our baker</a><a href="#">Reviews</a></nav>
+  <div class="nav__right"><a class="cart" href="#">Cart <b>0</b></a><span class="burger"></span></div>
+</header>
+
+<main class="wrap">
+  <div class="crumbs">Flavors &nbsp;›&nbsp; <b>Hazelnut Fudge</b></div>
+
+  <section class="pdp">
+    <div class="gal">
+      <div class="gal__main">
+        <div class="gal__sticker"><div><b>#1</b>best<br>seller</div></div>
+        <img src="../assets/cut/hazelnut.png" alt="Hazelnut Fudge personal protein cake">
+      </div>
+      <div class="gal__thumbs">
+        <div class="on"><img src="../assets/products/personal-hazelnuts-cake-2.jpg" alt=""></div>
+        <div><img src="../assets/products/personal-hazelnuts-cake-1.png" alt=""></div>
+        <div><img src="../assets/ig/ig-4.jpg" alt=""></div>
+        <div><img src="../assets/products/personal-hazelnuts-cake-3.png" alt=""></div>
+      </div>
+    </div>
+
+    <div class="buy">
+      <div class="buy__tags"><span class="badge">Best seller</span><span class="badge badge--white">20g protein · 180 cal</span><span class="badge badge--white">Gluten free</span></div>
+      <h1 class="disp buy__h">Hazelnut<em>Fudge</em></h1>
+      <div class="buy__rating"><i>★★★★★</i> 4.9 · 132 reviews · “tastes exactly like Nutella”</div>
+      <div class="buy__price"><b>$42.99</b><span>5 cakes · $8.60 per cake</span></div>
+      <p class="buy__p">Chocolate cake, a hazelnut-spread middle and crushed hazelnuts on top. Warm it 30 seconds and the middle goes soft. 20g of complete protein, 0g added sugar.</p>
+
+      <div class="opt"><h5>Switch flavor</h5>
+        <div class="flav">
+          <a class="on" href="#" style="--c:var(--hz)"><i></i>Hazelnut</a><a href="#" style="--c:var(--ch)"><i></i>Chocolate</a><a href="#" style="--c:var(--pi)"><i></i>Dubai Dream</a><a href="#" style="--c:var(--cw)"><i></i>Cherry White</a><a href="#" style="--c:var(--ca)"><i></i>Carrot</a><a href="#" style="--c:var(--ba)"><i></i>Banana</a><a href="#" style="--c:var(--ap)"><i></i>Apple</a>
+        </div>
+      </div>
+
+      <div class="opt"><h5>Size</h5>
+        <div class="opt__row"><div class="on">5 personal cakes<small>125g each · $8.60 per cake</small></div><div class="off">1 family cake<small>Coming back soon</small></div></div>
+      </div>
+
+      <div class="opt"><h5>How often?</h5>
+        <div class="opt__row">
+          <div>One-time<small>Order once. No commitment.</small></div>
+          <div class="on pinkish">Subscribe &amp; save 10% · $38.69<small>Skip, pause or cancel anytime</small><select><option>Every 2 weeks</option><option>Every week</option><option>Every month</option></select></div>
+        </div>
+      </div>
+
+      <div class="cta"><div class="qty"><span>−</span><span>1</span><span>+</span></div><a class="pill" href="#">Add to cart · $42.99</a></div>
+      <div class="macros"><div><b>20g</b>protein</div><div><b>180</b>calories</div><div><b>0g</b>added sugar</div><div><b>GF</b>gluten free</div></div>
+      <div class="ship"><span>Free Miami delivery over $75</span><span>Baked this week</span><span>Keeps 7 days chilled</span></div>
+    </div>
+  </section>
+
+  <section class="details">
+    <div data-reveal><h3>What's inside</h3><p>Eggs, organic applesauce, organic coconut milk, protein powder (whey protein concentrate and isolate), organic cocoa powder, organic coconut flour, pure vanilla extract, aluminum-free baking powder, hazelnut spread, hazelnuts.</p><span class="warn">Contains eggs, milk &amp; hazelnuts</span></div>
+    <div data-reveal data-delay="1"><h3>Why you'll love it</h3><ul><li>Complete protein, all nine amino acids</li><li>Sweetness from real food, not sugar</li><li>Gluten free by recipe</li><li>Baked in small batches in Miami</li></ul></div>
+    <div data-reveal data-delay="2"><h3>How to eat it</h3><ul><li>30 seconds in the microwave</li><li>Or 3–5 minutes in the oven</li><li>Cold from the fridge works too</li><li>Coffee, post-workout, after dinner</li></ul></div>
+  </section>
+
+  <section class="label" data-reveal>
+    <div class="label__img"><img src="../assets/products/personal-hazelnuts-cake-3.png" alt="Nutrition facts"></div>
+    <div class="label__tbl">
+      <h3 class="disp">Real macros, <em>printed honestly.</em></h3>
+      <table class="nut">
+        <tr><td>Serving size</td><td>1 cake (125g)</td></tr>
+        <tr class="hl"><td>Calories</td><td>180</td></tr>
+        <tr><td>Total fat</td><td>7g</td></tr>
+        <tr><td>Total carbohydrate</td><td>12g</td></tr>
+        <tr><td>Dietary fiber</td><td>3g</td></tr>
+        <tr><td>Total sugars · added</td><td>4g · 0g</td></tr>
+        <tr class="hl"><td>Protein</td><td>20g</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div data-reveal><b>1</b><h4>Pick your cakes</h4><p>Five of these, or mix a box of 6, 12 or 18.</p></div>
+    <div data-reveal data-delay="1"><b>2</b><h4>We bake this week</h4><p>Small batches in Miami. Free local delivery over $75.</p></div>
+    <div data-reveal data-delay="2"><b>3</b><h4>30 seconds. Melty.</h4><p>Warm it and the hazelnut middle goes soft.</p></div>
+  </section>
+
+  <section class="sec" style="padding-bottom:80px">
+    <div class="sec__head" data-reveal><h2 class="disp sec__h"><small>You might also like</small>More flavors.</h2><a class="pill pill--sm pill--ghost" href="#">See all 7 →</a></div>
+    <div class="rail">
+      <a class="fc" href="#" style="--bg:var(--pi-bg);--c:var(--pi)" data-reveal><div class="fc__top"><div class="fc__name">Dubai<em>Dream</em></div><span class="badge">New</span></div><div class="fc__img"><img src="../assets/cut/pistachio.png" alt=""></div><div class="fc__row"><div class="fc__macros"><span>20g protein</span><span>180 cal</span></div><div class="fc__price">$42.99<small>5 cakes</small></div></div></a>
+      <a class="fc" href="#" style="--bg:var(--cw-bg);--c:var(--cw)" data-reveal data-delay="1"><div class="fc__top"><div class="fc__name">Cherry<em>White</em></div></div><div class="fc__img"><img src="../assets/cut/cherry-white.png" alt=""></div><div class="fc__row"><div class="fc__macros"><span>20g protein</span><span>170 cal</span></div><div class="fc__price">$42.99<small>5 cakes</small></div></div></a>
+      <a class="fc" href="#" style="--bg:var(--ch-bg);--c:var(--ch)" data-reveal data-delay="2"><div class="fc__top"><div class="fc__name">Chocolate<em>Fudge</em></div></div><div class="fc__img photo"><img src="../assets/products/moist-chocolate-fudge-cake-copy-2.png" alt=""></div><div class="fc__row"><div class="fc__macros"><span>18g protein</span><span>150 cal</span></div><div class="fc__price">$37.99<small>5 cakes</small></div></div></a>
+      <a class="fc fc--cta" href="#" data-reveal data-delay="3"><div class="fc__name">Can't<br>choose?<br>Mix a box.</div><img class="stack" src="../assets/cut/trays.png" alt=""><span class="pill pill--sm">Build your box</span></a>
+    </div>
+  </section>
+</main>
+
+<div class="sticky" id="sticky"><span>Hazelnut Fudge · 5 cakes · $42.99</span><a class="pill" href="#">Add to cart</a></div>
+
+<footer class="foot">
+  <div class="foot__h" data-wordmark aria-label="prodani"></div>
+  <div class="foot__grid">
+    <div><p>Personal protein cakes, baked in small batches in Miami. 15–20g protein, 0g added sugar, gluten free. Free local delivery over $75.</p></div>
+    <ul><li>Flavors</li><li>Build a box</li><li>Subscribe</li><li>Gift cards</li></ul>
+    <ul><li>Our baker</li><li>Ingredients</li><li>Reviews</li><li>FAQ</li></ul>
+    <ul><li>Instagram</li><li>Contact</li><li>Shipping</li><li>Returns</li></ul>
+  </div>
+  <div class="foot__legal"><span>© 2026 prodani miami</span><span>Privacy · Terms · Accessibility</span></div>
+</footer>
+
+<script src="../assets/wordmark.js"></script>
+<script src="../assets/common.js"></script>
+<script>
+addEventListener('scroll', function () { document.getElementById('sticky').classList.toggle('show', scrollY > 700) }, { passive: true })
+</script>
+</body>
+</html>
