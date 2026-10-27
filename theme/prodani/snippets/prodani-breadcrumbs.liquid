@@ -42,6 +42,9 @@
   assign shop_label = 'Shop'
   if request.page_type == 'article'
     assign shop_label = blog.title
+    if blog.handle == 'news'
+      assign shop_label = 'Journal'
+    endif
   endif
 -%}
 {%- if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'article' -%}

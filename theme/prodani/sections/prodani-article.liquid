@@ -1,0 +1,91 @@
+{%- comment -%}
+  Article — one Journal post. Centered head (crumbs, title, lede from the
+  excerpt, byline), bezelled hero, a 720px reading column, then a shop card
+  and the way back. Comments are left to Dawn's stock template; the store has
+  them off. Keeps the JSON-LD Dawn emitted so nothing is lost for search.
+{%- endcomment -%}
+
+{{ 'prodani-journal.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign words = article.content | strip_html | split: ' ' | size
+  assign minutes = words | divided_by: 200.0 | ceil
+  if minutes < 1
+    assign minutes = 1
+  endif
+  assign lede = article.excerpt | strip_html | strip
+-%}
+
+<article class="pd-article">
+  <div class="pd-wrap">
+    <header class="pd-article__head">
+      {% render 'prodani-breadcrumbs' %}
+      <h1 class="pd-article__title">{{ article.title | escape }}</h1>
+      {%- if section.settings.show_lede and lede != blank -%}
+        <p class="pd-article__lede">{{ lede }}</p>
+      {%- endif -%}
+      <p class="pd-article__byline">
+        {%- if article.author != blank -%}<span>By <b>{{ article.author | escape }}</b></span>{%- endif -%}
+        {%- if section.settings.show_date -%}<span>{{ article.published_at | date: '%B %-d, %Y' }}</span>{%- endif -%}
+        <span>{{ minutes }} min read</span>
+      </p>
+    </header>
+
+    {%- if article.image and section.settings.show_image -%}
+      <div class="pd-bezel pd-article__hero">
+        <img
+          src="{{ article.image | image_url: width: 1600 }}"
+          srcset="{{ article.image | image_url: width: 800 }} 800w, {{ article.image | image_url: width: 1200 }} 1200w, {{ article.image | image_url: width: 1600 }} 1600w, {{ article.image | image_url: width: 2200 }} 2200w"
+          sizes="(min-width: 1250px) 1180px, 100vw"
+          width="{{ article.image.width }}" height="{{ article.image.height }}"
+          alt="{{ article.image.alt | escape }}" loading="eager" fetchpriority="high">
+      </div>
+    {%- endif -%}
+
+    <div class="pd-article__body">
+      {{ article.content }}
+    </div>
+
+    <div class="pd-article__foot">
+      {%- if section.settings.cta_url != blank -%}
+        <div class="pd-article__cta">
+          <div class="pd-article__cta-copy">
+            {%- if section.settings.cta_eyebrow != blank -%}<span class="pd-eyebrow">{{ section.settings.cta_eyebrow | escape }}</span>{%- endif -%}
+            <p>{{ section.settings.cta_text | escape }}</p>
+          </div>
+          <a class="pd-btn" href="{{ section.settings.cta_url }}">
+            {{ section.settings.cta_label | escape }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      {%- endif -%}
+      <a class="pd-article__back" href="{{ blog.url }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        {{ section.settings.back_label | default: 'Back to the Journal' | escape }}
+      </a>
+    </div>
+  </div>
+</article>
+
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Journal article",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_image", "label": "Show featured image", "default": true },
+    { "type": "checkbox", "id": "show_lede", "label": "Show excerpt as lede", "default": true },
+    { "type": "checkbox", "id": "show_date", "label": "Show date", "default": true },
+    { "type": "text", "id": "back_label", "label": "Back link", "default": "Back to the Journal" },
+    { "type": "header", "content": "Shop card" },
+    { "type": "text", "id": "cta_eyebrow", "label": "Eyebrow", "default": "From the bakery" },
+    { "type": "text", "id": "cta_text", "label": "Text", "default": "Whey and egg protein, baked into a cake you'd pick anyway." },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "Shop the cakes" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ]
+}
+{% endschema %}
