@@ -168,3 +168,6 @@ prodani-packaging/
 
 # Theme backups pulled before a deploy — local only
 backups/
+
+# Client originals for blog posts stay local
+blog/inbox/
