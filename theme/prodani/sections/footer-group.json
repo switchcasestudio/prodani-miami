@@ -18,7 +18,7 @@
           "type": "menu",
           "settings": {
             "heading": "Shop",
-            "links": "Personal Protein Cakes|/collections/personal-protein-cakes\nBuild your box|/#box\nShop all|/collections/all"
+            "links": "Personal Protein Cakes|/collections/personal-protein-cakes\nBuild your box|/#box\nShop all|/collections/all\nEvent catering|/pages/catering\nSpread Collection|/pages/spreads"
           }
         },
         "c2": {
