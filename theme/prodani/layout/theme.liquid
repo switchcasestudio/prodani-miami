@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="google-site-verification" content="GSrgNjq3Nr9MplQyERSiuPjPES4iQoRKLCfNfaqnqS8">
 
     {%- comment -%}
       Unlisted pages (Moses, 2026-10-30): reachable by URL, linked from nowhere, kept out
       of search engines. Remove a suffix here when Dani wants that page public.
     {%- endcomment -%}
-    {%- assign pd_unlisted = 'spreads,catering' | split: ',' -%}
+    {%- assign pd_unlisted = 'spreads' | split: ',' -%}
     {%- if template.name == 'page' and pd_unlisted contains template.suffix -%}
       <meta name="robots" content="noindex, nofollow">
     {%- endif -%}
