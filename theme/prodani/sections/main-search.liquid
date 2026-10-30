@@ -258,6 +258,9 @@
               >
                 {%- assign skip_card_product_styles = false -%}
                 {%- for item in search.results -%}
+                  {%- comment -%} Unlisted pages (see theme.liquid): never surface them in search. {%- endcomment -%}
+                  {%- assign pd_unlisted = 'spreads,catering' | split: ',' -%}
+                  {%- if item.object_type == 'page' and pd_unlisted contains item.handle -%}{%- continue -%}{%- endif -%}
                   {% assign lazy_load = false %}
                   {%- if forloop.index > 2 -%}
                     {%- assign lazy_load = true -%}

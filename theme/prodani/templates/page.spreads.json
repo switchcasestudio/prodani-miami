@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "spreads": {
+      "type": "prodani-spreads",
+      "blocks": {
+        "f1": {
+          "type": "flavor",
+          "settings": {
+            "name": "Hazelnut", "kind": "Spread", "tagline": "Deep. Silky. Familiar.",
+            "text": "The chocolate-hazelnut favorite, made the ProDani way.",
+            "direction": "Cocoa-forward · roasted hazelnut · luxurious texture",
+            "pairs": "Toast, pancakes, fruit, baking, a straight-from-the-spoon moment.",
+            "accent": "#6B3B28", "bundled": "hazelnut", "alt": "ProDani Hazelnut spread jar"
+          }
+        },
+        "f2": {
+          "type": "flavor",
+          "settings": {
+            "name": "Pistachio", "kind": "Spread", "tagline": "Distinctive. Nutty. Vibrant.",
+            "text": "An unmistakable pistachio expression with a soft green signature.",
+            "direction": "Pistachio-led · gently toasted · smooth",
+            "pairs": "Croissants, yogurt bowls, dates, pastries, and dessert toppings.",
+            "accent": "#73703E", "bundled": "pistachio", "alt": "ProDani Pistachio spread jar"
+          }
+        },
+        "f3": {
+          "type": "flavor",
+          "settings": {
+            "name": "Lotus", "kind": "Spread", "tagline": "Cozy. Caramelized. Playful.",
+            "text": "Cookie-butter-style warmth inspired by spiced biscuits, with a rich caramel personality.",
+            "direction": "Caramel · gentle spice · cookie-butter mood",
+            "pairs": "Apples, oatmeal, waffles, ice cream and gifting.",
+            "accent": "#A75E30", "bundled": "cookie-butter", "alt": "ProDani Lotus spread jar"
+          }
+        },
+        "m1": { "type": "format", "settings": { "title": "The single jar", "lede": "Your everyday jar.", "text": "One hero size. Hazelnut, Pistachio or Lotus.", "tag": "One hero size" } },
+        "m2": { "type": "format", "settings": { "title": "The discovery trio", "lede": "An easy entry to all three flavors.", "text": "Three smaller jars in a fitted carton.", "tag": "Trial and gifting" } },
+        "m3": { "type": "format", "settings": { "title": "The signature gift", "lede": "A premium presentation for sharing.", "text": "Three jars and an optional wood spoon, in a fitted box.", "tag": "Seasonal and corporate" } },
+        "o1": { "type": "moment", "settings": { "title": "Morning", "text": "Toast, oats, pancakes." } },
+        "o2": { "type": "moment", "settings": { "title": "Snack", "text": "Fruit, yogurt, dates." } },
+        "o3": { "type": "moment", "settings": { "title": "Dessert", "text": "Drizzle, bake, fill." } },
+        "o4": { "type": "moment", "settings": { "title": "Gifting", "text": "Host gift, sampler, holidays." } }
+      },
+      "block_order": ["f1", "f2", "f3", "m1", "m2", "m3", "o1", "o2", "o3", "o4"],
+      "settings": {
+        "eyebrow": "The Spread Collection",
+        "soon_label": "Coming soon",
+        "heading": "Spread\nsomething good.",
+        "lede": "<p>A little everyday indulgence. A lot to look forward to. Three spreads are on their way: Hazelnut, Pistachio and Lotus.</p>",
+        "chips": "No sugar added, High protein, Clean ingredients, Rich and creamy",
+        "hero_alt": "Three ProDani spread jars: Hazelnut, Pistachio and Lotus",
+        "notify_label": "Be first to know when the jars land",
+        "notify_placeholder": "Your email",
+        "notify_button": "Tell me when it's out",
+        "notify_success": "You're on the list. We'll write when the jars are ready.",
+        "tags": "spreads-waitlist",
+        "idea_eyebrow": "The idea",
+        "idea_heading": "Three flavors.\nOne beautiful ritual.",
+        "idea_text": "<p>Three craveable flavors, one recognizable jar, and a reason to slow down for a minute. Indulgent first. Beautiful by default. The kind of jar you leave on the table.</p>",
+        "trio_eyebrow": "Collection overview",
+        "trio_heading": "Meet the trio.",
+        "trio_lede": "A color-coded family: cohesive on the shelf, distinct in flavor.",
+        "direction_label": "Flavor direction",
+        "pairs_label": "Perfect with",
+        "band_eyebrow": "Brand platform",
+        "band_heading": "Nourish\ngoodness.",
+        "band_text": "<p>Premium in feel. Warm in personality. Grounded in ingredients and real pleasure.</p>",
+        "promise_label": "The promise",
+        "band_promise": "A thoughtful spread that makes ordinary moments feel special.",
+        "band_alt": "A spoon lifting hazelnut spread from an open ProDani jar",
+        "formats_eyebrow": "Formats",
+        "formats_heading": "Start focused. Grow intentionally.",
+        "formats_lede": "A simple set of formats, from one jar to a gift for three.",
+        "formats_alt": "Open ProDani gift box with three spread jars in a fitted insert",
+        "formats_note": "Jar sizes and pricing will be announced when the spreads launch.",
+        "moments_heading": "Beyond the breakfast table.",
+        "close_heading": "Good things\ncome in threes.",
+        "close_text": "Leave your email and we'll tell you the day the first jars are ready."
+      }
+    }
+  },
+  "order": ["spreads"]
+}

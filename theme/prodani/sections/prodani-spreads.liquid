@@ -1,0 +1,362 @@
+{%- comment -%}
+  The Spread Collection (2026-10-30). An UNLISTED preview page for the three spreads
+  Dani is developing (Hazelnut, Pistachio, Lotus). Copy, claims and imagery come from
+  the owners' concept deck "Prodani presents new spreads"; the jar photos are the
+  deck's renders, used as placeholders until real product photography exists.
+
+  Unlisted means: reachable at its URL, linked from nowhere, noindex (theme.liquid),
+  skipped by the storefront search templates. Nothing here sells anything: no price,
+  no cart. The only action is a notify-me email (native customer form, tagged
+  `spreads-waitlist`) so Dani has a list to tell when the jars land.
+
+  Every image slot has a bundled fallback so the page renders before anyone
+  uploads a photo; pick a real one in the editor to replace it.
+{%- endcomment -%}
+
+{{ 'prodani-spreads.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading | default: page.title
+  assign flavors = section.blocks | where: 'type', 'flavor'
+  assign formats = section.blocks | where: 'type', 'format'
+  assign moments = section.blocks | where: 'type', 'moment'
+  assign chips = section.settings.chips | split: ','
+-%}
+
+<section class="pd-spreads"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor }}"{% endif %}>
+
+  {%- comment -%} ---------- hero ---------- {%- endcomment -%}
+  <header class="pd-spreads__hero">
+    <div class="pd-wrap">
+      <div class="pd-spreads__hero-grid">
+        <div class="pd-spreads__hero-copy">
+          <p class="pd-eyebrow">
+            {{ section.settings.eyebrow | escape }}
+            {%- if section.settings.soon_label != blank -%}
+              <span class="pd-spreads__soon">{{ section.settings.soon_label | escape }}</span>
+            {%- endif -%}
+          </p>
+          <h1 class="pd-sec-title pd-spreads__title">{{ heading | newline_to_br }}</h1>
+          {%- if section.settings.lede != blank -%}
+            <div class="pd-rte pd-spreads__lede">{{ section.settings.lede }}</div>
+          {%- endif -%}
+          {%- if chips.size > 0 and section.settings.chips != blank -%}
+            <ul class="pd-spreads__chips" aria-label="Product claims">
+              {%- for c in chips -%}
+                {%- assign chip = c | strip -%}
+                {%- if chip != blank -%}<li>{{ chip | escape }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          <div class="pd-spreads__notify" id="notify">
+            {%- form 'customer', class: 'pd-spreads__form', id: 'pd-spreads-form-hero' -%}
+              <input type="hidden" name="contact[tags]" value="{{ section.settings.tags | default: 'spreads-waitlist' | escape }}">
+              <label for="pd-spreads-email-hero" class="pd-spreads__form-label">{{ section.settings.notify_label | escape }}</label>
+              <div class="pd-spreads__form-row">
+                <input id="pd-spreads-email-hero" type="email" name="contact[email]" placeholder="{{ section.settings.notify_placeholder | escape }}" autocomplete="email" required>
+                <button type="submit" class="pd-btn pd-btn--pink">{{ section.settings.notify_button | escape }}</button>
+              </div>
+              {%- if form.posted_successfully? -%}
+                <p class="pd-spreads__form-ok">{{ section.settings.notify_success | escape }}</p>
+              {%- elsif form.errors -%}
+                <p class="pd-spreads__form-err">{{ form.errors | default_errors }}</p>
+              {%- endif -%}
+            {%- endform -%}
+          </div>
+        </div>
+      </div>
+
+      <div class="pd-bezel pd-spreads__hero-media">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 1800
+             | image_tag: loading: 'eager', fetchpriority: 'high',
+               widths: '800, 1200, 1800', sizes: '(min-width: 1580px) 1500px, 100vw',
+               alt: section.settings.hero_alt }}
+        {%- else -%}
+          <img src="{{ 'prodani-spread-trio.jpg' | asset_url }}" width="1218" height="541"
+               alt="{{ section.settings.hero_alt | escape }}" loading="eager" fetchpriority="high">
+        {%- endif -%}
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%} ---------- the idea ---------- {%- endcomment -%}
+  {%- if section.settings.idea_heading != blank or section.settings.idea_text != blank -%}
+    <div class="pd-spreads__idea">
+      <div class="pd-wrap pd-spreads__idea-grid">
+        <div>
+          {%- if section.settings.idea_eyebrow != blank -%}<p class="pd-eyebrow">{{ section.settings.idea_eyebrow | escape }}</p>{%- endif -%}
+          <h2 class="pd-spreads__h2">{{ section.settings.idea_heading | newline_to_br }}</h2>
+        </div>
+        <div class="pd-rte pd-spreads__idea-text">{{ section.settings.idea_text }}</div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- the trio ---------- {%- endcomment -%}
+  {%- if flavors.size > 0 -%}
+    <div class="pd-spreads__trio" id="flavors">
+      <div class="pd-wrap">
+        <div class="pd-sec-head">
+          <div>
+            {%- if section.settings.trio_eyebrow != blank -%}<p class="pd-eyebrow" style="margin:0 0 10px">{{ section.settings.trio_eyebrow | escape }}</p>{%- endif -%}
+            <h2 class="pd-spreads__h2">{{ section.settings.trio_heading | escape }}</h2>
+          </div>
+          {%- if section.settings.trio_lede != blank -%}
+            <p class="pd-lede pd-spreads__trio-lede" style="margin:0">{{ section.settings.trio_lede | escape }}</p>
+          {%- endif -%}
+        </div>
+        <ol class="pd-spreads__cards">
+          {%- for block in flavors -%}
+            <li class="pd-spreads__card" style="--accent:{{ block.settings.accent | default: '#6B3B28' }}" {{ block.shopify_attributes }}>
+              <div class="pd-bezel pd-spreads__card-media">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 900
+                     | image_tag: loading: 'lazy', widths: '450, 700, 900',
+                       sizes: '(min-width: 981px) 30vw, 92vw', alt: block.settings.alt }}
+                {%- elsif block.settings.bundled != 'none' -%}
+                  <img src="{{ block.settings.bundled | prepend: 'prodani-spread-' | append: '.jpg' | asset_url }}"
+                       width="400" height="500" alt="{{ block.settings.alt | escape }}" loading="lazy">
+                {%- endif -%}
+              </div>
+              <span class="pd-spreads__card-bar" aria-hidden="true"></span>
+              <p class="pd-spreads__card-n">0{{ forloop.index }}</p>
+              <h3 class="pd-spreads__card-title">
+                {{ block.settings.name | escape }}
+                {%- if block.settings.kind != blank -%}<span>{{ block.settings.kind | escape }}</span>{%- endif -%}
+              </h3>
+              {%- if block.settings.tagline != blank -%}<p class="pd-spreads__card-tag">{{ block.settings.tagline | escape }}</p>{%- endif -%}
+              {%- if block.settings.text != blank -%}<p class="pd-spreads__card-text">{{ block.settings.text | escape }}</p>{%- endif -%}
+              <dl class="pd-spreads__card-specs">
+                {%- if block.settings.direction != blank -%}
+                  <dt>{{ section.settings.direction_label | escape }}</dt><dd>{{ block.settings.direction | escape }}</dd>
+                {%- endif -%}
+                {%- if block.settings.pairs != blank -%}
+                  <dt>{{ section.settings.pairs_label | escape }}</dt><dd>{{ block.settings.pairs | escape }}</dd>
+                {%- endif -%}
+              </dl>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- brand band ---------- {%- endcomment -%}
+  {%- if section.settings.band_heading != blank -%}
+    <div class="pd-spreads__band">
+      <div class="pd-wrap pd-spreads__band-in">
+        <div class="pd-spreads__band-copy">
+          {%- if section.settings.band_eyebrow != blank -%}<p class="pd-eyebrow pd-eyebrow--dark">{{ section.settings.band_eyebrow | escape }}</p>{%- endif -%}
+          <h2 class="pd-spreads__band-title">{{ section.settings.band_heading | newline_to_br }}</h2>
+          {%- if section.settings.band_text != blank -%}<div class="pd-rte pd-rte--dark pd-spreads__band-text">{{ section.settings.band_text }}</div>{%- endif -%}
+          {%- if section.settings.band_promise != blank -%}
+            <p class="pd-spreads__promise"><span>{{ section.settings.promise_label | escape }}</span>{{ section.settings.band_promise | escape }}</p>
+          {%- endif -%}
+        </div>
+        <div class="pd-spreads__band-media">
+          {%- if section.settings.band_image != blank -%}
+            {{ section.settings.band_image | image_url: width: 900
+               | image_tag: loading: 'lazy', widths: '450, 700, 900', sizes: '(min-width: 981px) 420px, 92vw', alt: section.settings.band_alt }}
+          {%- else -%}
+            <img src="{{ 'prodani-spread-scoop.jpg' | asset_url }}" width="415" height="482" alt="{{ section.settings.band_alt | escape }}" loading="lazy">
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- formats ---------- {%- endcomment -%}
+  {%- if formats.size > 0 -%}
+    <div class="pd-spreads__formats">
+      <div class="pd-wrap">
+        <div class="pd-sec-head">
+          <div>
+            {%- if section.settings.formats_eyebrow != blank -%}<p class="pd-eyebrow" style="margin:0 0 10px">{{ section.settings.formats_eyebrow | escape }}</p>{%- endif -%}
+            <h2 class="pd-spreads__h2">{{ section.settings.formats_heading | escape }}</h2>
+          </div>
+          {%- if section.settings.formats_lede != blank -%}
+            <p class="pd-lede pd-spreads__trio-lede" style="margin:0">{{ section.settings.formats_lede | escape }}</p>
+          {%- endif -%}
+        </div>
+        <div class="pd-spreads__formats-grid">
+          <ol class="pd-spreads__formats-list">
+            {%- for block in formats -%}
+              <li class="pd-spreads__format" {{ block.shopify_attributes }}>
+                <span class="pd-spreads__format-n">0{{ forloop.index }}</span>
+                <div class="pd-spreads__format-body">
+                  <h3>{{ block.settings.title | escape }}</h3>
+                  {%- if block.settings.lede != blank -%}<p class="pd-spreads__format-lede">{{ block.settings.lede | escape }}</p>{%- endif -%}
+                  {%- if block.settings.text != blank -%}<p class="pd-spreads__format-text">{{ block.settings.text | escape }}</p>{%- endif -%}
+                  {%- if block.settings.tag != blank -%}<p class="pd-spreads__format-tag">{{ block.settings.tag | escape }}</p>{%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ol>
+          <div class="pd-bezel pd-spreads__formats-media">
+            {%- if section.settings.formats_image != blank -%}
+              {{ section.settings.formats_image | image_url: width: 1200
+                 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 981px) 48vw, 92vw', alt: section.settings.formats_alt }}
+            {%- else -%}
+              <img src="{{ 'prodani-spread-gift.jpg' | asset_url }}" width="803" height="482" alt="{{ section.settings.formats_alt | escape }}" loading="lazy">
+            {%- endif -%}
+          </div>
+        </div>
+        {%- if section.settings.formats_note != blank -%}
+          <p class="pd-spreads__note">{{ section.settings.formats_note | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- moments ---------- {%- endcomment -%}
+  {%- if moments.size > 0 -%}
+    <div class="pd-spreads__moments">
+      <div class="pd-wrap">
+        {%- if section.settings.moments_heading != blank -%}
+          <h2 class="pd-spreads__h2 pd-spreads__moments-title">{{ section.settings.moments_heading | escape }}</h2>
+        {%- endif -%}
+        <ul class="pd-spreads__moments-grid">
+          {%- for block in moments -%}
+            <li {{ block.shopify_attributes }}>
+              <h3>{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- closing notify ---------- {%- endcomment -%}
+  <div class="pd-spreads__close">
+    <div class="pd-wrap">
+      <div class="pd-spreads__close-panel">
+        <div>
+          <h2 class="pd-spreads__h2">{{ section.settings.close_heading | newline_to_br }}</h2>
+          {%- if section.settings.close_text != blank -%}<p class="pd-spreads__close-text">{{ section.settings.close_text | escape }}</p>{%- endif -%}
+        </div>
+        {%- form 'customer', class: 'pd-spreads__form', id: 'pd-spreads-form-foot' -%}
+          <input type="hidden" name="contact[tags]" value="{{ section.settings.tags | default: 'spreads-waitlist' | escape }}">
+          <label for="pd-spreads-email-foot" class="pd-spreads__form-label">{{ section.settings.notify_label | escape }}</label>
+          <div class="pd-spreads__form-row">
+            <input id="pd-spreads-email-foot" type="email" name="contact[email]" placeholder="{{ section.settings.notify_placeholder | escape }}" autocomplete="email" required>
+            <button type="submit" class="pd-btn">{{ section.settings.notify_button | escape }}</button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <p class="pd-spreads__form-ok">{{ section.settings.notify_success | escape }}</p>
+          {%- elsif form.errors -%}
+            <p class="pd-spreads__form-err">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Spread collection",
+  "tag": "section",
+  "class": "pd-section",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id" },
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Spread Collection" },
+    { "type": "text", "id": "soon_label", "label": "Status pill", "default": "Coming soon" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Spread\nsomething good." },
+    { "type": "richtext", "id": "lede", "label": "Intro copy", "default": "<p>A little everyday indulgence. A lot to look forward to. Three spreads are on their way: Hazelnut, Pistachio and Lotus.</p>" },
+    { "type": "text", "id": "chips", "label": "Claim chips (comma separated)", "default": "No sugar added, High protein, Clean ingredients, Rich and creamy" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero photo" },
+    { "type": "text", "id": "hero_alt", "label": "Hero photo alt text", "default": "Three ProDani spread jars: Hazelnut, Pistachio and Lotus" },
+    { "type": "header", "content": "Notify me (both forms)" },
+    { "type": "text", "id": "notify_label", "label": "Label", "default": "Be first to know when the jars land" },
+    { "type": "text", "id": "notify_placeholder", "label": "Placeholder", "default": "Your email" },
+    { "type": "text", "id": "notify_button", "label": "Button", "default": "Tell me when it's out" },
+    { "type": "text", "id": "notify_success", "label": "Success message", "default": "You're on the list. We'll write when the jars are ready." },
+    { "type": "text", "id": "tags", "label": "Customer tag", "info": "Applied to the customer in Shopify so the waitlist is filterable.", "default": "spreads-waitlist" },
+    { "type": "header", "content": "The idea" },
+    { "type": "text", "id": "idea_eyebrow", "label": "Eyebrow", "default": "The idea" },
+    { "type": "textarea", "id": "idea_heading", "label": "Heading", "default": "Three flavors.\nOne beautiful ritual." },
+    { "type": "richtext", "id": "idea_text", "label": "Text", "default": "<p>Three craveable flavors, one recognizable jar, and a reason to slow down for a minute. Indulgent first. Beautiful by default. The kind of jar you leave on the table.</p>" },
+    { "type": "header", "content": "The trio" },
+    { "type": "text", "id": "trio_eyebrow", "label": "Eyebrow", "default": "Collection overview" },
+    { "type": "text", "id": "trio_heading", "label": "Heading", "default": "Meet the trio." },
+    { "type": "text", "id": "trio_lede", "label": "Lede", "default": "A color-coded family: cohesive on the shelf, distinct in flavor." },
+    { "type": "text", "id": "direction_label", "label": "Spec label 1", "default": "Flavor direction" },
+    { "type": "text", "id": "pairs_label", "label": "Spec label 2", "default": "Perfect with" },
+    { "type": "header", "content": "Brand band" },
+    { "type": "text", "id": "band_eyebrow", "label": "Eyebrow", "default": "Brand platform" },
+    { "type": "textarea", "id": "band_heading", "label": "Heading", "default": "Nourish\ngoodness." },
+    { "type": "richtext", "id": "band_text", "label": "Text", "default": "<p>Premium in feel. Warm in personality. Grounded in ingredients and real pleasure.</p>" },
+    { "type": "text", "id": "promise_label", "label": "Promise label", "default": "The promise" },
+    { "type": "text", "id": "band_promise", "label": "Promise", "default": "A thoughtful spread that makes ordinary moments feel special." },
+    { "type": "image_picker", "id": "band_image", "label": "Band photo" },
+    { "type": "text", "id": "band_alt", "label": "Band photo alt text", "default": "A spoon lifting hazelnut spread from an open ProDani jar" },
+    { "type": "header", "content": "Formats" },
+    { "type": "text", "id": "formats_eyebrow", "label": "Eyebrow", "default": "Formats" },
+    { "type": "text", "id": "formats_heading", "label": "Heading", "default": "Start focused. Grow intentionally." },
+    { "type": "text", "id": "formats_lede", "label": "Lede", "default": "A simple set of formats, from one jar to a gift for three." },
+    { "type": "image_picker", "id": "formats_image", "label": "Formats photo" },
+    { "type": "text", "id": "formats_alt", "label": "Formats photo alt text", "default": "Open ProDani gift box with three spread jars in a fitted insert" },
+    { "type": "text", "id": "formats_note", "label": "Footnote", "default": "Jar sizes and pricing will be announced when the spreads launch." },
+    { "type": "header", "content": "Moments" },
+    { "type": "text", "id": "moments_heading", "label": "Heading", "default": "Beyond the breakfast table." },
+    { "type": "header", "content": "Closing" },
+    { "type": "textarea", "id": "close_heading", "label": "Heading", "default": "Good things\ncome in threes." },
+    { "type": "text", "id": "close_text", "label": "Text", "default": "Leave your email and we'll tell you the day the first jars are ready." }
+  ],
+  "blocks": [
+    {
+      "type": "flavor",
+      "name": "Flavor",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Hazelnut" },
+        { "type": "text", "id": "kind", "label": "Small word after the name", "default": "Spread" },
+        { "type": "text", "id": "tagline", "label": "Tagline", "default": "Deep. Silky. Familiar." },
+        { "type": "text", "id": "text", "label": "Text" },
+        { "type": "text", "id": "direction", "label": "Flavor direction" },
+        { "type": "text", "id": "pairs", "label": "Perfect with" },
+        { "type": "color", "id": "accent", "label": "Accent color", "default": "#6B3B28" },
+        { "type": "image_picker", "id": "image", "label": "Jar photo" },
+        {
+          "type": "select", "id": "bundled", "label": "Bundled photo (used if none picked)",
+          "options": [
+            { "value": "hazelnut", "label": "Hazelnut jar (deck render)" },
+            { "value": "pistachio", "label": "Pistachio jar (deck render)" },
+            { "value": "cookie-butter", "label": "Third jar (deck render)" },
+            { "value": "open", "label": "Open jar with spoon (deck render)" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "hazelnut"
+        },
+        { "type": "text", "id": "alt", "label": "Photo alt text", "default": "ProDani Hazelnut spread jar" }
+      ]
+    },
+    {
+      "type": "format",
+      "name": "Format",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "The single jar" },
+        { "type": "text", "id": "lede", "label": "Lede", "default": "Your everyday jar." },
+        { "type": "text", "id": "text", "label": "Text" },
+        { "type": "text", "id": "tag", "label": "Small tag", "default": "One hero size" }
+      ]
+    },
+    {
+      "type": "moment",
+      "name": "Moment",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Morning" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Toast, oats, pancakes." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Spread collection" }]
+}
+{% endschema %}
