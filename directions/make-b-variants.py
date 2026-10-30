@@ -1,4 +1,4 @@
-"""Derive the two quieter Flavor Drop variants from b-flavor-drop/index.html.
+"""Derive the Flavor Drop variants (B2, B3, F) from b-flavor-drop/index.html.
 B2 (soft) and B3 (quiet) keep B's layout and style.css and add an override sheet;
 this script copies the base files and strips the louder elements from the markup.
 Run from directions/: python3 make-b-variants.py"""
@@ -39,4 +39,23 @@ s = s.replace('<span class="badge badge--white">20g protein · 170 cal</span>', 
 # flavour colour survives only as a dot before the name
 s = re.sub(r'<div class="fc__name">([^<]+)<em>([^<]+)</em></div>', r'<div class="fc__name"><i class="dot"></i>\1<em>\2</em></div>', s)
 open('b3-flavor-quiet/index.html', 'w').write(s)
-print('b2 + b3 written')
+# ---- F · catering look (from Dani's catering flyer) ----
+shutil.copy(STYLE, 'f-catering-look/style.css')
+s = strip_common(open(BASE).read())
+s = s.replace('<title>Direction B — Flavor Drop · prodani</title>', '<title>Direction F — Catering Look · prodani</title>')
+s = s.replace('<link rel="stylesheet" href="style.css">', '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="catering.css">')
+s = s.replace('<div class="hero__ring"></div><div class="hero__halo"></div>', '')
+s = s.replace('<div class="hero__sticker"><div><b>7</b>flavors<br>baked weekly</div></div>', '')
+s = re.sub(r'<div class="hero__dots">.*?</div>\n', '', s, flags=re.S)
+s = re.sub(r'<a class="hero__next[^>]*>.*?</a>\n', '', s)
+s = s.replace('<h1 class="disp hero__h">Cherry<br><em>White</em></h1>', '<h1 class="disp hero__h">Cake first.<br>Protein too.</h1>')
+s = s.replace('<span class="badge">Flavor of the week</span>', '<span class="badge">Personal protein cakes</span>')
+s = s.replace('<h2 class="disp how__h">Cake, the easy way.</h2>', '<h2 class="disp how__h">Pick it. Warm it.<br>Make it yours.</h2>')
+# the flyer's numbered "01 / Label" headings
+n = [0]
+def number(m):
+    n[0] += 1
+    return '%s%02d / %s</span>' % (m.group(1), n[0], m.group(2))
+s = re.sub(r'(<span class="eyebrow"[^>]*>)([^<]+)</span>', number, s)
+open('f-catering-look/index.html', 'w').write(s)
+print('b2 + b3 + f written')
