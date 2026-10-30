@@ -171,3 +171,5 @@ backups/
 
 # Client originals for blog posts stay local
 blog/inbox/
+# Design-direction renders (regenerate with node directions/render.mjs) — large media, local only
+directions/out/

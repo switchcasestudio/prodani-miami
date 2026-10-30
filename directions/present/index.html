@@ -1,0 +1,294 @@
+<title>Prodani Design Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one calm reviewing page; each direction is a chapter with its mockups in device frames, so the four looks carry the colour and the page itself stays quiet. */
+:root{
+  --bg:#F7F6F3; --fg:#1E1A17; --muted:#6B625B; --line:#E2DDD6; --card:#FFFFFF; --accent:#C2446B; --accent-soft:#FDE3EA;
+  --easy:#2F7D4F; --easy-bg:#E3F3E8; --medium:#9A6A00; --medium-bg:#FBF0D2; --hard:#B23A3A; --hard-bg:#FBE0E0;
+  --display:'Manrope',system-ui,sans-serif; --body:'Manrope',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141211;--fg:#F1ECE6;--muted:#A99F96;--line:#2C2724;--card:#1D1A18;--accent:#F2A3BC;--accent-soft:#3A2630;--easy:#8ED8A6;--easy-bg:#1E3426;--medium:#F0C96A;--medium-bg:#3A3018;--hard:#F29C9C;--hard-bg:#3E2222;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141211;--fg:#F1ECE6;--muted:#A99F96;--line:#2C2724;--card:#1D1A18;--accent:#F2A3BC;--accent-soft:#3A2630;--easy:#8ED8A6;--easy-bg:#1E3426;--medium:#F0C96A;--medium-bg:#3A3018;--hard:#F29C9C;--hard-bg:#3E2222;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+.top{padding-block:40px 24px;border-bottom:1px solid var(--line)}
+.top .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.top h1{font-size:clamp(34px,5vw,56px);font-weight:800;margin-top:10px}
+.top p.lead{max-width:62ch;color:var(--muted);margin-top:14px;font-size:17px}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.nav a{flex:0 0 auto;text-decoration:none;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+.nav a b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--fg);color:var(--bg);font-size:12px;margin-right:6px}
+.same{padding-block:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.same div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.same b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.same span{font-weight:600}
+.dir{padding-block:56px;border-top:1px solid var(--line)}
+.dir__head{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+.dir__n{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);font-family:var(--display);font-weight:800;font-size:20px}
+.dir h2{font-size:clamp(30px,4vw,46px);font-weight:800;margin-top:14px}
+.dir .idea{font-size:19px;margin-top:10px;max-width:50ch}
+.dir .why{color:var(--muted);margin-top:14px;max-width:62ch}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px}
+.tag--easy{background:var(--easy-bg);color:var(--easy)}.tag--medium{background:var(--medium-bg);color:var(--medium)}.tag--hard{background:var(--hard-bg);color:var(--hard)}
+.facts{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:14px}
+.facts div{display:grid;grid-template-columns:110px 1fr;gap:12px;font-size:15px}
+.facts b{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.sw{display:inline-flex;align-items:center;gap:6px;font-size:13px}
+.sw i{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:inline-block}
+.mocks{display:grid;grid-template-columns:1fr 390px;gap:24px;margin-top:32px;align-items:start}
+.frame{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.frame__bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;font-weight:600;color:var(--muted)}
+.frame__bar i{width:10px;height:10px;border-radius:50%;background:var(--line);display:inline-block}
+.frame__bar span{margin-left:auto;font-weight:500}
+.frame__scroll{max-height:640px;overflow-y:auto;overscroll-behavior:contain}
+.frame__scroll img{display:block;width:100%;height:auto}
+.frame--phone .frame__scroll{max-height:720px}
+.hint{font-size:13px;color:var(--muted);margin-top:8px}
+.videos{display:grid;grid-template-columns:1fr 300px;gap:24px;margin-top:28px;align-items:start}
+.videos video{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#000;max-width:100%}
+.videos h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.pdp{margin-top:28px}
+.pdp h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.compare{padding-block:56px;border-top:1px solid var(--line)}
+.compare h2{font-size:clamp(28px,3.6vw,40px);font-weight:800}
+.tbl{overflow-x:auto;margin-top:22px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:15px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:700;white-space:nowrap}
+.choose{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.choose div{background:var(--accent-soft);border-radius:16px;padding:22px}
+.choose h3{font-size:18px;font-weight:800}
+.choose p{margin-top:8px;color:var(--fg)}
+.choose ol{margin:10px 0 0;padding-left:20px}
+.foot{padding-block:32px 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media (max-width:900px){
+  .same{grid-template-columns:1fr 1fr}
+  .dir__head{grid-template-columns:1fr;gap:20px}
+  .mocks{grid-template-columns:1fr}
+  .frame__scroll{max-height:460px}
+  .frame--phone{max-width:390px}
+  .videos{grid-template-columns:1fr}
+  .videos > div:last-child{max-width:300px}
+  .choose{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="eyebrow">prodanimiami.com · October 2026</div>
+  <h1>Four design directions for the Prodani site</h1>
+  <p class="lead">Each one is a full homepage mockup built with the real cakes, prices, reviews and photos, shown on desktop and on a phone, plus a short scroll video. Nothing here is live. Pick the direction you want, or tell us which parts of which one, and that becomes the build.</p>
+</div></header>
+
+<nav class="nav"><div class="wrap">
+  <a href="#a"><b>A</b>Macro Bold</a><a href="#b"><b>B</b>Flavor Drop</a><a href="#b2"><b>B2</b>Soft</a><a href="#b3"><b>B3</b>Quiet</a><a href="#c"><b>C</b>Bold Bakery</a><a href="#e"><b>E</b>Cake Lab</a><a href="#compare">Compare</a>
+</div></nav>
+
+<section class="wrap same">
+  <div><b>Same in all four</b><span>The prodani. wordmark, the 7 cakes, prices and packs, the reviews and the Instagram feed.</span></div>
+  <div><b>The pink</b><span>Back from the first site (#FDC3D4), used as a small accent: the dot, a badge, one button.</span></div>
+  <div><b>Type</b><span>No thin fonts anywhere. Each direction has its own heavy face.</span></div>
+  <div><b>Build cost</b><span>Easy, Medium or Hard: how much work it is to turn the mockup into the real Shopify theme.</span></div>
+</section>
+
+<!-- ===================== A ===================== -->
+<section class="dir" id="a"><div class="wrap">
+  <div class="dir__head">
+    <div>
+      <span class="dir__n">A</span>
+      <h2>Macro Bold</h2>
+      <p class="idea">The number is the hero. 20g protein, 0g added sugar, 150 calories, set huge, with blunt copy and hard black lines. The David direction.</p>
+      <p class="why">Reads instantly as a serious protein product. Every cake card leads with its protein figure, there is a cake-vs-bar-vs-bakery comparison, and the box tiers are just big numbers. White ground, near-black ink, pink only on small marks.</p>
+    </div>
+    <div class="facts">
+      <div><b>Build</b><span><span class="tag tag--easy">Easy</span> &nbsp;Standard sections, new type and colours, a marquee strip. 1–2 weeks on the current theme.</span></div>
+      <div><b>Type</b><span>Archivo, heavy and condensed, uppercase headlines.</span></div>
+      <div><b>Colours</b><span class="swatches"><span class="sw"><i style="background:#FFFFFF"></i>white</span><span class="sw"><i style="background:#F3EEE6"></i>bone</span><span class="sw"><i style="background:#1A110C"></i>cocoa black</span><span class="sw"><i style="background:#FDC3D4"></i>pink accent</span></span></div>
+      <div><b>Wow</b><span>The scale of the numbers, the comparison table, hover lifts on the cards.</span></div>
+    </div>
+  </div>
+  <div class="mocks">
+    <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · homepage<span>scroll inside the frame</span></div><div class="frame__scroll"><img src="img/a-macro-bold-desktop.jpg" alt="Direction A homepage, desktop" loading="lazy"></div></div>
+    <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/a-macro-bold-mobile.jpg" alt="Direction A homepage, phone" loading="lazy"></div></div>
+  </div>
+  <div class="videos">
+    <div><h3>Desktop scroll video</h3><video src="vid/a-macro-bold-desktop.mp4" controls muted playsinline preload="metadata" poster="img/a-macro-bold-poster.jpg"></video></div>
+    <div><h3>Phone scroll video</h3><video src="vid/a-macro-bold-mobile.mp4" controls muted playsinline preload="metadata"></video></div>
+  </div>
+  <div class="pdp"><h3>Product page · Hazelnut Fudge</h3>
+    <div class="mocks" style="margin-top:0">
+      <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · product page<span>scroll</span></div><div class="frame__scroll"><img src="img/a-macro-bold-product-desktop.jpg" alt="Direction A product page, desktop" loading="lazy"></div></div>
+      <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/a-macro-bold-product-mobile.jpg" alt="Direction A product page, phone" loading="lazy"></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ===================== B ===================== -->
+<section class="dir" id="b"><div class="wrap">
+  <div class="dir__head">
+    <div>
+      <span class="dir__n">B</span>
+      <h2>Flavor Drop</h2>
+      <p class="idea">Every cake gets its own colour world. Chunky rounded type, pill buttons, stickers, a flavour of the week in the hero. The Crumbl direction.</p>
+      <p class="why">The most playful of the four and the one that makes the seven flavours feel like a lineup you want to collect. Pink is the thread through nav, badges and the hero; each flavour brings its own hue to its card. The box builder shows the box from above, filled with the cakes you pick. The product page switches flavour with one tap.</p>
+    </div>
+    <div class="facts">
+      <div><b>Build</b><span><span class="tag tag--medium">Medium</span> &nbsp;Per-flavour colours need a metafield per product, plus a hero that rotates flavours. 2–3 weeks.</span></div>
+      <div><b>Type</b><span>Fredoka for headlines, Nunito for text. Round, friendly, heavy.</span></div>
+      <div><b>Colours</b><span class="swatches"><span class="sw"><i style="background:#FFF8F0"></i>warm white</span><span class="sw"><i style="background:#48312A"></i>cocoa</span><span class="sw"><i style="background:#FDC3D4"></i>pink</span><span class="sw"><i style="background:#F6E1C8"></i>hazelnut</span><span class="sw"><i style="background:#EBEFCB"></i>pistachio</span><span class="sw"><i style="background:#FBD9E0"></i>cherry</span></span></div>
+      <div><b>Wow</b><span>Floating hero cake, cards that bounce on hover, the flavour marquee, stickers.</span></div>
+    </div>
+  </div>
+  <div class="mocks">
+    <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · homepage<span>scroll inside the frame</span></div><div class="frame__scroll"><img src="img/b-flavor-drop-desktop.jpg" alt="Direction B homepage, desktop" loading="lazy"></div></div>
+    <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/b-flavor-drop-mobile.jpg" alt="Direction B homepage, phone" loading="lazy"></div></div>
+  </div>
+  <div class="videos">
+    <div><h3>Desktop scroll video</h3><video src="vid/b-flavor-drop-desktop.mp4" controls muted playsinline preload="metadata" poster="img/b-flavor-drop-poster.jpg"></video></div>
+    <div><h3>Phone scroll video</h3><video src="vid/b-flavor-drop-mobile.mp4" controls muted playsinline preload="metadata"></video></div>
+  </div>
+  <div class="pdp"><h3>Product page · Hazelnut Fudge</h3>
+    <div class="mocks" style="margin-top:0">
+      <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · product page<span>scroll</span></div><div class="frame__scroll"><img src="img/b-flavor-drop-product-desktop.jpg" alt="Direction B product page, desktop" loading="lazy"></div></div>
+      <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/b-flavor-drop-product-mobile.jpg" alt="Direction B product page, phone" loading="lazy"></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ===================== B2 ===================== -->
+<section class="dir" id="b2"><div class="wrap">
+  <div class="dir__head">
+    <div>
+      <span class="dir__n">B2</span>
+      <h2>Flavor Drop, softer</h2>
+      <p class="idea">The same page as B at about 60% volume. Flavour colours washed toward white, stickers become plain badges, nothing is tilted, no marquee.</p>
+      <p class="why">Keeps the round type and the flavour-per-card idea, but the page sits still: cakes stand upright, cards lift without rotating, the review score is a plain card instead of a sticker. Pink stays on badges and the subscribe button.</p>
+    </div>
+    <div class="facts">
+      <div><b>Build</b><span><span class="tag tag--medium">Medium</span> &nbsp;Same build as B; the calm version is a setting, not a different theme.</span></div>
+      <div><b>Type</b><span>Fredoka and Nunito, as in B, one weight lighter.</span></div>
+      <div><b>Colours</b><span class="swatches"><span class="sw"><i style="background:#FBF8F3"></i>warm white</span><span class="sw"><i style="background:#48312A"></i>cocoa</span><span class="sw"><i style="background:#FBEAEE"></i>cherry tint</span><span class="sw"><i style="background:#F3F5E3"></i>pistachio tint</span><span class="sw"><i style="background:#F9EEE1"></i>hazelnut tint</span></span></div>
+      <div><b>Wow</b><span>Softer: the floating hero cake and the box builder, and little else moves.</span></div>
+    </div>
+  </div>
+  <div class="mocks">
+    <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · homepage<span>scroll inside the frame</span></div><div class="frame__scroll"><img src="img/b2-flavor-soft-desktop.jpg" alt="Direction B2 homepage, desktop" loading="lazy"></div></div>
+    <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/b2-flavor-soft-mobile.jpg" alt="Direction B2 homepage, phone" loading="lazy"></div></div>
+  </div>
+  <div class="videos">
+    <div><h3>Desktop scroll video</h3><video src="vid/b2-flavor-soft-desktop.mp4" controls muted playsinline preload="metadata" poster="img/b2-flavor-soft-poster.jpg"></video></div>
+    <div><h3>Phone scroll video</h3><video src="vid/b2-flavor-soft-mobile.mp4" controls muted playsinline preload="metadata"></video></div>
+  </div>
+</div></section>
+
+<!-- ===================== B3 ===================== -->
+<section class="dir" id="b3"><div class="wrap">
+  <div class="dir__head">
+    <div>
+      <span class="dir__n">B3</span>
+      <h2>Flavor Drop, quiet</h2>
+      <p class="idea">The same page at about 30% volume. Clean geometric type instead of the bubbly one, cream and white surfaces, and the flavour colour survives only as a dot next to each name.</p>
+      <p class="why">This is the Flavor Drop structure wearing a calmer coat: the lineup, the box builder and the steps are identical, but nothing floats, tilts or shouts. Closest in mood to a premium bakery, with the playful bones kept underneath.</p>
+    </div>
+    <div class="facts">
+      <div><b>Build</b><span><span class="tag tag--easy">Easy</span> &nbsp;Fewer special surfaces than B; mostly type and colour on the same sections.</span></div>
+      <div><b>Type</b><span>Outfit, a clean rounded geometric, for everything.</span></div>
+      <div><b>Colours</b><span class="swatches"><span class="sw"><i style="background:#FAF6F0"></i>cream</span><span class="sw"><i style="background:#F3EBE1"></i>ecru</span><span class="sw"><i style="background:#FFFFFF"></i>white cards</span><span class="sw"><i style="background:#48312A"></i>cocoa</span><span class="sw"><i style="background:#C2446B"></i>pink ink</span></span></div>
+      <div><b>Wow</b><span>Restraint. The cakes and the big 4.9 do the talking.</span></div>
+    </div>
+  </div>
+  <div class="mocks">
+    <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · homepage<span>scroll inside the frame</span></div><div class="frame__scroll"><img src="img/b3-flavor-quiet-desktop.jpg" alt="Direction B3 homepage, desktop" loading="lazy"></div></div>
+    <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/b3-flavor-quiet-mobile.jpg" alt="Direction B3 homepage, phone" loading="lazy"></div></div>
+  </div>
+  <div class="videos">
+    <div><h3>Desktop scroll video</h3><video src="vid/b3-flavor-quiet-desktop.mp4" controls muted playsinline preload="metadata" poster="img/b3-flavor-quiet-poster.jpg"></video></div>
+    <div><h3>Phone scroll video</h3><video src="vid/b3-flavor-quiet-mobile.mp4" controls muted playsinline preload="metadata"></video></div>
+  </div>
+</div></section>
+
+<!-- ===================== C ===================== -->
+<section class="dir" id="c"><div class="wrap">
+  <div class="dir__head">
+    <div>
+      <span class="dir__n">C</span>
+      <h2>Bold Bakery</h2>
+      <p class="idea">The warm bakery feeling of today's site, with the thinness gone. A heavy soft serif, big photography, cream and cocoa, pink as a stamp.</p>
+      <p class="why">The closest to the current site in spirit and the easiest step to take: same warmth, same photos, but every headline is heavy and every card has presence. The hero is a full-bleed cake photo with a slow zoom. For a customer who already knows the brand, nothing feels foreign.</p>
+    </div>
+    <div class="facts">
+      <div><b>Build</b><span><span class="tag tag--easy">Easy</span> &nbsp;Mostly type, colour and spacing changes on the existing sections. About 1 week.</span></div>
+      <div><b>Type</b><span>Fraunces at its heaviest, soft setting, with Hanken Grotesk for text.</span></div>
+      <div><b>Colours</b><span class="swatches"><span class="sw"><i style="background:#F7EFE4"></i>cream</span><span class="sw"><i style="background:#EFE3D2"></i>ecru</span><span class="sw"><i style="background:#3B2A20"></i>cocoa</span><span class="sw"><i style="background:#FDC3D4"></i>pink stamp</span></span></div>
+      <div><b>Wow</b><span>Big photography, the slow hero zoom, the giant 4.9 and macro numbers.</span></div>
+    </div>
+  </div>
+  <div class="mocks">
+    <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · homepage<span>scroll inside the frame</span></div><div class="frame__scroll"><img src="img/c-bold-bakery-desktop.jpg" alt="Direction C homepage, desktop" loading="lazy"></div></div>
+    <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/c-bold-bakery-mobile.jpg" alt="Direction C homepage, phone" loading="lazy"></div></div>
+  </div>
+  <div class="videos">
+    <div><h3>Desktop scroll video</h3><video src="vid/c-bold-bakery-desktop.mp4" controls muted playsinline preload="metadata" poster="img/c-bold-bakery-poster.jpg"></video></div>
+    <div><h3>Phone scroll video</h3><video src="vid/c-bold-bakery-mobile.mp4" controls muted playsinline preload="metadata"></video></div>
+  </div>
+</div></section>
+
+<!-- ===================== E ===================== -->
+<section class="dir" id="e"><div class="wrap">
+  <div class="dir__head">
+    <div>
+      <span class="dir__n">E</span>
+      <h2>Cake Lab</h2>
+      <p class="idea">Dark ground, one pink highlight, heavy wide type. The cake splits open as you scroll and the macros are called out like a diagram. The wildcard.</p>
+      <p class="why">Built for the "wow". The hero is pinned while you scroll: the cake opens, the crumb shows, the numbers point at it. Every cake is presented like a spec sheet, the ingredients like a formula. It is the furthest from a bakery and the closest to a performance brand.</p>
+    </div>
+    <div class="facts">
+      <div><b>Build</b><span><span class="tag tag--hard">Hard</span> &nbsp;The pinned scroll hero and dark theme touch every section and need real cross-section photography to look its best. 4–5 weeks.</span></div>
+      <div><b>Type</b><span>Unbounded for headlines, Space Grotesk for text, a mono face for the specs.</span></div>
+      <div><b>Colours</b><span class="swatches"><span class="sw"><i style="background:#0E0B09"></i>near black</span><span class="sw"><i style="background:#17120F"></i>panel</span><span class="sw"><i style="background:#F4ECE4"></i>bone text</span><span class="sw"><i style="background:#FDC3D4"></i>pink glow</span></span></div>
+      <div><b>Wow</b><span>The scroll-opening cake, callout lines, the glowing 4.9, the ingredient ticker.</span></div>
+    </div>
+  </div>
+  <div class="mocks">
+    <div class="frame"><div class="frame__bar"><i></i><i></i><i></i>Desktop · homepage<span>scroll inside the frame</span></div><div class="frame__scroll"><img src="img/e-cake-lab-desktop.jpg" alt="Direction E homepage, desktop" loading="lazy"></div></div>
+    <div class="frame frame--phone"><div class="frame__bar"><i></i>Phone<span>scroll</span></div><div class="frame__scroll"><img src="img/e-cake-lab-mobile.jpg" alt="Direction E homepage, phone" loading="lazy"></div></div>
+  </div>
+  <p class="hint">The still shows the cake already open. The video shows it opening as you scroll.</p>
+  <div class="videos">
+    <div><h3>Desktop scroll video</h3><video src="vid/e-cake-lab-desktop.mp4" controls muted playsinline preload="metadata" poster="img/e-cake-lab-poster.jpg"></video></div>
+    <div><h3>Phone scroll video</h3><video src="vid/e-cake-lab-mobile.mp4" controls muted playsinline preload="metadata"></video></div>
+  </div>
+</div></section>
+
+<!-- ===================== compare ===================== -->
+<section class="compare" id="compare"><div class="wrap">
+  <h2>Side by side</h2>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>A · Macro Bold</th><th>B · Flavor Drop</th><th>B2 · Soft</th><th>B3 · Quiet</th><th>C · Bold Bakery</th><th>E · Cake Lab</th></tr></thead>
+    <tbody>
+      <tr><td>Feels like</td><td>A protein brand that happens to be cake</td><td>A fun flavour lineup you collect</td><td>B, with the volume down</td><td>A calm bakery with B's bones</td><td>A premium bakery with muscle</td><td>A performance product, engineered</td></tr>
+      <tr><td>Closest reference</td><td>David</td><td>Crumbl</td><td>Crumbl, softer</td><td>Neither; quiet</td><td>Today's site, heavier</td><td>Neither; its own thing</td></tr>
+      <tr><td>Ground</td><td>White</td><td>Warm white + flavour colours</td><td>Warm white + pale tints</td><td>Cream + white</td><td>Cream</td><td>Near black</td></tr>
+      <tr><td>Pink</td><td>Small marks, one button</td><td>Nav, badges, hero</td><td>Badges, one button</td><td>A dot and a word</td><td>Stamps and underlines</td><td>The only highlight</td></tr>
+      <tr><td>Type</td><td>Heavy condensed sans</td><td>Round chunky sans</td><td>Round sans, lighter</td><td>Clean geometric sans</td><td>Heavy soft serif</td><td>Heavy wide sans + mono</td></tr>
+      <tr><td>Wow</td><td>Scale of the numbers</td><td>Colour, motion, stickers</td><td>Floating cake, box builder</td><td>Restraint</td><td>Photography and scale</td><td>Scroll-opening cake</td></tr>
+      <tr><td>Build</td><td><span class="tag tag--easy">Easy</span></td><td><span class="tag tag--medium">Medium</span></td><td><span class="tag tag--medium">Medium</span></td><td><span class="tag tag--easy">Easy</span></td><td><span class="tag tag--easy">Easy</span></td><td><span class="tag tag--hard">Hard</span></td></tr>
+      <tr><td>Product page shown</td><td>Yes</td><td>Yes</td><td>Same as B</td><td>On request</td><td>On request</td><td>On request</td></tr>
+    </tbody>
+  </table></div>
+  <div class="choose">
+    <div><h3>How to choose</h3><p>Look at the phone versions first; that is where most customers will see the site. Then ask which one you would be proud to send to a new customer.</p></div>
+    <div><h3>What to send back</h3><ol><li>Your direction (A, B, C or E), or a mix: "B, with the hero from E".</li><li>Anything you dislike in it, even small.</li><li>Any colour you want more or less of.</li></ol><p>That is enough to start the build.</p></div>
+  </div>
+</div></section>
+
+<footer class="foot"><div class="wrap">Private review page for Prodani Miami. Mockups only; the live site is unchanged. Photos, prices and reviews are the real ones from prodanimiami.com.</div></footer>

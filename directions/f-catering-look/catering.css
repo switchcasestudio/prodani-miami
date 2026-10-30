@@ -1,0 +1,90 @@
+/* ============ Direction F · CATERING LOOK ============
+   Taken from Dani's own catering flyer (ProDani_Catering_Options.pdf): Fredoka
+   headings in cocoa, warm cream ground, flat white cards with big corners, one
+   pink card per section, numbered "01 / Label" headings, solid cocoa buttons.
+   Flat: no shadows, nothing rotated. Loaded over B's style.css. */
+:root{
+  --ink:#4A3027; --ink-2:#7B6459; --paper:#FFF8EF; --pink:#F7BCD0; --pink-ink:#4A3027;
+  --shadow:none; --shadow-sm:none; --cake-shadow:drop-shadow(0 14px 14px rgba(74,48,39,.18));
+  --r:30px; --r-sm:22px; --r-lg:34px;
+  --t1:#EEE0D1; --t2:#E9D4CE; --t3:#FFFFFF; --t4:#F4EBCF;
+}
+.disp{letter-spacing:-.005em;line-height:1.04}
+.eyebrow{display:block;background:none;padding:0;margin-bottom:14px;font-size:clamp(20px,2vw,27px);font-weight:600;letter-spacing:0;color:var(--ink)}
+.eyebrow::before{display:none}
+.pill{box-shadow:none}.pill:hover{transform:none;opacity:.88}
+.pill--ghost{border-width:2px}
+.badge--white{background:#fff}
+.bar{background:transparent;border-bottom:1.5px solid #EFE2D2;font-size:13.5px}
+.nav__links{background:#fff}
+.nav__logo .dot{fill:var(--ink)}
+
+/* hero: copy on the cream, the cake on one big pink card */
+.hero{background:transparent;gap:18px;min-height:0;overflow:visible}
+.hero__copy{padding:44px 24px 44px 0;gap:24px}
+.hero__h{font-size:clamp(58px,6.6vw,104px);line-height:1.02}
+.hero__art{background:var(--pink);border-radius:var(--r-lg);min-height:580px;overflow:hidden}
+.hero__art img{height:84%;transform:translate(-50%,-50%) rotate(14deg);animation:none}
+.hero__macros span{background:#fff;font-size:15px}
+
+.trust div{border-radius:var(--r-sm)}
+.trust i{background:var(--paper)}
+
+/* flavours: the flyer's quiet tints, name in cocoa */
+.fc{min-height:420px}
+.fc:hover,.box:hover{transform:none;box-shadow:none}
+.fc:nth-child(4n+1){--bg:var(--t1)!important}.fc:nth-child(4n+2){--bg:var(--t2)!important}
+.fc:nth-child(4n+3){--bg:var(--t3)!important}.fc:nth-child(4n){--bg:var(--t4)!important}
+.fc__name em{color:var(--ink-2)}
+.fc__img img,.fc__img.wide img,.fc__img.box img,.fc__img.slices img,.fc:hover .fc__img img{transform:none}
+.fc:hover .fc__add{transform:none;background:var(--ink)}
+.fc--cta{--bg:var(--pink)!important;background:var(--pink);color:var(--ink)}
+.fc--cta .fc__name{color:var(--ink)}
+.fc--cta .pill{background:var(--ink);color:#fff}
+.fc--cta .stack{transform:none}
+
+.step__n{background:var(--paper)}
+.step + .step{border-color:#F2E7D9}
+.box__n{letter-spacing:0}
+.minis,.box--pop .minis{background:rgba(74,48,39,.06)}
+.sub{border-radius:999px;padding:18px 34px}
+.sub b{color:#fff}
+
+/* macros + reviews: white panels with one pink pill */
+.macro{background:#fff;min-height:0}
+.macro__h em{color:var(--ink)}
+.macro__pills span{transform:none!important;background:var(--paper)}
+.macro__pills span.p{background:var(--pink)}
+.rev__sticker{border-radius:var(--r-lg);transform:none;width:260px;height:260px}
+.rev__sticker span{color:var(--ink)}
+.bub::after{display:none}
+.bub span::before{color:var(--ink)}
+.baker__img{transform:none}
+.ig__grid a,.ig__grid a:nth-child(even),.ig__grid a:nth-child(odd),.ig__grid a:hover{transform:none}
+.foot .dot,.foot__h .dot{fill:var(--pink)}
+
+@media (max-width:900px){
+  .hero{gap:0}
+  .hero__copy{padding:24px 0 8px;order:2}
+  .hero__art{min-height:0;height:320px;border-radius:28px}
+  .hero__art img{height:120%;transform:translate(-50%,-50%) rotate(70deg)}
+  .hero__h{font-size:clamp(50px,14.5vw,72px)}
+  .fc{min-height:0}
+  .fc--cta{grid-column:span 2}
+  .sub{border-radius:var(--r)}
+}
+
+/* keep trays clear of the + */
+/* the carrot photo has a white ground baked in: give it the white card */
+.fc:nth-child(5){--bg:var(--t3)!important}.fc:nth-child(7){--bg:var(--t1)!important}
+.fc__img.box img{filter:none}
+.fc__macros span{background:var(--paper)}
+.fc__img.wide img{max-width:76%;margin-right:44px}
+@media (max-width:900px){
+  .fc__top{flex-wrap:wrap}
+  .fc--cta{grid-column:auto;min-height:0}
+  .fc--cta .fc__name{font-size:26px}
+  .fc--cta .stack{width:80%;right:-24px;bottom:44px}
+  .fc--cta .pill{padding:10px 14px;font-size:13px}
+  .fc__img.wide img{max-width:100%;margin-right:0}
+}
