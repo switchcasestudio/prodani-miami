@@ -1,123 +1,203 @@
-/* Event catering inquiry (prodani-catering). Tokens from prodani-tokens.css; the
-   form shell (.pd-form, .pd-field, .pd-btn--pink) comes from prodani-contact.css,
-   so the walnut panel and cream fields match the contact page. This sheet adds the
-   numbered steps, the presentation cards and the per-flavor count grid. */
+/* Event catering inquiry (prodani-catering), guided four-step version.
+   Tokens from prodani-tokens.css. Light surface on purpose: the first version put
+   sixteen fields in one dark panel and read as homework. Now one step is on screen
+   at a time, on a butter card with hairlines, and the step list on the left carries
+   the picture of the whole. Without JS the steps stack and everything still works. */
 
 .pd-cat{ background:var(--cream); color:var(--ink); padding-block:clamp(40px,6vw,88px) clamp(60px,7vw,110px); }
 
 /* ---- head ---- */
-.pd-cat__head{ max-width:820px; }
+.pd-cat__head{ max-width:720px; }
 .pd-cat__head .pd-eyebrow{ margin:0 0 12px; }
-.pd-cat__lede{ margin-top:16px; max-width:60ch; }
-.pd-cat__lede p{ color:var(--ink); font-size:clamp(16px,1.7vw,19px); line-height:1.6; }
-.pd-cat__min{
-  display:inline-flex; align-items:baseline; gap:10px; margin:22px 0 0;
-  padding:10px 18px 10px 14px; border-radius:999px; background:var(--butter); border:1px solid var(--line);
-}
-.pd-cat__min-n{ font-family:var(--sans); font-weight:800; font-size:22px; line-height:1; color:var(--cocoa);
-  font-variant-numeric:tabular-nums; }
-.pd-cat__min-t{ font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--berry); }
+.pd-cat__head .pd-sec-title{ text-wrap:balance; }
+.pd-cat__lede{ margin:16px 0 0; color:var(--ink); font-size:clamp(16px,1.7vw,19px); line-height:1.6; max-width:58ch; }
+.pd-cat__meta{ margin:12px 0 0; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--berry); }
 
-/* ---- layout: form left, sticky aside right ---- */
+/* ---- layout ---- */
+.pd-cat__form{ display:block; }
 .pd-cat__grid{
-  display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,360px);
-  gap:clamp(24px,4vw,64px); align-items:start; margin-top:clamp(32px,4.5vw,56px);
+  display:grid; grid-template-columns:minmax(220px,300px) minmax(0,680px);
+  gap:clamp(24px,4vw,64px); align-items:start; margin-top:clamp(30px,4vw,52px);
 }
-.pd-cat__formwrap{ min-width:0; scroll-margin-top:90px; }
-.pd-cat__aside{ position:sticky; top:96px; display:grid; gap:14px; }
-@media (max-width:980px){
-  .pd-cat__grid{ grid-template-columns:1fr; }
-  .pd-cat__aside{ position:static; order:2; }
-}
+@media (max-width:860px){ .pd-cat__grid{ grid-template-columns:1fr; gap:18px; } }
 
-/* ---- steps inside the walnut panel ---- */
-.pd-form--catering{ gap:0; }
-.pd-cat__step{
-  border:0; margin:0; padding:clamp(18px,2.2vw,26px) 0; min-width:0;
-  display:grid; gap:14px;
-  border-top:1px solid var(--line-dark);
+/* ---- step list ---- */
+.pd-cat__nav{ position:sticky; top:96px; }
+.pd-cat__steps{ list-style:none; margin:0; padding:0; display:grid; gap:4px; }
+.pd-cat__steps button{
+  display:flex; gap:12px; align-items:flex-start; width:100%; text-align:left;
+  background:transparent; border:0; border-radius:14px; padding:12px 12px; cursor:pointer;
+  color:var(--ink); font:inherit; transition:background .2s;
 }
-.pd-cat__step:first-of-type{ border-top:0; padding-top:4px; }
-/* float:left turns off the browser's "rendered legend" placement (the legend would
-   otherwise sit ON the fieldset's top hairline, with the line running through it).
-   As a plain grid item it stacks under the hairline like everything else. */
+.pd-cat__steps button:hover{ background:var(--butter); }
+.pd-cat__steps button:focus-visible{ outline:2px solid var(--berry); outline-offset:2px; }
+.pd-cat__n{
+  flex:none; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px;
+  border-radius:999px; border:1px solid var(--line); background:var(--cream); color:var(--ink-soft);
+  font-family:var(--sans); font-weight:700; font-size:13px; transition:background .2s, color .2s, border-color .2s;
+}
+.pd-cat__nt{ display:grid; gap:2px; padding-top:4px; min-width:0; }
+.pd-cat__nt b{ font-family:var(--sans); font-weight:700; font-size:15px; color:var(--ink-soft); }
+.pd-cat__nt small{ font-size:13px; line-height:1.45; color:var(--ink-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pd-cat__nt small:empty{ display:none; }
+.pd-cat__steps li.is-current .pd-cat__n{ background:var(--cocoa); border-color:var(--cocoa); color:var(--cream); }
+.pd-cat__steps li.is-current .pd-cat__nt b{ color:var(--cocoa); }
+.pd-cat__steps li.is-done .pd-cat__n{ background:var(--butter); border-color:var(--berry); color:var(--berry); }
+.pd-cat__steps li.is-done .pd-cat__nt b{ color:var(--cocoa); }
+/* Phones: the list becomes a one-line strip of numbers; the card's count line names the step. */
+@media (max-width:860px){
+  .pd-cat__nav{ position:static; }
+  .pd-cat__steps{ grid-template-columns:repeat(4,1fr); gap:6px; }
+  .pd-cat__steps button{ padding:8px 6px; justify-content:center; }
+  .pd-cat__nt{ display:none; }
+}
+/* Without JS there is no stepping, so the list is just a static outline. */
+.pd-cat__grid:not(.is-wizard) .pd-cat__steps button{ cursor:default; pointer-events:none; }
+.pd-cat__grid:not(.is-wizard) .pd-cat__nt small{ display:none; }
+
+/* ---- card ---- */
+.pd-cat__card{
+  background:var(--butter); border:1px solid var(--line); border-radius:calc(var(--r) + 6px);
+  padding:clamp(22px,3vw,40px); position:relative; min-width:0;
+}
+.pd-cat__bar{ height:3px; border-radius:2px; background:var(--line); overflow:hidden; display:none; }
+.pd-cat__bar span{ display:block; height:100%; width:25%; background:var(--cocoa); border-radius:2px; transition:width .35s var(--ease); }
+.pd-cat__count{ margin:0; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--berry); display:none; }
+.is-wizard .pd-cat__bar{ display:block; }
+.is-wizard .pd-cat__count{ display:block; margin-top:14px; }
+.pd-cat__err{ margin:16px 0 0; padding:12px 14px; border-radius:12px; background:rgba(169, 90, 60, .10); color:#7A3E24; font-size:14.5px; line-height:1.5; }
+
+/* ---- steps ---- */
+.pd-cat__step{ border:0; margin:0; padding:0; min-width:0; display:grid; gap:16px; padding-top:18px; }
+.pd-cat__step + .pd-cat__step{ margin-top:28px; padding-top:28px; border-top:1px solid var(--line); }
+.is-wizard .pd-cat__step + .pd-cat__step{ margin-top:0; padding-top:18px; border-top:0; }
+.is-wizard .pd-cat__step[hidden]{ display:none; }
+@keyframes pd-cat-in{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+.is-wizard .pd-cat__step{ animation:pd-cat-in .22s var(--ease) both; }
+@media (prefers-reduced-motion:reduce){ .is-wizard .pd-cat__step{ animation:none; } .pd-cat__bar span{ transition:none; } }
+
+/* float:left turns off the browser's special legend placement so it flows like a heading */
 .pd-cat__legend{
-  float:left; width:100%;
-  display:flex; align-items:baseline; gap:12px; padding:0; margin:0 0 4px;
-  font-family:var(--sans); font-weight:800; font-size:clamp(17px,1.8vw,20px); color:var(--on-dark);
+  float:left; width:100%; padding:0; margin:0;
+  font-family:var(--display); font-weight:340; letter-spacing:-.015em; text-wrap:balance;
+  font-size:clamp(24px,2.6vw,32px); line-height:1.15; color:var(--cocoa);
 }
-.pd-cat__legend span{
-  font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.2em; color:var(--pink);
-}
-/* A fieldset's legend sits outside the grid flow, so the gap needs a nudge. */
-.pd-cat__legend + *{ margin-top:0; }
-.pd-cat__help{ margin:0; font-size:13.5px; line-height:1.55; color:var(--on-dark-soft); }
+.pd-cat__help{ margin:0; font-size:15px; line-height:1.55; color:var(--ink-soft); max-width:60ch; }
+.pd-cat__hint{ margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-soft); }
+.pd-cat__sub{ margin:10px 0 0; font-family:var(--sans); font-weight:700; font-size:15px; color:var(--cocoa); }
 .pd-cat__two{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-@media (max-width:620px){ .pd-cat__two{ grid-template-columns:1fr; } }
+@media (max-width:560px){ .pd-cat__two{ grid-template-columns:1fr; } }
 
-/* quantity: one big number, the unit beside it */
-.pd-cat__qty-row{ display:flex; align-items:center; gap:12px; }
+/* fields */
+.pd-cat__field{ display:grid; gap:6px; min-width:0; }
+.pd-cat__field > span{ font-size:13px; font-weight:700; color:var(--ink); }
+.pd-cat__field > span em{ font-style:normal; font-weight:500; color:var(--ink-soft); margin-left:6px; }
+.pd-cat__field input, .pd-cat__field select, .pd-cat__field textarea, .pd-cat__flavor input{
+  font:inherit; font-size:15px; width:100%; color:var(--ink); background:var(--cream);
+  border:1px solid rgba(33, 25, 19, .22); border-radius:12px; padding:12px 14px; min-height:46px;
+  transition:border-color .18s ease, box-shadow .18s ease;
+}
+.pd-cat__field textarea{ resize:vertical; min-height:84px; }
+.pd-cat__field input::placeholder, .pd-cat__field textarea::placeholder, .pd-cat__flavor input::placeholder{ color:rgba(33, 25, 19, .5); }
+.pd-cat__field input:focus-visible, .pd-cat__field select:focus-visible, .pd-cat__field textarea:focus-visible, .pd-cat__flavor input:focus-visible{
+  outline:none; border-color:var(--berry); box-shadow:0 0 0 3px rgba(126, 101, 55, .18);
+}
+.pd-cat__field select{
+  appearance:none; padding-right:40px; cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%), linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);
+  background-position:calc(100% - 19px) center, calc(100% - 13px) center; background-size:6px 6px, 6px 6px; background-repeat:no-repeat;
+}
+/* Under 16px, iOS Safari zooms the page in on focus and leaves it zoomed. */
+@media (max-width:749px){ .pd-cat__field input, .pd-cat__field select, .pd-cat__field textarea, .pd-cat__flavor input, .pd-cat__qty input{ font-size:16px; } }
+
+/* quantity: minus, the number, plus */
+.pd-cat__qty{ display:flex; align-items:stretch; gap:8px; max-width:360px; }
+.pd-cat__qty-btn{
+  flex:none; width:52px; border-radius:14px; border:1px solid rgba(33, 25, 19, .22); background:var(--cream);
+  color:var(--cocoa); font-size:22px; line-height:1; cursor:pointer; transition:background .2s, border-color .2s;
+}
+.pd-cat__qty-btn:hover{ background:var(--cocoa); color:var(--cream); border-color:var(--cocoa); }
+.pd-cat__qty-btn:focus-visible{ outline:2px solid var(--berry); outline-offset:2px; }
+.pd-cat__qty-field{ flex:1 1 auto; position:relative; display:flex; align-items:center; min-width:0; }
 .pd-cat__qty input{
-  max-width:200px; font-family:var(--sans); font-weight:800; font-size:26px !important;
-  letter-spacing:-.01em; font-variant-numeric:tabular-nums; padding:10px 15px;
+  width:100%; min-height:64px; padding:10px 64px 10px 18px; border-radius:14px;
+  border:1px solid rgba(33, 25, 19, .22); background:var(--cream); color:var(--cocoa);
+  font-family:var(--sans); font-weight:800; font-size:28px; letter-spacing:-.01em; font-variant-numeric:tabular-nums;
+  transition:border-color .18s ease, box-shadow .18s ease;
 }
-.pd-cat__qty-unit{ font-size:14px !important; font-weight:600 !important; letter-spacing:0 !important;
-  text-transform:none !important; color:var(--on-dark-soft) !important; }
-.pd-cat__qty input:invalid:not(:placeholder-shown){ border-color:#D9A38F; }
-/* Chrome and Safari draw spinners that fight the big type. */
-.pd-cat__qty input::-webkit-outer-spin-button,
-.pd-cat__qty input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+.pd-cat__qty input:focus-visible{ outline:none; border-color:var(--berry); box-shadow:0 0 0 3px rgba(126, 101, 55, .18); }
+.pd-cat__qty input::placeholder{ color:rgba(33, 25, 19, .32); }
+.pd-cat__qty input::-webkit-outer-spin-button, .pd-cat__qty input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
 .pd-cat__qty input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
+.pd-cat__qty-unit{ position:absolute; right:18px; font-size:14px; font-weight:600; color:var(--ink-soft); pointer-events:none; }
+.pd-cat__qty input:invalid:not(:placeholder-shown){ border-color:#B5553A; }
 
-/* presentation: three cream cards with a real radio inside */
-.pd-cat__choices{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-@media (max-width:749px){ .pd-cat__choices{ grid-template-columns:1fr; } }
-.pd-cat__choice{
-  display:flex; gap:12px; align-items:flex-start; cursor:pointer;
-  background:var(--pd-field); color:var(--ink); border-radius:14px; padding:14px 14px 14px 12px;
-  border:2px solid transparent; transition:border-color .18s ease, transform .4s var(--bounce);
-}
-.pd-cat__choice:hover{ transform:translateY(-1px); }
-.pd-cat__choice input{ margin:3px 0 0; width:18px; height:18px; flex:none; accent-color:var(--berry); }
-.pd-cat__choice-body{ display:grid; gap:3px; }
-.pd-cat__choice-body b{ font-family:var(--sans); font-weight:800; font-size:15px; color:var(--cocoa); }
-.pd-cat__choice-body small{ font-size:13px; line-height:1.45; color:var(--ink-soft); }
-.pd-cat__choice:has(input:checked){ border-color:var(--berry); }
-.pd-cat__choice:has(input:focus-visible){ outline:2px solid var(--pink); outline-offset:2px; }
-
-/* flavors: compact count grid */
+/* flavors */
 .pd-cat__flavors{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px 14px; }
 @media (max-width:480px){ .pd-cat__flavors{ grid-template-columns:1fr; } }
+.pd-cat__flavor{ display:grid; gap:6px; }
+.pd-cat__flavor > span{ font-size:13px; font-weight:700; color:var(--ink); }
 .pd-cat__flavor input{ font-variant-numeric:tabular-nums; }
-.pd-cat__tally{ margin:0; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--pink); }
-.pd-cat__tally[data-state="over"]{ color:#E8C4B3; }
-.pd-cat__check{ display:flex; gap:10px; align-items:center; cursor:pointer; color:var(--on-dark); font-size:14.5px; font-weight:600; }
-.pd-cat__check input{ width:18px; height:18px; accent-color:var(--pink); }
-[data-pd-flavors].is-mix .pd-cat__flavors{ opacity:.45; }
+.pd-cat__flavor input::-webkit-outer-spin-button, .pd-cat__flavor input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+.pd-cat__flavor input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
+.pd-cat__tally{ margin:-4px 0 0; font-size:13.5px; color:var(--berry); font-weight:600; }
+.pd-cat__tally[data-state="over"]{ color:#8A4A2E; }
+.pd-cat__check{ display:flex; gap:10px; align-items:center; cursor:pointer; font-size:14.5px; font-weight:600; color:var(--ink); }
+.pd-cat__check input{ width:18px; height:18px; accent-color:var(--cocoa); }
+[data-pd-flavors].is-mix{ opacity:.45; }
 
-/* submit */
-.pd-cat__submit{ display:grid; gap:14px; padding-top:clamp(18px,2.2vw,26px); border-top:1px solid var(--line-dark); }
-.pd-cat__fine{ margin:0; font-size:12.5px; line-height:1.55; color:var(--on-dark-soft); }
-
-/* ---- aside panels ---- */
-.pd-cat__panel{ background:var(--butter); border:1px solid var(--line); border-radius:var(--r); padding:clamp(18px,2vw,24px); }
-.pd-cat__sub{ font-family:var(--sans); font-weight:800; color:var(--cocoa); font-size:17px; margin:0 0 14px; }
-.pd-cat__steps{ list-style:none; margin:0; padding:0; display:grid; gap:12px; }
-.pd-cat__steps li{ display:flex; gap:12px; align-items:flex-start; }
-.pd-cat__step-n{
-  flex:none; display:inline-flex; align-items:center; justify-content:center;
-  width:28px; height:28px; border-radius:999px; background:var(--cocoa); color:var(--cream);
-  font-family:var(--sans); font-weight:800; font-size:13px;
+/* presentation: three light cards with a real radio inside */
+.pd-cat__choices{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+@media (max-width:640px){ .pd-cat__choices{ grid-template-columns:1fr; } }
+.pd-cat__choice{
+  display:flex; gap:10px; align-items:flex-start; cursor:pointer;
+  background:var(--cream); border:1px solid rgba(33, 25, 19, .22); border-radius:14px; padding:14px 14px 14px 12px;
+  transition:border-color .18s ease, box-shadow .18s ease;
 }
-.pd-cat__step-body{ display:flex; flex-direction:column; gap:2px; padding-top:3px; }
-.pd-cat__step-body b{ font-family:var(--sans); font-weight:800; color:var(--cocoa); font-size:14.5px; }
-.pd-cat__step-body span{ font-size:13.5px; line-height:1.5; color:var(--ink-faint); }
-.pd-cat__notes p{ font-size:14px; line-height:1.6; margin:0 0 10px; }
-.pd-cat__notes p:last-child{ margin:0; }
+.pd-cat__choice input{ margin:3px 0 0; width:18px; height:18px; flex:none; accent-color:var(--cocoa); }
+.pd-cat__choice-body{ display:grid; gap:3px; }
+.pd-cat__choice-body b{ font-family:var(--sans); font-weight:700; font-size:14.5px; color:var(--cocoa); }
+.pd-cat__choice-body small{ font-size:13px; line-height:1.45; color:var(--ink-soft); }
+.pd-cat__choice:has(input:checked){ border-color:var(--cocoa); box-shadow:inset 0 0 0 1px var(--cocoa); }
+.pd-cat__choice:has(input:focus-visible){ outline:2px solid var(--berry); outline-offset:2px; }
 
-/* Touch floor on phones, same as the partner form. */
-@media (max-width:749px){
-  .pd-form--catering .pd-field input,
-  .pd-form--catering .pd-field select{ min-height:44px; }
-  .pd-form--catering .pd-btn{ min-height:48px; }
+/* optional extras: a disclosure, closed by default */
+.pd-cat__more{ border-top:1px solid var(--line); padding-top:14px; }
+.pd-cat__more summary{
+  cursor:pointer; list-style:none; display:flex; align-items:center; gap:10px;
+  font-size:14.5px; font-weight:700; color:var(--cocoa);
 }
+.pd-cat__more summary::-webkit-details-marker{ display:none; }
+.pd-cat__more summary::before{
+  content:''; width:20px; height:20px; border-radius:999px; flex:none;
+  background:var(--cream); border:1px solid rgba(33, 25, 19, .22);
+  background-image:linear-gradient(var(--cocoa),var(--cocoa)), linear-gradient(var(--cocoa),var(--cocoa));
+  background-size:10px 1.5px, 1.5px 10px; background-position:center; background-repeat:no-repeat;
+  transition:transform .25s var(--ease);
+}
+.pd-cat__more[open] summary::before{ transform:rotate(45deg); }
+.pd-cat__more-body{ display:grid; gap:14px; padding-top:16px; }
+
+/* actions */
+.pd-cat__actions{ display:flex; align-items:center; gap:14px; margin-top:26px; padding-top:22px; border-top:1px solid var(--line); flex-wrap:wrap; }
+.pd-cat__actions .pd-btn{ border:0; cursor:pointer; }
+.pd-cat__back{
+  background:transparent; border:0; cursor:pointer; font:inherit; font-weight:700; font-size:14.5px;
+  color:var(--ink-soft); padding:10px 4px; margin-right:auto; text-decoration:underline; text-underline-offset:4px;
+}
+.pd-cat__back:hover{ color:var(--cocoa); }
+.pd-cat__back[hidden], [data-next][hidden], [data-submit][hidden]{ display:none; }
+/* Without JS: no stepping buttons, just send. */
+.pd-cat__grid:not(.is-wizard) .pd-cat__back, .pd-cat__grid:not(.is-wizard) [data-next]{ display:none; }
+.pd-cat__fine{ margin:14px 0 0; font-size:12.5px; line-height:1.55; color:var(--ink-soft); }
+
+/* ---- success ---- */
+.pd-cat__done{
+  margin-top:clamp(30px,4vw,52px); max-width:620px; background:var(--butter); border:1px solid var(--line);
+  border-radius:calc(var(--r) + 6px); padding:clamp(26px,3.6vw,44px); display:grid; gap:14px; justify-items:start;
+}
+.pd-cat__done h2{ margin:0; font-family:var(--display); font-weight:340; font-size:clamp(28px,3.2vw,40px); line-height:1.1; color:var(--cocoa); }
+.pd-cat__done p{ margin:0; color:var(--ink-soft); font-size:16.5px; line-height:1.6; }
+.pd-cat__done .pd-btn{ margin-top:6px; }
+
+.pd-sr-only{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); border:0; }

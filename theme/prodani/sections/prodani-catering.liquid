@@ -1,18 +1,22 @@
 {%- comment -%}
-  Event catering inquiry (2026-10-30). Built from Dani's "ProDani_Catering_Options"
-  brochure, with the one change she asked for: no 70 / 100 / 150 tier cards. The
-  guest types the EXACT number of cakes, and 70 is the minimum (enforced in the
-  browser; the inbox sees whatever was typed).
+  Event catering inquiry (2026-10-30, reworked the same evening after Moses: "looks a
+  little daunting"). Built from Dani's "ProDani_Catering_Options" brochure with her one
+  change: no 70 / 100 / 150 tier cards, the guest types the EXACT number (minimum 70).
 
-  The form is Shopify's native {% form 'contact' %}: every contact[...] field is
-  listed in the store's contact email, so Dani reads the whole brief in one message.
-  No prices anywhere on purpose. Every order gets a personal quote (brochure wording).
+  UX: a guided four-step flow instead of one long dark form. One step on screen at a
+  time, a step list on the left that fills with one-line summaries as answers come in,
+  four required fields in total (cakes, date, name, email). Without JavaScript all four
+  steps simply stack and the form still posts. After a server-side error every step is
+  shown so nothing is hidden behind a "Continue" button.
 
-  UNLISTED for now: nothing links here, and theme.liquid adds noindex for the
-  `catering` page template until Dani approves the page.
+  Shopify's native {% form 'contact' %}: every contact[...] field is listed in the
+  store's contact email, with readable keys ("Cake quantity", "Hazelnut"...). No prices
+  anywhere on purpose; every order gets a personal quote (brochure wording).
+
+  UNLISTED for now: nothing links here, theme.liquid adds noindex for the `catering`
+  page template, the search templates skip it.
 {%- endcomment -%}
 
-{{ 'prodani-contact.css' | asset_url | stylesheet_tag }}
 {{ 'prodani-catering.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'prodani-catering.js' | asset_url }}" defer></script>
 
@@ -20,6 +24,7 @@
   assign heading = section.settings.heading | default: page.title
   assign minimum = section.settings.minimum | default: 70
   assign flavors = section.settings.flavors | split: ','
+  assign choices = section.blocks | where: 'type', 'presentation'
 -%}
 
 <section class="pd-cat"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor }}"{% endif %}>
@@ -31,199 +36,173 @@
       {%- endif -%}
       <h1 class="pd-sec-title">{{ heading | newline_to_br }}</h1>
       {%- if section.settings.lede != blank -%}
-        <div class="pd-cat__lede pd-rte">{{ section.settings.lede }}</div>
+        <p class="pd-cat__lede">{{ section.settings.lede | escape }}</p>
       {%- endif -%}
-      <p class="pd-cat__min">
-        <span class="pd-cat__min-n">{{ minimum }}</span>
-        <span class="pd-cat__min-t">{{ section.settings.minimum_label | escape }}</span>
-      </p>
+      {%- if section.settings.meta != blank -%}
+        <p class="pd-cat__meta">{{ section.settings.meta | escape }}</p>
+      {%- endif -%}
     </header>
 
-    <div class="pd-cat__grid">
+    {%- form 'contact', class: 'pd-cat__form', data-pd-catering: '', data-min: minimum -%}
+      {%- if form.posted_successfully? -%}
 
-      {%- comment -%} ---------- the inquiry form ---------- {%- endcomment -%}
-      <div class="pd-cat__formwrap" id="{{ section.settings.form_anchor | default: 'inquiry' }}">
-        {%- form 'contact', class: 'pd-form pd-form--catering', data-pd-catering: '', data-min: minimum -%}
-          {%- if form.posted_successfully? -%}
-            <p class="pd-form__ok">{{ section.settings.success_text | escape }}</p>
-          {%- elsif form.errors -%}
-            <p class="pd-form__err">{{ form.errors | default_errors }}</p>
-          {%- endif -%}
+        <div class="pd-cat__done" role="status">
+          <h2>{{ section.settings.success_heading | escape }}</h2>
+          <p>{{ section.settings.success_text | escape }}</p>
+          <a class="pd-btn" href="{{ routes.root_url }}">{{ section.settings.success_button | escape }}</a>
+        </div>
 
-          {%- comment -%} Tells catering inquiries apart from contact / wholesale mail. {%- endcomment -%}
-          <input type="hidden" name="contact[Inquiry type]" value="{{ section.settings.program_label | escape }}">
+      {%- else -%}
 
-          {%- comment -%} 01 quantity {%- endcomment -%}
-          <fieldset class="pd-cat__step">
-            <legend class="pd-cat__legend"><span>01</span>{{ section.settings.step1_title | escape }}</legend>
-            <label class="pd-field pd-cat__qty">
-              <span>{{ section.settings.qty_label | escape }}</span>
-              <span class="pd-cat__qty-row">
-                <input type="number" name="contact[Cake quantity]" min="{{ minimum }}" step="1"
-                       inputmode="numeric" placeholder="{{ minimum }}" required data-pd-qty
-                       data-min-msg="{{ section.settings.min_message | escape }}">
-                <span class="pd-cat__qty-unit">cakes</span>
-              </span>
-            </label>
-            {%- if section.settings.qty_help != blank -%}
-              <p class="pd-cat__help">{{ section.settings.qty_help | escape }}</p>
+        <div class="pd-cat__grid"{% if form.errors %} data-errors{% endif %}>
+
+          {%- comment -%} step list: numbers + titles, summaries filled by JS {%- endcomment -%}
+          <nav class="pd-cat__nav" aria-label="Steps">
+            <ol class="pd-cat__steps" data-pd-nav>
+              <li data-step="1"><button type="button" data-goto="1"><span class="pd-cat__n">1</span><span class="pd-cat__nt"><b>{{ section.settings.step1_title | escape }}</b><small data-summary="1"></small></span></button></li>
+              <li data-step="2"><button type="button" data-goto="2"><span class="pd-cat__n">2</span><span class="pd-cat__nt"><b>{{ section.settings.step2_title | escape }}</b><small data-summary="2"></small></span></button></li>
+              <li data-step="3"><button type="button" data-goto="3"><span class="pd-cat__n">3</span><span class="pd-cat__nt"><b>{{ section.settings.step3_title | escape }}</b><small data-summary="3"></small></span></button></li>
+              <li data-step="4"><button type="button" data-goto="4"><span class="pd-cat__n">4</span><span class="pd-cat__nt"><b>{{ section.settings.step4_title | escape }}</b><small data-summary="4"></small></span></button></li>
+            </ol>
+          </nav>
+
+          <div class="pd-cat__card">
+            <div class="pd-cat__bar" aria-hidden="true"><span data-pd-bar></span></div>
+            <p class="pd-cat__count" data-pd-count aria-live="polite"></p>
+
+            {%- if form.errors -%}
+              <p class="pd-cat__err" role="alert">{{ form.errors | default_errors }}</p>
             {%- endif -%}
-          </fieldset>
 
-          {%- comment -%} 02 presentation {%- endcomment -%}
-          {%- assign choices = section.blocks | where: 'type', 'presentation' -%}
-          {%- if choices.size > 0 -%}
-            <fieldset class="pd-cat__step">
-              <legend class="pd-cat__legend"><span>02</span>{{ section.settings.step2_title | escape }}</legend>
-              <div class="pd-cat__choices">
-                {%- for block in choices -%}
-                  <label class="pd-cat__choice" {{ block.shopify_attributes }}>
-                    <input type="radio" name="contact[Presentation]" value="{{ block.settings.title | escape }}"
-                           {% if forloop.first %}required{% endif %}>
-                    <span class="pd-cat__choice-body">
-                      <b>{{ block.settings.title | escape }}</b>
-                      {%- if block.settings.text != blank -%}<small>{{ block.settings.text | escape }}</small>{%- endif -%}
-                    </span>
-                  </label>
-                {%- endfor -%}
+            <input type="hidden" name="contact[Inquiry type]" value="{{ section.settings.program_label | escape }}">
+
+            {%- comment -%} 1. cakes {%- endcomment -%}
+            <fieldset class="pd-cat__step" data-step="1">
+              <legend class="pd-cat__legend">{{ section.settings.step1_question | escape }}</legend>
+              {%- if section.settings.step1_help != blank -%}<p class="pd-cat__help">{{ section.settings.step1_help | escape }}</p>{%- endif -%}
+              <div class="pd-cat__qty">
+                <button type="button" class="pd-cat__qty-btn" data-qty-dec aria-label="Ten fewer cakes">&minus;</button>
+                <label class="pd-cat__qty-field">
+                  <span class="pd-sr-only">{{ section.settings.step1_question | escape }}</span>
+                  <input type="number" name="contact[Cake quantity]" min="{{ minimum }}" step="1" inputmode="numeric"
+                         placeholder="{{ minimum }}" required data-pd-qty data-min-msg="{{ section.settings.min_message | escape }}">
+                  <span class="pd-cat__qty-unit">cakes</span>
+                </label>
+                <button type="button" class="pd-cat__qty-btn" data-qty-inc aria-label="Ten more cakes">+</button>
               </div>
-              {%- if section.settings.presentation_help != blank -%}
-                <p class="pd-cat__help">{{ section.settings.presentation_help | escape }}</p>
+              <p class="pd-cat__hint" data-pd-qty-hint>{{ section.settings.step1_hint | escape }}</p>
+            </fieldset>
+
+            {%- comment -%} 2. flavors + presentation {%- endcomment -%}
+            <fieldset class="pd-cat__step" data-step="2">
+              <legend class="pd-cat__legend">{{ section.settings.step2_question | escape }}</legend>
+              {%- if section.settings.step2_help != blank -%}<p class="pd-cat__help">{{ section.settings.step2_help | escape }}</p>{%- endif -%}
+              {%- if flavors.size > 0 -%}
+                <div class="pd-cat__flavors" data-pd-flavors>
+                  {%- for f in flavors -%}
+                    {%- assign name = f | strip -%}
+                    {%- if name == blank -%}{%- continue -%}{%- endif -%}
+                    <label class="pd-cat__flavor">
+                      <span>{{ name | escape }}</span>
+                      <input type="number" name="contact[{{ name | escape }}]" min="0" step="1" inputmode="numeric" placeholder="0" data-pd-flavor>
+                    </label>
+                  {%- endfor -%}
+                </div>
+                <p class="pd-cat__tally" data-pd-tally aria-live="polite" hidden></p>
+                <label class="pd-cat__check">
+                  <input type="checkbox" name="contact[Flavor mix]" value="{{ section.settings.mix_label | escape }}" data-pd-mix>
+                  <span>{{ section.settings.mix_label | escape }}</span>
+                </label>
+              {%- endif -%}
+              {%- if choices.size > 0 -%}
+                <p class="pd-cat__sub" id="pd-cat-pres">{{ section.settings.presentation_label | escape }}</p>
+                <div class="pd-cat__choices" role="radiogroup" aria-labelledby="pd-cat-pres">
+                  {%- for block in choices -%}
+                    <label class="pd-cat__choice" {{ block.shopify_attributes }}>
+                      <input type="radio" name="contact[Presentation]" value="{{ block.settings.title | escape }}">
+                      <span class="pd-cat__choice-body"><b>{{ block.settings.title | escape }}</b>{%- if block.settings.text != blank -%}<small>{{ block.settings.text | escape }}</small>{%- endif -%}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
               {%- endif -%}
             </fieldset>
-          {%- endif -%}
 
-          {%- comment -%} 03 flavors: one count per flavor, or "recommend a mix" {%- endcomment -%}
-          {%- if flavors.size > 0 -%}
-            <fieldset class="pd-cat__step" data-pd-flavors>
-              <legend class="pd-cat__legend"><span>03</span>{{ section.settings.step3_title | escape }}</legend>
-              <div class="pd-cat__flavors">
-                {%- for f in flavors -%}
-                  {%- assign name = f | strip -%}
-                  {%- if name == blank -%}{%- continue -%}{%- endif -%}
-                  <label class="pd-field pd-cat__flavor">
-                    <span>{{ name | escape }}</span>
-                    <input type="number" name="contact[{{ name | escape }}]" min="0" step="1"
-                           inputmode="numeric" placeholder="0" data-pd-flavor>
-                  </label>
-                {%- endfor -%}
+            {%- comment -%} 3. event {%- endcomment -%}
+            <fieldset class="pd-cat__step" data-step="3">
+              <legend class="pd-cat__legend">{{ section.settings.step3_question | escape }}</legend>
+              <div class="pd-cat__two">
+                <label class="pd-cat__field">
+                  <span>Event date</span>
+                  <input type="date" name="contact[Event date]" required data-summary-date>
+                </label>
+                <label class="pd-cat__field">
+                  <span>Delivery or pickup</span>
+                  <select name="contact[Delivery or pickup]" data-summary-delivery>
+                    <option value="Delivery">Delivery</option>
+                    <option value="Pickup">Pickup</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                  </select>
+                </label>
               </div>
-              <p class="pd-cat__tally" data-pd-tally aria-live="polite" hidden></p>
-              <label class="pd-cat__check">
-                <input type="checkbox" name="contact[Flavor mix]" value="{{ section.settings.mix_label | escape }}" data-pd-mix>
-                <span>{{ section.settings.mix_label | escape }}</span>
+              <label class="pd-cat__field">
+                <span>City or venue <em>optional</em></span>
+                <input type="text" name="contact[Event location]" autocomplete="address-level2" placeholder="Wynwood, Miami">
               </label>
-              {%- if section.settings.flavor_help != blank -%}
-                <p class="pd-cat__help">{{ section.settings.flavor_help | escape }}</p>
-              {%- endif -%}
+              <details class="pd-cat__more">
+                <summary>{{ section.settings.extras_label | escape }}</summary>
+                <div class="pd-cat__more-body">
+                  <label class="pd-cat__field">
+                    <span>Theme, message or branding</span>
+                    <textarea name="contact[Customization]" rows="2" placeholder="{{ section.settings.custom_placeholder | escape }}"></textarea>
+                  </label>
+                  {%- if section.settings.custom_help != blank -%}<p class="pd-cat__help">{{ section.settings.custom_help | escape }}</p>{%- endif -%}
+                  <label class="pd-cat__field">
+                    <span>Allergies or dietary needs</span>
+                    <input type="text" name="contact[Allergies or dietary needs]" placeholder="None that we know of">
+                  </label>
+                </div>
+              </details>
             </fieldset>
-          {%- endif -%}
 
-          {%- comment -%} 04 personal touch {%- endcomment -%}
-          <fieldset class="pd-cat__step">
-            <legend class="pd-cat__legend"><span>04</span>{{ section.settings.step4_title | escape }}</legend>
-            <label class="pd-field">
-              <span>{{ section.settings.custom_label | escape }}</span>
-              <textarea name="contact[Customization]" rows="3" placeholder="{{ section.settings.custom_placeholder | escape }}"></textarea>
-            </label>
-            {%- if section.settings.custom_help != blank -%}
-              <p class="pd-cat__help">{{ section.settings.custom_help | escape }}</p>
-            {%- endif -%}
-          </fieldset>
+            {%- comment -%} 4. details {%- endcomment -%}
+            <fieldset class="pd-cat__step" data-step="4">
+              <legend class="pd-cat__legend">{{ section.settings.step4_question | escape }}</legend>
+              <div class="pd-cat__two">
+                <label class="pd-cat__field">
+                  <span>Your name</span>
+                  <input type="text" name="contact[name]" value="{{ form.name }}" autocomplete="name" required data-summary-name>
+                </label>
+                <label class="pd-cat__field">
+                  <span>Phone <em>optional</em></span>
+                  <input type="tel" name="contact[phone]" value="{{ form.phone }}" autocomplete="tel" inputmode="tel" placeholder="+1 305 000 0000">
+                </label>
+              </div>
+              <label class="pd-cat__field">
+                <span>Email</span>
+                <input type="email" name="contact[email]" value="{{ form.email }}" autocomplete="email" required>
+              </label>
+              <label class="pd-cat__field">
+                <span>{{ section.settings.message_label | escape }}</span>
+                <textarea name="contact[body]" rows="3" required placeholder="{{ section.settings.message_placeholder | escape }}">{{ form.body }}</textarea>
+              </label>
+            </fieldset>
 
-          {%- comment -%} 05 the event {%- endcomment -%}
-          <fieldset class="pd-cat__step">
-            <legend class="pd-cat__legend"><span>05</span>{{ section.settings.step5_title | escape }}</legend>
-            <div class="pd-cat__two">
-              <label class="pd-field">
-                <span>Event date</span>
-                <input type="date" name="contact[Event date]" required>
-              </label>
-              <label class="pd-field">
-                <span>Guest count</span>
-                <input type="number" name="contact[Guest count]" min="1" step="1" inputmode="numeric" placeholder="80">
-              </label>
+            <div class="pd-cat__actions">
+              <button type="button" class="pd-cat__back" data-prev>Back</button>
+              <button type="button" class="pd-btn" data-next>{{ section.settings.next_label | escape }}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+              </button>
+              <button type="submit" class="pd-btn" data-submit>{{ section.settings.button_label | escape }}</button>
             </div>
-            <label class="pd-field">
-              <span>Event location</span>
-              <input type="text" name="contact[Event location]" autocomplete="address-level2" placeholder="Venue or neighborhood, Miami" required>
-            </label>
-            <div class="pd-cat__two">
-              <label class="pd-field">
-                <span>Delivery or pickup</span>
-                <select name="contact[Delivery or pickup]">
-                  <option value="Delivery">Delivery</option>
-                  <option value="Pickup">Pickup</option>
-                  <option value="Not sure yet">Not sure yet</option>
-                </select>
-              </label>
-              <label class="pd-field">
-                <span>Allergies or dietary needs</span>
-                <input type="text" name="contact[Allergies or dietary needs]" placeholder="None that we know of">
-              </label>
-            </div>
-          </fieldset>
-
-          {%- comment -%} 06 you {%- endcomment -%}
-          <fieldset class="pd-cat__step">
-            <legend class="pd-cat__legend"><span>06</span>{{ section.settings.step6_title | escape }}</legend>
-            <div class="pd-cat__two">
-              <label class="pd-field">
-                <span>Your name</span>
-                <input type="text" name="contact[name]" value="{{ form.name }}" autocomplete="name" required>
-              </label>
-              <label class="pd-field">
-                <span>Phone</span>
-                <input type="tel" name="contact[phone]" value="{{ form.phone }}" autocomplete="tel" inputmode="tel" placeholder="+1 305 000 0000">
-              </label>
-            </div>
-            <label class="pd-field">
-              <span>Email</span>
-              <input type="email" name="contact[email]" value="{{ form.email }}" autocomplete="email" required>
-            </label>
-            <label class="pd-field">
-              <span>{{ section.settings.message_label | escape }}</span>
-              <textarea name="contact[body]" rows="4" required placeholder="{{ section.settings.message_placeholder | escape }}">{{ form.body }}</textarea>
-            </label>
-          </fieldset>
-
-          <div class="pd-cat__submit">
-            <button type="submit" class="pd-btn pd-btn--pink">{{ section.settings.button_label | escape }}</button>
             {%- if section.settings.fine_print != blank -%}
               <p class="pd-cat__fine">{{ section.settings.fine_print | escape }}</p>
             {%- endif -%}
           </div>
-        {%- endform -%}
-      </div>
+        </div>
 
-      {%- comment -%} ---------- aside: how it works + good to know ---------- {%- endcomment -%}
-      {%- assign steps = section.blocks | where: 'type', 'step' -%}
-      <aside class="pd-cat__aside">
-        {%- if steps.size > 0 -%}
-          <div class="pd-cat__panel">
-            <h2 class="pd-cat__sub">{{ section.settings.aside_heading | escape }}</h2>
-            <ol class="pd-cat__steps">
-              {%- for block in steps -%}
-                <li {{ block.shopify_attributes }}>
-                  <span class="pd-cat__step-n">{{ forloop.index }}</span>
-                  <span class="pd-cat__step-body">
-                    <b>{{ block.settings.title | escape }}</b>
-                    {%- if block.settings.text != blank -%}<span>{{ block.settings.text | escape }}</span>{%- endif -%}
-                  </span>
-                </li>
-              {%- endfor -%}
-            </ol>
-          </div>
-        {%- endif -%}
-        {%- if section.settings.notes != blank -%}
-          <div class="pd-cat__panel pd-cat__panel--notes">
-            <h2 class="pd-cat__sub">{{ section.settings.notes_heading | escape }}</h2>
-            <div class="pd-rte pd-cat__notes">{{ section.settings.notes }}</div>
-          </div>
-        {%- endif -%}
-      </aside>
+      {%- endif -%}
+    {%- endform -%}
 
-    </div>
   </div>
 </section>
 
@@ -235,48 +214,47 @@
   "settings": [
     { "type": "text", "id": "anchor", "label": "Anchor id" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Event catering" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "A sweet addition.\nFor every occasion." },
-    { "type": "richtext", "id": "lede", "label": "Intro copy", "default": "<p>Protein cakes for weddings, celebrations, corporate gatherings and wellness events. Choose your quantity, mix your flavors and make it yours.</p>" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Cakes for your event." },
+    { "type": "text", "id": "lede", "label": "Intro line", "default": "Weddings, celebrations, corporate gatherings and wellness events. Tell us about yours and we reply personally with a quote." },
+    { "type": "text", "id": "meta", "label": "Small line under the intro", "default": "Four short steps. Minimum 70 cakes. No payment now." },
     { "type": "header", "content": "Minimum" },
     { "type": "range", "id": "minimum", "label": "Minimum cakes", "min": 10, "max": 200, "step": 5, "default": 70 },
-    { "type": "text", "id": "minimum_label", "label": "Minimum label", "default": "cake minimum" },
     { "type": "text", "id": "min_message", "label": "Message when under the minimum", "default": "The minimum order is 70 cakes." },
-    { "type": "header", "content": "Step 1: quantity" },
-    { "type": "text", "id": "step1_title", "label": "Title", "default": "Choose your quantity" },
-    { "type": "text", "id": "qty_label", "label": "Field label", "default": "How many cakes?" },
-    { "type": "text", "id": "qty_help", "label": "Help text", "default": "Quantities are flexible from 70 cakes. As a simple starting point, plan one cake per guest, then add any take-home cakes or extras." },
-    { "type": "header", "content": "Step 2: presentation" },
-    { "type": "text", "id": "step2_title", "label": "Title", "default": "Pick your presentation" },
-    { "type": "text", "id": "presentation_help", "label": "Help text", "default": "Presentation and packaging details are confirmed with your personalized quote." },
-    { "type": "header", "content": "Step 3: flavors" },
-    { "type": "text", "id": "step3_title", "label": "Title", "default": "Build your flavor selection" },
+    { "type": "header", "content": "Step 1: cakes" },
+    { "type": "text", "id": "step1_title", "label": "Step name", "default": "Cakes" },
+    { "type": "text", "id": "step1_question", "label": "Question", "default": "How many cakes?" },
+    { "type": "text", "id": "step1_help", "label": "Help text", "default": "Minimum 70. One cake per guest is a good starting point, plus any take-home extras." },
+    { "type": "text", "id": "step1_hint", "label": "Hint under the number", "default": "Any number from 70 up. Not sure yet? A rough number is fine, we refine it together." },
+    { "type": "header", "content": "Step 2: flavors and presentation" },
+    { "type": "text", "id": "step2_title", "label": "Step name", "default": "Flavors" },
+    { "type": "text", "id": "step2_question", "label": "Question", "default": "Which flavors, and how will you serve them?" },
+    { "type": "text", "id": "step2_help", "label": "Help text", "default": "Type a number per flavor, or tick the box and we suggest a mix. Availability is confirmed for your date." },
     {
       "type": "textarea", "id": "flavors", "label": "Flavors (comma separated)",
       "info": "One number field per flavor. From Dani's brochure; switch to the live cake list here when confirmed.",
       "default": "Hazelnut, Chocolate Fudge, Pistachio, White Chocolate Matcha"
     },
-    { "type": "text", "id": "mix_label", "label": "Recommend-a-mix option", "default": "Recommend a balanced mix for me" },
-    { "type": "text", "id": "flavor_help", "label": "Help text", "default": "Tell us the exact number of each flavor, or ask us to recommend a balanced mix. Flavor availability is confirmed for your event date." },
-    { "type": "header", "content": "Step 4: personal touch" },
-    { "type": "text", "id": "step4_title", "label": "Title", "default": "Add a personal touch" },
-    { "type": "text", "id": "custom_label", "label": "Field label", "default": "Theme, message or branding idea (optional)" },
-    { "type": "text", "id": "custom_placeholder", "label": "Placeholder", "default": "Logo on the box, a message on each cake, colors to match the event..." },
-    { "type": "text", "id": "custom_help", "label": "Help text", "default": "Customization is available at an additional cost. We will confirm available options and pricing." },
-    { "type": "header", "content": "Steps 5 and 6" },
-    { "type": "text", "id": "step5_title", "label": "Step 5 title", "default": "Your event" },
-    { "type": "text", "id": "step6_title", "label": "Step 6 title", "default": "Your details" },
-    { "type": "text", "id": "message_label", "label": "Message label", "default": "Anything else we should know?" },
-    { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "The occasion, timing on the day, who to call at the venue..." },
-    { "type": "header", "content": "Submit" },
+    { "type": "text", "id": "mix_label", "label": "Recommend-a-mix option", "default": "Suggest a balanced mix for me" },
+    { "type": "text", "id": "presentation_label", "label": "Presentation label", "default": "How will you serve them?" },
+    { "type": "header", "content": "Step 3: event" },
+    { "type": "text", "id": "step3_title", "label": "Step name", "default": "Event" },
+    { "type": "text", "id": "step3_question", "label": "Question", "default": "When and where?" },
+    { "type": "text", "id": "extras_label", "label": "Optional extras toggle", "default": "Add a personal touch or dietary notes (optional)" },
+    { "type": "text", "id": "custom_placeholder", "label": "Customization placeholder", "default": "Logo on the box, a message on each cake, colors to match the event..." },
+    { "type": "text", "id": "custom_help", "label": "Customization help", "default": "Customization is available at an additional cost. We confirm options and pricing with your quote." },
+    { "type": "header", "content": "Step 4: details" },
+    { "type": "text", "id": "step4_title", "label": "Step name", "default": "Details" },
+    { "type": "text", "id": "step4_question", "label": "Question", "default": "Where should we send the quote?" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "A line about the event" },
+    { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "The occasion, timing on the day, anything we should know." },
+    { "type": "header", "content": "Buttons and messages" },
+    { "type": "text", "id": "next_label", "label": "Continue button", "default": "Continue" },
+    { "type": "text", "id": "button_label", "label": "Send button", "default": "Send my inquiry" },
+    { "type": "text", "id": "fine_print", "label": "Fine print", "default": "Pricing, packaging, customization and delivery are confirmed in your personalized quote, before anything is booked." },
     { "type": "text", "id": "program_label", "label": "Inquiry type (hidden field)", "info": "Sent with the message so catering mail is easy to spot in the inbox.", "default": "Event catering" },
-    { "type": "text", "id": "form_anchor", "label": "Form anchor id", "default": "inquiry" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Start your catering inquiry" },
-    { "type": "text", "id": "fine_print", "label": "Fine print", "default": "Every order receives a personalized quote. Cake pricing, packaging, customization and any delivery charges are confirmed before booking." },
-    { "type": "text", "id": "success_text", "label": "Success message", "default": "Thank you. We will come back to you with a personalized quote shortly." },
-    { "type": "header", "content": "Side panel" },
-    { "type": "text", "id": "aside_heading", "label": "Steps heading", "default": "How it works" },
-    { "type": "text", "id": "notes_heading", "label": "Notes heading", "default": "Good to know" },
-    { "type": "richtext", "id": "notes", "label": "Notes", "default": "<p>70 cakes minimum. Hosting more? Choose 200, 300 or your exact quantity.</p><p>Please share any allergies or dietary requirements so we can confirm what we can accommodate.</p><p>Delivery or pickup, your choice. Delivery charges are confirmed with your quote.</p>" }
+    { "type": "text", "id": "success_heading", "label": "Success heading", "default": "Got it. Thank you." },
+    { "type": "text", "id": "success_text", "label": "Success text", "default": "We will come back to you personally with a quote for your event." },
+    { "type": "text", "id": "success_button", "label": "Success button", "default": "Back to the bakery" }
   ],
   "blocks": [
     {
@@ -286,15 +264,6 @@
       "settings": [
         { "type": "text", "id": "title", "label": "Title", "default": "Individual treats" },
         { "type": "text", "id": "text", "label": "Text", "default": "One for each guest." }
-      ]
-    },
-    {
-      "type": "step",
-      "name": "How-it-works step",
-      "limit": 4,
-      "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "New step" },
-        { "type": "text", "id": "text", "label": "Text" }
       ]
     }
   ],
