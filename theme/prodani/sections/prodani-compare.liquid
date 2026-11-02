@@ -1,9 +1,9 @@
-{%- comment -%} Cake vs. the bar vs. the bakery (Option B look). Generic categories with typical values, never a named brand. {%- endcomment -%}
+{%- comment -%} Cake vs. the bar vs. the bakery. Generic categories with typical values, never a named brand. {%- endcomment -%}
 {{ 'prodani-flavor.css' | asset_url | stylesheet_tag }}
 <section class="pd-fl pd-cmp"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor }}"{% endif %}>
   <div class="pd-wrap">
     <div class="pd-cmp__head">
-      <h2 class="pd-fl__h">{{ section.settings.heading }}</h2>
+      <h2 class="pd-sec-title pd-fl__h">{{ section.settings.heading }}</h2>
       <p class="pd-cmp__note">{{ section.settings.note | escape }}</p>
     </div>
     <div class="pd-cmp__card">

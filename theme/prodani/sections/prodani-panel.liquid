@@ -1,14 +1,14 @@
-{%- comment -%} Image + copy panel in the Option B look. Used for "A real cake" and the spreads teaser. {%- endcomment -%}
+{%- comment -%} Image + copy panel in the theme look. Used for "A real cake" and the spreads teaser. {%- endcomment -%}
 {{ 'prodani-flavor.css' | asset_url | stylesheet_tag }}
-<section class="pd-fl"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor }}"{% endif %}>
+<section class="pd-fl{% if section.settings.tone == 'dark' %} pd-fl--dark{% endif %}"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor }}"{% endif %}>
   <div class="pd-wrap">
-    <div class="pd-panel{% if section.settings.flip %} pd-panel--flip{% endif %}{% if section.settings.tone == 'cream' %} pd-panel--cream{% endif %}">
+    <div class="pd-panel{% if section.settings.flip %} pd-panel--flip{% endif %}">
       <div class="pd-panel__copy">
-        {%- if section.settings.eyebrow != blank -%}<p class="pd-panel__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
-        <h2 class="pd-fl__h">{{ section.settings.heading }}</h2>
+        {%- if section.settings.eyebrow != blank -%}<p class="pd-eyebrow pd-panel__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="pd-sec-title pd-fl__h">{{ section.settings.heading }}</h2>
         <p class="pd-panel__body">{{ section.settings.body | escape }}</p>
         {%- if section.settings.cta_label != blank -%}
-          <a class="pd-panel__btn" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label | escape }}</a>
+          <a class="pd-btn{% if section.settings.tone == 'dark' %} pd-btn--pink{% endif %}" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label | escape }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg></a>
         {%- endif -%}
       </div>
       <div class="pd-panel__media">
@@ -37,7 +37,7 @@
     { "type": "text", "id": "bundled", "label": "Theme asset used if no photo picked" },
     { "type": "text", "id": "image_alt", "label": "Photo alt text" },
     { "type": "checkbox", "id": "flip", "label": "Photo on the left", "default": false },
-    { "type": "select", "id": "tone", "label": "Background", "options": [ { "value": "pink", "label": "Pink" }, { "value": "cream", "label": "Cream" } ], "default": "pink" }
+    { "type": "select", "id": "tone", "label": "Background", "options": [ { "value": "cream", "label": "Ivory" }, { "value": "dark", "label": "Chocolate" } ], "default": "cream" }
   ],
   "presets": [{ "name": "Image panel" }]
 }

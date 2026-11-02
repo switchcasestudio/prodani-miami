@@ -588,20 +588,21 @@
     "realcake": {
       "type": "prodani-panel",
       "settings": {
-        "heading": "A real cake.<br>Not a bar<br><em>pretending.</em>",
+        "heading": "A real cake. Not a bar <em>pretending.</em>",
         "body": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. Sweetness starts with real food like sweet potato, plus a touch of allulose and monk fruit. Thirty seconds in the microwave and it's warm and soft.",
         "cta_label": "See the flavors",
         "cta_link": "/collections/personal-protein-cakes",
         "bundled": "prodani-real-cake.jpg",
-        "image_alt": "A slice of chocolate cake with fudge frosting and chopped hazelnuts"
+        "image_alt": "A slice of chocolate cake with fudge frosting and chopped hazelnuts",
+        "tone": "dark"
       }
     },
     "spreads": {
       "type": "prodani-panel",
       "settings": {
         "anchor": "spreads",
-        "eyebrow": "New: the Spread Collection",
-        "heading": "Spread<br><em>something good.</em>",
+        "eyebrow": "The Spread Collection",
+        "heading": "Spread <em>something good.</em>",
         "body": "Three new flavors in one beautiful jar, for toast, fruit, baking and straight from the spoon.",
         "cta_label": "Meet the spreads",
         "cta_link": "/pages/spreads",
