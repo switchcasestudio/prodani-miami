@@ -18,7 +18,7 @@
   .pd-box__flavor:hover {
     transform: translateY(-4px);
     border-color: var(--pink-deep);
-    box-shadow: 0 12px 26px rgba(54, 38, 25, .12);
+    box-shadow: 0 12px 26px rgba(72, 49, 42, .12);
   }
 
   /* Size chips: slightly bolder than the stock -2px */
@@ -31,12 +31,12 @@
   .pd-box__curated-card:hover {
     transform: translateY(-6px);
     border-color: var(--pink-deep);
-    box-shadow: 0 16px 32px rgba(54, 38, 25, .14);
+    box-shadow: 0 16px 32px rgba(72, 49, 42, .14);
   }
 
   /* Buttons across the site: keep the -2px lift, add ground contact */
   .pd-btn:hover {
-    box-shadow: 0 10px 22px rgba(54, 38, 25, .16);
+    box-shadow: 0 10px 22px rgba(72, 49, 42, .16);
   }
   .pd-btn--outline:hover {
     box-shadow: none; /* outline buttons keep their flat hover from reviews css */

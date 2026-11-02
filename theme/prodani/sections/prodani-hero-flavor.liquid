@@ -1,0 +1,65 @@
+{%- comment -%} Option B hero: one flavor in the spotlight, price and macros read live from the product. {%- endcomment -%}
+{{ 'prodani-hero-flavor.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign p = section.settings.product
+  assign next_p = section.settings.next_product
+  assign handle = p.handle | default: 'dubai-dream-cake-copy'
+-%}
+{%- capture fm -%}{% render 'prodani-flavor-map', handle: handle %}{%- endcapture -%}
+{%- assign f = fm | strip | split: '|' -%}
+{%- capture nm -%}{% render 'prodani-flavor-map', handle: next_p.handle %}{%- endcapture -%}
+{%- assign n = nm | strip | split: '|' -%}
+<section class="pd-hero pd-fh" style="--c:{{ f[2] }};--bg:{{ f[3] }}">
+  <div class="pd-fh__copy">
+    <div class="pd-fh__eyebrow">
+      <span class="pd-fh__badge">{{ section.settings.eyebrow | escape }}</span>
+      {%- if p.metafields.prodani.protein_g.value != blank -%}
+        <span class="pd-fh__badge pd-fh__badge--white">{{ p.metafields.prodani.protein_g.value }}g protein · {{ p.metafields.prodani.calories.value }} cal</span>
+      {%- endif -%}
+    </div>
+    <h1 class="pd-fh__h">{{ f[0] }} <em>{{ f[1] }}</em></h1>
+    <p class="pd-fh__p">{{ section.settings.text | escape }}</p>
+    <div class="pd-fh__cta">
+      <a class="pd-fh__pill pd-fh__pill--pink" href="{{ p.url }}">{{ section.settings.cta_label | escape }} · {{ p.price | money }}</a>
+      <a class="pd-fh__pill pd-fh__pill--ghost" href="{{ section.settings.cta2_link }}">{{ section.settings.cta2_label | escape }}</a>
+    </div>
+    <ul class="pd-fh__macros">
+      {%- assign macros = section.settings.macros | split: ',' -%}
+      {%- for m in macros -%}{%- assign bits = m | strip | split: ' ' -%}<li><b>{{ bits[0] }}</b> {{ m | strip | remove_first: bits[0] | strip }}</li>{%- endfor -%}
+    </ul>
+  </div>
+  <div class="pd-fh__art" aria-hidden="true">
+    <div class="pd-fh__ring"></div><div class="pd-fh__halo"></div>
+    <i class="pd-fh__crumb c1"></i><i class="pd-fh__crumb c2"></i><i class="pd-fh__crumb c3"></i>
+    <img src="{{ f[4] | asset_url }}" alt="" width="360" height="640" fetchpriority="high">
+  </div>
+  <div class="pd-fh__sticker"><div><b>{{ collections['personal-protein-cakes'].products_count | default: 7 }}</b>flavors<br>baked weekly</div></div>
+  {%- if next_p != blank -%}<a class="pd-fh__next" href="{{ next_p.url }}">Next up: {{ n[0] }} {{ n[1] }} →</a>{%- endif -%}
+</section>
+<div class="pd-mq" aria-hidden="true"><div class="pd-mq__t">
+  {%- for i in (1..2) -%}
+    {%- for prod in collections['personal-protein-cakes'].products -%}
+      {%- capture m -%}{% render 'prodani-flavor-map', handle: prod.handle %}{%- endcapture -%}
+      {%- assign b = m | strip | split: '|' -%}
+      {%- if b[0] != blank -%}<span style="--c:{{ b[2] }}">{{ b[0] }} {{ b[1] }}</span>{%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+</div></div>
+{% schema %}
+{
+  "name": "Flavor hero",
+  "tag": "section",
+  "class": "pd-section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Flavor in the spotlight" },
+    { "type": "product", "id": "next_product", "label": "Next up flavor" },
+    { "type": "text", "id": "eyebrow", "label": "Badge", "default": "Flavor of the week" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "cta_label", "label": "Main button", "default": "Shop the 5-pack" },
+    { "type": "text", "id": "cta2_label", "label": "Second button", "default": "See all flavors" },
+    { "type": "url", "id": "cta2_link", "label": "Second button link" },
+    { "type": "text", "id": "macros", "label": "Chips, comma separated", "default": "0g added sugar, GF gluten free, 30s to warm" }
+  ],
+  "presets": [{ "name": "Flavor hero" }]
+}
+{% endschema %}

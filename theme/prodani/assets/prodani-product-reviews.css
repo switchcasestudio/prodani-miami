@@ -23,7 +23,7 @@
 /* ---- the widget itself ---- */
 .pd-prevs .jdgm-widget{ font-family:var(--sans); color:var(--ink); }
 .pd-prevs .jdgm-rev-widg__title{
-  font-family:var(--display); font-weight:400; letter-spacing:-.01em;
+  font-family:var(--display); font-weight:700; letter-spacing:-.01em;
   color:var(--cocoa); font-size:clamp(22px,2.4vw,30px);
 }
 .pd-prevs .jdgm-rev-widg__summary-text,
@@ -45,7 +45,7 @@
   margin-block:0 14px;
 }
 .pd-prevs .jdgm-rev__title{
-  font-family:var(--display); font-weight:400; color:var(--cocoa);
+  font-family:var(--display); font-weight:700; color:var(--cocoa);
   font-size:17px; letter-spacing:-.005em;
 }
 .pd-prevs .jdgm-rev__body p{ color:var(--ink); font-size:15px; line-height:1.65; }

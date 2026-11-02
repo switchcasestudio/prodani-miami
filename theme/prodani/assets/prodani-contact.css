@@ -48,8 +48,8 @@
   border-radius:16px; padding:16px 20px;
 }
 .pd-contact__details b{
-  font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.12em;
-  text-transform:uppercase; color:var(--cream); flex:0 0 72px;
+  font-family:var(--mono); font-weight:600; font-size:12.5px; letter-spacing:.01em;
+   color:var(--cream); flex:0 0 72px;
 }
 .pd-contact__details span,
 .pd-contact__details a{ color:var(--cream); font-size:14.5px; font-weight:500; }
@@ -117,4 +117,4 @@
 .pd-btn--pink:hover{ background:var(--pink-deep); }
 
 .pd-form__ok{ margin:0; color:var(--cream); font-weight:600; }
-.pd-form__err{ margin:0; color:var(--cream); font-weight:600; font-style:italic; }
+.pd-form__err{ margin:0; color:var(--cream); font-weight:600; font-style:normal; }

@@ -85,6 +85,11 @@
             {%- for product in rc.products limit: block.settings.count -%}
               {% render 'prodani-card', product: product %}
             {%- endfor -%}
+            <a class="pd-card pd-card--mix" href="/#box" style="">
+              <span class="pd-card--mix__t">Can't choose? Mix a box.</span>
+              <img src="{{ 'pd-cut-trays.webp' | asset_url }}" alt="" loading="lazy" width="640" height="392">
+              <span class="pd-card--mix__b">Build your box</span>
+            </a>
           </div>
         </div>
       {%- endif -%}

@@ -62,7 +62,7 @@
             </div>
           </div>
         {%- else -%}
-          <a class="pd-nav__link" href="{{ link.url }}">{{ link.title }}</a>
+          <a class="pd-nav__link{% if link.active %} is-on{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
         {%- endif -%}
       {%- endfor -%}
     </nav>

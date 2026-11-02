@@ -1,17 +1,16 @@
 {
   "sections": {
     "hero": {
-      "type": "prodani-hero",
+      "type": "prodani-hero-flavor",
       "settings": {
-        "use_bundled_video": true,
-        "kicker": "The power of protein. The joy of cake.",
-        "line_one": "Bite into",
-        "line_two": "Balance",
-        "cta_label": "Shop the collection",
-        "cta_link": "/collections/all",
-        "note": "0g added sugar · 15–20g protein · gluten-free",
-        "ribbon_items": "high protein, no sugar added, gluten free, small batch, miami made",
-        "ribbon_speed": 26
+        "product": "dubai-dream-cake-copy",
+        "next_product": "personal-hazelnuts-cake",
+        "eyebrow": "Flavor of the week",
+        "text": "White chocolate, dried cherries and a soft melty middle, with complete protein and no added sugar. The power of protein. The joy of cake.",
+        "cta_label": "Shop the 5-pack",
+        "cta2_label": "See all flavors",
+        "cta2_link": "/collections/personal-protein-cakes",
+        "macros": "0g added sugar, GF gluten free, 30s to warm"
       }
     },
     "shout": {
@@ -43,8 +42,8 @@
             "cta_label": "Shop the cakes",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "moist-chocolate-fudge-cake-copy",
-            "color": "#C0A472",
-            "text_color": "#211913",
+            "color": "#FDC3D4",
+            "text_color": "#48312A",
             "focus": "50% 40%"
           }
         },
@@ -57,8 +56,8 @@
             "cta_label": "See the flavors",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "personal-hazelnuts-cake",
-            "color": "#E4D5BA",
-            "text_color": "#211913",
+            "color": "#FBD9E0",
+            "text_color": "#48312A",
             "focus": "50% 40%"
           }
         },
@@ -71,8 +70,8 @@
             "cta_label": "Shop the cakes",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "dubai-dream-cake-copy",
-            "color": "#211913",
-            "text_color": "#F8F5EF",
+            "color": "#48312A",
+            "text_color": "#FFF8F0",
             "focus": "50% 40%"
           }
         },
@@ -85,8 +84,8 @@
             "cta_label": "See the flavors",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "personal-chocolate-fudge-cake-copy",
-            "color": "#A98D5D",
-            "text_color": "#211913",
+            "color": "#F79CBB",
+            "text_color": "#48312A",
             "focus": "50% 40%"
           }
         },
@@ -99,8 +98,8 @@
             "cta_label": "Build your box",
             "cta_link": "/#box",
             "product": "carrot-cake",
-            "color": "#E4D5BA",
-            "text_color": "#211913",
+            "color": "#FBD9E0",
+            "text_color": "#48312A",
             "focus": "50% 40%"
           }
         }
@@ -152,7 +151,7 @@
             "name": "Birthday Cake",
             "note": "Chocolate layers, hazelnut cream, a reason to celebrate.",
             "image": "shopify://shop_images/birthday-cake-1-main.jpg",
-            "color": "#C0A472"
+            "color": "#FDC3D4"
           }
         }
       },
@@ -177,9 +176,9 @@
       "type": "prodani-bleed",
       "settings": {
         "text": "Build Your Box",
-        "color_top": "#F8F5EF",
-        "color_bottom": "#C0A472",
-        "color_text": "#C0A472",
+        "color_top": "#FFF8F0",
+        "color_bottom": "#FDC3D4",
+        "color_text": "#FDC3D4",
         "split": 75,
         "speed": 40
       }
@@ -383,7 +382,7 @@
       ],
       "settings": {
         "heading": "",
-        "background": "#F8F5EF",
+        "background": "#FFF8F0",
         "bottom_marquee": false
       }
     },
@@ -395,7 +394,7 @@
           "settings": {
             "name": "Chocolate Hazelnut Fudge",
             "macro": "20g protein · 180 cal",
-            "color": "#3A2E24",
+            "color": "#5C433A",
             "sold_out": false
           }
         },
@@ -404,7 +403,7 @@
           "settings": {
             "name": "Chocolate Ganache Fudge",
             "macro": "18g protein · 150 cal",
-            "color": "#211913",
+            "color": "#48312A",
             "sold_out": false
           }
         },
@@ -431,7 +430,7 @@
           "settings": {
             "name": "Carrot Cake",
             "macro": "15g protein · 100 cal",
-            "color": "#A98D5D",
+            "color": "#F79CBB",
             "sold_out": false
           }
         },
@@ -440,7 +439,7 @@
           "settings": {
             "name": "Banana Bread",
             "macro": "",
-            "color": "#C0A472",
+            "color": "#FDC3D4",
             "sold_out": false
           }
         },

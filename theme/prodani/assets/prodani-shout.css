@@ -7,7 +7,7 @@
 }
 .pd-shout__text{ min-width:0; }
 .pd-shout__script{
-  font-family:var(--script); font-weight:400; color:var(--pink); margin:0;
+  font-family:var(--script); font-weight:700; color:var(--pink); margin:0;
   font-size:clamp(38.4px,5.4vw,70.4px); line-height:1.05;
 }
 .pd-rte--dark p{ color:var(--on-dark-soft); max-width:46ch; margin:26px 0 0; }
@@ -15,7 +15,7 @@
 .pd-shout__media{ position:relative; min-width:0; }
 .pd-shout__frame{
   border-radius:calc(var(--r) + 6px); overflow:hidden;
-  background:rgba(250, 244, 233,.06); aspect-ratio:3/4;
+  background:rgba(255, 248, 240,.06); aspect-ratio:3/4;
 }
 .pd-shout__frame img{ width:100%; height:100%; object-fit:cover; display:block; }
 @media (max-width:980px){

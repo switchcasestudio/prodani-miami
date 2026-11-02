@@ -10,10 +10,10 @@
 
 .pd-nav{
   position:sticky; top:0; z-index:90; height:60px; display:flex; align-items:center;
-  background:rgba(250, 244, 233,.86); backdrop-filter:blur(14px) saturate(160%);
+  background:rgba(255, 248, 240,.86); backdrop-filter:blur(14px) saturate(160%);
   border-bottom:2px solid transparent; transition:border-color .35s, background .35s;
 }
-.pd-nav[data-stuck="true"]{ border-bottom-color:var(--line); background:rgba(250, 244, 233,.96); }
+.pd-nav[data-stuck="true"]{ border-bottom-color:var(--line); background:rgba(255, 248, 240,.96); }
 .pd-nav__in{ display:flex; align-items:center; gap:34px; width:100%; }
 .pd-nav__logo{
   font-family:var(--sans); font-weight:700; font-size:25px; line-height:1;
@@ -34,7 +34,7 @@
 .pd-nav__right{ margin-left:auto; display:flex; align-items:center; gap:10px; }
 .pd-icon-btn{
   width:38px; height:38px; border-radius:999px; display:grid; place-items:center;
-  background:rgba(54, 38, 25,.08); color:var(--cocoa);
+  background:rgba(72, 49, 42,.08); color:var(--cocoa);
   transition:background .3s, transform .4s var(--bounce);
 }
 .pd-icon-btn:hover{ background:var(--pink); }
@@ -72,7 +72,7 @@
 .pd-nav__sub{
   position:absolute; top:calc(100% + 10px); left:0; min-width:200px;
   background:var(--cream); border:1px solid var(--line); border-radius:var(--r);
-  box-shadow:0 18px 44px rgba(54, 38, 25,.16); padding:8px;
+  box-shadow:0 18px 44px rgba(72, 49, 42,.16); padding:8px;
   display:flex; flex-direction:column; gap:2px;
   opacity:0; transform:translateY(6px); pointer-events:none;
   transition:opacity .25s var(--ease), transform .25s var(--ease); z-index:40;
@@ -93,14 +93,14 @@
    like the "HIGH-PROTEIN CAKE · MIAMI" descriptor under the wordmark. Pinned to
    var(--mono), which no skin overrides, so it reads the same in every skin. */
 .pd-nav__link, .pd-nav__sublink, .pd-nav__cart, .pd-nav__shop-mobile{
-  font-family:var(--mono); font-weight:500; text-transform:uppercase; letter-spacing:.14em;
+  font-family:var(--mono); font-weight:600;  letter-spacing:.01em;
 }
 .pd-nav__link{ font-size:12px; color:var(--cocoa); }
 .pd-nav__sublink{ font-size:11.5px; }
 .pd-nav__cart{ font-size:11.5px; }
-.pd-nav__count{ font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:0; }
+.pd-nav__count{ font-family:var(--mono); font-weight:600; font-size:12.5px; letter-spacing:.01em; }
 .pd-nav__shop-mobile{ font-size:12px; }
-.pd-announce .pd-label{ font-family:var(--mono); font-weight:500; letter-spacing:.18em; }
+.pd-announce .pd-label{ font-family:var(--mono); font-weight:600; letter-spacing:.01em; }
 
 /* Phones: logo + Shop + two 44px icons + the Cart pill with 34px gaps measured
    441pt on a 402pt iPhone 17 in real Safari. The Cart pill hung off the edge and the
@@ -126,7 +126,7 @@
      lifted strip parks. Once scrolled it turns into a quiet extension of the bar. */
   .pd-announce{ transition:background-color .3s; }
   .pd-announce__track{ transition:opacity .2s; }
-  .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce{ background:rgb(250, 244, 233); }
+  .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce{ background:rgb(255, 248, 240); }
   .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce__track{ opacity:0; }
   html{ scroll-padding-top:72px; }
 }
@@ -170,14 +170,14 @@
 .pd-menu__list > li{ border-bottom:1px solid var(--line); }
 .pd-menu__link{
   display:flex; align-items:center; min-height:64px; text-decoration:none; color:var(--cocoa);
-  font-family:var(--display); font-weight:400; font-size:30px; letter-spacing:-.01em;
+  font-family:var(--display); font-weight:700; font-size:30px; letter-spacing:-.01em;
 }
-.pd-menu__link[aria-current="page"]{ font-style:italic; color:var(--berry); }
+.pd-menu__link[aria-current="page"]{ font-style:normal; color:var(--berry); }
 .pd-menu__sub{ padding:0 0 14px; }
 .pd-menu__sub a{
   display:flex; align-items:center; min-height:44px; text-decoration:none; color:var(--ink-soft);
-  font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-}
+  font-family:var(--mono); font-size:12px; letter-spacing:.01em; 
+font-weight:600; }
 .pd-menu__cta{
   display:flex; align-items:center; justify-content:center; gap:12px; min-height:56px; margin-top:28px;
   border-radius:999px; background:var(--cocoa); color:var(--cream); text-decoration:none;
@@ -187,9 +187,25 @@
 .pd-menu__util{
   display:inline-flex; align-items:center; gap:10px; min-height:48px;
   color:var(--cocoa); text-decoration:none; font-family:var(--mono); font-size:12px;
-  letter-spacing:.14em; text-transform:uppercase;
-}
+  letter-spacing:.01em; 
+font-weight:600; }
 .pd-menu__util svg{ width:18px; height:18px; }
 html.pd-menu-open{ overflow:hidden; }
 @media (min-width:961px){ .pd-menu{ display:none !important; } }
 @media (prefers-reduced-motion:reduce){ .pd-menu{ transition:none; transform:none; } }
+
+
+/* Option B: pill nav on desktop */
+.pd-label{ font-family:var(--display); font-size:14px; font-weight:600; letter-spacing:0; text-transform:none; }
+.pd-announce{ height:36px; }
+@media (min-width:960px){
+  .pd-nav{ height:84px; }
+  .pd-nav__in{ display:grid; grid-template-columns:1fr auto 1fr; }
+  .pd-nav__links{ background:#fff; border-radius:999px; padding:6px; gap:4px; box-shadow:0 8px 20px -14px rgba(72,49,42,.35); }
+  .pd-nav__link{ font-family:var(--display); font-weight:600; font-size:15px; color:var(--ink); padding:10px 18px; }
+  .pd-nav__link.is-on{ background:var(--pink); }
+  .pd-nav__right{ justify-content:flex-end; margin-left:0; }
+  .pd-nav__cart{ background:#fff; color:var(--ink); font-family:var(--display); font-weight:600; font-size:15px; height:44px; box-shadow:0 8px 20px -14px rgba(72,49,42,.35); }
+  .pd-nav__count{ background:var(--ink); color:#fff; }
+  .pd-icon-btn{ background:#fff; box-shadow:0 8px 20px -14px rgba(72,49,42,.35); }
+}

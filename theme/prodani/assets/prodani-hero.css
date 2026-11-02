@@ -37,13 +37,13 @@
 .pd-hero__in{ width:100%; }
 
 .pd-hero__kicker{
-  font-family:var(--script); font-weight:300; font-size:clamp(17px,2vw,26px);
+  font-family:var(--script); font-weight:700; font-size:clamp(17px,2vw,26px);
   color:var(--cream); margin:0 0 clamp(14px,2vw,26px); opacity:.92;
 }
 
 .pd-giant{ margin:0; display:grid; gap:0; }
 .pd-giant__line{
-  display:block; font-family:var(--display); font-weight:330;
+  display:block; font-family:var(--display); font-weight:700;
   /* Mixed case at wall scale — the caps went with the shouting. Line 2 turns
      italic champagne: the one accent moment the whole viewport gets. */
   line-height:1.02; letter-spacing:-.015em; word-spacing:.02em;
@@ -60,7 +60,7 @@
 }
 .pd-hero__note{
   margin:0; font-weight:600; font-size:13.5px; letter-spacing:.02em;
-  color:rgba(250, 244, 233,.66);
+  color:rgba(255, 248, 240,.66);
 }
 
 .pd-btn{
@@ -74,12 +74,12 @@
 .pd-btn--pink{ background:var(--pink); color:var(--cocoa); }
 .pd-btn--pink:hover{ background:var(--pink-deep); }
 
-.pd-giant__line:nth-child(2){ font-family:var(--script); color:var(--pink); letter-spacing:-.01em; }
+.pd-giant__line:nth-child(2){ font-family:var(--script); color:var(--pink); letter-spacing:-.01em;  font-weight:700; }
 
 /* button-in-button: the arrow rides in its own disc, flush right */
 .pd-btn svg{ width:28px; height:28px; padding:7px; box-sizing:border-box; border-radius:50%;
-  background:rgba(250, 244, 233,.16); transition:transform .6s var(--ease); }
-.pd-btn--pink svg{ background:rgba(54, 38, 25,.14); }
+  background:rgba(255, 248, 240,.16); transition:transform .6s var(--ease); }
+.pd-btn--pink svg{ background:rgba(72, 49, 42,.14); }
 .pd-btn:hover svg{ transform:translate(2px,-1px); }
 .pd-btn:active{ transform:scale(.98); }
 
