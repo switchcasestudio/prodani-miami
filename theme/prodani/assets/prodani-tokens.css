@@ -119,3 +119,8 @@ body::after{
 
    This stays as the floor for any page that renders without the gradient class. */
 body{ background-color:var(--cream); }
+
+/* Option B: controls inherit the brand fonts instead of the browser default. */
+.pd-box__size,.pd-box__size *{ font-family:var(--display); }
+.pd-box__size-per{ font-family:var(--sans); }
+.pd-review__body{ font-style:normal; }

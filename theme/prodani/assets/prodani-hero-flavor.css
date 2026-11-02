@@ -47,4 +47,4 @@
 @media (prefers-reduced-motion:reduce){ .pd-fh__ring,.pd-fh__art img,.pd-mq__t{ animation:none; } }
 
 /* Dawn hides empty divs. */
-.pd-fh__halo,.pd-fh__ring{ display:block; }
+.pd-fh__art .pd-fh__halo,.pd-fh__art .pd-fh__ring{ display:block; }

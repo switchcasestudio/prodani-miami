@@ -207,3 +207,4 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 .pd-card--mix__t{ font-family:var(--display); font-weight:700; font-size:34px; line-height:1.02; color:#fff; max-width:7em; }
 .pd-card--mix img{ position:absolute; right:-34px; bottom:-20px; width:80%; height:auto; transform:rotate(-8deg); }
 .pd-card--mix__b{ position:relative; z-index:1; background:var(--pink); color:var(--ink); font-family:var(--display); font-weight:600; font-size:14px; padding:10px 18px; border-radius:999px; }
+.pd-card--mix img{ width:58%; right:-6px; bottom:-14px; }
