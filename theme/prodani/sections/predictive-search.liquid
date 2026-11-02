@@ -77,7 +77,6 @@
           aria-labelledby="predictive-search-pages-desktop"
         >
           {%- for page in predictive_search.resources.pages -%}
-                {%- assign pd_unlisted = 'spreads' | split: ',' -%}{%- if pd_unlisted contains page.handle -%}{%- continue -%}{%- endif -%}
             <li
               id="predictive-search-option-page-desktop-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -186,7 +185,6 @@
               aria-labelledby="predictive-search-pages-mobile"
             >
               {%- for page in predictive_search.resources.pages -%}
-                {%- assign pd_unlisted = 'spreads' | split: ',' -%}{%- if pd_unlisted contains page.handle -%}{%- continue -%}{%- endif -%}
                 <li
                   id="predictive-search-option-page-mobile-{{ forloop.index }}"
                   class="predictive-search__list-item"

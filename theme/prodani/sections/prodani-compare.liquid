@@ -1,0 +1,58 @@
+{%- comment -%} Cake vs. the bar vs. the bakery (Option B look). Generic categories with typical values, never a named brand. {%- endcomment -%}
+{{ 'prodani-flavor.css' | asset_url | stylesheet_tag }}
+<section class="pd-fl pd-cmp"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor }}"{% endif %}>
+  <div class="pd-wrap">
+    <div class="pd-cmp__head">
+      <h2 class="pd-fl__h">{{ section.settings.heading }}</h2>
+      <p class="pd-cmp__note">{{ section.settings.note | escape }}</p>
+    </div>
+    <div class="pd-cmp__card">
+      <table class="pd-cmp__table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="visually-hidden">Per serving</span></th>
+            <th scope="col" class="is-us">{{ section.settings.col_us | escape }}</th>
+            <th scope="col">{{ section.settings.col_two | escape }}</th>
+            <th scope="col">{{ section.settings.col_three | escape }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            {%- assign cls = '' -%}{%- if block.settings.big -%}{%- assign cls = 'is-big' -%}{%- endif -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row">{{ block.settings.label | escape }}</th>
+              <td class="is-us {{ cls }}">{{ block.settings.us | escape }}</td>
+              <td class="{{ cls }}">{{ block.settings.two | escape }}</td>
+              <td class="is-no {{ cls }}">{{ block.settings.three | escape }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Comparison table",
+  "tag": "section",
+  "class": "pd-section",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id" },
+    { "type": "text", "id": "heading", "label": "Heading (em tag allowed)", "default": "Cake vs. <em>the bar</em> vs. the bakery." },
+    { "type": "text", "id": "note", "label": "Note", "default": "Per serving. Typical values for a protein bar and a slice of bakery cake." },
+    { "type": "text", "id": "col_us", "label": "Our column", "default": "Prodani cake" },
+    { "type": "text", "id": "col_two", "label": "Column 2", "default": "Protein bar" },
+    { "type": "text", "id": "col_three", "label": "Column 3", "default": "Bakery slice" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Row", "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "us", "label": "Ours" },
+      { "type": "text", "id": "two", "label": "Column 2" },
+      { "type": "text", "id": "three", "label": "Column 3" },
+      { "type": "checkbox", "id": "big", "label": "Big number", "default": true }
+    ] }
+  ],
+  "presets": [{ "name": "Comparison table" }]
+}
+{% endschema %}

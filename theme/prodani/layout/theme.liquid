@@ -8,15 +8,6 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <meta name="google-site-verification" content="GSrgNjq3Nr9MplQyERSiuPjPES4iQoRKLCfNfaqnqS8">
 
-    {%- comment -%}
-      Unlisted pages (Moses, 2026-10-30): reachable by URL, linked from nowhere, kept out
-      of search engines. Remove a suffix here when Dani wants that page public.
-    {%- endcomment -%}
-    {%- assign pd_unlisted = 'spreads' | split: ',' -%}
-    {%- if template.name == 'page' and pd_unlisted contains template.suffix -%}
-      <meta name="robots" content="noindex, nofollow">
-    {%- endif -%}
-
     {%- comment -%} 2026 brand favicon ships with the theme; SVG first, PNG for browsers
        without SVG favicon support, and the squircle app icon for iOS home screens. {%- endcomment -%}
     <link rel="icon" type="image/svg+xml" href="{{ 'prodani-favicon.svg' | asset_url }}">

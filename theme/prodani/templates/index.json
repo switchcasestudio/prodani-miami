@@ -17,18 +17,18 @@
     "shout": {
       "type": "prodani-shout",
       "settings": {
-        "anchor": "nutrition",
-        "heading": "Meet your baker",
-        "body": "<p>I'm Daniel, the brain and brawn behind ProDani. As a personal trainer, I couldn't find cakes that were high in protein, gluten-free and low in sugar, so I started baking my own.</p><p>Every cake is my labor of love: small batches, top-notch ingredients and a dash of passion. If I wouldn't give it to my own clients, it doesn't go in the box.</p>",
-        "cta_label": "Read my story",
-        "cta_link": "/pages/meet-your-baker",
-        "image_alt": "Dani with a ProDani strawberry short cake",
-        "badge_text": "dessert you can feel good about ✦ ",
+        "anchor": "catering",
+        "heading": "Make your events sweeter with Prodani",
+        "body": "<p>Weddings, celebrations, corporate gatherings and wellness events. Tell us about yours and we reply personally with a quote. Orders start at 70 cakes.</p>",
+        "cta_label": "Plan your event",
+        "cta_link": "/pages/catering",
+        "image_alt": "Prodani cakes laid out in their trays",
+        "badge_text": "",
         "badge_speed": 26,
-        "bundled_photo": "prodani-dani-2",
-        "ribbon_items": "hazelnut fudge, ganache fudge, pistachio cream, white chocolate cherry, carrot cake, banana bread, apple cinnamon",
+        "bundled_photo": "prodani-catering-trays",
+        "ribbon_items": "",
         "ribbon_speed": 38,
-        "photo_focus": "50% 12%"
+        "photo_focus": "50% 50%"
       }
     },
     "deck": {
@@ -115,7 +115,7 @@
       "settings": {
         "heading": "What makes prodani different",
         "eyebrow": "Dessert first. Protein powered.",
-        "anchor": "why"
+        "anchor": "nutrition"
       }
     },
     "collection": {
@@ -515,6 +515,101 @@
         "count": 6,
         "behold_feed_id": "1FlfuXDkSepbbuLR8PHy"
       }
+    },
+    "compare": {
+      "type": "prodani-compare",
+      "blocks": {
+        "r0": {
+          "type": "row",
+          "settings": {
+            "label": "Protein",
+            "us": "15–20g",
+            "two": "20g",
+            "three": "4g",
+            "big": true
+          }
+        },
+        "r1": {
+          "type": "row",
+          "settings": {
+            "label": "Added sugar",
+            "us": "0g",
+            "two": "8–15g",
+            "three": "35g",
+            "big": true
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "label": "Calories",
+            "us": "100–180",
+            "two": "220",
+            "three": "450",
+            "big": true
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "label": "Tastes like",
+            "us": "Cake. Warm in 30 seconds.",
+            "two": "Chalk and sucralose.",
+            "three": "Cake. Then a nap.",
+            "big": false
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "label": "Baked by",
+            "us": "Daniel, in Miami, this week.",
+            "two": "A factory, last spring.",
+            "three": "Nobody's telling.",
+            "big": false
+          }
+        }
+      },
+      "block_order": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "heading": "Cake vs. <em>the bar</em> vs. the bakery.",
+        "note": "Per serving. Typical values for a protein bar and a slice of bakery cake.",
+        "col_us": "Prodani cake",
+        "col_two": "Protein bar",
+        "col_three": "Bakery slice"
+      }
+    },
+    "realcake": {
+      "type": "prodani-panel",
+      "settings": {
+        "heading": "A real cake.<br>Not a bar<br><em>pretending.</em>",
+        "body": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. Sweetness starts with real food like sweet potato, plus a touch of allulose and monk fruit. Thirty seconds in the microwave and it's warm and soft.",
+        "cta_label": "See the flavors",
+        "cta_link": "/collections/personal-protein-cakes",
+        "bundled": "prodani-real-cake.jpg",
+        "image_alt": "A slice of chocolate cake with fudge frosting and chopped hazelnuts"
+      }
+    },
+    "spreads": {
+      "type": "prodani-panel",
+      "settings": {
+        "anchor": "spreads",
+        "eyebrow": "New: the Spread Collection",
+        "heading": "Spread<br><em>something good.</em>",
+        "body": "Three new flavors in one beautiful jar, for toast, fruit, baking and straight from the spoon.",
+        "cta_label": "Meet the spreads",
+        "cta_link": "/pages/spreads",
+        "bundled": "prodani-spread-open.jpg",
+        "image_alt": "Three Prodani spread jars in an open gift box",
+        "flip": true,
+        "tone": "cream"
+      }
     }
   },
   "order": [
@@ -523,8 +618,11 @@
     "collection",
     "bleed",
     "box",
+    "spreads",
     "shout",
     "deck",
+    "compare",
+    "realcake",
     "baker",
     "reviews",
     "instagram",

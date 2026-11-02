@@ -1,6 +1,6 @@
 {%- comment -%}
   Breadcrumbs + BreadcrumbList JSON-LD (prodani).
-  Product:    Home › Shop › [collection it was reached from, else Personal Cakes] › Product
+  Product:    Home › Shop › [collection it was reached from, else Personal Cakes or Spreads] › Product
   Collection: Home › Shop › Collection   (the all-products views stop at Shop)
   Article:    Home › Blog › Article
   Rendered from main-product, prodani-shop (collection pages only) and main-article.
@@ -18,7 +18,7 @@
       if crumb_collection == blank or crumb_collection.handle == 'all' or crumb_collection.handle == 'all-products'
         assign crumb_collection = blank
         for c in product.collections
-          if c.handle == 'personal-protein-cakes'
+          if c.handle == 'personal-protein-cakes' or c.handle == 'spreads'
             assign crumb_collection = c
           endif
         endfor
