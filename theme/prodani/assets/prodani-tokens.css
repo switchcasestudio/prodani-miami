@@ -129,3 +129,4 @@ body{ background-color:var(--cream); }
 .pd-foot button,footer button,footer input{ font-family:var(--display); }
 footer input{ font-family:var(--sans); }
 h1,h2,h3,.h0,.h1,.h2,.h3{ font-family:var(--display); font-weight:700; letter-spacing:-.01em; }
+.button.visually-hidden::before,.button.visually-hidden::after{ display:none; }
