@@ -19,7 +19,7 @@ const THEME = process.env.PREVIEW_THEME_ID || '189211050294'  // staging v2 (202
    default run reported "LIVE THEME CHANGED" on a perfectly untouched store — a check
    that cries wolf gets ignored, which is worse than not having it. Update this when
    a new theme is published. */
-const EXPECT_LIVE_ID = Number(process.env.EXPECT_LIVE_ID || 187797799222)  // Prodani - v.2.0.0, live since 2026-10-08
+const EXPECT_LIVE_ID = Number(process.env.EXPECT_LIVE_ID || 190114595126)  // Prodani - Rounded, live since 2026-11-02ni - v.2.0.0, live since 2026-10-08
 const UA = { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) preflight' }
 
 let pass = 0, fail = 0, warn = 0
