@@ -124,3 +124,8 @@ body{ background-color:var(--cream); }
 .pd-box__size,.pd-box__size *{ font-family:var(--display); }
 .pd-box__size-per{ font-family:var(--sans); }
 .pd-review__body{ font-style:normal; }
+.button,.shopify-challenge__button,.customer button,button.shopify-payment-button__button--unbranded{ font-family:var(--display); font-weight:600; border-radius:999px; letter-spacing:0; }
+.button::before,.button::after{ border-radius:999px; }
+.pd-foot button,footer button,footer input{ font-family:var(--display); }
+footer input{ font-family:var(--sans); }
+h1,h2,h3,.h0,.h1,.h2,.h3{ font-family:var(--display); font-weight:700; letter-spacing:-.01em; }

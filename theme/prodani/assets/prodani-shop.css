@@ -208,3 +208,11 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 .pd-card--mix img{ position:absolute; right:-34px; bottom:-20px; width:80%; height:auto; transform:rotate(-8deg); }
 .pd-card--mix__b{ position:relative; z-index:1; background:var(--pink); color:var(--ink); font-family:var(--display); font-weight:600; font-size:14px; padding:10px 18px; border-radius:999px; }
 .pd-card--mix img{ width:58%; right:-6px; bottom:-14px; }
+@media (max-width:749px){
+  .pd-card--flavor{ padding:16px 14px; min-height:0; border-radius:22px; }
+  .pd-card--flavor .pd-card__name{ font-size:clamp(19px,5.6vw,23px); overflow-wrap:normal; }
+  .pd-card--flavor .pd-card__price{ font-size:19px; }
+  .pd-card__cut{ max-height:150px; }
+  .pd-card--mix{ min-height:300px; border-radius:22px; }
+  .pd-card--mix__t{ font-size:26px; }
+}
