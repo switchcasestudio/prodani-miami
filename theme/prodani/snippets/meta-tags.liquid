@@ -45,8 +45,9 @@
     assign og_image_alt = og_image.alt | default: og_title
   endif
 
-  # Small 1200x630 JPG cards (assets/og-<handle>.jpg) for the cakes: their photos are 1MB+ PNGs,
+  # Branded 1200x630 JPG cards (assets/og-<handle>.jpg) for the cakes: their photos are 1MB+ PNGs,
   # which WhatsApp won't preview, and Shopify's CDN won't convert PNG to JPG for crawlers.
+  # Cards are built from the flavor map (name, colours, cutout) + price + macros; rebuild when those change.
   # Add a handle here when its og-<handle>.jpg asset is uploaded.
   assign og_cards = 'banana-bread-copy,carrot-cake,cinnamon-apple-cake-copy,dubai-dream-cake-copy,moist-chocolate-fudge-cake-copy,personal-chocolate-fudge-cake-copy,personal-hazelnuts-cake' | split: ','
   assign og_card_handle = ''
@@ -74,13 +75,14 @@
   <meta property="og:image:height" content="{{ og_h }}">
   <meta name="twitter:image" content="https:{{ og_image_url }}">
 {%- else -%}
-  {%- assign og_image_url = 'hero-poster.jpg' | asset_url -%}
+  {%- comment -%} Brand card (assets/og-home.jpg, 1200x630): home, pages, anything without its own image. {%- endcomment -%}
+  {%- assign og_image_url = 'og-home.jpg' | asset_url -%}
   <meta property="og:image" content="https:{{ og_image_url }}">
   <meta property="og:image:secure_url" content="https:{{ og_image_url }}">
-  <meta property="og:image:width" content="1280">
-  <meta property="og:image:height" content="720">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:image" content="https:{{ og_image_url }}">
-  {%- assign og_image_alt = 'A prodani protein chocolate cake on a white plate' -%}
+  {%- assign og_image_alt = 'prodani. Smart indulgence: high-protein cakes with no added sugar' -%}
 {%- endif -%}
 <meta property="og:image:alt" content="{{ og_image_alt | escape }}">
 <meta name="twitter:image:alt" content="{{ og_image_alt | escape }}">

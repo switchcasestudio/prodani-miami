@@ -1,0 +1,22 @@
+{%- comment -%}
+  Store-wide verified review count from Judge.me's shop metafield (the HTML in
+  shop.metafields.judgeme.all_reviews_header carries data-number-of-reviews).
+  Usage: {% render 'prodani-review-count', text: 'We have {count} reviews', fallback: '130+' %}
+  Replaces every "{count}" in `text` with the live number, or with `fallback` when the
+  metafield is missing or 0. Output is escaped. Keeps the announcement strip, the badge
+  label and any other copy in step with the homepage reviews head (which reads the same field).
+{%- endcomment -%}
+{%- liquid
+  assign jm = shop.metafields.judgeme.all_reviews_header | append: ''
+  assign jm_count = ''
+  if jm contains "data-number-of-reviews='"
+    assign jm_count = jm | split: "data-number-of-reviews='" | last | split: "'" | first
+  elsif jm contains 'data-number-of-reviews="'
+    assign jm_count = jm | split: 'data-number-of-reviews="' | last | split: '"' | first
+  endif
+  assign jm_num = jm_count | plus: 0
+  if jm_num < 1
+    assign jm_count = fallback | default: ''
+  endif
+  echo text | replace: '{count}', jm_count | escape
+-%}

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>og</title>
+<style>
+@font-face{font-family:'Fredoka';src:url(../../prodani/assets/fredoka-var-latin.woff2) format('woff2');font-weight:300 700}
+@font-face{font-family:'Nunito';src:url(../../prodani/assets/nunito-var-latin.woff2) format('woff2');font-weight:200 1000}
+html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#FFF8F0;color:#48312A;font-family:'Nunito',sans-serif}
+.card{position:relative;width:1200px;height:630px;overflow:hidden}
+.wm{position:absolute;left:72px;top:60px;height:58px}
+.wm img{height:58px;display:block}
+.eyebrow{position:absolute;left:72px;top:156px;font-size:26px;font-weight:700;color:#48312A;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:14px;height:14px;border-radius:50%;background:#F79CBB}
+.title{position:absolute;left:68px;top:196px;margin:0;font-family:'Fredoka',sans-serif;font-weight:600;font-size:118px;line-height:.92;letter-spacing:0;color:#48312A}
+.title span{display:block}
+.title.long{font-size:102px;top:206px}
+.home .trio{position:absolute;left:640px;top:0;width:650px;height:630px;display:flex;align-items:center;justify-content:center;gap:0}
+.home .trio img{height:470px;filter:drop-shadow(0 26px 34px rgba(72,49,42,.22))}
+.home .trio img:nth-child(1){transform:rotate(-14deg) translate(26px,10px)}
+.home .trio img:nth-child(3){transform:rotate(14deg) translate(-26px,10px)}
+.macros{position:absolute;left:72px;top:446px;font-size:27px;font-weight:700;color:#48312A;letter-spacing:0}
+.macros i{font-style:normal;color:#B23A60;margin:0 10px}
+.pill{position:absolute;left:72px;bottom:58px;background:#48312A;color:#FFF8F0;font-weight:800;font-size:28px;line-height:1;padding:22px 34px;border-radius:999px}
+.pill b{font-weight:800;color:#FDC3D4}
+.halo{position:absolute;left:640px;top:-10px;width:650px;height:650px;border-radius:50%;background:var(--bg)}
+.ring{position:absolute;left:606px;top:-44px;width:718px;height:718px;border-radius:50%;border:3px dashed var(--c);opacity:.45;box-sizing:border-box}
+.art{position:absolute;left:640px;top:0;width:650px;height:630px;display:flex;align-items:center;justify-content:center}
+.art img{max-width:560px;max-height:540px;filter:drop-shadow(0 30px 40px rgba(72,49,42,.22))}
+.art.tall img{transform:rotate(-9deg);max-height:560px}
+.sticker{position:absolute;right:52px;top:48px;width:132px;height:132px;border-radius:50%;background:#FDC3D4;color:#48312A;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:22px;line-height:1.05;transform:rotate(10deg);box-shadow:0 10px 24px rgba(72,49,42,.18)}
+/* home card */
+.home .title{top:186px;font-size:104px}
+.home .lede{position:absolute;left:72px;top:420px;width:520px;font-size:30px;line-height:1.35;font-weight:600;color:#48312A}
+.home .photo{position:absolute;left:640px;top:36px;width:560px;height:560px;border-radius:50%;overflow:hidden;box-shadow:0 30px 50px rgba(72,49,42,.22)}
+.home .photo img{width:100%;height:100%;object-fit:cover;display:block}
+.home .halo{left:600px;top:-20px;width:660px;height:660px}
+</style></head>
+<body>
+<script>
+const F=[
+ {h:'dubai-dream-cake-copy',n:['Cherry','White'],c:'#C13A5A',bg:'#FBD9E0',img:'pd-cut-cherry-white.webp',tall:1,m:['20g protein','170 cal','4g sugar'],p:'$42.99'},
+ {h:'personal-chocolate-fudge-cake-copy',n:['Dubai','Dream'],c:'#5F7230',bg:'#EBEFCB',img:'pd-cut-pistachio.webp',tall:1,m:['20g protein','180 cal','4g sugar'],p:'$42.99'},
+ {h:'personal-hazelnuts-cake',n:['Hazelnut','Fudge'],c:'#9A5F2C',bg:'#F6E1C8',img:'pd-cut-hazelnut.webp',tall:1,m:['20g protein','180 cal','4g sugar'],p:'$42.99'},
+ {h:'moist-chocolate-fudge-cake-copy',n:['Chocolate','Fudge'],c:'#5B3A2E',bg:'#EAD5C8',img:'pd-cut-choc-slices.webp',tall:0,m:['18g protein','150 cal','1g sugar'],p:'$37.99'},
+ {h:'banana-bread-copy',n:['Banana','Bread'],c:'#8F6A0E',bg:'#FBEEC2',img:'pd-cut-banana-a.webp',tall:0,m:['16g protein','160 cal','11g sugar'],p:'$36.99'},
+ {h:'cinnamon-apple-cake-copy',n:['Cinnamon','Apple'],c:'#94602C',bg:'#F6E4CC',img:'pd-cut-apple-a.webp',tall:0,m:['15g protein','120 cal','5g sugar'],p:'$38.99'},
+ {h:'carrot-cake',n:['Carrot','Cake'],c:'#B9560F',bg:'#FBE2C9',img:'pd-cut-carrot-box-clean.webp',tall:0,m:['15g protein','100 cal','3g sugar'],p:'$36.99'},
+];
+const i=new URLSearchParams(location.search).get('i');
+if(i==='home'){
+ document.body.innerHTML=`<div class="card home" style="--bg:#FBE4E9;--c:#F79CBB">
+  <div class="halo"></div>
+  <div class="wm"><img src="../../prodani/assets/prodani-wordmark.svg" alt="prodani"></div>
+  <div class="eyebrow">High-protein cakes</div>
+  <h1 class="title"><span>Smart</span><span>indulgence.</span></h1>
+  <p class="lede">The joy and texture of real cake, with complete protein and no added sugar.</p>
+  <div class="trio"><img src="../../prodani/assets/pd-cut-pistachio.webp" alt=""><img src="../../prodani/assets/pd-cut-cherry-white.webp" alt=""><img src="../../prodani/assets/pd-cut-hazelnut.webp" alt=""></div>
+ </div>`;
+}else{
+ const f=F[+i];
+ document.body.innerHTML=`<div class="card" style="--bg:${f.bg};--c:${f.c}">
+  <div class="ring"></div><div class="halo"></div>
+  <div class="art ${f.tall?'tall':''}"><img src="../../prodani/assets/${f.img}" alt=""></div>
+  <div class="wm"><img src="../../prodani/assets/prodani-wordmark.svg" alt="prodani"></div>
+  <div class="eyebrow">Personal protein cake</div>
+  <h1 class="title ${Math.max(f.n[0].length,f.n[1].length)>=9?'long':''}"><span>${f.n[0]}</span><span>${f.n[1]}</span></h1>
+  <div class="macros">${f.m.join('<i>·</i>')}</div>
+  <div class="pill">5-pack <b>${f.p}</b></div>
+  <div class="sticker">No added<br>sugar</div>
+ </div>`;
+}
+document.title=i==='home'?'home':F[+i].h;
+</script>
+</body></html>

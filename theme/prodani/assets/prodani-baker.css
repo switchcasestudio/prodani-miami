@@ -6,6 +6,7 @@
 .pd-story__text{ grid-column:1 / span 6; }
 .pd-story__media{ grid-column:8 / span 5; position:relative; align-self:start; }
 @media (max-width:980px){
+  .pd-story{ margin-top:0; } /* the 100px clears the desktop deck tail; on phone it was a 249px hole */
   .pd-story__in{ grid-template-columns:1fr; }
   .pd-story__text, .pd-story__media{ grid-column:1 / -1; }
 }

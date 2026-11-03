@@ -11,7 +11,7 @@
     {%- for claim in claims -%}
       <div class="pd-announce__track"{% unless forloop.first %} hidden{% endunless %}>
         <span class="pd-announce__dot"></span>
-        <span class="pd-label">{{ claim | strip | escape }}</span>
+        <span class="pd-label">{% render 'prodani-review-count', text: claim, fallback: '130+' %}</span>
       </div>
     {%- endfor -%}
   </div>
@@ -138,8 +138,8 @@
     { "type": "text", "id": "box_url", "label": "Mobile menu button link", "default": "/#box" },
     {
       "type": "textarea", "id": "claims", "label": "Announcement claims",
-      "info": "Separate each with a | — they rotate.",
-      "default": "Free local delivery in Miami over $75|Baked in small batches — never mass-produced|132 verified reviews|No added sugar. Ever."
+      "info": "Separate each with a | — they rotate. {count} becomes the live Judge.me review count.",
+      "default": "Free local delivery in Miami over $75|Baked in small batches — never mass-produced|{count} verified reviews|No added sugar. Ever."
     }
   ],
   "enabled_on": { "groups": ["header"] }

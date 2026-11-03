@@ -173,3 +173,6 @@ backups/
 blog/inbox/
 # Design-direction renders (regenerate with node directions/render.mjs) — large media, local only
 directions/out/
+
+# headless Chrome profile used by theme/scripts/og/build.mjs
+theme/scripts/og/.hc/

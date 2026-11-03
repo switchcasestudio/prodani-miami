@@ -34,7 +34,7 @@
             {%- comment -%} 2026 line icons: inlined so stroke="currentColor" takes the text colour. {%- endcomment -%}
             <span class="pd-badge-item__line" aria-hidden="true">{{ block.settings.icon | append: '.svg' | inline_asset_content }}</span>
           {%- endif -%}
-          <span class="pd-badge-item__label">{{ block.settings.label | escape }}</span>
+          <span class="pd-badge-item__label">{% render 'prodani-review-count', text: block.settings.label, fallback: '130+' %}</span>
         </li>
       {%- endfor -%}
     </ul>
@@ -71,7 +71,7 @@
       "name": "Badge",
       "limit": 8,
       "settings": [
-        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "label", "label": "Label", "info": "{count} becomes the live Judge.me review count." },
         {
           "type": "select", "id": "icon", "label": "Bundled icon",
           "options": [

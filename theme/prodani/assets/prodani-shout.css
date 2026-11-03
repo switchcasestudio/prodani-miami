@@ -19,6 +19,7 @@
 }
 .pd-shout__frame img{ width:100%; height:100%; object-fit:cover; display:block; }
 @media (max-width:980px){
+  .pd-shout{ padding-block:44px; }
   .pd-shout__in{ grid-template-columns:1fr; }
   /* max-width without a margin left it flush against the wrap's left edge
      instead of centered under the (also-centered) text above it. */

@@ -367,7 +367,7 @@
         "n6": {
           "type": "badge",
           "settings": {
-            "label": "132 Verified Reviews",
+            "label": "{count} Verified Reviews",
             "icon": "prodani-icon-verified-reviews"
           }
         }
