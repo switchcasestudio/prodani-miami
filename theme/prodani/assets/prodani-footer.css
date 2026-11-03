@@ -127,3 +127,6 @@
 }
 .pd-foot__credit a:hover{ border-bottom-color:var(--pink); }
 
+
+/* Round "p." seal */
+.pd-foot__seal{ width:clamp(110px,10vw,150px); height:auto; }

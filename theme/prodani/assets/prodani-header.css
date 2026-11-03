@@ -209,3 +209,6 @@ html.pd-menu-open{ overflow:hidden; }
   .pd-nav__count{ background:var(--ink); color:#fff; }
   .pd-icon-btn{ background:#fff; box-shadow:0 8px 20px -14px rgba(72,49,42,.35); }
 }
+
+/* Round wordmark (2026-11-02): wider and heavier than the serif, so sized smaller. */
+.pd-nav__logo-img--brand{ height:clamp(30px,2.6vw,36px); }

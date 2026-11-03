@@ -37,7 +37,7 @@
         {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, class: 'pd-nav__logo-img' }}
       {%- elsif section.settings.use_brand_logo -%}
         <img class="pd-nav__logo-img pd-nav__logo-img--brand" src="{{ 'prodani-wordmark.svg' | asset_url }}"
-             alt="{{ shop.name | escape }}" width="1144" height="435">
+             alt="{{ shop.name | escape }}" width="3515" height="949">
       {%- else -%}
         {{ section.settings.logo_text | default: shop.name | escape | downcase }}
       {%- endif -%}
