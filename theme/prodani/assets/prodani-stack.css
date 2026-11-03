@@ -11,7 +11,7 @@
   /* Stays pinned at the top while the cards stack beneath it, so the section title
      is visible the whole way through the deck. Cream ground + z-index so the cards
      slide under it cleanly. */
-  position:sticky; top:0; z-index:6; background:var(--cream);
+  position:sticky; top:var(--pd-nav-h, 0px); z-index:6; background:var(--cream);
 }
 /* one full-height slot per card; the card pins just below the sticky title */
 /* The slot was a full 100svh around a ~470px card, so roughly 220px of dead air
@@ -24,14 +24,14 @@
    here couldn't out-run that pull, so the first card still sat almost flush
    against the header. +34px comfortably covers the -3vh range so every card
    clears the header regardless of viewport height. */
-.pd-stack__slot{ height:min(58svh, 460px); display:flex; align-items:center; justify-content:center; position:sticky; top:calc(var(--pd-stack-head-h, 132px) + 34px); }
+.pd-stack__slot{ height:min(58svh, 460px); display:flex; align-items:center; justify-content:center; position:sticky; top:calc(var(--pd-nav-h, 0px) + var(--pd-stack-head-h, 132px) + 34px); }
 /* Exists purely so the last .pd-stack__slot isn't the final child (see the
    comment in prodani-stack.liquid) — its own height is the scroll distance the
    finished deck now holds for before releasing. display:block!important is
    load-bearing: base.css has a global `div:empty{display:none}` rule (Dawn's
    own a11y cleanup) that was silently collapsing this to 0 height since it has
    no content by design. */
-.pd-stack__tail{ display:block !important; height:35vh; }
+.pd-stack__tail{ display:block !important; height:22vh; }
 @media (max-width:980px){
   /* The !important above (needed to beat base.css's div:empty rule) would
      otherwise also beat this — has to match it to actually win. */
@@ -54,17 +54,25 @@
   font-family:var(--sans); font-weight:700; letter-spacing:-.01em; color:inherit; }
 .pd-stack__peek b{ font-family:var(--display); font-weight:700; font-size:clamp(20px,2.4vw,30px); line-height:1; }
 .pd-stack__peek span{ font-size:clamp(13px,1.2vw,16px); opacity:.85; }
+/* Hidden on the front card (it would repeat the figure and title right under it);
+   fades in once the next card has slid over and only the sliver shows. */
+.pd-stack__card .pd-stack__peek{ opacity:0; transition:opacity .25s ease; }
+.pd-stack__card.is-covered .pd-stack__peek{ opacity:1; }
+/* Under the next card only a sliver shows; the body's big figure was peeking out cut in half. */
+.pd-stack__card .pd-stack__body{ transition:opacity .25s ease; }
+.pd-stack__card.is-covered .pd-stack__body{ opacity:0; }
+@media (prefers-reduced-motion:reduce){ .pd-stack__card .pd-stack__peek{ transition:none; } }
 .pd-stack__body{ display:flex; gap:clamp(20px,3vw,46px); flex:1; min-height:0; align-items:stretch; }
 .pd-stack__text{ width:42%; display:flex; flex-direction:column; justify-content:center; }
 .pd-stack__figure{ font-family:var(--display); font-weight:700; line-height:.9;
   font-size:clamp(48px,6.4vw,89.6px); display:block; }
 .pd-stack__title{ margin:clamp(10px,1.4vw,18px) 0 0; font-weight:700;
-  font-size:clamp(16.8px,1.6vw,22.4px); letter-spacing:-.01em;
+  font-size:clamp(19px,1.7vw,24px); letter-spacing:0;
   /* Dawn paints every h3 cocoa; take the card's text colour so the title
      shows on the dark card too. */
   color:inherit; }
-.pd-stack__desc{ margin:10px 0 0; font-size:clamp(14.08px,1.05vw,16px); line-height:1.55;
-  font-weight:500; opacity:.72; max-width:34ch; }
+.pd-stack__desc{ margin:10px 0 0; font-size:clamp(15.5px,1.1vw,17px); line-height:1.55;
+  font-weight:500; opacity:.92; max-width:38ch; }
 .pd-stack__link{
   display:inline-flex; align-items:center; gap:10px; margin-top:clamp(14px,2vw,24px);
   font-weight:700; font-size:14px; width:fit-content; text-decoration:none; color:inherit;

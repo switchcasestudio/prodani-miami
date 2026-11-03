@@ -15,9 +15,55 @@
 }
 .product__media-item{ margin-bottom:clamp(10px,1.2vw,18px); }
 
+/* ---- column split (desktop) ----
+   templates/product.json sets media_size "medium", which Dawn lays out as media 55% /
+   info 45%. Dawn then keeps the 750px-up gutter of 5rem; the buy column reads better
+   with a little more air between the gallery and the title. */
+@media screen and (min-width:990px){
+  .product--medium:not(.product--no-media):not(.product--right) .product__info-wrapper{
+    padding:0 0 0 clamp(44px,4.2vw,64px);
+  }
+}
+
+/* ---- gallery grid (desktop, "stacked" layout) ----
+   Dawn's stacked gallery is a flex-wrap row: the first image gets a full row and every
+   other one is capped at half width. A lone portrait (the nutrition label) then sat in a
+   half cell with an empty half beside it. This turns the list into a real two-column
+   grid: the first image spans both columns, the rest pair up at equal (square) heights,
+   and a last image with no partner spans both columns at 4:3. Images are contained,
+   never cropped, on the butter surface, so labels stay legible; the lightbox
+   (modal-opener / product__media-toggle) is markup and is untouched. */
+@media screen and (min-width:990px){
+  .product--stacked .product__media-list{
+    display:grid; grid-template-columns:1fr 1fr; gap:clamp(10px,1.2vw,18px);
+  }
+  .product--stacked .product__media-list .product__media-item{
+    width:100%; max-width:100%; min-width:0; margin:0;
+  }
+  .product--stacked .product__media-list .product__media-item:first-child,
+  .product--stacked .product__media-list .product__media-item--full,
+  .product--stacked .product__media-list .product__media-item:last-child:nth-child(even){
+    grid-column:1 / -1;
+  }
+  /* Every image after the first: fixed-ratio cell, image contained inside.
+     Video and 3D items (--full) keep Dawn's own sizing. */
+  .product--stacked .product__media-list .product__media-item:not(:first-child):not(.product__media-item--full) .product-media-container{
+    width:100%; max-width:100%; margin:0;
+  }
+  .product--stacked .product__media-list .product__media-item:not(:first-child):not(.product__media-item--full) .product-media-container .media{
+    padding-top:100%;
+  }
+  .product--stacked .product__media-list .product__media-item:last-child:nth-child(even):not(.product__media-item--full) .product-media-container .media{
+    padding-top:75%;
+  }
+  .product--stacked .product__media-list .product__media-item:not(:first-child) .product-media-container .media > img{
+    object-fit:contain;
+  }
+}
+
 /* ---- title block ---- */
 .product__text.caption-with-letter-spacing{
-  font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  font-size:14px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
   color:var(--berry);
 }
 .product__title h1,
@@ -33,7 +79,7 @@
 
 /* ---- variant picker ---- */
 .product-form__input .form__label{
-  font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  font-size:14px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
   color:var(--berry); margin-bottom:10px;
 }
 .product-form__input input[type='radio'] + label,
@@ -93,5 +139,5 @@
 /* ---- pack size next to the price (a 5-pack must never read as one cake) ---- */
 .product .pd-pack{ font-family:var(--sans); font-weight:500; font-size:.72em; letter-spacing:0;
   color:var(--ink-soft); margin-left:.2em; white-space:nowrap; }
-.product .pd-pack__each{ display:block; margin-top:4px; font-family:var(--mono); font-size:12.5px;
+.product .pd-pack__each{ display:block; margin-top:4px; font-family:var(--mono); font-size:14px;
   font-weight:600; letter-spacing:.01em;  color:var(--ink-faint); }

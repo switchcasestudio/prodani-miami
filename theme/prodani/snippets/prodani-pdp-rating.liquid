@@ -1,9 +1,59 @@
 {%- comment -%}
   Above-the-fold star rating + count, from Judge.me.
-  Renders empty until reviews are attached to THIS product in Judge.me (ticket T8) —
-  store-wide reviews do not populate a per-product badge. Judge.me's script is loaded
-  by its app embed, so no extra script is needed here.
+
+  Two sources, in order:
+  1. The per-product preview badge. Judge.me writes product.metafields.judgeme.badge
+     (HTML carrying data-number-of-reviews / data-average-rating) once reviews are
+     attached to THIS product; its script, loaded by the app embed, hydrates any
+     .jdgm-preview-badge on the page. Shown only when that count is above zero —
+     otherwise the badge reads "No reviews" under a store with 132 of them.
+  2. The store-wide figure from shop.metafields.judgeme.all_reviews_header (the same
+     value the homepage reviews band reads), as a plain line linking to the reviews
+     section further down the page (sections/prodani-product-reviews.liquid, anchor
+     "reviews" in templates/product.json).
+
+  Blank metafields render nothing: a missing figure is better than a wrong one.
 {%- endcomment -%}
-<div class="pd-rating">
-  <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}"></div>
-</div>
+{%- liquid
+  assign badge = product.metafields.judgeme.badge | append: ''
+  assign product_count = 0
+  if badge contains "data-number-of-reviews='"
+    assign product_count = badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0
+  elsif badge contains 'data-number-of-reviews="'
+    assign product_count = badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0
+  endif
+
+  assign shop_header = shop.metafields.judgeme.all_reviews_header | append: ''
+  assign shop_count = ''
+  assign shop_rating = ''
+  if shop_header contains "data-number-of-reviews='"
+    assign shop_count = shop_header | split: "data-number-of-reviews='" | last | split: "'" | first
+  elsif shop_header contains 'data-number-of-reviews="'
+    assign shop_count = shop_header | split: 'data-number-of-reviews="' | last | split: '"' | first
+  endif
+  if shop_header contains "data-average-rating='"
+    assign shop_rating = shop_header | split: "data-average-rating='" | last | split: "'" | first
+  elsif shop_header contains 'data-average-rating="'
+    assign shop_rating = shop_header | split: 'data-average-rating="' | last | split: '"' | first
+  endif
+  assign shop_count_n = shop_count | plus: 0
+  if shop_rating != ''
+    assign shop_rating = shop_rating | times: 1.0 | round: 1
+  endif
+-%}
+{%- if product_count > 0 -%}
+  <div class="pd-rating">
+    <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ product.metafields.judgeme.badge }}</div>
+  </div>
+{%- elsif shop_count_n > 0 -%}
+  <p class="pd-rating pd-rating--store">
+    <a class="pd-rating__link" href="#reviews">
+      {%- if shop_rating != '' -%}
+        <span class="pd-rating__star" aria-hidden="true">&#9733;</span>
+        <span class="visually-hidden">Rated </span><b class="pd-rating__score">{{ shop_rating }}</b><span class="visually-hidden"> out of 5</span>
+        <span class="pd-rating__dot" aria-hidden="true">&middot;</span>
+      {%- endif -%}
+      <span class="pd-rating__count">{{ shop_count_n }} verified reviews</span>
+    </a>
+  </p>
+{%- endif -%}

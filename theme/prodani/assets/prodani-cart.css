@@ -1,0 +1,268 @@
+/* Prodani cart page — re-skins Dawn's main-cart-items + main-cart-footer sections
+   (templates/cart.json) to the Rounded pink-cream-cocoa look. Loaded from both
+   sections AFTER Dawn's component-cart*.css so equal-specificity rules win here.
+   Overrides only: Dawn's own sheets are untouched. Tokens from prodani-tokens.css.
+
+   Scoping: the items section renders as <cart-items>, the footer as #main-cart-footer
+   (both survive cart.js re-renders, which only swap each section's .js-contents).
+   Neither element carries a `.cart` class, so those two hooks are the scope. */
+
+/* ---- page frame ---- */
+cart-items,
+#main-cart-footer{ font-family:var(--sans); color:var(--cocoa); }
+
+@media (max-width:749px){
+  cart-items .page-width,
+  #main-cart-footer .page-width{ padding-inline:16px; }
+}
+
+/* ---- title row ("Your cart" + Continue shopping) ---- */
+cart-items .title-wrapper-with-link{ margin:0 0 22px; align-items:baseline; gap:10px 22px; }
+cart-items .title--primary{
+  margin:0; font-family:var(--display); font-weight:700; letter-spacing:-.01em;
+  font-size:clamp(34px,4.4vw,48px); line-height:1.05; color:var(--cocoa);
+}
+cart-items .title-wrapper-with-link .underlined-link{
+  font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--cocoa);
+  text-decoration:underline; text-decoration-color:var(--pink-deep); text-decoration-thickness:2px; text-underline-offset:4px;
+}
+cart-items .title-wrapper-with-link .underlined-link:hover{ color:var(--cocoa); text-decoration-thickness:3px; }
+
+/* ---- items panel ---- */
+cart-items .cart__items{
+  background:#fff; border:1px solid var(--line); border-radius:var(--r);
+  padding:clamp(16px,3vw,32px);
+}
+
+/* table header: Nunito 700 13.5px, no uppercase, no tracking */
+cart-items .cart-items thead th{
+  font-family:var(--sans); font-weight:700; font-size:13.5px; letter-spacing:0; line-height:1.3;
+  text-transform:none; color:var(--cocoa); opacity:1;
+  padding-bottom:14px; border-bottom:1px solid var(--line);
+}
+
+/* thumbnail */
+cart-items .cart-item__image-container{
+  border:0; border-radius:18px; overflow:hidden !important; background:var(--butter);
+  width:100%; max-width:112px;
+}
+cart-items .cart-item__image{ display:block; width:100%; height:auto; max-width:100%; border-radius:18px; }
+cart-items .cart-item__nested-line .cart-item__image-container{ min-width:0; background:transparent; }
+
+/* details */
+cart-items .cart-item__details{ font-size:15px; line-height:1.45; }
+cart-items .cart-item__details > * + *{ margin-top:6px; }
+cart-items .cart-item__title{ font-size:20px; line-height:1.2; gap:8px; }
+cart-items .cart-item__name{
+  font-family:var(--display); font-weight:600; font-size:20px; line-height:1.2; letter-spacing:0; color:var(--cocoa);
+}
+cart-items .cart-item__name:hover{
+  text-decoration:underline; text-decoration-color:var(--pink-deep); text-decoration-thickness:2px; text-underline-offset:4px;
+}
+/* unit price under the title (and the sale pair): Fredoka 600 */
+cart-items .cart-item__details > div.product-option,
+cart-items .cart-item__discounted-prices .product-option{
+  font-family:var(--display); font-weight:600; font-size:16px; letter-spacing:0; color:var(--cocoa);
+  font-variant-numeric:tabular-nums;
+}
+cart-items .cart-item__final-price{ font-weight:600; }
+cart-items .cart-item__old-price{ opacity:1; color:var(--ink-faint); font-weight:500; }
+/* variant / property lines ("Size: for 5 cakes"): Nunito 14.5px, soft ink */
+cart-items .cart-item__details dl .product-option,
+cart-items .cart-item__details p.product-option{
+  font-family:var(--sans); font-weight:500; font-size:14.5px; line-height:1.45; color:var(--ink-soft);
+}
+cart-items .cart-item__details dl dt{ font-weight:700; }
+cart-items .cart-item__details dl .product-option + .product-option{ margin-top:3px; }
+cart-items .cart-item__details .caption-with-letter-spacing{
+  font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0; text-transform:none; color:var(--ink-faint);
+}
+
+/* line total */
+cart-items .cart-item__totals .price{
+  font-family:var(--display); font-weight:600; font-size:18px; letter-spacing:0; line-height:1.3; color:var(--cocoa);
+  font-variant-numeric:tabular-nums;
+}
+cart-items .cart-item__totals .cart-item__old-price{ font-size:14px; font-weight:500; }
+
+/* discounts (line and cart level) */
+cart-items .discounts,
+#main-cart-footer .discounts{ font-family:var(--sans); font-weight:700; font-size:13.5px; letter-spacing:0; color:var(--cocoa); }   /* cocoa, not leaf: leaf is 3.7:1 on butter */
+cart-items .discounts__discount > .icon,
+#main-cart-footer .discounts__discount > .icon{ color:var(--leaf); width:14px; height:14px; }
+
+/* ---- quantity: 44px pill ---- */
+cart-items .cart-item__quantity-wrapper{ align-items:center; gap:4px; }
+cart-items .quantity{ width:132px; height:44px; min-height:44px; border-radius:999px; color:var(--cocoa); }
+cart-items .quantity::before{ inset:0; border-radius:999px; background:var(--cream); box-shadow:none; }
+cart-items .quantity::after{
+  top:0; right:0; bottom:0; left:0; border:0; border-radius:999px;
+  box-shadow:inset 0 0 0 1.5px rgba(72, 49, 42, .28);
+}
+cart-items .quantity:focus-within::after{ box-shadow:inset 0 0 0 2px var(--cocoa); }
+cart-items .quantity__input{
+  font-family:var(--sans); font-weight:700; font-size:16px; letter-spacing:0; opacity:1; color:var(--cocoa);
+  font-variant-numeric:tabular-nums;
+}
+cart-items .quantity__button{ width:40px; color:var(--cocoa); border-radius:999px; margin:0; }
+cart-items .quantity__button .svg-wrapper{ width:11px; }
+cart-items .quantity__button:not(:focus-visible):not(.focused):hover,
+cart-items .quantity__button:focus-visible,
+cart-items .quantity__input:focus-visible{ background-color:var(--butter); }
+
+/* quantity rules / volume pricing popover (only renders when a variant has rules) */
+cart-items .quantity-popover__info-button{
+  font-family:var(--sans); font-weight:700; font-size:13.5px; letter-spacing:0; color:var(--cocoa); border-radius:999px;
+}
+cart-items .quantity-popover__info.global-settings-popup{
+  background:#fff; border:1px solid var(--line); border-radius:18px; padding:14px 16px;
+  box-shadow:0 14px 32px rgba(72, 49, 42, .14);
+}
+cart-items .quantity__rules,
+cart-items .volume-pricing-label,
+cart-items quantity-popover volume-pricing li{ font-family:var(--sans); font-size:13.5px; letter-spacing:0; color:var(--ink-soft); }
+
+/* ---- remove: Dawn's icon, 36px round, butter circle on hover ---- */
+cart-items .cart-item cart-remove-button{ margin-left:6px; align-items:center; width:auto; height:auto; }
+cart-items cart-remove-button .button{
+  width:36px; height:36px; min-width:36px; min-height:36px; padding:0; margin:0;
+  border-radius:50%; background:transparent; color:var(--cocoa);
+  transition:background .25s, transform .4s var(--bounce);
+}
+cart-items cart-remove-button .button:not([disabled]):hover{ background:var(--butter); color:var(--cocoa); }
+cart-items cart-remove-button .button:active{ transform:scale(.94); }
+cart-items cart-remove-button .icon-remove{ width:16px; height:16px; }
+
+/* line error */
+cart-items .cart-item__error-text{
+  font-family:var(--sans); font-weight:600; font-size:13.5px; letter-spacing:0; line-height:1.4; color:var(--berry);
+}
+
+/* ---- rows ---- */
+@media (min-width:750px){
+  cart-items .cart-items td{ padding-top:28px; padding-bottom:28px; border-bottom:1px solid var(--line); }
+  cart-items .cart-items .cart-item__nested-line td{ padding-top:12px; }
+  cart-items .cart-items .cart-item:last-child td{ border-bottom:0; padding-bottom:4px; }
+  cart-items .cart-item__media{ width:112px; }
+  cart-items .cart-item .loading__spinner{ padding-top:28px; }
+  cart-items .cart-items th + th,
+  cart-items .cart-item > td + td{ padding-left:28px; }
+}
+@media (min-width:750px){
+  cart-items .cart-items .cart-items__heading--wide,
+  cart-items .cart-items .cart-items__heading--quantity,
+  cart-items .cart-item .cart-item__quantity,
+  cart-items .cart-item__quantity--info quantity-popover > *{ padding-left:36px; }
+  cart-items .cart-item .cart-item__quantity--info,
+  cart-items .cart-item__quantity--info .cart-item__quantity-wrapper,
+  cart-items .cart-item__quantity--info .cart-items__info{ padding-left:0; }
+}
+
+/* phone: 96px thumb | details | line total, quantity row below */
+@media (max-width:749px){
+  cart-items .cart-items thead tr{ border-bottom:1px solid var(--line); margin-bottom:18px; }
+  cart-items .cart-items thead th{ padding-bottom:12px; border-bottom:0; }
+  cart-items .cart-item{
+    grid-template-columns:96px minmax(0,1fr) auto; grid-template-rows:auto auto;
+    gap:12px 14px; margin-bottom:0; padding:18px 0; border-bottom:1px solid var(--line);
+  }
+  cart-items .cart-item:first-child{ padding-top:0; }
+  cart-items .cart-item:last-child{ padding-bottom:0; border-bottom:0; }
+  cart-items .cart-item__media{ grid-column:1; grid-row:1 / 3; }
+  cart-items .cart-item__details{ grid-column:2; grid-row:1; }
+  cart-items .cart-item__totals{ grid-column:3; grid-row:1; }
+  cart-items .cart-item__quantity{ grid-column:2 / 4; grid-row:2; }
+  cart-items .cart-item__image-container{ max-width:96px; }
+  cart-items .cart-item__name{ font-size:18px; }
+  cart-items .cart-item__totals .price{ font-size:17px; }
+  cart-items .cart-item .loading__spinner{ top:4px; }
+}
+
+/* ---- footer: totals in a butter panel ---- */
+#main-cart-footer .cart__footer{
+  display:block; width:min(100%, 440px); margin-left:auto;
+  background:var(--butter); border-radius:var(--r); padding:clamp(20px,3vw,30px);
+}
+#main-cart-footer.is-empty .cart__footer{ display:none; }   /* keep Dawn's empty-state hide (the id above outranks it) */
+#main-cart-footer .page-width{ padding-bottom:clamp(40px,6vw,72px); }
+#main-cart-footer .cart__footer > *{ width:100%; margin-left:0; }
+#main-cart-footer .cart__footer > * + *{ margin-top:22px; }
+#main-cart-footer .cart__blocks > * + *{ margin-top:12px; }
+
+#main-cart-footer .totals{
+  justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+  padding-bottom:14px; border-bottom:1px solid var(--line);
+}
+#main-cart-footer .totals > * + *{ margin-left:0; }
+#main-cart-footer .totals__total{
+  margin:0; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--cocoa);
+}
+#main-cart-footer .totals__total-value{
+  margin:0; font-family:var(--display); font-weight:600; font-size:24px; letter-spacing:0; color:var(--cocoa);
+  font-variant-numeric:tabular-nums; line-height:1.1;
+}
+#main-cart-footer .tax-note{
+  margin:14px 0 18px; text-align:left; font-family:var(--sans); font-size:14px; letter-spacing:0; line-height:1.5; color:var(--ink-soft);
+}
+#main-cart-footer .tax-note a{ color:var(--cocoa); font-weight:700; text-underline-offset:3px; text-decoration-color:var(--pink-deep); }
+
+/* checkout: cocoa pill, 54px, Fredoka 600 17px, full width of the panel */
+#main-cart-footer .cart__ctas{ display:block; }
+#main-cart-footer .cart__checkout-button{
+  width:100%; max-width:none; height:54px; min-height:54px; padding:0 28px;
+  font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:0; line-height:1;
+  background:var(--cocoa); color:var(--cream); border-radius:999px;
+  transition:background .3s, transform .4s var(--bounce);
+}
+#main-cart-footer .cart__checkout-button::before,
+#main-cart-footer .cart__checkout-button::after{ content:none; }
+#main-cart-footer .cart__checkout-button:not([disabled]):hover{ background:var(--cocoa-deep); }
+#main-cart-footer .cart__checkout-button:not([disabled]):active{ transform:scale(.98); }
+#main-cart-footer .cart__dynamic-checkout-buttons{ max-width:none; margin:12px 0 0; }
+#main-cart-footer #cart-errors{ font-family:var(--sans); font-size:14px; color:var(--berry); }
+
+/* cart note (off by default; styled in case it is switched on) */
+#main-cart-footer .cart__note label{
+  position:static; height:auto; margin-bottom:8px; font-family:var(--sans); font-weight:700; font-size:13.5px; color:var(--cocoa);
+}
+#main-cart-footer .cart__note .field__input{
+  border-radius:18px; background:#fff; font-family:var(--sans); font-size:16px; padding:12px 16px; letter-spacing:0;
+}
+
+/* ---- empty state ---- */
+cart-items.is-empty .cart__warnings{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  min-height:50vh; padding:clamp(40px,8vw,96px) 16px;
+}
+cart-items.is-empty .cart__empty-text{
+  margin:0 0 26px; font-family:var(--display); font-weight:700; letter-spacing:-.01em;
+  font-size:clamp(32px,5vw,40px); line-height:1.1; color:var(--cocoa); text-wrap:balance;
+}
+cart-items .cart__warnings .button{
+  height:54px; min-height:54px; min-width:0; padding:0 28px;
+  font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:0; line-height:1;
+  background:var(--pink); color:var(--cocoa); border-radius:999px;
+  transition:background .3s, transform .4s var(--bounce);
+}
+cart-items .cart__warnings .button::before,
+cart-items .cart__warnings .button::after{ content:none; }
+cart-items .cart__warnings .button:hover{ background:var(--pink-deep); color:var(--cocoa); }
+cart-items .cart__warnings .button:active{ transform:scale(.98); }
+cart-items .cart__login-title{
+  margin:44px 0 6px; font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:0; line-height:1.2; color:var(--cocoa);
+}
+cart-items .cart__login-paragraph{ margin:0; font-family:var(--sans); font-size:16px; line-height:1.5; color:var(--ink-soft); }
+cart-items .cart__login-paragraph a{
+  color:var(--cocoa); font-weight:700; text-decoration:underline; text-decoration-color:var(--pink-deep);
+  text-decoration-thickness:2px; text-underline-offset:3px;
+}
+
+@media (max-width:749px){
+  cart-items .cart__warnings .button{ width:100%; max-width:360px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  cart-items cart-remove-button .button,
+  cart-items .cart__warnings .button,
+  #main-cart-footer .cart__checkout-button{ transition:none; }
+}

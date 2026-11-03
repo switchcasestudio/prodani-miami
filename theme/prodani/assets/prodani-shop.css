@@ -23,7 +23,7 @@
 a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 .pd-filter[aria-current="page"]{ background:var(--cocoa); color:var(--cream); box-shadow:none; }
 .pd-filter:focus-visible{ outline:3px solid var(--pink-deep); outline-offset:2px; }
-.pd-filter sup{ font-size:10.5px; opacity:.6; margin-left:5px; }
+.pd-filter sup{ font-size:13px; opacity:.6; margin-left:5px; }
 
 .pd-count{ color:var(--ink-faint); font-size:13px; font-weight:600; margin:0 0 18px; }
 
@@ -73,7 +73,7 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 
 .pd-card__badges{ position:absolute; top:10px; left:10px; display:flex; gap:6px; z-index:3; }
 .pd-badge{
-  font-weight:700; font-size:11px; padding:6px 12px; border-radius:999px;
+  font-weight:700; font-size:13px; padding:6px 12px; border-radius:999px;
   background:var(--butter); color:var(--cocoa); box-shadow:0 3px 10px rgba(35,22,18,.16);
 }
 .pd-badge--vegan{ background:var(--leaf); color:#fff; }
@@ -92,7 +92,7 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 /* Brand voice on the card (Moses 2026-10-11): the name speaks in the display serif
    like every section title, labels in the header's mono caps. The old bold sans
    read as a generic store template. */
-.pd-card__cat{ font-family:var(--mono); font-weight:600; font-size:12.5px; letter-spacing:.01em;
+.pd-card__cat{ font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:.01em;
    color:var(--berry); margin:2px 0 8px; }
 .pd-card__name{ font-family:var(--display); font-weight:700; font-size:clamp(19px,1.45vw,22px);
   line-height:1.15; margin:0 0 6px; color:var(--cocoa); letter-spacing:-.01em; }
@@ -105,19 +105,19 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 }
 .pd-card__macros li{ display:flex; flex-direction:column; line-height:1.15; }
 .pd-card__macros b{
-  font-family:var(--display); font-weight:700; font-size:18px; color:var(--cocoa);
+  font-family:var(--display); font-weight:600; font-size:18px; color:var(--cocoa);
   font-variant-numeric:tabular-nums lining-nums;
 }
 .pd-card__macros span{
-  font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.01em; 
-  color:var(--ink-faint); margin-top:3px;
+  font-family:var(--mono); font-size:13.5px; font-weight:600; letter-spacing:0;
+  color:var(--ink-soft); margin-top:3px;
 }
 
 /* Claim chips — capped at two in Liquid, so this never wraps to a second row. */
 .pd-card__chips{ list-style:none; margin:8px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:5px; }
 .pd-card__chips li{
   padding:3px 9px; border-radius:999px; background:var(--butter); border:1px solid var(--line);
-  font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.01em; 
+  font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.01em; 
   color:var(--cocoa); white-space:nowrap;
 }
 
@@ -139,7 +139,7 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 }
 .pd-collection__rowlink{
   display:inline-flex; align-items:center; gap:10px; text-decoration:none;
-  font-family:var(--mono); font-weight:600; font-size:12.5px; letter-spacing:.01em; 
+  font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:.01em; 
   color:var(--berry);
   transition:gap .35s var(--bounce), color .25s;
 }
@@ -165,7 +165,7 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 
 /* ---- Coming soon row (Dani 2026-10-08): flavors in development, not orderable.
    Not a link, so no hover lift. A photo is a real cake; the badge says it is coming. ---- */
-.pd-collection__rownote{ font-family:var(--mono); font-size:12.5px; letter-spacing:.01em;
+.pd-collection__rownote{ font-family:var(--mono); font-size:13px; letter-spacing:.01em;
    color:var(--berry); font-weight:600; }
 .pd-card--soon{ cursor:default; }
 .pd-card--soon:hover{ transform:none; box-shadow:0 2px 0 rgba(72, 49, 42,.07); }
@@ -185,10 +185,10 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 
 /* pack size on cards: "$36.99 for 5 cakes" + quiet per-cake price */
 .pd-card__price{ line-height:1.35; }
-.pd-card__price .pd-pack{ font-family:var(--sans); font-size:13px; font-weight:500; letter-spacing:0;
+.pd-card__price .pd-pack{ font-family:var(--sans); font-size:14.5px; font-weight:500; letter-spacing:0;
   color:var(--ink-soft); white-space:nowrap; }
-.pd-card__price .pd-pack__each{ display:block; margin-top:3px; font-size:10.5px; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--ink-faint); }
+.pd-card__price .pd-pack__each{ display:block; margin-top:3px; font-family:var(--sans); font-size:13.5px; font-weight:600; letter-spacing:0;
+  color:var(--ink-soft); }
 
 
 /* Option B flavor cards */
@@ -198,7 +198,7 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
 .pd-card--flavor:hover .pd-card__cut{ transform:rotate(-3deg) scale(1.06); }
 .pd-card--flavor .pd-card__quick{ display:none; }
 .pd-card--flavor .pd-card__name{ order:1; margin:0; font-size:28px; line-height:1; color:var(--ink); }
-.pd-card--flavor .pd-card__name em{ display:block; font-style:normal; color:var(--fc); font-size:.6em; font-weight:600; margin-top:6px; }
+.pd-card--flavor .pd-card__name em{ display:block; font-style:normal; color:color-mix(in srgb, var(--fc) 70%, #33211B); font-size:.64em; font-weight:600; margin-top:6px; }
 .pd-card--flavor .pd-card__macros{ order:3; display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; border:0; list-style:none; }
 .pd-card--flavor .pd-card__macros li{ flex-direction:row; gap:3px; align-items:baseline; background:rgba(255,255,255,.8); border-radius:999px; padding:6px 10px; }
 .pd-card--flavor .pd-card__chips{ display:none; }

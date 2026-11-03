@@ -40,6 +40,6 @@
   background:var(--cream); color:var(--cocoa); box-shadow:inset 0 0 0 1px var(--line); }
 .pd-story__icon svg{ width:24px; height:24px; display:block; }
 .pd-story__copy{ display:flex; flex-direction:column; gap:5px; min-width:0; }
-.pd-story__list b{ font-family:var(--mono); font-weight:600; font-size:12.5px; letter-spacing:.01em;
-   color:var(--berry); }
-.pd-story__copy > span{ color:var(--ink-soft); font-size:14.5px; font-weight:500; line-height:1.5; }
+.pd-story__list b{ font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0;
+   color:var(--cocoa); }
+.pd-story__copy > span{ color:var(--ink-soft); font-size:15.5px; font-weight:500; line-height:1.5; }

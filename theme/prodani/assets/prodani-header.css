@@ -6,7 +6,7 @@
 .pd-announce__track{ display:flex; align-items:center; gap:10px; }
 .pd-announce__track[hidden]{ display:none; }
 .pd-announce__dot{ width:6px; height:6px; border-radius:999px; background:var(--cocoa); }
-.pd-label{ font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.pd-label{ font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
 
 .pd-nav{
   position:sticky; top:0; z-index:90; height:60px; display:flex; align-items:center;
@@ -49,7 +49,7 @@
 .pd-nav__count{
   min-width:22px; height:22px; padding:0 6px; border-radius:999px;
   background:var(--pink); color:var(--cocoa);
-  display:grid; place-items:center; font-size:12.5px; font-weight:700;
+  display:grid; place-items:center; font-size:13px; font-weight:700;
 }
 @media (max-width:960px){ .pd-nav__links{ display:none; } }
 
@@ -95,11 +95,11 @@
 .pd-nav__link, .pd-nav__sublink, .pd-nav__cart, .pd-nav__shop-mobile{
   font-family:var(--mono); font-weight:600;  letter-spacing:.01em;
 }
-.pd-nav__link{ font-size:12px; color:var(--cocoa); }
-.pd-nav__sublink{ font-size:11.5px; }
-.pd-nav__cart{ font-size:11.5px; }
-.pd-nav__count{ font-family:var(--mono); font-weight:600; font-size:12.5px; letter-spacing:.01em; }
-.pd-nav__shop-mobile{ font-size:12px; }
+.pd-nav__link{ font-size:13px; color:var(--cocoa); }
+.pd-nav__sublink{ font-size:13px; }
+.pd-nav__cart{ font-size:13px; }
+.pd-nav__count{ font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:.01em; }
+.pd-nav__shop-mobile{ font-size:13px; }
 .pd-announce .pd-label{ font-family:var(--mono); font-weight:600; letter-spacing:.01em; }
 
 /* Phones: logo + Shop + two 44px icons + the Cart pill with 34px gaps measured
@@ -120,15 +120,12 @@
    sticks instead, lifted by the announcement strip's height so only the nav stays.
    Desktop keeps the old behaviour: the stat deck pins its own head at top:0 there. */
 @media (max-width:980px){
-  .pd-header-group{ position:sticky; top:calc(-1 * var(--pd-announce-h, 0px)); z-index:90; }
-  .pd-header-group:has(.pd-announce){ --pd-announce-h:32px; }
   /* iOS 26+ Safari paints page content behind the status bar, which is where the
      lifted strip parks. Once scrolled it turns into a quiet extension of the bar. */
   .pd-announce{ transition:background-color .3s; }
   .pd-announce__track{ transition:opacity .2s; }
   .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce{ background:rgb(255, 248, 240); }
   .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce__track{ opacity:0; }
-  html{ scroll-padding-top:72px; }
 }
 
 .pd-nav__menu-btn{ display:none; }
@@ -151,10 +148,10 @@
   .pd-nav__right{ margin-left:0; gap:0; }
   .pd-nav__cart{
     height:auto; min-height:44px; padding:0 4px 0 8px; gap:6px; border-radius:0;
-    background:transparent; color:var(--cocoa); font-size:12px;
+    background:transparent; color:var(--cocoa); font-size:13px;
   }
   .pd-nav__cart:hover{ transform:none; }
-  .pd-nav__count{ min-width:18px; height:18px; padding:0 5px; font-size:10.5px; }
+  .pd-nav__count{ min-width:18px; height:18px; padding:0 5px; font-size:13px; }
 }
 
 .pd-menu[hidden]{ display:none; }
@@ -176,7 +173,7 @@
 .pd-menu__sub{ padding:0 0 14px; }
 .pd-menu__sub a{
   display:flex; align-items:center; min-height:44px; text-decoration:none; color:var(--ink-soft);
-  font-family:var(--mono); font-size:12px; letter-spacing:.01em; 
+  font-family:var(--mono); font-size:13px; letter-spacing:.01em; 
 font-weight:600; }
 .pd-menu__cta{
   display:flex; align-items:center; justify-content:center; gap:12px; min-height:56px; margin-top:28px;
@@ -186,7 +183,7 @@ font-weight:600; }
 .pd-menu__utils{ display:flex; justify-content:center; gap:28px; margin-top:12px; }
 .pd-menu__util{
   display:inline-flex; align-items:center; gap:10px; min-height:48px;
-  color:var(--cocoa); text-decoration:none; font-family:var(--mono); font-size:12px;
+  color:var(--cocoa); text-decoration:none; font-family:var(--mono); font-size:13px;
   letter-spacing:.01em; 
 font-weight:600; }
 .pd-menu__util svg{ width:18px; height:18px; }
@@ -199,7 +196,7 @@ html.pd-menu-open{ overflow:hidden; }
 .pd-label{ font-family:var(--display); font-size:14px; font-weight:600; letter-spacing:0; text-transform:none; }
 .pd-announce{ height:36px; }
 @media (min-width:960px){
-  .pd-nav{ height:84px; }
+  .pd-nav{ height:var(--pd-nav-h); }
   .pd-nav__in{ display:grid; grid-template-columns:1fr auto 1fr; }
   .pd-nav__links{ background:#fff; border-radius:999px; padding:6px; gap:4px; box-shadow:0 8px 20px -14px rgba(72,49,42,.35); }
   .pd-nav__link{ font-family:var(--display); font-weight:600; font-size:15px; color:var(--ink); padding:10px 18px; }
@@ -212,3 +209,11 @@ html.pd-menu-open{ overflow:hidden; }
 
 /* Round wordmark (2026-11-02): wider and heavier than the serif, so sized smaller. */
 .pd-nav__logo-img--brand{ height:clamp(30px,2.6vw,36px); }
+
+/* Sticky at every width. .pd-nav alone can only stick inside its own header-height wrapper,
+   so the wrapper sticks, lifted by the strip's height so the strip leaves and the nav stays. */
+.pd-header-group{ position:sticky; top:calc(-1 * var(--pd-announce-h, 0px)); z-index:90; }
+.pd-header-group:has(.pd-announce){ --pd-announce-h:36px; }
+html{ scroll-padding-top:calc(var(--pd-nav-h) + 16px); }
+.pd-nav__link, .pd-nav__sublink, .pd-nav__cart, .pd-nav__shop-mobile, .pd-announce .pd-label{ font-family:var(--display); }
+.pd-nav__link, .pd-nav__sublink{ font-size:15px; }

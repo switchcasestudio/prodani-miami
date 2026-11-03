@@ -60,6 +60,16 @@
           var local = clamp((progress - start) / (1 - start || 1), 0, 1);
           card.style.transform = 'scale(' + (1 + (target - 1) * local) + ')';
 
+          // The peek label is for the sliver that shows once the NEXT card has
+          // slid over this one. On the front card it only repeated the figure
+          // and title underneath it, so it stays hidden until it's covered.
+          var nextSlot = card.parentElement.nextElementSibling;
+          var covered = false;
+          if (nextSlot && nextSlot.classList.contains('pd-stack__slot')) {
+            covered = nextSlot.getBoundingClientRect().top <= card.parentElement.getBoundingClientRect().top + 60;
+          }
+          card.classList.toggle('is-covered', covered);
+
           var media = card.querySelector('[data-pd-card-media]');
           if (media) {
             var slot = card.parentElement.getBoundingClientRect();

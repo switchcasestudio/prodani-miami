@@ -24,18 +24,18 @@
 
   /* ink */
   --ink:          #48312A;
-  --ink-soft:     rgba(72, 49, 42, .78);
-  --ink-faint:    rgba(72, 49, 42, .62);
+  --ink-soft:     rgba(72, 49, 42, .9);
+  --ink-faint:    rgba(72, 49, 42, .8);
   --on-dark:      #FFF8F0;
-  --on-dark-soft: rgba(255, 248, 240, .8);
+  --on-dark-soft: rgba(255, 248, 240, .9);
   --line:         rgba(72, 49, 42, .12);   /* the hairline — used instead of fills */
   --line-dark:    rgba(255, 248, 240, .18);
 
   /* type */
-  --display: 'Fredoka', system-ui, sans-serif;
+  --display: 'Nunito', system-ui, sans-serif;   /* 2026-11-02 (Moses): Fredoka only for H1/H2-size display text; everything smaller is Nunito */
   --script:  'Fredoka', system-ui, sans-serif;
   --sans:    'Nunito', system-ui, sans-serif;
-  --mono:    'Fredoka', system-ui, sans-serif;
+  --mono:    'Nunito', system-ui, sans-serif;   /* small labels: Fredoka closes up below ~18px */
 
   /* motion — one heavy, calm curve everywhere; nothing snaps */
   --bounce: cubic-bezier(.32, .72, 0, 1);   /* name kept from v2 */
@@ -63,7 +63,7 @@ body::after{
    against the viewport edge. */
 .pd-wrap{ width:100%; margin:0 auto; padding-inline:var(--pad); max-width:1580px; }
 .pd-section{ display:block; }
-.pd-rte p{ color:var(--ink-soft); font-size:16.5px; line-height:1.7; margin:0 0 18px; }
+.pd-rte p{ color:var(--ink-soft); font-size:var(--text-body); line-height:1.65; margin:0 0 18px; max-width:65ch; }
 .pd-rte p:last-child{ margin-bottom:0; }
 
 /* Shared section-heading primitives. MUST live here — see v2 note about the
@@ -72,13 +72,14 @@ body::after{
   display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
   flex-wrap:wrap; margin-bottom:clamp(34px,4.5vw,60px);
 }
-.pd-sec-title{ margin:0; color:var(--cocoa); font-family:var(--script); font-weight:700;
-  font-size:clamp(38px,4.8vw,64px); line-height:1; letter-spacing:-.015em; }
+.pd-sec-title{ margin:0; color:var(--cocoa); font-family:var(--script); font-weight:600;
+  font-size:clamp(38px,4.8vw,64px); line-height:1.05; letter-spacing:0; text-wrap:balance; }
 .pd-squiggle{ display:none; }
-.pd-eyebrow{ font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.02em;
-  display:inline-flex; align-items:center; gap:8px; width:fit-content; background:var(--pink); color:var(--berry); border-radius:999px; padding:6px 13px; }
-.pd-lede{ color:var(--ink-soft); font-size:16.5px; line-height:1.7; margin:0 0 18px; }
-.pd-lede--intro{ color:var(--cocoa); font-family:var(--display); font-weight:340;
+.pd-eyebrow{ font-family:var(--sans); font-size:15px; font-weight:700; letter-spacing:0; color:var(--cocoa);
+  display:inline-flex; align-items:center; gap:8px; width:fit-content; background:none; border-radius:0; padding:0; }
+.pd-eyebrow::before{ content:""; width:10px; height:10px; border-radius:50%; background:var(--pink-deep); flex:none; }
+.pd-lede{ color:var(--ink-soft); font-size:var(--text-body); line-height:1.65; margin:0 0 18px; max-width:65ch; }
+.pd-lede--intro{ color:var(--cocoa); font-family:var(--sans); font-weight:500;
   font-size:clamp(18px,1.6vw,21px); line-height:1.55; }
 
 /* Double-bezel: media and cards sit in a machined tray, never flat on the page.
@@ -128,5 +129,33 @@ body{ background-color:var(--cream); }
 .button::before,.button::after{ border-radius:999px; }
 .pd-foot button,footer button,footer input{ font-family:var(--display); }
 footer input{ font-family:var(--sans); }
-h1,h2,h3,.h0,.h1,.h2,.h3{ font-family:var(--display); font-weight:700; letter-spacing:-.01em; }
+h1,h2,.h0,.h1,.h2{ font-family:var(--script); font-weight:600; letter-spacing:0; }
+h3,.h3,h4,.h4{ font-family:var(--sans); font-weight:700; letter-spacing:0; }
 .button.visually-hidden::before,.button.visually-hidden::after{ display:none; }
+
+/* ---- Type roles (2026-11-02 audit) ----
+   Headings: Fredoka, 18px and up. Running text: Nunito 400-500. Labels and data: Nunito 700, 13px minimum.
+   Dawn's own text still pointed at Assistant, a third font; its variables load before this sheet. */
+:root{
+  --text-body:17px;
+  --font-body-family:'Nunito',system-ui,sans-serif;
+  --font-body-weight:400;
+  --font-body-weight-bold:700;
+  --font-heading-family:'Fredoka',system-ui,sans-serif;
+  --font-heading-weight:700;
+  --pd-nav-h:60px;
+}
+@media (min-width:961px){ :root{ --pd-nav-h:72px; } }
+
+/* Display pieces that keep the rounded font (H1/H2-size only). */
+/* `html` prefix: section sheets load after this one and set var(--display) on these. */
+html h1, html h2, html .h0, html .h1, html .h2, html .product__title h1, html .product__title .h1, html .pd-cat__done h2,
+html .pd-fh__h, html .pd-stack__figure, html .pd-stack__peek b, html .pd-cmp__table .is-big, html .pd-fh__sticker b,
+html .pd-mq, html .pd-bleed__word, html .pd-reviews__count, html .pd-card--mix__t, html .pd-box__title, html .pd-giant__line{
+  font-family:var(--script); }
+html .pd-fh__h, html .pd-card--mix__t, html .product__title h1{ font-weight:600; }
+/* Nunito needs a step more weight than Fredoka did to read as a button. */
+.button, .pd-btn, .pd-fh__pill, .pd-nav__link, .pd-nav__cart, .pd-menu__link, .pd-card__name{ font-weight:700; }
+.pd-menu__link{ font-size:26px; }
+/* Small headings that are labels, not display: review quotes, footer column heads. */
+html .pd-review__title, html .pd-foot__colhead, html .pd-foot__card-title{ font-family:var(--sans); font-weight:700; }

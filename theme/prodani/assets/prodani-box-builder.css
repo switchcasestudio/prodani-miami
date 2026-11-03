@@ -21,9 +21,9 @@
 .pd-box__size-count{ font-family:var(--sans); font-weight:800; font-size:15px; color:var(--cocoa); }
 .pd-box__size-price{ font-family:var(--sans); font-weight:800; font-size:clamp(22px,2.6vw,30px); color:var(--cocoa);
   font-variant-numeric:tabular-nums; }
-.pd-box__size-per{ font-size:12px; font-weight:600; color:var(--ink-faint); font-variant-numeric:tabular-nums; }
+.pd-box__size-per{ font-size:13px; font-weight:600; color:var(--ink-faint); font-variant-numeric:tabular-nums; }
 .pd-box__tag{ position:absolute; top:-10px; left:50%; transform:translateX(-50%); white-space:nowrap;
-  font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; }
+  font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; }
 .pd-box__tag--popular{ background:var(--pink-deep); color:var(--cocoa); }
 .pd-box__tag--value{ background:var(--leaf); color:var(--cream); }
 
@@ -37,10 +37,10 @@
   background:var(--butter); margin-bottom:2px; }
 .pd-box__flavor-media img{ width:100%; height:100%; object-fit:cover; display:block; }
 .pd-box__soldout-tag{ display:inline-block; margin-left:7px; padding:2px 8px; border-radius:999px;
-  background:var(--cocoa-soft); color:var(--cream); font-size:9.5px; font-weight:700; text-transform:uppercase;
+  background:var(--cocoa-soft); color:var(--cream); font-size:13px; font-weight:700; text-transform:uppercase;
   letter-spacing:.05em; vertical-align:1px; }
 .pd-box__flavor-name{ display:block; font-family:var(--sans); font-weight:700; color:var(--cocoa); font-size:14px; }
-.pd-box__flavor-macro{ display:block; font-size:11.5px; color:var(--ink-faint); font-weight:600; margin-top:2px; }
+.pd-box__flavor-macro{ display:block; font-size:13px; color:var(--ink-faint); font-weight:600; margin-top:2px; }
 
 .pd-box__stepper{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto;
   background:var(--cream); border:1px solid var(--line); border-radius:999px; padding:4px; }
@@ -68,7 +68,7 @@
 .pd-box__cta{ display:flex; align-items:center; gap:16px; margin-top:22px; flex-wrap:wrap; }
 .pd-box__cta-price{ display:flex; flex-direction:column; }
 .pd-box__cta-total{ font-family:var(--sans); font-weight:800; font-size:24px; color:var(--cocoa); font-variant-numeric:tabular-nums; }
-.pd-box__cta-per{ font-size:12px; font-weight:600; color:var(--ink-faint); }
+.pd-box__cta-per{ font-size:13px; font-weight:600; color:var(--ink-faint); }
 .pd-box__add{ flex:1; min-width:220px; border:0; border-radius:999px; background:var(--cocoa); color:var(--cream);
   font-family:var(--sans); font-weight:700; font-size:16px; min-height:56px; cursor:pointer;
   transition:transform .4s var(--bounce), background .3s; }
@@ -123,13 +123,13 @@
 .pd-box .pd-sub__opt-title{ font-family:var(--sans); font-weight:700; color:var(--cocoa); font-size:15px; }
 .pd-box .pd-sub__opt-sub{ font-size:13px; color:var(--ink-faint); line-height:1.45; }
 .pd-box .pd-sub__badge{ display:inline-block; margin-left:6px; padding:2px 9px; border-radius:999px;
-  background:var(--leaf); color:var(--cream); font-size:11px; font-weight:800; letter-spacing:.02em; }
+  background:var(--leaf); color:var(--cream); font-size:13px; font-weight:800; letter-spacing:.02em; }
 .pd-box .pd-sub__freq{ display:flex; align-items:center; gap:10px; padding-left:2px; }
 .pd-box .pd-sub__freq-label{ font-family:var(--sans); font-weight:700; font-size:13px; color:var(--cocoa); }
 .pd-box .pd-sub__select{ flex:1; max-width:240px; padding:9px 12px; border:1px solid var(--line);
   border-radius:999px; background:var(--butter); font-family:var(--sans); font-size:14px; color:var(--cocoa); }
 .pd-box .pd-sub__select:focus-visible{ outline:3px solid var(--pink-deep); outline-offset:2px; }
-.pd-box .pd-sub__note{ margin:2px 0 0; font-size:12.5px; color:var(--ink-faint); }
+.pd-box .pd-sub__note{ margin:2px 0 0; font-size:13px; color:var(--ink-faint); }
 .pd-box .visually-hidden{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden;
   clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 
