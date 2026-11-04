@@ -11,11 +11,11 @@
 .pd-cmp__card{ border-radius:40px; overflow:hidden; background:#fff; box-shadow:0 18px 40px -18px rgba(72,49,42,.28); }
 .pd-cmp__table{ width:100%; border-collapse:collapse; table-layout:fixed; }
 .pd-cmp__table th,.pd-cmp__table td{ padding:clamp(14px,1.6vw,22px) clamp(14px,2vw,28px); text-align:left; vertical-align:middle; border-top:1px solid var(--line); }
-.pd-cmp__table thead th{ border-top:0; background:var(--butter); }
+.pd-cmp__table thead th{ border-top:0; background:var(--cream); }
 .pd-cmp__table th{ font-family:var(--sans); font-size:15px; font-weight:700; color:var(--ink); }
 .pd-cmp__table td{ font-family:var(--sans); font-weight:500; font-size:16px; line-height:1.4; }
 .pd-cmp__table .is-big{ font-family:var(--display); font-weight:700; font-size:clamp(26px,2.8vw,38px); line-height:1.05; }
-.pd-cmp__table .is-us,.pd-cmp__table thead .is-us{ background:var(--pink); color:var(--ink); border-top-color:rgba(255,255,255,.6); }
+.pd-cmp__table .is-us,.pd-cmp__table thead .is-us{ background:var(--butter); color:var(--ink); border-top-color:rgba(255,255,255,.6); }
 .pd-cmp__table thead .is-us{ color:var(--ink); }
 .pd-cmp__table .is-no{ color:var(--ink-soft); }
 @media (max-width:749px){

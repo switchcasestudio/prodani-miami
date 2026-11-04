@@ -7,7 +7,7 @@
           "type": "detail",
           "settings": {
             "label": "Address",
-            "value": "3131 NE 1st Ave, Miami, FL, 33137",
+            "value": "125 NE 32nd St, Miami, FL, 33137",
             "link": ""
           }
         },
@@ -39,7 +39,7 @@
         "button_label": "Send message",
         "success_text": "Thanks, we'll be in touch shortly.",
         "heading_tag": "h1",
-        "map_query": "3131 NE 1st Ave, Miami, FL 33137",
+        "map_query": "125 NE 32nd St, Miami, FL 33137",
         "topics": "General enquiry, Catering for an event, Bigger / bulk order, Wholesale, Allergens and ingredients, Something else"
       }
     }

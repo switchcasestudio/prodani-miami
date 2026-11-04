@@ -1,7 +1,7 @@
 /* Header — announcement strip + sticky nav, from the prototype. */
 .pd-announce{
   height:32px; display:flex; align-items:center; justify-content:center;
-  background:var(--pink); color:var(--cocoa); overflow:hidden;
+  background:var(--butter); color:var(--cocoa); overflow:hidden;
 }
 .pd-announce__track{ display:flex; align-items:center; gap:10px; }
 .pd-announce__track[hidden]{ display:none; }

@@ -1,5 +1,5 @@
 /* Build Your Balance Box. Tokens from prodani-tokens.css. */
-.pd-box{ background:var(--pink); padding-block:clamp(40px,6vw,88px); }
+.pd-box{ background:var(--butter); padding-block:clamp(40px,6vw,88px); }
 
 .pd-box__step{ margin-bottom:clamp(26px,3.5vw,42px); }
 .pd-box__step-label{ display:flex; align-items:center; gap:12px; margin:0 0 16px; font-family:var(--sans);
@@ -10,7 +10,7 @@
 /* sizes */
 .pd-box__sizes{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 .pd-box__size{ position:relative; display:flex; flex-direction:column; align-items:center; gap:3px;
-  padding:22px 14px 18px; background:var(--butter); border:2px solid var(--line); border-radius:var(--r);
+  padding:22px 14px 18px; background:var(--cream); border:2px solid var(--line); border-radius:var(--r);
   cursor:pointer; transition:transform .35s var(--bounce), border-color .25s, background .25s; text-align:center; }
 .pd-box__size:hover{ transform:translateY(-2px); border-color:var(--pink-deep); }
 .pd-box__size[aria-checked="true"]{ border-color:var(--cocoa); background:var(--cocoa); }
@@ -29,7 +29,7 @@
 
 /* flavors */
 .pd-box__flavors{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; }
-.pd-box__flavor{ background:var(--butter); border:1px solid var(--line); border-radius:var(--r); padding:10px;
+.pd-box__flavor{ background:var(--cream); border:1px solid var(--line); border-radius:var(--r); padding:10px;
   display:flex; flex-direction:column; gap:10px; transition:border-color .25s, box-shadow .25s; }
 .pd-box__flavor.is-active{ border-color:var(--cocoa); box-shadow:0 8px 22px rgba(72, 49, 42,.10); }
 .pd-box__flavor.is-soldout{ opacity:.55; }
@@ -141,7 +141,7 @@
      you tap over and over. */
   .pd-box__step-btn{ width:44px; height:44px; }
 
-  .pd-box__cta{ position:sticky; bottom:0; z-index:20; background:var(--pink); padding:12px 0
+  .pd-box__cta{ position:sticky; bottom:0; z-index:20; background:var(--butter); padding:12px 0
     calc(12px + env(safe-area-inset-bottom)); border-top:1px solid var(--line); margin-inline:calc(-1 * var(--pad));
     padding-inline:var(--pad); }
 

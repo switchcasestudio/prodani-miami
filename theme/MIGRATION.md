@@ -26,7 +26,7 @@ reassigned to the default `page` template with the copy moved into the DB.
 
 - **We would love to hear from you.**
   - Please feel free to contact us regarding caterings for events or bigger orders. We will be more then happy to offer you special discounts and offers.
-  - 3131 NE 1st Ave, Miami, FL, 33137
+  - 125 NE 32nd St, Miami, FL, 33137
   - +1 305 481 1441
 
 ## Store contact / social (from config/settings_data.json)
@@ -39,7 +39,7 @@ reassigned to the default `page` template with the copy moved into the DB.
 | Contact page phone | +1 305 481 1441 |
 | Admin store phone | 305-481-1441 |
 | Email | pdprodani@gmail.com |
-| Contact page address | 3131 NE 1st Ave, Miami, FL, 33137 |
+| Contact page address | 125 NE 32nd St, Miami, FL, 33137 |
 | Admin store address | (a private residential address; withheld from this public repo) |
 
 **Three different phone numbers and two different addresses are live.** Needs a

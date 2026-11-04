@@ -42,7 +42,7 @@
             "cta_label": "Shop the cakes",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "moist-chocolate-fudge-cake-copy",
-            "color": "#FDC3D4",
+            "color": "#FBE4E9",
             "text_color": "#48312A",
             "focus": "50% 40%"
           }
@@ -84,7 +84,7 @@
             "cta_label": "See the flavors",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "personal-chocolate-fudge-cake-copy",
-            "color": "#F79CBB",
+            "color": "#FBE4E9",
             "text_color": "#48312A",
             "focus": "50% 40%"
           }
@@ -289,7 +289,7 @@
           "type": "detail",
           "settings": {
             "label": "Address",
-            "value": "3131 NE 1st Ave, Miami, FL, 33137",
+            "value": "125 NE 32nd St, Miami, FL, 33137",
             "link": ""
           }
         },
@@ -320,7 +320,7 @@
         "heading_tag": "h2",
         "anchor": "contact",
         "description": "<p>Please feel free to contact us regarding catering for events or bigger orders. We will be more than happy to offer you special discounts and offers.</p>",
-        "map_query": "3131 NE 1st Ave, Miami, FL 33137",
+        "map_query": "125 NE 32nd St, Miami, FL 33137",
         "button_label": "Send message",
         "success_text": "Thanks, we'll be in touch shortly.",
         "topics": "General enquiry, Catering for an event, Bigger / bulk order, Wholesale, Allergens and ingredients, Something else"
