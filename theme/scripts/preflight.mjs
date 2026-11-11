@@ -19,7 +19,7 @@ const THEME = process.env.PREVIEW_THEME_ID || '189211050294'  // staging v2 (202
    default run reported "LIVE THEME CHANGED" on a perfectly untouched store — a check
    that cries wolf gets ignored, which is worse than not having it. Update this when
    a new theme is published. */
-const EXPECT_LIVE_ID = Number(process.env.EXPECT_LIVE_ID || 190114595126)  // Prodani - Rounded, live since 2026-11-02ni - v.2.0.0, live since 2026-10-08
+const EXPECT_LIVE_ID = Number(process.env.EXPECT_LIVE_ID || 190435262774)  // Prodani - Macro Bold, live since 2026-11-10 (Rounded 190114595126 = rollback)
 const UA = { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) preflight' }
 
 let pass = 0, fail = 0, warn = 0
@@ -123,16 +123,16 @@ cartPage?.html.includes('/checkout') ? ok('checkout route present on /cart') : n
 head('3. Sections present on the homepage')
 const home = pages['/'].html
 for (const [name, marker] of [
+  // Macro Bold homepage (2026-11-10): badges, stat deck, bleed word and contact are switched off on purpose.
   ['header',      'pd-nav'],
   ['hero',        'pd-hero'],
-  ['badges',      'pd-badges'],
   ['collection',  'pd-collection'],
-  ['chocolate band', 'pd-shout'],
-  ['stat deck',   'pd-stack'],
-  ['meet your baker', 'pd-story'],
-  ['bleed word',  'pd-bleed'],
+  ['box builder', 'pd-box'],
+  ['catering band', 'pd-shout'],
+  ['comparison',  'pd-cmp'],
+  ['sweet meets balance', 'pd-story'],
   ['reviews',     'pd-reviews'],
-  ['contact',     'pd-contact'],
+  ['instagram',   'pd-ig'],
   ['footer',      'pd-foot'],
 ]) home.includes(marker) ? ok(name) : bad(name, `"${marker}" missing`)
 
