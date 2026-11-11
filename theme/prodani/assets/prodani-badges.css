@@ -89,3 +89,36 @@
 /* 2026 line icons above the mono labels. Line-only, 24 grid, currentColor. */
 .pd-badge-item__line{ display:block; width:clamp(26px,2.4vw,34px); color:var(--cocoa); }
 .pd-badge-item__line svg{ width:100%; height:auto; display:block; }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   The macro strip: six cells full-bleed, split by 2px ink rules, each a huge
+   condensed figure over a caps label. No icons when a figure is set. */
+.pd-badges{ background:#fff; padding-block:0; border-bottom:var(--rule) solid var(--line); }
+.pd-badges > .pd-wrap{ max-width:none; padding-inline:0; }
+.pd-badges__row{ gap:0; grid-template-columns:repeat(6,minmax(0,1fr)); }
+.pd-badges__row--wave .pd-badge-item{ transform:none !important; }
+html .pd-badge-item{ align-items:flex-start; text-align:left; gap:10px; padding:clamp(20px,2vw,28px) clamp(16px,2vw,32px);
+  border-right:var(--rule) solid var(--line); }
+.pd-badge-item:last-child{ border-right:0; }
+.pd-badge-item__fig{ display:block; color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%;
+  font-size:clamp(40px,4.4vw,72px); line-height:.86; letter-spacing:-.02em; text-transform:uppercase; white-space:nowrap; }
+.pd-badge-item__label{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; line-height:1.25; }
+.pd-badge-item__disc{ border-radius:0; background:none; }
+@media (max-width:1180px){
+  .pd-badges__row{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .pd-badge-item:nth-child(3n){ border-right:0; }
+  .pd-badge-item:nth-child(-n+3){ border-bottom:var(--rule) solid var(--line); }
+}
+@media (max-width:560px){
+  .pd-badges__row{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .pd-badge-item:nth-child(3n){ border-right:var(--rule) solid var(--line); }
+  .pd-badge-item:nth-child(2n){ border-right:0; }
+  .pd-badge-item:nth-child(-n+4){ border-bottom:var(--rule) solid var(--line); }
+  .pd-badge-item:nth-child(n+5){ border-bottom:0; }
+  .pd-badge-item__fig{ font-size:44px; }
+  .pd-badge-item__label{ font-size:11px; }
+}
+html .pd-badge-item:first-child{ padding-left:var(--pad); }
+@media (max-width:560px){ html .pd-badge-item, html .pd-badge-item:first-child{ padding:18px var(--pad) 20px; } }
+/* Audit fix: every phone cell on the page gutter (16px). */
+@media (max-width:560px){ html .pd-badges .pd-badge-item{ padding-inline:var(--pad) !important; } }

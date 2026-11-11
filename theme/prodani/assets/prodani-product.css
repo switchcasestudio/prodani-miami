@@ -141,3 +141,269 @@
   color:var(--ink-soft); margin-left:.2em; white-space:nowrap; }
 .product .pd-pack__each{ display:block; margin-top:4px; font-family:var(--mono); font-size:14px;
   font-weight:600; letter-spacing:.01em;  color:var(--ink-faint); }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   The product page is one ruled frame: gallery cell left (bone hero with the cut-out
+   and the protein figure, Dawn's media as a row of thumbnail cells), buy column right.
+   2px ink rules, square corners, no shadows on UI. Dawn's markup and behaviour are
+   untouched; the buy column is re-ordered with flex `order` only. */
+product-component > .page-width{ max-width:1580px; padding-inline:var(--pad); }
+.product{ background:#fff; }
+
+/* ---- frame ---- */
+.product.grid{ display:grid; grid-template-columns:minmax(0,1fr); gap:0; margin:0; border:var(--rule) solid var(--line); }
+.product.grid > .grid__item{ width:auto; max-width:none; padding:0; margin:0; }
+.product__media-wrapper{ border-bottom:var(--rule) solid var(--line); min-width:0; }
+@media screen and (min-width:990px){
+  .product.grid{ grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); }
+  .product__media-wrapper{ border-bottom:0; border-right:var(--rule) solid var(--line); }
+  .product--medium:not(.product--no-media):not(.product--right) .product__info-wrapper{ padding:0; }
+}
+
+/* ---- gallery ---- */
+.pd-gal{ position:relative; }
+.pd-gal__hero{ position:relative; display:grid; place-items:center; overflow:hidden; background:var(--butter);
+  min-height:clamp(400px,44vw,640px); border-bottom:var(--rule) solid var(--line); }
+.pd-gal__cut{ display:block; width:auto; height:clamp(300px,36vw,540px); max-width:78%; object-fit:contain;
+  transform:rotate(-10deg); filter:drop-shadow(0 34px 34px rgba(26,17,12,.26)); }
+.pd-gal__num{ position:absolute; left:clamp(16px,2vw,28px); top:clamp(14px,1.8vw,24px); z-index:1; margin:0; pointer-events:none;
+  color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase;
+  font-size:clamp(88px,12vw,200px); line-height:.8; letter-spacing:-.03em; }
+.pd-gal__num small{ display:block; margin-top:10px; font-family:var(--mono); font-stretch:100%; font-size:12px; font-weight:800;
+  letter-spacing:.16em; line-height:1.2; }
+
+/* Thumbnail row: Dawn's media list as four ruled cells. Each still opens the lightbox. */
+.pd-gal--cut .product__media-list,
+.product--stacked .pd-gal--cut .product__media-list{
+  display:grid !important; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin:0; padding:0;
+  overflow:visible; scroll-snap-type:none; }
+.pd-gal--cut .product__media-list .product__media-item,
+.product--stacked .pd-gal--cut .product__media-list .product__media-item{
+  grid-column:auto !important; width:auto !important; max-width:none; margin:0 !important; padding:0;
+  border-right:var(--rule) solid var(--line); background:#fff; }
+.pd-gal--cut .product__media-list .product__media-item:nth-child(4n){ border-right:0; }
+.pd-gal--cut .product__media-list .product__media-item:nth-child(n+5){ border-top:var(--rule) solid var(--line); }
+.pd-gal--cut .product-media-container{ max-width:none !important; width:100% !important; margin:0 !important; --ratio:1 !important; }
+.pd-gal--cut .product-media-container .media,
+.product--stacked .pd-gal--cut .product__media-list .product__media-item .product-media-container .media{ padding-top:100% !important; border-radius:0; background:#fff; }
+.pd-gal--cut .product-media-container .media > img,
+.product--stacked .pd-gal--cut .product__media-list .product__media-item .product-media-container .media > img{ object-fit:cover; }
+.pd-gal--cut .product__media-icon, .pd-gal--cut .slider-buttons, .pd-gal--cut .slider-counter{ display:none !important; }
+.pd-gal--cut .product__media-toggle:focus-visible{ outline:none; }
+.pd-gal--cut .product__media-toggle:focus-visible::after{ box-shadow:inset 0 0 0 4px var(--berry); border-radius:0; }
+.pd-gal--cut .product__media-item.is-active, .pd-gal--cut .product__media-item:hover{ box-shadow:inset 0 0 0 4px var(--pink); }
+.pd-gal--cut .product__media-item:hover .media{ opacity:.92; }
+/* No cut-out: Dawn's media as is, square and on bone, figure over the first image. */
+.product__media-wrapper .product__media, .product__media-wrapper .media{ border-radius:0; }
+.pd-gal--num:not(.pd-gal--cut) .pd-gal__num--over{ font-size:clamp(72px,8vw,140px); }
+
+/* ---- buy column: order + rhythm ---- */
+.product__info-wrapper{ min-width:0; }
+.product__info-container{ display:flex; flex-wrap:wrap; align-items:flex-start; column-gap:12px; row-gap:22px;
+  padding:clamp(22px,2.4vw,36px) clamp(18px,2.5vw,36px) clamp(26px,2.5vw,36px); }
+.product__info-container > *{ flex:0 0 100%; min-width:0; max-width:100%; margin:0 !important; order:20; }
+.product__info-container > .pd-badges{ order:1; }
+.product__info-container > .product__text{ order:1; }
+.product__info-container > .product__title{ order:2; }
+.product__info-container > .pd-rating{ order:3; margin-top:-8px !important; }
+.product__info-container > [id^="price-"], .product__info-container > .product__tax,
+.product__info-container > .volume-pricing-note, .product__info-container > div:has(> form.installment){ order:4; }
+.product__info-container > div:has(> form.installment){ margin-top:-12px !important; }
+.product__info-container > .pd-taste{ order:5; }
+.product__info-container > .product__description{ order:6; }
+.product__info-container > variant-selects, .product__info-container > .product-form__input:not(.product-form__quantity){ order:7; }
+.product__info-container > .pd-sub{ order:8; }
+.product__info-container > .product-form__quantity{ order:9; flex:0 0 auto; }
+.product__info-container > div:has(> product-form){ order:10; flex:1 1 0; }
+.product__info-container > .pd-macros{ order:11; }
+.product__info-container > .pd-trust{ order:12; margin-top:-8px !important; }
+.product__info-container > share-button, .product__info-container > .share-button{ order:14; }
+/* Vendor ("prodani") repeats the logo two inches above it; the claim tags take its place. */
+.product__info-container > .product__text.caption-with-letter-spacing{ display:none; }
+
+/* ---- title ---- */
+.product__title{ margin:0; }
+.product__title h1{ margin:0; color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase;
+  font-size:clamp(48px,5.4vw,84px); line-height:.86; letter-spacing:-.015em; text-wrap:balance; overflow-wrap:break-word; }
+
+/* ---- price ---- */
+.product .price{ margin:0; }
+.product .price__container{ display:flex; flex-wrap:wrap; align-items:baseline; column-gap:.55em; row-gap:4px; margin:0; }
+.product .price--large .price__regular, .product .price--large .price__sale{ display:flex; flex-wrap:wrap; align-items:baseline; column-gap:14px; }
+.product .price--large .price__sale{ display:none; }
+.product .price--large.price--on-sale .price__sale{ display:flex; }
+.product .price--large.price--on-sale .price__regular{ display:none; }
+.product .price--large .price-item{ font-family:var(--script); font-weight:900; font-stretch:70%; font-size:clamp(44px,4vw,56px);
+  line-height:.9; letter-spacing:-.02em; color:var(--cocoa); }
+.product .price--large .price-item--regular s, .product .price--large s.price-item{ font-size:.5em; color:var(--ink-faint); }
+.product .price--large .pd-pack, .product .price--large .pd-pack__each{ display:inline; margin:0; font-family:var(--mono); font-size:13px;
+  font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; }
+.product .price--large .pd-pack__each::before{ content:"\00B7\00a0"; }
+.product .price .badge{ border-radius:0; font-family:var(--mono); font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.product__info-container .installment, .product__info-container shopify-payment-terms{ font-size:13px; color:var(--ink-soft); }
+.product__tax{ font-size:12px; color:var(--ink-soft); }
+
+/* ---- intro copy ---- */
+.product__description{ color:var(--cocoa); font-size:16px; font-weight:600; line-height:1.45; max-width:46ch; }
+.product__description p{ margin:0 0 10px; } .product__description p:last-child{ margin:0; }
+
+/* ---- size: a ruled box with a bone caps header row ---- */
+variant-selects{ display:block; }
+.product-form__input.product-form__input--pill, .product-form__input--dropdown{
+  display:flex; flex-wrap:wrap; margin:0; padding:0; border:var(--rule) solid var(--line); min-inline-size:0; max-width:100%; }
+.product-form__input--pill .form__label, .product-form__input--dropdown .form__label{
+  float:left; width:100%; box-sizing:border-box; margin:0; padding:12px 16px; background:var(--butter); border-bottom:var(--rule) solid var(--line);
+  font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--cocoa); }
+.product-form__input--pill input[type='radio'] + label{
+  flex:1 1 0; min-width:0; display:flex; align-items:center; margin:0; min-height:58px; padding:14px 16px;
+  border:0; border-right:var(--rule) solid var(--line); border-radius:0; background:#fff; color:var(--cocoa);
+  font-family:var(--sans); font-weight:800; font-size:15px; letter-spacing:0; text-align:left; line-height:1.2; transition:background .2s, color .2s; }
+.product-form__input--pill input[type='radio'] + label:last-of-type{ border-right:0; }
+.product-form__input--pill input[type='radio'] + label:hover{ transform:none; background:var(--butter); border-color:var(--line); }
+.product-form__input--pill input[type='radio']:checked + label{ background:var(--cocoa); color:#fff; border-color:var(--line); }
+.product-form__input--pill input[type='radio']:checked + label:last-of-type{ border-right:0; }
+.product-form__input--pill input[type='radio'].disabled + label,
+.product-form__input--pill input[type='radio']:disabled + label{ color:#9A8A7E; text-decoration:line-through; }
+.product-form__input--pill input[type='radio']:focus-visible + label{ outline:3px solid var(--berry); outline-offset:-5px; }
+.product-form__input--dropdown .select{ margin:0; width:100%; }
+.product-form__input--dropdown .select__select{ border-radius:0; border:0; min-height:56px; font-weight:800; }
+
+/* ---- quantity: square stepper ---- */
+.product-form__quantity .quantity__label{ position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.product-form__quantity .quantity__rules:empty{ display:none; }
+.product-form__input .quantity, .quantity{ display:flex; width:auto; min-height:58px; height:58px; border:var(--rule) solid var(--line);
+  border-radius:0; background:#fff; overflow:visible; }
+.quantity:before, .quantity:after{ content:none !important; }
+.quantity__button{ width:48px; flex:none; color:var(--cocoa); }
+.quantity__button:hover{ background:var(--butter); color:var(--cocoa); }
+.quantity__button svg{ width:12px; }
+.quantity__input{ width:52px; flex:none; border-inline:var(--rule) solid var(--line); font-family:var(--sans); font-weight:900; font-size:16px;
+  color:var(--cocoa); text-align:center; }
+.quantity__button:focus-visible, .quantity__input:focus-visible{ outline:3px solid var(--berry); outline-offset:-3px; box-shadow:none; background:#fff; }
+.quantity__button.disabled{ color:var(--ink-faint); }
+
+/* ---- add to cart: black block ---- */
+.product-form{ margin:0; }
+.product-form__buttons{ max-width:none; display:flex; flex-direction:column; gap:10px; }
+.product-form__submit, .product-form__submit.button--secondary{
+  min-height:58px; margin:0; border-radius:0; background:var(--cocoa); color:#fff; border:var(--rule) solid var(--cocoa);
+  font-family:var(--sans); font-weight:800; font-size:15px; letter-spacing:.08em; text-transform:uppercase;
+  --color-button:26,17,12; --color-button-text:255,255,255; transition:background .2s; }
+.product-form__submit:hover:not([disabled]){ transform:none; background:var(--cocoa-soft); border-color:var(--cocoa-soft); }
+.product-form__submit:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; box-shadow:none; }
+.product-form__submit[disabled]{ background:var(--butter); color:var(--ink-faint); border-color:var(--line); }
+.shopify-payment-button__button--unbranded, .shopify-payment-button__button{ border-radius:0 !important; min-height:52px; }
+.shopify-payment-button__more-options{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--cocoa) !important; text-decoration:none; border-bottom:2px solid var(--pink); width:auto !important; margin:4px auto 0; display:table; }
+.product__pickup-availabilities{ margin-top:12px; }
+.product__pickup-availabilities, .product__pickup-availabilities .caption-large{ font-size:13px; color:var(--ink-soft); }
+.pickup-availability-preview{ padding:0; }
+.pickup-availability-button{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--cocoa); }
+
+/* ---- links + share ---- */
+.product__info-container a{ color:var(--cocoa); }
+.product__info-container a:hover{ color:var(--berry); }
+.share-button__button{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--cocoa); min-height:44px; }
+.share-button__fallback{ border-radius:0; }
+
+/* ---- below 990: one column, gallery on top ---- */
+@media (max-width:989px){
+  .pd-gal__hero{ min-height:clamp(340px,92vw,520px); }
+  .pd-gal__cut{ height:clamp(240px,70vw,420px); }
+}
+@media (max-width:749px){
+  .product__info-container{ row-gap:20px; }
+  .product__title h1{ font-size:clamp(44px,13vw,60px); }
+  .product .price--large .price-item{ font-size:44px; }
+  .pd-gal__num{ font-size:88px; }
+  /* Dawn turns the media list into a swipe slider on phones; here it stays the
+     thumbnail row (the hero above it is the main picture). */
+  .pd-gal--cut .product__media-list .product__media-item{ scroll-snap-align:none; }
+  .product-form__input--pill input[type='radio'] + label{ font-size:14px; padding:14px 12px; }
+  .quantity__button{ width:44px; }
+  .quantity__input{ width:44px; }
+}
+
+/* ---- More cakes: shared ruled cards (styled in prodani-shop.css) ---- */
+.pd-related{ display:block; }
+.pd-related .pd-sec-head{ border-bottom:0; padding-bottom:0; margin-bottom:clamp(22px,2.6vw,36px); }
+@media (prefers-reduced-motion:reduce){ .pd-gal__cut{ transform:none; } }
+
+/* Round 2: the buy-buttons wrapper, product-form and its form are layout-transparent so
+   the stepper and the button block share one row and pickup info runs full width below.
+   .product-form__buttons stays a real box: prodani-pdp.js watches it for the sticky bar. */
+.product__info-container > div:has(> product-form),
+.product__info-container product-form,
+.product__info-container product-form > form{ display:contents; }
+.product__info-container .product-form__error-message-wrapper{ order:10; flex:0 0 100%; margin:0; }
+.product__info-container .product-form__error-message-wrapper[hidden]{ display:none; }
+.product__info-container .product-form__buttons{ order:10; flex:1 1 0; min-width:0; margin:0; }
+.product__info-container pickup-availability{ order:10; flex:0 0 100%; margin:0; }
+.product__info-container pickup-availability:empty{ display:none; }
+.product__info-container .product-form__submit{ margin:0; }
+.pd-gal__num{ text-transform:none; }
+.pd-gal--cut .product__media-list{ width:100% !important; margin:0 !important; padding:0 !important; border-bottom:0; }
+@media (min-width:990px){
+  .product__info-container.product__column-sticky{ position:static; }
+  .pd-gal{ position:sticky; top:calc(var(--pd-nav-h) + 16px); }
+}
+@media (max-width:749px){
+  .product .price--large .pd-pack__each{ flex-basis:100%; }
+  .product .price--large .pd-pack__each::before{ content:none; }
+  .product-form__submit, .product-form__submit.button--secondary{ padding-inline:12px; font-size:14px; letter-spacing:.05em; }
+  .pd-gal__cut{ transform:translateX(16%) rotate(-10deg); }
+}
+/* Round 3 */
+.pd-gal__num small{ text-transform:uppercase; }
+.pd-gal--cut slider-component{ margin:0 !important; padding:0 !important; }
+.pd-related{ padding-bottom:clamp(56px,6vw,88px) !important; }
+@media (min-width:990px){ .product__media-wrapper .pd-gal--cut .product__media-list{ border-bottom:var(--rule) solid var(--line) !important; } }
+@media (max-width:749px){ .pd-gal__cut{ transform:translateX(min(20vw,80px)) rotate(-10deg); } }
+/* Round 4: wide cut-outs (carrot, banana, apple) sit flatter and smaller. */
+.pd-gal__cut[src*="carrot"], .pd-gal__cut[src*="banana"], .pd-gal__cut[src*="apple"], .pd-gal__cut[src*="choc-slices"]{ height:auto; width:72%; max-width:72%; transform:rotate(-6deg); margin-top:12%; }
+@media (max-width:749px){
+  .pd-gal__cut[src*="carrot"], .pd-gal__cut[src*="banana"], .pd-gal__cut[src*="apple"], .pd-gal__cut[src*="choc-slices"]{ transform:rotate(-6deg); width:80%; max-width:80%; margin-top:30%; }
+}
+/* The "g" descender drops below the line box: clear it before the caps label. */
+.pd-gal__num{ --num:clamp(88px,12vw,200px); font-size:var(--num); }
+.pd-gal__num small{ margin-top:calc(var(--num) * .2); }
+@media (max-width:749px){ .pd-gal__num{ --num:88px; } }
+.shopify-payment-button__more-options{ min-height:44px; box-sizing:border-box; border-bottom:0 !important; box-shadow:inset 0 -2px 0 var(--pink); padding:14px 0 4px !important; }
+.pickup-availability-button{ min-height:44px; padding:12px 0 !important; }
+
+/* Macro Bold audit fixes (2026-11-10) */
+/* ---- gallery: figure in its own band, cake below it (never under the "g") ---- */
+.pd-gal__hero{ display:block; place-items:normal; }
+.pd-gal__stage{ position:relative; display:grid; grid-template-rows:auto minmax(0,1fr); box-sizing:border-box;
+  height:clamp(400px,104vw,560px); padding:clamp(16px,2vw,28px) clamp(16px,2vw,28px) 0; }
+.pd-gal__stage .pd-gal__num{ position:static; --num:clamp(72px,20vw,132px); }
+.pd-gal__stage .pd-gal__num small{ margin-top:calc(var(--num) * .2); }
+.pd-gal__cutbox{ position:relative; min-height:0; }
+.pd-gal__stage .pd-gal__cut,
+.pd-gal__stage .pd-gal__cut[src*="carrot"], .pd-gal__stage .pd-gal__cut[src*="banana"],
+.pd-gal__stage .pd-gal__cut[src*="apple"], .pd-gal__stage .pd-gal__cut[src*="choc-slices"]{
+  position:absolute; inset:4% 0 6% 0; width:100%; height:90%; max-width:none; margin:0; object-fit:contain;
+  transform:translate(8%,2%) rotate(-10deg); }
+.pd-gal__stage .pd-gal__cut:is([src*="carrot"],[src*="banana"],[src*="apple"],[src*="choc-slices"]){ transform:translate(4%,4%) rotate(-6deg) scale(.92); }
+@media (prefers-reduced-motion:reduce){ .pd-gal__stage .pd-gal__cut{ transform:translate(8%,2%); } }
+
+/* Desktop: the hero fills the gallery column and the stage rides along (sticky) beside
+   the taller buy column; the thumbnail row closes the column at the bottom. */
+@media (min-width:990px){
+  .product__media-wrapper{ display:flex; flex-direction:column; }
+  .pd-gal, .pd-gal--cut{ position:static; flex:1 1 auto; display:flex; flex-direction:column; }
+  .pd-gal--cut .pd-gal__hero{ flex:1 1 auto; min-height:0; }
+  .pd-gal--cut > slider-component, .pd-gal--cut > media-gallery{ flex:none; }
+  .pd-gal__stage{ position:sticky; top:calc(var(--pd-nav-h) + 16px);
+    height:min(700px, calc(100vh - var(--pd-nav-h) - 32px)); min-height:520px; }
+  .pd-gal__stage .pd-gal__num{ --num:clamp(96px,8.4vw,140px); }
+}
+@media (min-width:990px) and (max-height:620px){ .pd-gal__stage{ position:relative; top:auto; } }
+/* overflow:hidden on the hero made it the sticky container; clip keeps the crop without that. */
+.pd-gal__hero{ overflow:clip; }
+
+/* ---- single variant: a quiet static line instead of a one-option selector ---- */
+.product__info-container > .pd-size-static{ order:7; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 14px;
+  padding:12px 0; border-top:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); }
+.pd-size-static__l{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+.pd-size-static__v{ font-family:var(--sans); font-size:15px; font-weight:800; color:var(--cocoa); }

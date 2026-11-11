@@ -200,3 +200,90 @@
   .pd-box__more{ transition:none; }
   .pd-box__expand svg{ animation:none; }
 }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Square everything, 2px ink rules, no shadows. Box sizes become three cells of
+   one ruled row, each led by the cake count set huge. */
+.pd-box{ background:#fff; border-top:var(--rule) solid var(--line); }
+.pd-box :is(.pd-box__size,.pd-box__flavor,.pd-box__flavor-media,.pd-box__stepper,.pd-box__step-btn,.pd-box__bar,.pd-box__upsell,
+  .pd-box__upsell button,.pd-box__add,.pd-box__modes,.pd-box__mode,.pd-box__curated-card,.pd-box__curated-media,.pd-sub__opt,
+  .pd-sub__badge,.pd-sub__select,.pd-box__tag,.pd-box__soldout-tag,.pd-box__expand,.pd-box__expand svg,.pd-box__step-label span){ border-radius:0; box-shadow:none; }
+
+.pd-box__step-label{ font-family:var(--mono); font-size:13px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.pd-box__step-label span{ background:var(--cocoa); color:#fff; width:28px; height:28px; font-size:13px; letter-spacing:0; }
+
+.pd-box__sizes{ gap:0; border:var(--rule) solid var(--line); }
+.pd-box__size{ align-items:flex-start; text-align:left; gap:0; padding:28px 26px 24px; background:#fff; border:0;
+  border-right:var(--rule) solid var(--line); min-height:clamp(200px,20vw,280px); }
+.pd-box__size:last-child{ border-right:0; }
+.pd-box__size:hover{ transform:none; background:var(--butter); border-color:var(--line); }
+.pd-box__size[aria-checked="true"]{ background:var(--butter); border-color:var(--line); }
+.pd-box__size[aria-checked="true"] .pd-box__size-count, .pd-box__size[aria-checked="true"] .pd-box__size-price{ color:var(--cocoa); }
+.pd-box__size[aria-checked="true"] .pd-box__size-per{ color:var(--ink-soft); }
+.pd-box__size[aria-checked="true"]::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:6px; background:var(--cocoa); }
+.pd-box__size-count{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:clamp(28px,2.6vw,40px); line-height:.9; }
+.pd-box__size-count::first-line{ font-size:inherit; }
+.pd-box__size-price{ margin-top:auto; padding-top:20px; font-family:var(--sans); font-weight:900; font-size:clamp(30px,3vw,42px); letter-spacing:-.02em; line-height:1; }
+.pd-box__size-per{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin-top:6px; }
+.pd-box__tag{ top:14px; right:14px; left:auto; transform:none; font-family:var(--mono); font-size:10px; font-weight:800; letter-spacing:.14em; padding:5px 8px; }
+.pd-box__tag--popular{ background:var(--pink); color:var(--cocoa); }
+.pd-box__tag--value{ background:#fff; color:var(--cocoa); box-shadow:inset 0 0 0 2px var(--cocoa) !important; }
+
+.pd-box__modes{ background:none; border:var(--rule) solid var(--line); padding:0; gap:0; }
+.pd-box__mode{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--cocoa); padding:12px 18px; }
+.pd-box__mode[aria-selected="true"]{ background:var(--cocoa); color:#fff; }
+
+.pd-box__flavors{ gap:0; border-top:var(--rule) solid var(--line); border-left:var(--rule) solid var(--line); }
+.pd-box__flavor{ background:#fff; border:0; border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); padding:14px; }
+.pd-box__flavor.is-active{ background:var(--butter); border-color:var(--line); }
+.pd-box__flavor-media{ background:var(--butter); }
+.pd-box__flavor-name{ font-weight:800; text-transform:uppercase; font-size:13px; letter-spacing:.02em; }
+.pd-box__flavor-macro{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+.pd-box__stepper{ border:var(--rule) solid var(--line); background:#fff; padding:0; }
+.pd-box__step-btn{ background:var(--cocoa); }
+.pd-box__step-btn:hover:not([disabled]){ transform:none; background:var(--cocoa-soft); }
+.pd-box__step-btn[disabled]{ background:var(--butter); color:var(--ink-faint); }
+
+.pd-box__bar{ height:12px; border:var(--rule) solid var(--line); background:#fff; }
+.pd-box__bar span{ background:var(--cocoa); }
+.pd-box__count{ font-family:var(--mono); font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.pd-box__upsell{ background:var(--pink); }
+.pd-box__upsell button{ font-family:var(--mono); font-weight:800; letter-spacing:.1em; text-transform:uppercase; font-size:11px; padding:10px 14px; }
+.pd-box__cta-total{ font-family:var(--script); font-weight:900; font-stretch:70%; font-size:40px; line-height:.9; }
+.pd-box__cta-per{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.pd-box__add{ font-family:var(--sans); font-weight:800; font-size:14px; letter-spacing:.08em; text-transform:uppercase; min-height:60px; }
+.pd-box__add:hover:not([disabled]){ background:var(--cocoa-soft); }
+.pd-box__curated-card{ background:#fff; border:var(--rule) solid var(--line); }
+.pd-box__curated-card.is-active{ background:var(--butter); border-color:var(--line); }
+.pd-box__curated-name{ text-transform:uppercase; }
+.pd-box__curated-cta{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--cocoa); }
+.pd-box .pd-sub__opt{ background:#fff; border:var(--rule) solid var(--line); }
+.pd-box .pd-sub__opt:has(input:checked){ background:var(--butter); }
+.pd-box .pd-sub__badge{ background:var(--pink); color:var(--cocoa); font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+.pd-box .pd-sub__select{ border:var(--rule) solid var(--line); background:#fff; }
+
+.pd-box__expand{ height:60px; padding:0 22px 0 28px; margin-left:0; font-family:var(--sans); font-weight:800; font-size:14px; letter-spacing:.08em; text-transform:uppercase; }
+.pd-box__expand svg{ width:22px; height:22px; padding:0; background:none; color:var(--pink); }
+.pd-box__expand:hover{ box-shadow:none; background:var(--cocoa-soft); }
+
+@media (max-width:749px){
+  .pd-box__sizes{ grid-template-columns:1fr; }
+  .pd-box__size{ border-right:0; border-bottom:var(--rule) solid var(--line); min-height:0; flex-direction:row; flex-wrap:wrap; align-items:baseline; gap:4px 12px; padding:20px; }
+  .pd-box__size:last-child{ border-bottom:0; }
+  .pd-box__size-price{ margin:0 0 0 auto; padding:0; font-size:30px; }
+  .pd-box__size-per{ flex-basis:100%; text-align:right; margin:0; }
+  .pd-box__flavors{ gap:0; }
+  .pd-box__cta{ background:#fff; border-top:var(--rule) solid var(--line); }
+  .pd-box__expand{ width:100%; justify-content:center; }
+}
+.pd-box__size-count{ font-family:var(--sans); font-stretch:100%; font-size:15px; font-weight:800; text-transform:none; line-height:1; letter-spacing:0; }
+.pd-box__size-count b{ display:block; font-family:var(--script); font-weight:900; font-stretch:70%; font-size:clamp(80px,8.4vw,140px); line-height:.82; letter-spacing:-.03em; margin-bottom:8px; }
+@media (max-width:749px){ .pd-box__size-count b{ font-size:72px; display:inline; margin:0 8px 0 0; } }
+
+/* ---- Macro Bold audit fixes (2026-11-10) ----
+   Second-tier title; selected size = inset ink frame (the bottom bar read as a glitch). */
+.pd-box .pd-sec-head{ border-bottom:0; padding-bottom:0; display:block; }
+.pd-box .pd-sec-title{ font-size:clamp(40px,4.6vw,72px); }
+.pd-box .pd-lede--intro{ margin-top:14px; }
+.pd-box__size[aria-checked="true"]::after{ display:none; }
+.pd-box__size[aria-checked="true"]{ box-shadow:inset 0 0 0 4px var(--cocoa) !important; background:var(--butter); }

@@ -10,8 +10,10 @@
 
 {{ 'prodani-baker.css' | asset_url | stylesheet_tag }}
 
-<section class="pd-story" id="baker-{{ section.id }}">
+{%- assign feature = false -%}{%- if section.settings.layout == 'feature' -%}{%- assign feature = true -%}{%- endif -%}
+<section class="pd-story{% if feature %} pd-story--feature{% endif %}" id="baker-{{ section.id }}">
   <div class="pd-wrap">
+    {%- unless feature -%}
     <div class="pd-sec-head">
       <div>
         <{{ section.settings.heading_tag | default: 'h1' }} class="pd-sec-title">{{ section.settings.heading | escape }}</{{ section.settings.heading_tag | default: 'h1' }}>
@@ -21,9 +23,14 @@
         <span class="pd-eyebrow">{{ section.settings.eyebrow | escape }}</span>
       {%- endif -%}
     </div>
+    {%- endunless -%}
 
     <div class="pd-story__in">
       <div class="pd-story__text">
+        {%- if feature -%}
+          {%- comment -%} Feature layout (Macro Bold homepage): photo left, heading in the copy cell. {%- endcomment -%}
+          <{{ section.settings.heading_tag | default: 'h2' }} class="pd-sec-title pd-story__h">{{ section.settings.heading | escape }}</{{ section.settings.heading_tag | default: 'h2' }}>
+        {%- endif -%}
         {%- if section.settings.use_page_content and page.content != blank -%}
           <div class="pd-rte">{{ page.content }}</div>
         {%- else -%}
@@ -66,6 +73,9 @@
               </li>
             {%- endfor -%}
           </ul>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <a class="pd-btn pd-btn--ghost pd-story__cta" href="{{ section.settings.cta_link | default: '/pages/meet-your-baker' }}">{{ section.settings.cta_label | escape }}</a>
         {%- endif -%}
       </div>
 
@@ -150,7 +160,10 @@
       "info": "The frame is wider than these portraits, so a centred crop clips the head. 50% 10% keeps it.",
       "default": "50% 10%"
     },
-    { "type": "richtext", "id": "stamp", "label": "Stamp text" }
+    { "type": "richtext", "id": "stamp", "label": "Stamp text" },
+    { "type": "select", "id": "layout", "label": "Layout", "options": [ { "value": "standard", "label": "Standard (heading on top)" }, { "value": "feature", "label": "Feature (photo left, heading beside it)" } ], "default": "standard" },
+    { "type": "text", "id": "cta_label", "label": "Button label (optional)" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
   ],
   "blocks": [
     {

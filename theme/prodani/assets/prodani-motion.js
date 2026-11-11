@@ -72,11 +72,11 @@
     /* ---- Muffin stamp: pops in like a sticker being slapped on ---- */
     var stamp = document.querySelector('.pd-story__stamp');
     if (stamp) {
-      gsap.set(stamp, { scale: 0.5, autoAlpha: 0, rotation: -30 });
+      gsap.set(stamp, { scale: 0.8, autoAlpha: 0 });
       ScrollTrigger.create({
         trigger: stamp, start: 'top 92%', once: true,
         onEnter: function () {
-          gsap.to(stamp, { scale: 1, autoAlpha: 1, rotation: -8, duration: 0.6, ease: 'back.out(2)', overwrite: true });
+          gsap.to(stamp, { scale: 1, autoAlpha: 1, duration: 0.4, ease: 'power3.out', overwrite: true });
         }
       });
     }

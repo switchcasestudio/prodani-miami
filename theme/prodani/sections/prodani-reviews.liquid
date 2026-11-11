@@ -6,7 +6,7 @@
 
 {{ 'prodani-reviews.css' | asset_url | stylesheet_tag }}
 
-<section class="pd-reviews" {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}>
+<section class="pd-reviews{% if section.settings.lead == 'rating' %} pd-reviews--rating{% endif %}" {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}>
   <div class="pd-wrap">
     {%- comment -%}
       The count IS the headline (Moses 2026-10-11: "132 is a lot, it doesn't feel like it").
@@ -44,6 +44,16 @@
       -%}
       <div class="pd-reviews__head">
         <h2 class="visually-hidden">{{ big }} {{ label | escape }}{% if rating %}, rated {{ rating }} out of 5{% endif %}</h2>
+        {%- comment -%} Macro Bold audit (2026-11-10): the average rating can lead instead of the count. {%- endcomment -%}
+        {%- if section.settings.lead == 'rating' and rating -%}
+        <div class="pd-reviews__hero" aria-hidden="true">
+          <span class="pd-reviews__count">{{ rating }}</span>
+          <span class="pd-reviews__side">
+            <span class="pd-reviews__stars"><span style="width:{{ rating_pct }}%">★★★★★</span>★★★★★</span>
+          </span>
+        </div>
+        <p class="pd-reviews__sub"><b>{{ big }}</b> {{ label | escape }}{% if section.settings.eyebrow != blank %} · {{ section.settings.eyebrow | escape }}{% endif %}</p>
+        {%- else -%}
         <div class="pd-reviews__hero" aria-hidden="true">
           <span class="pd-reviews__count">{{ big }}</span>
           <span class="pd-reviews__side">
@@ -57,6 +67,7 @@
           {%- if rating -%}<b>{{ rating }}</b> out of 5{%- if section.settings.eyebrow != blank %} · {% endif -%}{%- endif -%}
           {{ section.settings.eyebrow | escape }}
         </p>
+        {%- endif -%}
       </div>
     {%- else -%}
       <div class="pd-sec-head">
@@ -126,6 +137,7 @@
   "tag": "section",
   "class": "pd-section",
   "settings": [
+    { "type": "select", "id": "lead", "label": "Big number", "options": [ { "value": "count", "label": "Review count" }, { "value": "rating", "label": "Average rating (quotes beside it)" } ], "default": "count" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "What people say" },
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "reviews" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Verified · Judge.me" },

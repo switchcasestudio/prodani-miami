@@ -125,3 +125,37 @@
    nothing between the summary and the link out. */
 .pd-prevs .jdgm-rev-widg__body:empty,
 .pd-prevs .jdgm-rev-widg__reviews:empty{ display:none; }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Same rule as above (surfaces, not structure): square controls, ink rules, condensed
+   caps title, berry stars, reviews as ruled cells sharing their borders. */
+.pd-prevs{ background:#fff; padding-block:clamp(56px,6vw,88px); }
+.pd-prevs .jdgm-rev-widg{ padding:0 !important; border:0 !important; }
+.pd-prevs .jdgm-rev-widg__title{ font-family:var(--script) !important; font-weight:900; font-stretch:70%; text-transform:uppercase;
+  font-size:clamp(28px,2.6vw,36px) !important; line-height:.9; letter-spacing:-.01em; margin-bottom:18px !important; }
+.pd-prevs .jdgm-rev-widg__summary-text, .pd-prevs .jdgm-rev-widg__summary-average{ font-family:var(--mono); font-size:12px; font-weight:800;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--cocoa); }
+.pd-prevs .jdgm-star, .pd-prevs .jdgm-star.jdgm--off{ color:var(--berry) !important; }
+.pd-prevs .jdgm-write-rev-link, .pd-prevs .jdgm-ask-question-btn{
+  border-radius:0 !important; min-height:52px; display:inline-flex !important; align-items:center; justify-content:center;
+  padding:0 26px !important; font-family:var(--sans); font-size:13px !important; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.pd-prevs .jdgm-write-rev-link:hover{ transform:none; background:var(--cocoa-soft) !important; }
+.pd-prevs .jdgm-write-rev-link:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; }
+.pd-prevs .jdgm-row-actions, .pd-prevs .jdgm-widget-actions-wrapper{ border-color:var(--line) !important; }
+.pd-prevs .jdgm-rev-widg__summary, .pd-prevs .jdgm-histogram{ border-color:var(--line) !important; }
+.pd-prevs .jdgm-rev-widg__header > *{ border-color:var(--line) !important; }
+.pd-prevs .jdgm-rev{ background:#fff; border:var(--rule) solid var(--line) !important; border-radius:0; margin:0 0 -2px !important;
+  padding:clamp(18px,2vw,26px) !important; }
+.pd-prevs .jdgm-rev__title{ font-family:var(--sans); font-weight:800; text-transform:uppercase; font-size:15px; letter-spacing:.02em; }
+.pd-prevs .jdgm-rev__author, .pd-prevs .jdgm-rev__timestamp, .pd-prevs .jdgm-rev__buyer-badge{ font-family:var(--mono); font-size:11px; font-weight:800;
+  letter-spacing:.12em; text-transform:uppercase; }
+.pd-prevs .jdgm-rev__buyer-badge{ background:var(--pink) !important; color:var(--cocoa) !important; border-radius:0 !important; }
+.pd-prevs .jdgm-histogram__bar{ background-color:var(--butter); border-radius:0 !important; }
+.pd-prevs .jdgm-histogram__bar-content{ background-color:var(--cocoa); border-radius:0 !important; }
+.pd-prevs .jdgm-rev-widg__sort-wrapper select, .pd-prevs .jdgm-sort-dropdown{ border-radius:0 !important; border:var(--rule) solid var(--line) !important; }
+.pd-prevs .jdgm-paginate__page{ border-radius:0; font-family:var(--mono); font-weight:800; }
+.pd-prevs .jdgm-form input, .pd-prevs .jdgm-form textarea{ background:#fff; border-radius:0; }
+.pd-prevs .jdgm-form__submit-btn-wrapper input[type="submit"]{ border-radius:0 !important; text-transform:uppercase; letter-spacing:.08em; font-weight:800; }
+.pd-prevs__all a{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  border-bottom:2px solid var(--pink); min-height:44px; padding-bottom:0; }
+.pd-prevs__all svg{ display:none; }

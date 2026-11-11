@@ -5,12 +5,13 @@
       "settings": {
         "product": "dubai-dream-cake-copy",
         "next_product": "personal-hazelnuts-cake",
+        "third_product": "personal-chocolate-fudge-cake-copy",
         "eyebrow": "Flavor of the week",
         "text": "White chocolate, dried cherries and a soft melty middle, with complete protein and no added sugar. The power of protein. The joy of cake.",
         "cta_label": "Shop the 5-pack",
         "cta2_label": "See all flavors",
         "cta2_link": "/collections/personal-protein-cakes",
-        "macros": "0g added sugar, GF gluten free, 30s to warm"
+        "macros": ""
       }
     },
     "shout": {
@@ -42,8 +43,8 @@
             "cta_label": "Shop the cakes",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "moist-chocolate-fudge-cake-copy",
-            "color": "#FBE4E9",
-            "text_color": "#48312A",
+            "color": "#FFFFFF",
+            "text_color": "#1A110C",
             "focus": "50% 40%"
           }
         },
@@ -56,8 +57,8 @@
             "cta_label": "See the flavors",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "personal-hazelnuts-cake",
-            "color": "#FBD9E0",
-            "text_color": "#48312A",
+            "color": "#F3EEE6",
+            "text_color": "#1A110C",
             "focus": "50% 40%"
           }
         },
@@ -70,8 +71,8 @@
             "cta_label": "Shop the cakes",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "dubai-dream-cake-copy",
-            "color": "#48312A",
-            "text_color": "#FFF8F0",
+            "color": "#1A110C",
+            "text_color": "#FFFFFF",
             "focus": "50% 40%"
           }
         },
@@ -84,8 +85,8 @@
             "cta_label": "See the flavors",
             "cta_link": "/collections/personal-protein-cakes",
             "product": "personal-chocolate-fudge-cake-copy",
-            "color": "#FBE4E9",
-            "text_color": "#48312A",
+            "color": "#FFFFFF",
+            "text_color": "#1A110C",
             "focus": "50% 40%"
           }
         },
@@ -98,8 +99,8 @@
             "cta_label": "Build your box",
             "cta_link": "/#box",
             "product": "carrot-cake",
-            "color": "#FBD9E0",
-            "text_color": "#48312A",
+            "color": "#F3EEE6",
+            "text_color": "#1A110C",
             "focus": "50% 40%"
           }
         }
@@ -115,7 +116,8 @@
         "heading": "What makes prodani different",
         "eyebrow": "Dessert first. Protein powered.",
         "anchor": "nutrition"
-      }
+      },
+      "disabled": true
     },
     "collection": {
       "type": "prodani-collection",
@@ -162,6 +164,7 @@
         "s3"
       ],
       "settings": {
+        "soon_style": "line",
         "heading": "The prodani collection",
         "eyebrow": "7 flavors",
         "anchor": "shop",
@@ -174,6 +177,7 @@
     },
     "bleed": {
       "type": "prodani-bleed",
+      "disabled": true,
       "settings": {
         "text": "Build Your Box",
         "color_top": "#FFF8F0",
@@ -275,6 +279,7 @@
       ],
       "settings": {
         "heading": "132 verified reviews",
+        "lead": "count",
         "anchor": "reviews",
         "eyebrow": "Verified · Judge.me",
         "show_widget": true,
@@ -324,50 +329,58 @@
         "button_label": "Send message",
         "success_text": "Thanks, we'll be in touch shortly.",
         "topics": "General enquiry, Catering for an event, Bigger / bulk order, Wholesale, Allergens and ingredients, Something else"
-      }
+      },
+      "disabled": true
     },
     "badges": {
       "type": "prodani-badges",
+      "disabled": true,
       "blocks": {
         "n1": {
           "type": "badge",
           "settings": {
-            "label": "High Protein",
+            "figure": "15–20g",
+            "label": "Complete protein",
             "icon": "prodani-icon-protein"
           }
         },
         "n2": {
           "type": "badge",
           "settings": {
-            "label": "Small Batch",
+            "figure": "0g",
+            "label": "Added sugar",
             "icon": "prodani-icon-small-batch"
           }
         },
         "n3": {
           "type": "badge",
           "settings": {
-            "label": "No Sugar Added",
+            "figure": "100–180",
+            "label": "Calories per cake",
             "icon": "prodani-icon-no-added-sugar"
           }
         },
         "n4": {
           "type": "badge",
           "settings": {
-            "label": "Gluten Free",
+            "figure": "GF",
+            "label": "Gluten free",
             "icon": "prodani-icon-gluten-free"
           }
         },
         "n5": {
           "type": "badge",
           "settings": {
-            "label": "Baked in Miami",
+            "figure": "30s",
+            "label": "In the microwave",
             "icon": "prodani-icon-baked-in-miami"
           }
         },
         "n6": {
           "type": "badge",
           "settings": {
-            "label": "{count} Verified Reviews",
+            "figure": "{count}",
+            "label": "Verified reviews",
             "icon": "prodani-icon-verified-reviews"
           }
         }
@@ -382,7 +395,7 @@
       ],
       "settings": {
         "heading": "",
-        "background": "#FFF8F0",
+        "background": "#FFFFFF",
         "bottom_marquee": false
       }
     },
@@ -486,7 +499,7 @@
         "cb2"
       ],
       "settings": {
-        "eyebrow": "Build Your Box",
+        "eyebrow": "",
         "heading": "Build your box",
         "subheading": "Pick a size, mix your flavors, and choose one-time or subscribe.",
         "sizes": "6,12,18",
@@ -506,7 +519,7 @@
     "instagram": {
       "type": "prodani-instagram",
       "settings": {
-        "eyebrow": "Instagram",
+        "eyebrow": "",
         "heading": "Follow the feed",
         "anchor": "instagram",
         "follow_url": "https://instagram.com/prodanimiami",
@@ -629,3 +642,5 @@
     "contact"
   ]
 }
+
+

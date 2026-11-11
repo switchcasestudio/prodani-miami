@@ -2,6 +2,8 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
+{{ 'prodani-shop.css' | asset_url | stylesheet_tag }}
+{{ 'prodani-pages.css' | asset_url | stylesheet_tag }}
 
 {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
   {{ 'component-facets.css' | asset_url | stylesheet_tag }}
@@ -271,6 +273,9 @@
                   >
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
+                        {%- comment -%} Macro Bold (2026-11-10): products use the shop's own card so search matches the collection grid. Dawn's card-product call is kept below, switched off. {%- endcomment -%}
+                        {% render 'prodani-card', product: item %}
+                        {%- if false -%}
                         {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
                         {% render 'card-product',
                           card_product: item,
@@ -284,6 +289,7 @@
                           product_view_context: 'search'
                         %}
                         {%- assign skip_card_product_styles = true -%}
+                        {%- endif -%}
                       {%- when 'article' -%}
                         {% render 'article-card',
                           article: item,

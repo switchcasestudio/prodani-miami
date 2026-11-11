@@ -1,0 +1,39 @@
+{%- comment -%}
+  Splits the product description into its parts (Macro Bold, 2026-11-10).
+  Every cake description is written as: intro paragraph(s), then a paragraph that
+  starts "Ingredients:", then one that starts "Allergens:". The intro belongs in the
+  buy column; ingredients and allergens belong in the details band below.
+  Params: part — 'intro' (HTML), 'ingredients' (text), 'allergens' (text).
+  If no "Ingredients:" paragraph is found, 'intro' returns the whole description
+  untouched and the other parts return nothing, so no copy is ever dropped.
+{%- endcomment -%}
+{%- liquid
+  assign pd_parts = product.description | split: '</p>'
+  assign pd_intro = ''
+  assign pd_ingredients = ''
+  assign pd_allergens = ''
+  for pd_part in pd_parts
+    assign pd_t = pd_part | strip_html | strip
+    if pd_t == blank
+      continue
+    endif
+    assign pd_h12 = pd_t | slice: 0, 12 | downcase
+    assign pd_h10 = pd_t | slice: 0, 10 | downcase
+    if pd_h12 == 'ingredients:'
+      assign pd_ingredients = pd_t | slice: 12, 4000 | strip
+    elsif pd_h10 == 'allergens:'
+      assign pd_allergens = pd_t | slice: 10, 4000 | strip
+    else
+      assign pd_intro = pd_intro | append: pd_part | append: '</p>'
+    endif
+  endfor
+  if pd_ingredients == ''
+    assign pd_intro = product.description
+    assign pd_allergens = ''
+  endif
+-%}
+{%- case part -%}
+  {%- when 'intro' -%}{{ pd_intro }}
+  {%- when 'ingredients' -%}{{ pd_ingredients }}
+  {%- when 'allergens' -%}{{ pd_allergens }}
+{%- endcase -%}

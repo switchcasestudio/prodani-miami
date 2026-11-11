@@ -127,3 +127,37 @@
   .pd-stack__desc{ margin-top:8px; }
   .pd-stack__link{ margin-top:12px; }
 }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   The deck becomes ruled panels: square, 2px ink frame, no shadow. Card colours
+   (white / bone / ink) come from the block settings. The photo sits in its own
+   framed cell, flush to the card's right edge. */
+.pd-stack, .pd-stack__head{ background:#fff; }
+.pd-stack__head{ border-bottom:var(--rule) solid var(--line); padding-bottom:22px; margin-bottom:28px; }
+.pd-stack__head .pd-sec-title{ font-size:clamp(44px,5.6vw,92px); }
+.pd-stack__card{ border-radius:0; box-shadow:none; border:var(--rule) solid var(--line); width:min(1480px, 100% - 2 * var(--pad));
+  padding:0; overflow:hidden; }
+.pd-stack__peek{ padding:14px clamp(22px,2.6vw,36px) 0; margin-bottom:12px; }
+.pd-stack__peek b{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:clamp(24px,2.4vw,34px); }
+.pd-stack__peek span{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; opacity:1; }
+.pd-stack__body{ gap:0; }
+.pd-stack__text{ width:46%; padding:clamp(22px,2.6vw,40px) clamp(22px,2.6vw,40px); justify-content:flex-end; }
+.pd-stack__figure{ font-size:clamp(80px,9vw,150px); line-height:.82; letter-spacing:-.03em; }
+.pd-stack__title{ margin-top:18px; font-family:var(--sans); font-weight:800; font-size:clamp(18px,1.5vw,22px); text-transform:uppercase; letter-spacing:0; line-height:1.15; }
+.pd-stack__desc{ font-size:16px; line-height:1.45; opacity:1; max-width:40ch; }
+.pd-stack__link{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  border-bottom:3px solid var(--pink); }
+.pd-stack__media{ width:54%; border-radius:0; border-left:var(--rule) solid var(--line); background:var(--butter); }
+.pd-stack__card .pd-stack__media{ position:absolute; top:0; right:0; bottom:0; width:54%; margin:0; }
+@media (max-width:980px){
+  .pd-stack__card{ width:100%; box-shadow:none; margin-bottom:calc(-1 * var(--rule)); }
+  .pd-stack__card .pd-stack__media{ position:relative; width:100%; margin:0; border-left:0; border-top:var(--rule) solid var(--line); }
+  .pd-stack__text{ width:100%; }
+}
+@media (max-width:749px){
+  .pd-stack__card{ padding:0; }
+  .pd-stack__text{ padding:22px 20px 22px; }
+  .pd-stack__figure{ font-size:clamp(64px,19vw,88px); }
+  .pd-stack__link{ align-self:flex-start; }
+}
+@media (max-width:980px){ .pd-stack__link{ margin-top:16px; } }

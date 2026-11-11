@@ -217,3 +217,92 @@ html.pd-menu-open{ overflow:hidden; }
 html{ scroll-padding-top:calc(var(--pd-nav-h) + 16px); }
 .pd-nav__link, .pd-nav__sublink, .pd-nav__cart, .pd-nav__shop-mobile, .pd-announce .pd-label{ font-family:var(--display); }
 .pd-nav__link, .pd-nav__sublink{ font-size:15px; }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Black ticker strip, white nav with one 2px ink rule, caps links, square
+   controls, a pink "Build your box" block and a plain "Cart (0)". */
+.pd-header-group:has(.pd-announce){ --pd-announce-h:38px; }
+.pd-announce{ height:38px; background:var(--cocoa); color:#fff; justify-content:flex-start; }
+.pd-announce__run{ display:flex; flex:none; width:max-content; gap:0; animation:pd-tick 38s linear infinite; }
+.pd-announce__set{ display:flex; align-items:center; flex:none; }
+.pd-announce .pd-label{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; padding-left:44px; }
+.pd-announce__dot{ width:6px; height:6px; border-radius:0; background:var(--pink); margin-left:44px; flex:none; }
+.pd-announce:hover .pd-announce__run{ animation-play-state:paused; }
+@keyframes pd-tick{ to{ transform:translateX(-50%); } }
+@media (prefers-reduced-motion:reduce){ .pd-announce__run{ animation:none; } }
+
+.pd-nav{ background:#fff; backdrop-filter:none; border-bottom:var(--rule) solid var(--line); }
+.pd-nav[data-stuck="true"]{ background:#fff; border-bottom-color:var(--line); }
+.pd-nav__logo-img--brand{ height:clamp(34px,3vw,44px); }
+.pd-nav__link, .pd-nav__sublink, .pd-nav__cart, .pd-nav__shop-mobile, .pd-nav__box, .pd-menu__util, .pd-menu__sub a{
+  font-family:var(--mono); font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
+.pd-nav__link{ color:var(--cocoa); border-radius:0; padding:10px 0; background:none; position:relative; }
+.pd-nav__link::after{ content:""; position:absolute; left:0; right:0; bottom:4px; height:3px; background:var(--pink);
+  transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ease); }
+.pd-nav__link:hover{ background:none; color:var(--cocoa); }
+.pd-nav__link:hover::after, .pd-nav__link.is-on::after{ transform:scaleX(1); }
+.pd-nav__sub{ border:var(--rule) solid var(--line); border-radius:0; box-shadow:none; padding:0; gap:0; top:calc(100% + 6px); }
+.pd-nav__sublink{ border-radius:0; padding:12px 16px; border-bottom:1px solid var(--line); }
+.pd-nav__sublink:last-child{ border-bottom:0; }
+.pd-nav__sublink:hover{ background:var(--butter); }
+.pd-icon-btn{ border-radius:0; background:none; box-shadow:none; width:40px; height:40px; }
+.pd-icon-btn:hover{ background:var(--butter); }
+.pd-icon-btn svg{ stroke-width:2; }
+.pd-nav__box{ display:none; }
+.pd-nav__cart{ background:none; color:var(--cocoa); border-radius:0; box-shadow:none; padding:0 0 0 6px; height:44px; gap:0; }
+.pd-nav__cart:hover{ transform:none; text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; }
+.pd-nav__count{ background:none; color:var(--cocoa); min-width:0; height:auto; padding:0; border-radius:0;
+  font-family:var(--mono); font-weight:800; font-size:13px; letter-spacing:.1em; display:inline; }
+.pd-nav__count::before{ content:"\00a0("; }
+.pd-nav__count::after{ content:")"; }
+@media (min-width:960px){
+  .pd-nav__links{ background:none; border-radius:0; padding:0; gap:clamp(20px,2.4vw,36px); box-shadow:none; }
+  .pd-nav__link{ font-size:13px; padding:10px 0; color:var(--cocoa); }
+  .pd-nav__link.is-on{ background:none; }
+  .pd-nav__cart{ background:none; box-shadow:none; font-size:13px; height:44px; }
+  .pd-nav__count{ background:none; color:var(--cocoa); }
+  .pd-icon-btn{ background:none; box-shadow:none; }
+  .pd-nav__right{ gap:8px; }
+  .pd-nav__box{ display:inline-flex; align-items:center; height:44px; padding:0 18px; margin:0 10px 0 6px;
+    background:var(--pink); color:var(--cocoa); text-decoration:none; font-size:12px; white-space:nowrap; transition:background .2s; }
+  .pd-nav__box:hover{ background:var(--pink-deep); }
+}
+.pd-nav__link{ white-space:nowrap; }
+@media (min-width:960px) and (max-width:1240px){
+  .pd-nav__links{ gap:16px; }
+  .pd-nav__link{ font-size:12px; letter-spacing:.07em; }
+  .pd-nav__search, .pd-nav__account{ display:none; }
+}
+@media (min-width:960px) and (max-width:1080px){
+  .pd-nav__box{ display:none; }
+}
+@media (max-width:960px){
+  .pd-nav__menu-btn{ border-radius:0; }
+  .pd-nav__menu-btn svg{ stroke-width:2.2; }
+  .pd-nav__shop-mobile{ font-size:13px; }
+  .pd-nav__cart{ font-size:13px; padding:0 0 0 8px; }
+  .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce{ background:var(--cocoa); }
+}
+.pd-menu{ background:#fff; border-top:var(--rule) solid var(--line); }
+.pd-menu__list > li{ border-bottom:var(--rule) solid var(--line); }
+.pd-menu__link{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:40px; letter-spacing:-.01em; line-height:.9; min-height:72px; }
+.pd-menu__link[aria-current="page"]{ color:var(--cocoa); text-decoration:underline; text-decoration-color:var(--pink); text-decoration-thickness:5px; text-underline-offset:6px; }
+.pd-menu__sub a{ color:var(--ink-soft); }
+.pd-menu__cta{ border-radius:0; background:var(--pink); color:var(--cocoa); font-family:var(--mono); font-weight:800; font-size:14px; letter-spacing:.1em; text-transform:uppercase; min-height:60px; }
+.pd-menu__cta svg{ display:none; }
+
+/* ---- Macro Bold audit fixes (2026-11-10) ----
+   Build your box is an ink button like every primary CTA, and it stays visible down to
+   tablet. Phones: no stacked double rule under the sticky header. */
+.pd-nav__box{ background:var(--cocoa) !important; color:#fff !important; }
+.pd-nav__box:hover{ background:var(--cocoa-soft) !important; }
+@media (min-width:960px) and (max-width:1080px){
+  .pd-nav__box{ display:inline-flex; padding:0 12px; margin:0 6px; font-size:11px; }
+  .pd-nav__links{ gap:12px; }
+  .pd-nav__link{ font-size:11px; letter-spacing:.05em; }
+}
+@media (min-width:750px) and (max-width:959px){
+  .pd-nav__box{ display:inline-flex; align-items:center; height:40px; padding:0 14px; margin:0 8px; text-decoration:none; font-size:11px; white-space:nowrap; }
+}
+.pd-menu{ border-top:0; }
+.pd-menu__cta{ background:var(--cocoa); color:#fff; }

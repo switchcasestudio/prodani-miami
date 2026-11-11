@@ -52,6 +52,29 @@
       {%- endif -%}
     </div>
 
+    {%- comment -%}
+      Audit fix (2026-11-10): an empty cart is a dead end. Offer four best sellers with
+      the shared card (styles from prodani-shop.css; the .pd-shop wrapper also picks up
+      its plain 2-up phone grid).
+    {%- endcomment -%}
+    {%- if cart == empty -%}
+      {%- assign recover = collections['personal-protein-cakes'] -%}
+      {%- if recover.products.size > 0 -%}
+        {{ 'prodani-shop.css' | asset_url | stylesheet_tag }}
+        <section class="pd-shop pd-cart-recover" aria-labelledby="CartRecover-{{ section.id }}">
+          <div class="pd-sec-head pd-cart-recover__head">
+            <h2 id="CartRecover-{{ section.id }}" class="pd-sec-title">Best sellers</h2>
+            <a class="pd-cart-recover__link" href="{{ recover.url }}">Shop all cakes</a>
+          </div>
+          <div class="pd-grid pd-cart-recover__grid">
+            {%- for product in recover.products limit: 4 -%}
+              {% render 'prodani-card', product: product %}
+            {%- endfor -%}
+          </div>
+        </section>
+      {%- endif -%}
+    {%- endif -%}
+
     <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
       <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
         <div class="js-contents">

@@ -7,13 +7,18 @@
 
 {%- if section.settings.claims != blank -%}
   {%- assign claims = section.settings.claims | split: '|' -%}
-  <div class="pd-announce" role="status" aria-live="polite" data-pd-announce>
-    {%- for claim in claims -%}
-      <div class="pd-announce__track"{% unless forloop.first %} hidden{% endunless %}>
-        <span class="pd-announce__dot"></span>
-        <span class="pd-label">{% render 'prodani-review-count', text: claim, fallback: '130+' %}</span>
-      </div>
-    {%- endfor -%}
+  {%- comment -%} Macro Bold: one ticker that runs every claim; the second copy is
+      for the seamless loop and is hidden from screen readers. {%- endcomment -%}
+  <div class="pd-announce pd-announce--tick" data-pd-announce>
+    <div class="pd-announce__track pd-announce__run">
+      {%- for pass in (1..2) -%}
+        <div class="pd-announce__set"{% if pass == 2 %} aria-hidden="true"{% endif %}>
+          {%- for claim in claims -%}
+            <span class="pd-label">{% render 'prodani-review-count', text: claim, fallback: '130+' %}</span><span class="pd-announce__dot" aria-hidden="true"></span>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
   </div>
 {%- endif -%}
 
@@ -37,7 +42,7 @@
         {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, class: 'pd-nav__logo-img' }}
       {%- elsif section.settings.use_brand_logo -%}
         <img class="pd-nav__logo-img pd-nav__logo-img--brand" src="{{ 'prodani-wordmark.svg' | asset_url }}"
-             alt="{{ shop.name | escape }}" width="3515" height="949">
+             alt="{{ shop.name | escape }}" width="1144" height="435">
       {%- else -%}
         {{ section.settings.logo_text | default: shop.name | escape | downcase }}
       {%- endif -%}
@@ -78,6 +83,7 @@
           <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>
         </svg>
       </a>
+      <a class="pd-nav__box" href="{{ section.settings.box_url | default: '/#box' }}">{{ section.settings.box_label | default: 'Build your box' | escape }}</a>
       <a class="pd-nav__cart" href="{{ routes.cart_url }}"
          aria-label="Open cart, {{ cart.item_count }} items">
         Cart <span class="pd-nav__count">{{ cart.item_count }}</span>

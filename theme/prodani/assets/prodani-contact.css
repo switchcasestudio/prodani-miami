@@ -105,16 +105,28 @@
 .pd-field select:focus-visible,
 .pd-field textarea:focus-visible{ outline:none; border-color:var(--berry); }
 
-.pd-btn{
-  display:inline-flex; align-items:center; gap:10px; height:50px; padding:0 26px;
-  border-radius:999px; background:var(--cocoa); color:var(--cream); border:0;
-  font-weight:700; font-size:15px; cursor:pointer; justify-self:start; align-self:flex-start;
-  transition:transform .4s var(--bounce), background .3s;
-}
-.pd-btn:hover{ transform:translateY(-2px); }
-/* Submit sits on cocoa, so it inverts to pink to stay the one clear action. */
-.pd-btn--pink{ background:var(--pink); color:var(--cocoa); }
-.pd-btn--pink:hover{ background:var(--pink-deep); }
+/* .pd-btn lives in prodani-tokens.css; forms only reset the native button bits. */
+button.pd-btn{ cursor:pointer; font-family:var(--sans); font-weight:800; font-size:14px; justify-self:start; align-self:flex-start; }
 
 .pd-form__ok{ margin:0; color:var(--cream); font-weight:600; }
 .pd-form__err{ margin:0; color:var(--cream); font-weight:600; font-style:normal; }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Forms on white in a 2px ink frame; fields are square ink-ruled boxes; labels caps.
+   Shared by every .pd-form (contact, partner, wholesale). */
+:root{ --pd-panel:#fff; --pd-field:#fff; --pd-panel-line:var(--cocoa); }
+.pd-contact{ background:#fff; }
+.pd-contact__details{ gap:0; border:var(--rule) solid var(--line); }
+.pd-contact__details li{ border-radius:0; background:#fff; border-bottom:var(--rule) solid var(--line); padding:16px 20px; }
+.pd-contact__details li:last-child{ border-bottom:0; }
+.pd-contact__details b{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.pd-contact__details span, .pd-contact__details a{ font-weight:700; }
+.pd-contact__details a{ text-decoration-color:var(--pink); text-decoration-thickness:2px; }
+.pd-contact__map iframe{ border-radius:0; border:var(--rule) solid var(--line); filter:grayscale(.6) contrast(1.05); }
+.pd-form{ border-radius:0; background:#fff; color:var(--cocoa); border:var(--rule) solid var(--line); }
+.pd-field span{ color:var(--cocoa); font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.pd-field input, .pd-field select, .pd-field textarea{ border-radius:0; border:var(--rule) solid var(--cocoa); font-weight:500; }
+.pd-field input:focus-visible, .pd-field select:focus-visible, .pd-field textarea:focus-visible{ border-color:var(--berry); outline:2px solid var(--berry); outline-offset:0; }
+.pd-form .pd-btn--pink{ background:var(--cocoa); color:#fff; border-color:var(--cocoa); }
+.pd-form .pd-btn--pink:hover{ background:var(--cocoa-soft); border-color:var(--cocoa-soft); }
+.pd-form__ok, .pd-form__err{ color:var(--cocoa); }

@@ -80,7 +80,39 @@
       {% render 'prodani-breadcrumbs' %}
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
-          {% render 'product-media-gallery', variant_images: variant_images %}
+          {%- comment -%}
+            Macro Bold (2026-11-10): the gallery opens on a bone hero cell holding the
+            flavor cut-out with the protein figure set huge over it (protein from the
+            `prodani.protein_g` metafield, never a default). Dawn's own media list
+            follows as the thumbnail row and still opens the lightbox. Products with no
+            cut-out keep Dawn's first image as the hero and get the figure over it.
+          {%- endcomment -%}
+          {%- capture pd_fm -%}{% render 'prodani-flavor-map', handle: product.handle %}{%- endcapture -%}
+          {%- assign pd_fl = pd_fm | strip | split: '|' -%}
+          {%- assign pd_protein = product.metafields.prodani.protein_g.value -%}
+          <div class="pd-gal{% if pd_fl[4] != blank %} pd-gal--cut{% endif %}{% if pd_protein != blank %} pd-gal--num{% endif %}">
+            {%- if pd_fl[4] != blank -%}
+              {%- comment -%}
+                Audit fix (2026-11-10): the figure sits in its own top band and the cut-out
+                in the space below it, so the "g" never lands on the cake. On desktop the
+                stage is sticky inside a hero that fills the gallery column, so the column
+                beside the taller buy box never shows an empty ruled area.
+              {%- endcomment -%}
+              <div class="pd-gal__hero">
+                <div class="pd-gal__stage">
+                  {%- if pd_protein != blank -%}
+                    <p class="pd-gal__num" aria-hidden="true">{{ pd_protein }}g<small>Protein per cake</small></p>
+                  {%- endif -%}
+                  <div class="pd-gal__cutbox">
+                    <img class="pd-gal__cut" src="{{ pd_fl[4] | asset_url }}" alt="{{ product.title | escape }}" fetchpriority="high">
+                  </div>
+                </div>
+              </div>
+            {%- elsif pd_protein != blank -%}
+              <p class="pd-gal__num pd-gal__num--over" aria-hidden="true">{{ pd_protein }}g<small>Protein per serving</small></p>
+            {%- endif -%}
+            {% render 'product-media-gallery', variant_images: variant_images %}
+          </div>
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           <section
@@ -197,8 +229,11 @@
                   </p>
                 {%- when 'description' -%}
                   {%- if product.description != blank -%}
+                    {%- comment -%} Macro Bold: only the intro sits in the buy column; the
+                       "Ingredients:" / "Allergens:" paragraphs move to the details band
+                       below (snippets/prodani-pdp-desc.liquid does the split). {%- endcomment -%}
                     <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                      {{ product.description }}
+                      {% render 'prodani-pdp-desc', part: 'intro' %}
                     </div>
                   {%- endif -%}
                 {%- when 'sku' -%}
@@ -489,11 +524,33 @@
                     surface: 'product_page'
                   -%}
                 {%- when 'variant_picker' -%}
-                  {% render 'product-variant-picker',
-                    product: product,
-                    block: block,
-                    product_form_id: product_form_id
-                  %}
+                  {%- comment -%}
+                    Audit fix (2026-11-10): with a single variant there is nothing to pick, so
+                    a selector-looking box is noise. Show one quiet line instead
+                    ("5 cakes per pack · $8.60 each"). The form still posts the variant id
+                    from buy-buttons' hidden input.
+                  {%- endcomment -%}
+                  {%- if product.variants.size == 1 and product.has_only_default_variant == false -%}
+                    {%- liquid
+                      assign sv = product.selected_or_first_available_variant
+                      assign sv_n = sv.title | split: ' ' | first | plus: 0
+                    -%}
+                    <p class="pd-size-static" {{ block.shopify_attributes }}>
+                      <span class="pd-size-static__l">{{ product.options.first | escape }}</span>
+                      {%- if sv_n > 1 -%}
+                        {%- assign sv_each = sv.price | times: 1.0 | divided_by: sv_n | round -%}
+                        <span class="pd-size-static__v">{{ sv_n }} cakes per pack &middot; {{ sv_each | money }} each</span>
+                      {%- else -%}
+                        <span class="pd-size-static__v">{{ sv.title | escape }}</span>
+                      {%- endif -%}
+                    </p>
+                  {%- else -%}
+                    {% render 'product-variant-picker',
+                      product: product,
+                      block: block,
+                      product_form_id: product_form_id
+                    %}
+                  {%- endif -%}
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',
                     block: block,
@@ -700,6 +757,10 @@
           </section>
         </div>
       </div>
+
+      {%- comment -%} Macro Bold: full-width ruled details band (ingredients, storage,
+         shipping, nutrition table) under the buy frame. {%- endcomment -%}
+      {% render 'prodani-pdp-info', placement: 'below' %}
 
       {% render 'product-media-modal', variant_images: variant_images %}
 

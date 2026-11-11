@@ -44,3 +44,38 @@
 .pd-story__list b{ font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0;
    color:var(--cocoa); }
 .pd-story__copy > span{ color:var(--ink-soft); font-size:15.5px; font-weight:500; line-height:1.5; }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Ruled list instead of pink pills; photo in a 2px frame; the seal stamp is
+   replaced by a square pink "Since 2023" style tag from the section's stamp text. */
+.pd-story{ background:#fff; margin-top:0; padding-block:clamp(56px,6vw,96px); }
+.pd-story__media img{ border-radius:0; border:var(--rule) solid var(--line); }
+.pd-story__stamp{ border-radius:0; background:var(--pink); box-shadow:none; width:auto; height:auto; left:-2px; bottom:-2px; padding:10px 14px;
+  font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa); }
+.pd-story__stamp p{ position:static; width:auto; height:auto; margin:0; overflow:visible; clip-path:none; }
+.pd-story__list{ gap:0; border:var(--rule) solid var(--line); }
+.pd-story__list li{ border-radius:0; background:#fff; border-bottom:var(--rule) solid var(--line); padding:18px 20px; align-items:flex-start; }
+.pd-story__list li:last-child{ border-bottom:0; }
+.pd-story__icon{ border-radius:0; background:var(--butter); box-shadow:none; width:44px; height:44px; }
+.pd-story__list b{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.pd-story__copy > span{ color:var(--cocoa); font-size:16px; }
+@media (max-width:620px){ .pd-story__stamp{ right:auto; left:-2px; bottom:-2px; width:auto; height:auto; } }
+.pd-story__stamp{ transform:none; rotate:none; }
+.pd-story__stamp{ white-space:nowrap; }
+
+/* ---- Macro Bold audit fixes (2026-11-10) ----
+   Feature layout (homepage): one ruled box, Daniel's photo left, heading + short bio +
+   button right, as in the approved mockup. */
+.pd-story--feature .pd-story__in{ grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:0; border:var(--rule) solid var(--line); align-items:stretch; }
+.pd-story--feature .pd-story__media{ grid-column:1; grid-row:1; border-right:var(--rule) solid var(--line); min-height:clamp(420px,40vw,600px); }
+.pd-story--feature .pd-story__media img{ position:absolute; inset:0; width:100%; height:100%; max-height:none; aspect-ratio:auto; border:0; }
+.pd-story--feature .pd-story__text{ grid-column:2; grid-row:1; padding:clamp(32px,4vw,64px) clamp(24px,3.6vw,56px); display:flex; flex-direction:column; justify-content:center; gap:20px; }
+.pd-story__h{ margin:0; font-size:clamp(44px,5vw,84px); }
+.pd-story--feature .pd-lede--intro{ margin:0; font-weight:700; }
+.pd-story--feature .pd-rte p{ color:var(--cocoa); font-size:17px; max-width:46ch; }
+.pd-story__cta{ align-self:flex-start; margin-top:6px; }
+@media (max-width:980px){
+  .pd-story--feature .pd-story__in{ grid-template-columns:1fr; }
+  .pd-story--feature .pd-story__media{ grid-column:1; border-right:0; border-bottom:var(--rule) solid var(--line); min-height:420px; }
+  .pd-story--feature .pd-story__text{ grid-column:1; grid-row:2; padding:28px var(--pad) 32px; }
+}

@@ -1,50 +1,51 @@
-/* ProDani Miami brand foundation: Option B "Flavor Drop", chosen by the owners 2026-11-02.
-   Pink, cream and cocoa; Fredoka display, Nunito text. Token names are historic and kept so
-   every section sheet re-skins from here: --pink = brand pink, --butter = soft pink surface,
-   --cocoa = brown, --script/--display/--mono = Fredoka. */
+/* ProDani Miami brand foundation: "Macro Bold" (Direction A), chosen by Dani 2026-11-10.
+   The number is the hero. White ground, near-black cocoa ink, Archivo set heavy and
+   condensed, 2px ink rules, square corners. Pink is a small accent only (tags, the
+   stamp, one underline), never a surface. Token names are historic and kept so every
+   section sheet re-skins from here: --cream = page, --butter = bone band, --cocoa = ink.
+   Option B (Fredoka/Nunito, rounded) lives on branch theme/rounded. */
 
-@font-face{ font-family:'Fredoka'; font-style:normal; font-weight:300 700; font-display:swap; src:url('fredoka-var-latin.woff2') format('woff2'); }
-@font-face{ font-family:'Nunito'; font-style:normal; font-weight:200 1000; font-display:swap; src:url('nunito-var-latin.woff2') format('woff2'); }
+@font-face{ font-family:'Archivo'; font-style:normal; font-weight:100 900; font-stretch:62% 125%; font-display:swap; src:url('archivo-var-latin.woff2') format('woff2'); }
 
-/* Palette: Option B. CALM champagne values are in git history. */
 :root {
-  /* ground — warm ivory carries ~80% of every screen */
-  --cream:      #FFF8F0;   /* warm ivory — page */
-  --butter:     #FBE4E9;   /* warm ecru — raised surfaces */
-  --cocoa:      #48312A;   /* dark chocolate — all structure and dark bands (13.2:1 on ivory) */
-  --cocoa-deep: #33211B;
-  --cocoa-soft: #5C433A;   /* walnut — panels one step up from chocolate */
+  /* ground */
+  --cream:      #FFFFFF;   /* paper — page */
+  --butter:     #F3EEE6;   /* bone — the one warm neutral for alternating bands and hover */
+  --cocoa:      #1A110C;   /* ink — type, rules, dark bands (18.6:1 on white) */
+  --cocoa-deep: #120B07;
+  --cocoa-soft: #3B2A20;   /* ink-2 — secondary text, panels one step up from ink */
 
-  /* accent — hairlines, marks and small type on DARK only */
-  --pink:       #FDC3D4;   /* caramel (accent slot; name kept from v2) */
-  --pink-deep:  #F79CBB;
-  --berry:      #B23A60;   /* text-safe toffee for small text on ivory (5.4:1) */
-  --leaf:       #6B7D35;   /* muted olive, text-safe on ivory */
-  --sage:       #F3DAD0;   /* warm stone surface tint */
+  /* accent — small marks only */
+  --pink:       #FDC3D4;   /* v1 pink: tags, stamp, underline, highlighted rows */
+  --pink-deep:  #F9A9C0;
+  --berry:      #B3335D;   /* text-safe pink for small labels and the logo dot (5.6:1 on white) */
+  --leaf:       #3B2A20;   /* no green in this direction: falls back to ink-2 */
+  --sage:       #F3EEE6;
 
   /* ink */
-  --ink:          #48312A;
-  --ink-soft:     rgba(72, 49, 42, .9);
-  --ink-faint:    rgba(72, 49, 42, .8);
-  --on-dark:      #FFF8F0;
-  --on-dark-soft: rgba(255, 248, 240, .9);
-  --line:         rgba(72, 49, 42, .12);   /* the hairline — used instead of fills */
-  --line-dark:    rgba(255, 248, 240, .18);
+  --ink:          #1A110C;
+  --ink-soft:     #3B2A20;
+  --ink-faint:    #6B5A4E;
+  --on-dark:      #FFFFFF;
+  --on-dark-soft: #E8DDD2;
+  --line:         #1A110C;   /* rules are solid ink, not hairlines */
+  --line-dark:    #3B2A20;
+  --rule:         2px;
 
-  /* type */
-  --display: 'Nunito', system-ui, sans-serif;   /* 2026-11-02 (Moses): Fredoka only for H1/H2-size display text; everything smaller is Nunito */
-  --script:  'Fredoka', system-ui, sans-serif;
-  --sans:    'Nunito', system-ui, sans-serif;
-  --mono:    'Nunito', system-ui, sans-serif;   /* small labels: Fredoka closes up below ~18px */
+  /* type: one family, two widths */
+  --display: 'Archivo', 'Arial Narrow', Helvetica, Arial, sans-serif;
+  --script:  'Archivo', 'Arial Narrow', Helvetica, Arial, sans-serif;   /* display role: 900, 70% width, caps */
+  --sans:    'Archivo', Helvetica, Arial, sans-serif;
+  --mono:    'Archivo', Helvetica, Arial, sans-serif;   /* labels: 800, caps, tracked */
 
-  /* motion — one heavy, calm curve everywhere; nothing snaps */
-  --bounce: cubic-bezier(.32, .72, 0, 1);   /* name kept from v2 */
-  --ease:   cubic-bezier(.32, .72, 0, 1);
+  /* motion */
+  --bounce: cubic-bezier(.2, .8, .2, 1);
+  --ease:   cubic-bezier(.2, .8, .2, 1);
   --ease-in: cubic-bezier(.4, 0, 1, 1);
 
-  --pad: clamp(22px, 4.5vw, 64px);
-  --r:      28px;   /* house radius — soft squircle surfaces */
-  --r-soft: 40px;   /* media and large bezels */
+  --pad: clamp(16px, 3.4vw, 56px);
+  --r:      0px;
+  --r-soft: 0px;
 }
 
 /* ---- film grain ----
@@ -63,99 +64,97 @@ body::after{
    against the viewport edge. */
 .pd-wrap{ width:100%; margin:0 auto; padding-inline:var(--pad); max-width:1580px; }
 .pd-section{ display:block; }
-.pd-rte p{ color:var(--ink-soft); font-size:var(--text-body); line-height:1.65; margin:0 0 18px; max-width:65ch; }
+.pd-rte p{ color:var(--ink-soft); font-size:var(--text-body); line-height:1.5; margin:0 0 18px; max-width:62ch; }
 .pd-rte p:last-child{ margin-bottom:0; }
 
-/* Shared section-heading primitives. MUST live here — see v2 note about the
-   stat deck loading only its own sheet. */
+/* Section head: huge condensed title on the left, a short caps note on the right,
+   one ink rule underneath. */
 .pd-sec-head{
   display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
-  flex-wrap:wrap; margin-bottom:clamp(34px,4.5vw,60px);
+  flex-wrap:wrap; margin-bottom:clamp(28px,3.6vw,48px);
+  padding-bottom:22px; border-bottom:var(--rule) solid var(--line);
 }
-.pd-sec-title{ margin:0; color:var(--cocoa); font-family:var(--script); font-weight:600;
-  font-size:clamp(38px,4.8vw,64px); line-height:1.05; letter-spacing:0; text-wrap:balance; }
+.pd-sec-title{ margin:0; color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%;
+  text-transform:uppercase; font-size:clamp(44px,6.4vw,104px); line-height:.86; letter-spacing:-.015em; text-wrap:balance; }
 .pd-squiggle{ display:none; }
-.pd-eyebrow{ font-family:var(--sans); font-size:15px; font-weight:700; letter-spacing:0; color:var(--cocoa);
-  display:inline-flex; align-items:center; gap:8px; width:fit-content; background:none; border-radius:0; padding:0; }
-.pd-eyebrow::before{ content:""; width:10px; height:10px; border-radius:50%; background:var(--pink-deep); flex:none; }
-.pd-lede{ color:var(--ink-soft); font-size:var(--text-body); line-height:1.65; margin:0 0 18px; max-width:65ch; }
-.pd-lede--intro{ color:var(--cocoa); font-family:var(--sans); font-weight:500;
-  font-size:clamp(18px,1.6vw,21px); line-height:1.55; }
+.pd-eyebrow{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa);
+  display:inline-flex; align-items:center; gap:10px; width:fit-content; background:none; border-radius:0; padding:0; }
+.pd-eyebrow::before{ content:""; width:8px; height:8px; border-radius:0; background:var(--berry); flex:none; }
+.pd-lede{ color:var(--ink-soft); font-size:var(--text-body); line-height:1.5; margin:0 0 18px; max-width:62ch; }
+.pd-lede--intro{ color:var(--cocoa); font-family:var(--sans); font-weight:600;
+  font-size:clamp(17px,1.4vw,20px); line-height:1.4; }
 
-/* Double-bezel: media and cards sit in a machined tray, never flat on the page.
-   Apply .pd-bezel to a wrapper that contains exactly the media/content box. */
-.pd-bezel{
-  background:rgba(72, 49, 42,.045);
-  box-shadow:inset 0 0 0 1px rgba(72, 49, 42,.07);
-  border-radius:calc(var(--r-soft) + 6px); padding:6px;
-}
-.pd-bezel > *{ border-radius:var(--r-soft); overflow:hidden; display:block; }
+/* Media frame: a 2px ink border, square. (Was the rounded "double bezel".) */
+.pd-bezel{ background:none; box-shadow:none; border-radius:0; padding:0; border:var(--rule) solid var(--line); }
+.pd-bezel > *{ border-radius:0; overflow:hidden; display:block; }
 
-/* Pill button. These rules used to live only in prodani-hero.css, which only the
-   old video hero loads. Since the 3D hero swap every .pd-btn lost its arrow
-   sizing: the svg grew to ~53px and squeezed the label onto three lines
-   ("Read my story", "Shop all cakes"). Section stylesheets may still refine it. */
+/* Button: a black block, caps, tracked. The arrow chip is dropped in this direction. */
 .pd-btn{
-  display:inline-flex; align-items:center; gap:10px; height:54px; padding:0 28px;
-  border-radius:999px; background:var(--cocoa); color:var(--cream);
-  font-family:var(--display); font-weight:600; font-size:17px; text-decoration:none; white-space:nowrap;
-  transition:transform .4s var(--bounce), background .3s;
+  display:inline-flex; align-items:center; justify-content:center; gap:.6em; min-height:56px; height:auto; padding:0 28px;
+  border-radius:0; background:var(--cocoa); color:#fff; border:var(--rule) solid var(--cocoa);
+  font-family:var(--sans); font-weight:800; font-size:14px; letter-spacing:.06em; text-transform:uppercase;
+  text-decoration:none; white-space:nowrap;
+  transition:transform .25s var(--ease), background .2s, color .2s;
 }
-.pd-btn svg{ width:28px; height:28px; padding:7px; box-sizing:border-box; border-radius:50%;
-  flex:0 0 auto; background:rgba(255, 248, 240,.16); transition:transform .6s var(--ease); }
-.pd-btn--pink{ background:var(--pink); color:var(--cocoa); }
-.pd-btn--pink:hover{ background:var(--pink-deep); }
-.pd-btn--pink svg{ background:rgba(72, 49, 42,.14); }
-.pd-btn:hover svg{ transform:translate(2px,-1px); }
-.pd-btn:active{ transform:scale(.98); }
+.pd-btn svg{ display:none; }
+.pd-btn--pink{ background:var(--pink); color:var(--cocoa); border-color:var(--pink); }
+.pd-btn--pink:hover{ background:var(--pink-deep); border-color:var(--pink-deep); }
+.pd-btn:hover{ transform:translateY(-2px); }
+.pd-btn:active{ transform:translateY(0); }
+.pd-btn:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; }
 
-/* Dawn paints <body> from its own colour scheme, which left every page white
-   outside the content column.
-
-   This rule alone does NOT fix that: Dawn renders <body class="gradient"> and
-   paints it with `.gradient{background:var(--gradient-background)}` — a class
-   selector outranks a bare `body` regardless of load order. The actual fix is
-   in config/settings_data.json, where scheme-1's background feeds
-   --gradient-background and every other Dawn surface.
-
-   This stays as the floor for any page that renders without the gradient class. */
+/* Dawn paints <body> from its own colour scheme (config/settings_data.json feeds
+   --gradient-background); this is the floor for pages without the gradient class. */
 body{ background-color:var(--cream); }
 
-/* Option B: controls inherit the brand fonts instead of the browser default. */
-.pd-box__size,.pd-box__size *{ font-family:var(--display); }
-.pd-box__size-per{ font-family:var(--sans); }
+/* Controls inherit the brand font instead of the browser default. */
+.pd-box__size,.pd-box__size *{ font-family:var(--sans); }
 .pd-review__body{ font-style:normal; }
-.button,.shopify-challenge__button,.customer button,button.shopify-payment-button__button--unbranded{ font-family:var(--display); font-weight:600; border-radius:999px; letter-spacing:0; }
-.button::before,.button::after{ border-radius:999px; }
-.pd-foot button,footer button,footer input{ font-family:var(--display); }
-footer input{ font-family:var(--sans); }
-h1,h2,.h0,.h1,.h2{ font-family:var(--script); font-weight:600; letter-spacing:0; }
-h3,.h3,h4,.h4{ font-family:var(--sans); font-weight:700; letter-spacing:0; }
+.button,.shopify-challenge__button,.customer button,button.shopify-payment-button__button--unbranded{
+  font-family:var(--sans); font-weight:800; border-radius:0; letter-spacing:.06em; text-transform:uppercase; }
+.button::before,.button::after{ border-radius:0; box-shadow:none; }
+.pd-foot button,footer button,footer input{ font-family:var(--sans); }
 .button.visually-hidden::before,.button.visually-hidden::after{ display:none; }
 
-/* ---- Type roles (2026-11-02 audit) ----
-   Headings: Fredoka, 18px and up. Running text: Nunito 400-500. Labels and data: Nunito 700, 13px minimum.
-   Dawn's own text still pointed at Assistant, a third font; its variables load before this sheet. */
+/* ---- Type roles (Macro Bold) ----
+   Display (H1/H2 size and the big numbers): Archivo 900 at 70% width, caps, tight.
+   Running text: Archivo 500 at normal width. Labels and data: Archivo 800, caps, tracked.
+   Dawn's own text variables load before this sheet and are pointed here too. */
 :root{
   --text-body:17px;
-  --font-body-family:'Nunito',system-ui,sans-serif;
-  --font-body-weight:400;
-  --font-body-weight-bold:700;
-  --font-heading-family:'Fredoka',system-ui,sans-serif;
-  --font-heading-weight:700;
-  --pd-nav-h:60px;
+  --font-body-family:'Archivo',Helvetica,Arial,sans-serif;
+  --font-body-weight:500;
+  --font-body-weight-bold:800;
+  --font-heading-family:'Archivo','Arial Narrow',Helvetica,Arial,sans-serif;
+  --font-heading-weight:900;
+  --pd-nav-h:64px;
 }
-@media (min-width:961px){ :root{ --pd-nav-h:72px; } }
+@media (min-width:961px){ :root{ --pd-nav-h:76px; } }
+body{ font-family:var(--sans); font-weight:500; color:var(--ink); -webkit-font-smoothing:antialiased; }
+h3,.h3,h4,.h4{ font-family:var(--sans); font-weight:800; letter-spacing:-.005em; }
 
-/* Display pieces that keep the rounded font (H1/H2-size only). */
-/* `html` prefix: section sheets load after this one and set var(--display) on these. */
+/* Display pieces. `html` prefix: section sheets load after this one and set their own fonts. */
 html h1, html h2, html .h0, html .h1, html .h2, html .product__title h1, html .product__title .h1, html .pd-cat__done h2,
 html .pd-fh__h, html .pd-stack__figure, html .pd-stack__peek b, html .pd-cmp__table .is-big, html .pd-fh__sticker b,
 html .pd-mq, html .pd-bleed__word, html .pd-reviews__count, html .pd-card--mix__t, html .pd-box__title, html .pd-giant__line{
-  font-family:var(--script); }
-html .pd-fh__h, html .pd-card--mix__t, html .product__title h1{ font-weight:600; }
-/* Nunito needs a step more weight than Fredoka did to read as a button. */
-.button, .pd-btn, .pd-fh__pill, .pd-nav__link, .pd-nav__cart, .pd-menu__link, .pd-card__name{ font-weight:700; }
-.pd-menu__link{ font-size:26px; }
-/* Small headings that are labels, not display: review quotes, footer column heads. */
-html .pd-review__title, html .pd-foot__colhead, html .pd-foot__card-title{ font-family:var(--sans); font-weight:700; }
+  font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; letter-spacing:-.015em; line-height:.88; }
+/* Buttons and nav: caps, tracked. */
+.button, .pd-btn, .pd-fh__pill, .pd-nav__link, .pd-nav__cart, .pd-menu__link{ font-weight:800; }
+/* Small headings that are labels, not display. */
+html .pd-review__title, html .pd-foot__colhead, html .pd-foot__card-title{ font-family:var(--sans); font-stretch:100%; text-transform:none; }
+
+/* Numbers line up. */
+.pd-num, .price, .price-item, .pd-card__price, .totals__total-value{ font-variant-numeric:tabular-nums; }
+
+/* Shared accent tag: square, caps, ink outline; --pink fills it. */
+.pd-tag{ display:inline-block; font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+  padding:6px 9px; border:var(--rule) solid var(--cocoa); color:var(--cocoa); background:#fff; line-height:1; }
+.pd-tag--pink{ background:var(--pink); border-color:var(--pink); }
+
+/* Keyboard focus is visible everywhere. */
+:where(a, button, input, select, textarea, summary):focus-visible{ outline:3px solid var(--berry); outline-offset:2px; }
+@media (prefers-reduced-motion:reduce){ *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } }
+.pd-btn--ghost{ background:transparent; color:var(--cocoa); }
+.pd-btn--ghost:hover{ background:var(--cocoa); color:#fff; }
+.pd-btn--light{ background:#fff; color:var(--cocoa); border-color:#fff; }
+.pd-btn--light:hover{ background:var(--pink); border-color:var(--pink); }

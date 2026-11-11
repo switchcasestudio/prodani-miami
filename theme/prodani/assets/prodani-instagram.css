@@ -40,3 +40,27 @@
 @media (max-width:749px){
   .pd-ig__item:nth-child(n+5){ display:none; }
 }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   One ruled strip of six square tiles; follow link as a square block. */
+.pd-ig{ background:#fff; }
+.pd-ig .pd-sec-head{ margin-bottom:0; }
+.pd-ig__grid{ gap:0; border:var(--rule) solid var(--line); border-top:0; }
+.pd-ig__item{ border-radius:0; border-right:var(--rule) solid var(--line); }
+.pd-ig__item:last-child{ border-right:0; }
+.pd-ig__follow{ border-radius:0; font-family:var(--mono); font-weight:800; font-size:12px; letter-spacing:.12em; text-transform:uppercase; padding:14px 18px; }
+.pd-ig__follow:hover{ transform:none; background:var(--cocoa-soft); }
+.pd-ig__glyph{ background:rgba(26,17,12,.4); }
+@media (max-width:1180px){ .pd-ig__item:nth-child(4n){ border-right:0; } .pd-ig__item:nth-child(-n+4){ border-bottom:var(--rule) solid var(--line); } }
+@media (max-width:749px){
+  .pd-ig__grid{ grid-template-columns:repeat(2,1fr); }
+  .pd-ig__item{ border-bottom:0 !important; border-right:var(--rule) solid var(--line) !important; }
+  .pd-ig__item:nth-child(2n){ border-right:0 !important; }
+  .pd-ig__item:nth-child(-n+2){ border-bottom:var(--rule) solid var(--line) !important; }
+}
+
+/* ---- Macro Bold audit fixes (2026-11-10): second-tier head, no rule. ---- */
+.pd-ig .pd-sec-head{ border-bottom:0; padding-bottom:0; margin-bottom:18px; align-items:center; }
+.pd-ig .pd-sec-title{ font-size:clamp(32px,3.6vw,52px); }
+.pd-ig__grid{ border-top:var(--rule) solid var(--line); }
+.pd-ig{ padding-bottom:clamp(56px,6vw,88px); }

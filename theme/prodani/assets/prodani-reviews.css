@@ -124,3 +124,63 @@ font-weight:600; }
   .pd-reviews__grid::-webkit-scrollbar{ display:none; }
   .pd-reviews__grid .pd-review{ flex:0 0 84%; scroll-snap-align:center; }
 }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Reviews move onto white: the count set enormous in ink, stars in text-safe
+   pink, the quotes as three cells of one ruled box. */
+.pd-reviews{ background:#fff; color:var(--cocoa); padding-block:clamp(64px,7vw,104px); }
+.pd-reviews__head{ border-bottom:var(--rule) solid var(--line); padding-bottom:24px; margin-bottom:clamp(28px,3vw,44px); }
+.pd-reviews__count{ color:var(--cocoa); font-size:clamp(150px,22vw,340px); line-height:.8; letter-spacing:-.04em; }
+.pd-reviews__label{ color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:clamp(34px,4vw,64px); line-height:.88; max-width:8ch; }
+.pd-reviews__stars{ color:rgba(26,17,12,.16); font-size:clamp(22px,2.2vw,32px); }
+.pd-reviews__stars > span{ color:var(--berry); }
+.pd-reviews__sub{ color:var(--ink-soft); font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.pd-reviews__sub b{ color:var(--cocoa); font-weight:800; }
+
+.pd-reviews__grid{ gap:0; border:var(--rule) solid var(--line); }
+.pd-review{ border:0; border-right:var(--rule) solid var(--line); border-radius:0; gap:14px; padding:clamp(22px,2.2vw,30px) clamp(20px,2vw,28px); }
+.pd-review:last-child{ border-right:0; }
+.pd-review:hover{ transform:none; background:var(--butter); border-color:var(--line); }
+.pd-review__stars{ color:var(--berry); }
+.pd-review__title, html .pd-review__title{ color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:72%; text-transform:uppercase; font-size:clamp(26px,2.2vw,34px); line-height:.95; }
+.pd-review__body{ color:var(--ink-soft); font-size:15px; line-height:1.5; }
+.pd-review__who{ border-top:0; padding-top:12px; }
+.pd-review__avatar{ display:none; }
+.pd-review__who b{ color:var(--cocoa); font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; display:inline; }
+.pd-review__who i{ color:var(--cocoa); font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; display:inline; }
+.pd-review__who b::after{ content:" · "; }
+.pd-reviews .pd-btn{ background:var(--cocoa); color:#fff; }
+.pd-reviews .pd-btn:hover{ background:var(--cocoa-soft); }
+.pd-btn--outline{ background:transparent; color:var(--cocoa); box-shadow:none; border-color:var(--cocoa); }
+.pd-btn--outline:hover{ background:var(--cocoa); color:#fff; }
+.pd-reviews__widget{ color:var(--cocoa); border-top:var(--rule) solid var(--line); }
+.pd-reviews__widget .jdgm-rev__author, .pd-reviews__widget .jdgm-rev__title, .pd-reviews__widget .jdgm-rev__body,
+.pd-reviews__widget .jdgm-rev__body p, .pd-reviews__widget .jdgm-rev__timestamp, .pd-reviews__widget .jdgm-rev__buyer-badge{ color:var(--cocoa) !important; }
+.pd-reviews__widget .jdgm-rev{ border-color:var(--line) !important; }
+.pd-reviews__widget .jdgm-star{ color:var(--berry) !important; }
+@media (max-width:980px){
+  .pd-review:nth-child(2n){ border-right:0; }
+  .pd-review:nth-child(-n+2){ border-bottom:var(--rule) solid var(--line); }
+}
+@media (max-width:749px){
+  .pd-reviews__grid{ gap:0; border:0; }
+  .pd-reviews__grid .pd-review{ flex:0 0 84%; border:var(--rule) solid var(--line); margin-right:-2px; }
+  .pd-reviews__count{ font-size:clamp(130px,40vw,190px); }
+}
+.pd-review__body{ border-left:0; padding-left:0; margin-left:0; }
+blockquote.pd-review__body{ border-left:0 !important; padding-left:0 !important; margin:0; font-style:normal; }
+
+/* ---- Macro Bold audit fixes (2026-11-10) ----
+   Rating-led layout: "4.9" + stars on the left, the three quotes beside it (mockup). */
+.pd-reviews--rating > .pd-wrap{ display:grid; grid-template-columns:minmax(0,auto) minmax(0,1fr); column-gap:clamp(28px,4vw,64px); align-items:start; }
+.pd-reviews--rating > .pd-wrap > *{ grid-column:2; }
+.pd-reviews--rating .pd-reviews__head{ grid-column:1; grid-row:1 / span 4; border-bottom:0; padding-bottom:0; margin:0; }
+.pd-reviews--rating .pd-reviews__hero{ flex-direction:column; align-items:flex-start; gap:14px; }
+.pd-reviews--rating .pd-reviews__count{ font-size:clamp(140px,15vw,240px); }
+.pd-reviews--rating .pd-reviews__side{ padding:0; }
+.pd-reviews--rating .pd-reviews__sub{ margin-top:12px; }
+@media (max-width:1100px){
+  .pd-reviews--rating > .pd-wrap{ display:block; }
+  .pd-reviews--rating .pd-reviews__head{ margin-bottom:28px; }
+  .pd-reviews--rating .pd-reviews__hero{ flex-direction:row; align-items:flex-end; }
+}

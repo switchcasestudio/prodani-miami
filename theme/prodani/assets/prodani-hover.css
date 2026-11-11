@@ -17,26 +17,26 @@
   }
   .pd-box__flavor:hover {
     transform: translateY(-4px);
-    border-color: var(--pink-deep);
-    box-shadow: 0 12px 26px rgba(72, 49, 42, .12);
+    border-color: var(--cocoa);
+    box-shadow: none;
   }
 
   /* Size chips: slightly bolder than the stock -2px */
   .pd-box__size:hover {
-    transform: translateY(-3px) scale(1.03);
-    border-color: var(--pink-deep);
+    transform: translateY(-2px);
+    border-color: var(--cocoa);
   }
 
   /* Curated boxes: same family as product cards, one step calmer */
   .pd-box__curated-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--pink-deep);
-    box-shadow: 0 16px 32px rgba(72, 49, 42, .14);
+    transform: none; background: var(--butter);
+    border-color: var(--cocoa);
+    box-shadow: none;
   }
 
   /* Buttons across the site: keep the -2px lift, add ground contact */
   .pd-btn:hover {
-    box-shadow: 0 10px 22px rgba(72, 49, 42, .16);
+    box-shadow: none;
   }
   .pd-btn--outline:hover {
     box-shadow: none; /* outline buttons keep their flat hover from reviews css */

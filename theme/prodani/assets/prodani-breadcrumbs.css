@@ -16,3 +16,13 @@
   .pd-crumbs ol{ font-size:13px; letter-spacing:.05em; }
   .pd-crumbs li + li::before{ margin:0 .5em; }
 }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Small heavy caps; links in ink-2, the current page in ink. */
+.pd-crumbs{ margin:0; padding:16px 0; }
+.pd-crumbs ol{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; color:var(--ink-soft); }
+.pd-crumbs li + li::before{ margin:0 .5em; color:var(--ink-soft); }
+.pd-crumbs a{ color:var(--ink-soft); display:inline-flex; align-items:center; min-height:24px; }
+.pd-crumbs a:hover{ color:var(--cocoa); text-decoration:none; box-shadow:inset 0 -2px 0 var(--pink); }
+.pd-crumbs [aria-current="page"]{ color:var(--cocoa); }
+@media (max-width:749px){ .pd-crumbs ol{ font-size:11px; letter-spacing:.12em; } }

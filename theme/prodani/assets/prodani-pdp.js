@@ -79,6 +79,19 @@
     }, { threshold: 0 });
     io.observe(anchor);
     if (footer) io.observe(footer);
+    /* A jump (back to top, anchor link) can carry the button from above the viewport
+       to below it without ever intersecting, so the observer never fires and the bar
+       stayed up over the real button. Re-check position on scroll, once per frame. */
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var past = anchor.getBoundingClientRect().bottom < 0;
+        if (past !== pastButton) { pastButton = past; update(); }
+      });
+    }, { passive: true });
   }
 
   var mo = new MutationObserver(function (records) {

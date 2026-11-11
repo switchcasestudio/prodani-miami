@@ -125,3 +125,155 @@ font-weight:600; }
 .pd-spreads__close-text{ margin:14px 0 0; color:var(--ink-soft); font-size:16.5px; line-height:1.65; max-width:46ch; }
 .pd-spreads__close-panel .pd-spreads__form-row input{ background:var(--cream); }
 @media (max-width:860px){ .pd-spreads__close-panel{ grid-template-columns:1fr; } }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Coming-soon page in the same language as the homepage: huge condensed caps, a
+   pink COMING SOON tag, claim tags as one ruled strip, the notify form as one ruled
+   bar (field + black button sharing a border). Flavor cards, formats and moments are
+   ruled cells sharing borders; each flavor keeps its deck accent only as a 6px bar
+   under its image. The brand band is the page's single ink band. Square, no shadows. */
+.pd-spreads{ background:#fff; }
+.pd-spreads__h2{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; letter-spacing:-.015em;
+  line-height:.86; font-size:clamp(44px,6.4vw,104px); text-wrap:balance; }
+
+/* hero */
+.pd-spreads__hero-grid{ grid-template-columns:minmax(0,1100px); }
+.pd-spreads__hero-copy .pd-eyebrow{ gap:14px; margin-bottom:18px; }
+.pd-spreads__soon{ height:auto; padding:6px 9px; border-radius:0; background:var(--pink); color:var(--cocoa); letter-spacing:.14em; font-size:11px; line-height:1; }
+.pd-spreads__title{ font-size:clamp(60px,10vw,168px); line-height:.84; }
+.pd-spreads__lede{ margin-top:24px; }
+.pd-spreads__lede p{ color:var(--cocoa); font-weight:600; font-size:clamp(18px,1.6vw,22px); line-height:1.45; }
+.pd-spreads__chips{ gap:0; margin-top:26px; width:fit-content; max-width:100%; border-top:var(--rule) solid var(--line); border-left:var(--rule) solid var(--line); }
+.pd-spreads__chips li{ border:0; border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); border-radius:0;
+  background:#fff; color:var(--cocoa); font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; padding:12px 14px; line-height:1; }
+.pd-spreads__hero-media{ margin-top:clamp(36px,4.6vw,64px); }
+
+/* notify: one ruled bar */
+.pd-spreads__notify{ max-width:640px; margin-top:clamp(28px,3.4vw,40px); }
+.pd-spreads__form{ gap:10px; }
+.pd-spreads__form-label{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa); }
+.pd-spreads__form-row{ gap:0; border:var(--rule) solid var(--line); flex-wrap:nowrap; }
+.pd-spreads__form-row input{ height:60px; border:0; border-radius:0; background:#fff; padding:0 18px; font-weight:500; font-size:16px; }
+.pd-spreads__form-row input:focus-visible{ outline:3px solid var(--berry); outline-offset:-3px; }
+.pd-spreads__form-row .pd-btn, .pd-spreads__form-row .pd-btn--pink{ min-height:60px; background:var(--cocoa); color:#fff; border:0; border-left:var(--rule) solid var(--line); }
+.pd-spreads__form-row .pd-btn:hover{ transform:none; background:var(--cocoa-soft); }
+.pd-spreads__form-row .pd-btn:focus-visible{ outline-offset:-5px; outline-color:var(--pink); }
+.pd-spreads__form-ok, .pd-spreads__form-err{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--berry); }
+@media (max-width:560px){
+  .pd-spreads__form-row{ flex-wrap:wrap; }
+  .pd-spreads__form-row input{ flex-basis:100%; }
+  .pd-spreads__form-row .pd-btn{ flex:1 1 100%; border-left:0; border-top:var(--rule) solid var(--line); }
+}
+
+/* idea */
+.pd-spreads__idea-grid{ align-items:end; }
+.pd-spreads__idea-text p{ font-family:var(--sans); font-weight:600; font-size:clamp(18px,1.6vw,22px); line-height:1.45; max-width:46ch; }
+
+/* trio: three cells, one ruled grid */
+.pd-spreads__trio-lede{ font-weight:500; }
+.pd-spreads__cards{ gap:0; border-top:var(--rule) solid var(--line); border-left:var(--rule) solid var(--line); }
+.pd-spreads__card{ border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); padding-bottom:clamp(22px,2.4vw,32px); }
+.pd-spreads__card > :not(.pd-spreads__card-media):not(.pd-spreads__card-bar){ margin-inline:clamp(18px,2vw,28px); }
+.pd-spreads__card-media{ border:0; }
+.pd-spreads__card-bar{ height:6px; border-radius:0; margin:0; border-top:var(--rule) solid var(--line); box-sizing:content-box; }
+.pd-spreads__card-n{ margin-top:22px; font-family:var(--script); font-weight:900; font-stretch:70%; font-size:56px; line-height:.8; letter-spacing:-.02em; color:var(--cocoa); }
+.pd-spreads__card-title{ margin-top:14px; font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; letter-spacing:-.01em;
+  font-size:clamp(40px,3.6vw,56px); line-height:.86; gap:12px; }
+.pd-spreads__card-title span{ font-family:var(--mono); font-stretch:100%; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa);
+  border:var(--rule) solid var(--cocoa); padding:5px 7px; line-height:1; align-self:center; }
+.pd-spreads__card-tag{ font-family:var(--sans); font-weight:800; font-size:17px; color:var(--cocoa); margin-top:14px; }
+.pd-spreads__card-text{ font-weight:500; font-size:15.5px; line-height:1.55; }
+.pd-spreads__card-specs{ border-top:var(--rule) solid var(--line); margin-top:auto; padding-top:16px; gap:8px 16px; }
+.pd-spreads__card-text + .pd-spreads__card-specs, .pd-spreads__card-tag + .pd-spreads__card-specs{ margin-top:20px; }
+.pd-spreads__card-specs dt{ font-family:var(--mono); font-size:10.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa); padding-top:4px; }
+.pd-spreads__card-specs dd{ font-weight:500; font-size:14.5px; }
+@media (max-width:620px){ .pd-spreads__cards{ gap:0; } }
+
+/* brand band: the one ink band */
+.pd-spreads__band-title{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; letter-spacing:-.015em;
+  line-height:.86; font-size:clamp(56px,8vw,132px); color:#fff; }
+.pd-spreads__band-title::after{ content:""; display:block; width:min(220px,40%); height:10px; margin-top:18px; background:var(--pink); }
+.pd-spreads__band .pd-eyebrow{ color:#fff; }
+.pd-spreads__band-text p{ font-weight:500; }
+.pd-spreads__promise{ border-top:var(--rule) solid var(--on-dark-soft); padding-top:20px; font-weight:600; }
+.pd-spreads__promise span{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--pink); }
+.pd-spreads__band-media{ border-radius:0; border:var(--rule) solid #fff; }
+
+/* formats: ruled rows, number condensed */
+.pd-spreads__formats-list{ gap:0; border:var(--rule) solid var(--line); }
+.pd-spreads__format{ background:#fff; border:0; border-radius:0; gap:clamp(16px,2vw,26px); padding:clamp(18px,2.2vw,28px); transition:background .2s; }
+.pd-spreads__format + .pd-spreads__format{ border-top:var(--rule) solid var(--line); }
+.pd-spreads__format:hover{ background:var(--butter); }
+.pd-spreads__format-n{ font-family:var(--script); font-weight:900; font-stretch:70%; font-size:56px; line-height:.8; letter-spacing:-.02em; color:var(--cocoa); padding-top:0; min-width:1.2em; }
+.pd-spreads__format-body h3{ font-family:var(--mono); font-size:12px; letter-spacing:.14em; font-weight:800; }
+.pd-spreads__format-lede{ font-family:var(--sans); font-weight:800; font-size:clamp(19px,1.6vw,22px); line-height:1.25; margin-top:8px; }
+.pd-spreads__format-text{ font-weight:500; font-size:15px; }
+.pd-spreads__format-tag{ display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa);
+  background:var(--pink); padding:5px 8px; line-height:1; }
+.pd-spreads__formats-grid{ align-items:stretch; }
+.pd-spreads__formats-media{ display:flex; }
+.pd-spreads__formats-media img{ height:100%; }
+.pd-spreads__note{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+
+/* moments: four ruled cells */
+.pd-spreads__moments-title{ padding-bottom:22px; margin-bottom:0; border-bottom:var(--rule) solid var(--line); }
+.pd-spreads__moments-grid{ gap:0; border-left:var(--rule) solid var(--line); }
+.pd-spreads__moments-grid li{ border-top:0; border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); padding:clamp(18px,2vw,28px); }
+.pd-spreads__moments-grid h3{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:clamp(34px,3vw,48px); line-height:.86; letter-spacing:-.01em; }
+.pd-spreads__moments-grid p{ font-weight:500; font-size:15px; margin-top:12px; }
+
+/* closing: bone panel in a 2px rule */
+.pd-spreads__close-panel{ border-radius:0; border:var(--rule) solid var(--line); background:var(--butter); }
+.pd-spreads__close-panel .pd-spreads__h2{ font-size:clamp(44px,5.4vw,88px); }
+.pd-spreads__close-text{ font-weight:500; font-size:17px; color:var(--cocoa); }
+.pd-spreads__close-panel .pd-spreads__form-row input{ background:#fff; }
+
+/* Macro Bold audit fixes (2026-11-10) */
+/* No jar renders: the flavors are set as type in ruled cells. */
+
+/* hero: three flavor cells */
+.pd-spreads__type{ list-style:none; margin:clamp(36px,4.6vw,64px) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:var(--rule) solid var(--line); border-left:var(--rule) solid var(--line); }
+.pd-spreads__type-cell{ position:relative; display:flex; flex-direction:column; gap:14px; min-width:0; min-height:clamp(260px,26vw,400px);
+  padding:clamp(18px,2vw,28px); background:var(--butter); border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); }
+.pd-spreads__type-cell:nth-child(2){ background:#fff; }
+.pd-spreads__type-n{ display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.14em; color:var(--cocoa); }
+.pd-spreads__type-n::before{ content:""; width:10px; height:10px; background:var(--accent); flex:none; }
+.pd-spreads__type-name{ margin-top:auto; font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; color:var(--cocoa);
+  font-size:clamp(56px,8.6vw,150px); line-height:.82; letter-spacing:-.02em; overflow-wrap:anywhere; }
+.pd-spreads__type-kind{ padding-top:12px; border-top:var(--rule) solid var(--line); font-family:var(--mono); font-size:11px; font-weight:800;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa); }
+@media (max-width:749px){
+  .pd-spreads__type{ grid-template-columns:minmax(0,1fr); }
+  .pd-spreads__type-cell{ min-height:0; flex-direction:row; flex-wrap:wrap; align-items:baseline; column-gap:14px; row-gap:8px; }
+  .pd-spreads__type-n{ flex:0 0 100%; }
+  .pd-spreads__type-name{ margin-top:0; font-size:clamp(56px,18vw,84px); }
+  .pd-spreads__type-kind{ flex:0 0 100%; }
+}
+
+/* trio cards: no media, the accent bar opens the card (no double rule) */
+.pd-spreads__card-bar:first-child{ border-top:0; }
+
+/* brand band: the three names in white, ruled */
+.pd-spreads__band-names{ list-style:none; margin:0; padding:0; border-top:var(--rule) solid #fff; }
+.pd-spreads__band-names li{ display:flex; align-items:baseline; gap:16px; padding:14px 0 12px; border-bottom:var(--rule) solid #fff;
+  font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; color:#fff;
+  font-size:clamp(52px,6vw,104px); line-height:.86; letter-spacing:-.02em; }
+.pd-spreads__band-names li span{ display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-stretch:100%; font-size:12px; font-weight:800;
+  letter-spacing:.14em; color:var(--on-dark-soft); }
+.pd-spreads__band-names li span::before{ content:""; width:8px; height:8px; background:var(--pink); }
+
+/* formats with no photo: the three rows become three cells across */
+.pd-spreads__formats-grid--solo{ grid-template-columns:minmax(0,1fr); }
+.pd-spreads__formats-grid--solo .pd-spreads__formats-list{ grid-template-columns:repeat(3,minmax(0,1fr)); border:0;
+  border-top:var(--rule) solid var(--line); border-left:var(--rule) solid var(--line); }
+.pd-spreads__formats-grid--solo .pd-spreads__format{ border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); }
+.pd-spreads__formats-grid--solo .pd-spreads__format + .pd-spreads__format{ border-top:0; }
+@media (max-width:860px){
+  .pd-spreads__formats-grid--solo .pd-spreads__formats-list{ grid-template-columns:minmax(0,1fr); }
+}
+/* Size the names to their cell so PISTACHIO never breaks mid-word. */
+.pd-spreads__type-cell{ container-type:inline-size; }
+.pd-spreads__type-name{ overflow-wrap:normal; word-break:normal; hyphens:none; white-space:nowrap; font-size:min(150px, 18.5cqi); }
+@media (max-width:749px){ .pd-spreads__type-name{ font-size:min(96px, 19cqi); } }
+@media (min-width:750px){ .pd-spreads__type-name{ font-size:min(170px, 22cqi); } .pd-spreads__type-cell{ min-height:clamp(240px,22vw,340px); } }

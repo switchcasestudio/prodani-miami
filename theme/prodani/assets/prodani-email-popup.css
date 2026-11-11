@@ -53,3 +53,29 @@
 @media (prefers-reduced-motion:reduce){
   .pd-pop__card, .pd-pop__scrim{ transition:opacity .2s linear; transform:none; }
 }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   (Popup is switched off in footer-group.json; this keeps it on-brand if enabled.)
+   Square white card in a 2px ink frame, no drop shadow; condensed caps title; the
+   field and black button share one ruled bar; square close button. */
+.pd-pop__scrim{ background:rgba(26,17,12,.6); }
+.pd-pop__card{ border-radius:0; box-shadow:none; background:#fff; border:var(--rule) solid var(--line); }
+.pd-pop__close{ border-radius:0; width:44px; height:44px; top:0; right:0; background:var(--cocoa); color:#fff; }
+.pd-pop__close:hover{ background:var(--cocoa-soft); }
+.pd-pop__media{ border-bottom:var(--rule) solid var(--line); }
+.pd-pop__eyebrow{ display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; color:var(--cocoa); }
+.pd-pop__eyebrow::before{ content:""; width:8px; height:8px; background:var(--berry); }
+.pd-pop__title{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; letter-spacing:-.015em; line-height:.86; font-size:clamp(40px,5vw,56px); margin-bottom:14px; }
+.pd-pop__text p{ font-weight:500; }
+.pd-pop__field{ gap:0; border:var(--rule) solid var(--line); }
+.pd-pop__field input{ border:0; border-radius:0; background:#fff; min-height:56px; font-size:16px; }
+.pd-pop__field input:focus-visible{ outline:3px solid var(--berry); outline-offset:-3px; }
+.pd-pop__submit{ border-radius:0; min-height:56px; font-weight:800; font-size:14px; letter-spacing:.06em; text-transform:uppercase; border-left:var(--rule) solid var(--line); }
+.pd-pop__submit:hover{ transform:none; background:var(--cocoa-soft); }
+.pd-pop__submit:focus-visible{ outline-offset:-5px; outline-color:var(--pink); }
+.pd-pop__success{ color:var(--cocoa); font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.pd-pop__consent{ color:var(--ink-soft); }
+@media (max-width:480px){
+  .pd-pop__card{ border-radius:0; border-width:var(--rule) 0 0; }
+  .pd-pop__submit{ border-left:0; border-top:var(--rule) solid var(--line); }
+}

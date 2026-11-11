@@ -121,3 +121,198 @@
 .pd-nutrition p:nth-child(2){ font-size:17px; border-bottom:4px solid var(--ink); }
 .pd-nutrition p:last-child{ border-bottom:0; font-size:14px; color:var(--ink-soft); padding-top:9px; }
 .pd-sub__opt-price .pd-pack{ font-weight:500; color:var(--ink-soft); }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Claim tags, rating line, purchase options as a ruled box, the four-cell macro row,
+   trust line with pink square bullets, the ink sticky bar, and the full-width details
+   band + ruled nutrition table under the product frame. */
+
+/* ---- claim tags (above the title) ---- */
+.pd-badges{ display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none; }
+.pd-badges .pd-tag{ margin:0; }
+
+/* ---- rating ---- */
+.pd-rating{ margin:0; min-height:0; }
+.pd-rating .jdgm-prev-badge{ display:flex !important; align-items:center; gap:12px; }
+.pd-rating .jdgm-prev-badge__stars{ color:var(--berry) !important; letter-spacing:.1em; }
+.pd-rating .jdgm-star{ color:var(--berry) !important; font-size:13px !important; padding:0 1px !important; }
+.pd-rating .jdgm-prev-badge__text{ font-family:var(--mono); font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--cocoa); visibility:visible; }
+.pd-rating--store{ font-family:var(--mono); font-size:13px; }
+.product__info-container .pd-rating--store .pd-rating__link{ gap:8px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--cocoa); border-bottom:0; }
+.product__info-container .pd-rating--store .pd-rating__link:hover{ border-bottom:0; color:var(--berry); }
+.pd-rating__count{ color:var(--cocoa); }
+.pd-rating--store .pd-rating__link:focus-visible{ border-radius:0; }
+
+/* ---- taste line ---- */
+.pd-taste{ margin:0; color:var(--cocoa); font-weight:600; }
+
+/* ---- purchase options: ruled box, bone header, two cells + frequency row ---- */
+.pd-sub{ display:flex; flex-direction:row; flex-wrap:wrap; gap:0; margin:0; padding:0; border:var(--rule) solid var(--line); }
+.pd-sub__legend{ float:left; width:100%; box-sizing:border-box; margin:0; padding:12px 16px; background:var(--butter);
+  border-bottom:var(--rule) solid var(--line); font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--cocoa); }
+.pd-sub__opt{ flex:1 1 50%; min-width:0; box-sizing:border-box; gap:12px; padding:16px; margin:0; border:0; border-radius:0;
+  background:#fff; transition:background .2s, color .2s; }
+.pd-sub__opt + .pd-sub__opt{ border-left:var(--rule) solid var(--line); }
+.pd-sub__opt:hover{ border-color:var(--line); background:var(--butter); }
+.pd-sub__opt:has(input:checked){ background:var(--cocoa); color:#fff; border-color:var(--line); }
+.pd-sub__opt:has(input:checked) :is(.pd-sub__opt-title,.pd-sub__opt-price){ color:#fff; }
+.pd-sub__opt:has(input:checked) :is(.pd-sub__opt-sub,.pd-sub__opt-price .pd-pack){ color:#D9CCBF; }
+/* Square radio: ink outline, pink fill when chosen. */
+.pd-sub__opt input{ appearance:none; -webkit-appearance:none; margin:1px 0 0; width:18px; height:18px; flex:none;
+  border:var(--rule) solid currentColor; border-radius:0; background:#fff; color:var(--cocoa); }
+.pd-sub__opt input:checked{ border-color:#fff; background:var(--pink); box-shadow:inset 0 0 0 3px var(--cocoa); }
+.pd-sub__opt input:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; }
+.pd-sub__opt-title{ font-weight:800; font-size:15px; flex-wrap:wrap; }
+.pd-sub__opt-price{ font-weight:800; font-size:14px; }
+.pd-sub__opt-sub{ font-size:13px; line-height:1.4; }
+.pd-sub__badge{ background:var(--pink); color:var(--cocoa); border-radius:0; padding:4px 7px; font-family:var(--mono); font-size:10px;
+  font-weight:800; letter-spacing:.14em; line-height:1; }
+.pd-sub__freq{ flex:0 0 100%; box-sizing:border-box; padding:12px 16px; gap:12px; background:#fff; border-top:var(--rule) solid var(--line); }
+.pd-sub__freq[hidden]{ display:none; }
+.pd-sub__freq-label{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa); }
+.pd-sub__select{ border:var(--rule) solid var(--line); border-radius:0; background:#fff; min-height:44px; padding:8px 12px; font-weight:800; }
+.pd-sub__select:focus-visible{ outline:3px solid var(--berry); outline-offset:2px; border-color:var(--line); }
+.pd-sub__note{ flex:0 0 100%; padding:10px 16px; border-top:var(--rule) solid var(--line); font-size:13px; color:var(--ink-soft); }
+
+/* ---- macro row: four ruled cells ---- */
+.pd-macros{ display:grid; grid-template-columns:repeat(auto-fit,minmax(0,1fr)); grid-auto-flow:column; gap:0; margin:0; border:var(--rule) solid var(--line); }
+.pd-macro{ min-width:0; padding:14px 12px; text-align:left; background:#fff; border:0; border-right:var(--rule) solid var(--line); border-radius:0; }
+.pd-macro:last-child{ border-right:0; }
+.pd-macro__n{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:40px; line-height:.9;
+  letter-spacing:-.02em; color:var(--cocoa); }
+.pd-macro__l{ margin-top:6px; font-family:var(--mono); font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+.pd-sample-flag{ border-radius:0; }
+
+/* ---- trust line ---- */
+.pd-trust{ gap:8px 18px; margin:0; padding:0; border:0; }
+.pd-trust li{ gap:8px; font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--ink-soft); }
+.pd-trust svg{ display:none; }
+.pd-trust li::before{ content:""; width:7px; height:7px; background:var(--pink); flex:none; }
+
+/* ---- details band ---- */
+.pd-details{ margin:0; }
+.pd-details__cells{ display:flex; flex-wrap:wrap; border-left:var(--rule) solid var(--line); }
+.pd-details__cell{ flex:1 1 260px; min-width:0; box-sizing:border-box; padding:clamp(20px,2.2vw,28px);
+  border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); }
+.pd-details__cell--wide{ flex:1.5 1 340px; }
+.pd-details__cell--full{ flex:1 1 100%; }
+.pd-details__h{ margin:0 0 14px; color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase;
+  font-size:30px; line-height:.9; letter-spacing:-.01em; }
+.pd-details__cell p, .pd-details__rte{ margin:0 0 10px; color:var(--cocoa); font-size:15px; font-weight:600; line-height:1.5; max-width:62ch; }
+.pd-details__cell p:last-child{ margin-bottom:0; }
+.pd-details__warn{ display:inline-block; padding:10px 12px; border:var(--rule) solid var(--line); font-family:var(--mono);
+  font-size:11px !important; font-weight:800 !important; letter-spacing:.12em; text-transform:uppercase; line-height:1.55 !important; }
+.pd-details__link, .pd-details__rte a{ color:var(--cocoa); font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em;
+  text-transform:uppercase; text-decoration:none; border-bottom:2px solid var(--pink); padding-bottom:2px; }
+.pd-details__link:hover, .pd-details__rte a:hover{ border-bottom-color:var(--cocoa); }
+.pd-details .is-sample{ opacity:.8; }
+
+/* ---- nutrition: ruled table, Calories + Protein rows in pink ---- */
+.pd-nut{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); margin-top:clamp(56px,6vw,80px); border:var(--rule) solid var(--line); }
+.pd-nut__side{ display:flex; flex-direction:column; align-items:flex-start; gap:18px; align-self:stretch; padding:clamp(22px,2.6vw,36px);
+  background:var(--butter); border-right:var(--rule) solid var(--line); }
+.pd-nut__title{ margin:0; color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase;
+  font-size:clamp(48px,6vw,104px); line-height:.86; letter-spacing:-.015em; }
+.pd-nut__src{ margin:auto 0 0; font-size:14px; font-weight:600; color:var(--cocoa); }
+.pd-nut__main{ padding:clamp(22px,2.6vw,36px); min-width:0; }
+.pd-nut__table{ width:100%; border-collapse:collapse; border-top:var(--rule) solid var(--line); font-variant-numeric:tabular-nums; }
+.pd-nut__table th, .pd-nut__table td{ padding:8px 0; border-bottom:var(--rule) solid var(--line); vertical-align:baseline; }
+.pd-nut__table th{ text-align:left; font-family:var(--sans); font-size:14px; font-weight:700; color:var(--cocoa); }
+.pd-nut__amt{ text-align:right; white-space:nowrap; font-family:var(--script); font-weight:900; font-stretch:70%; font-size:22px;
+  letter-spacing:-.01em; color:var(--cocoa); }
+.pd-nut__dv{ width:4.6em; text-align:right; white-space:nowrap; font-family:var(--mono); font-size:11px; font-weight:800;
+  letter-spacing:.1em; color:var(--ink-soft); }
+.pd-nut__table tr.is-sub th{ padding-left:18px; font-weight:500; color:var(--ink-soft); }
+.pd-nut__table tr.is-sub .pd-nut__amt{ font-size:18px; }
+.pd-nut__table tr.is-hl > *{ background:var(--pink); }
+.pd-nut__table tr.is-hl th{ padding-left:12px; font-weight:800; }
+.pd-nut__table tr.is-hl .pd-nut__dv{ padding-right:12px; color:var(--cocoa); }
+.pd-nut__table tr.is-hl .pd-nut__amt{ font-size:26px; }
+.pd-nut__table tr.is-hl:has(.pd-nut__dv:empty) .pd-nut__amt{ padding-right:12px; }
+.pd-nut__note{ margin:14px 0 0; font-size:12px; font-weight:600; color:var(--ink-soft); }
+
+/* ---- mobile sticky bar: ink strip, pink action ---- */
+.pd-sticky-atc{ background:var(--cocoa); color:#fff; border-top:0; box-shadow:none; }
+.pd-sticky-atc__title{ color:#fff; font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.pd-sticky-atc__price{ color:#fff; font-weight:800; font-size:14px; }
+.pd-sticky-atc__btn{ border-radius:0; background:var(--pink); color:var(--cocoa); font-size:13px; font-weight:800; letter-spacing:.08em;
+  text-transform:uppercase; min-height:48px; padding:0 20px; }
+.pd-sticky-atc__btn:hover:not([disabled]){ background:var(--pink-deep); }
+.pd-sticky-atc__btn:focus-visible{ outline:3px solid #fff; outline-offset:2px; }
+
+@media (max-width:749px){
+  .pd-sub__opt{ flex:1 1 100%; }
+  .pd-sub__opt + .pd-sub__opt{ border-left:0; border-top:var(--rule) solid var(--line); }
+  .pd-sub__freq{ flex-wrap:wrap; }
+  .pd-sub__freq-label{ flex:1 1 100%; }
+  .pd-macros{ grid-template-columns:1fr 1fr; grid-auto-flow:row; }
+  .pd-macro:nth-child(2n){ border-right:0; }
+  .pd-macro:nth-child(-n+2):not(:last-child){ border-bottom:var(--rule) solid var(--line); }
+  .pd-macro:nth-child(3):last-child{ grid-column:1 / -1; }
+  .pd-macro__n{ font-size:36px; }
+  .pd-details__cell{ flex-basis:100%; }
+  .pd-nut{ grid-template-columns:1fr; margin-top:48px; }
+  .pd-nut__side{ border-right:0; border-bottom:var(--rule) solid var(--line); }
+  .pd-nut__table th{ font-size:13px; }
+}
+
+/* Round 2: the nutrition head stays in view beside the long label on desktop. */
+@media (min-width:750px){
+  .pd-nut__side{ justify-content:flex-start; }
+  .pd-nut__side > .pd-eyebrow{ position:sticky; top:calc(var(--pd-nav-h) + 36px); }
+  .pd-nut__title{ position:sticky; top:calc(var(--pd-nav-h) + 72px); }
+  .pd-nut__src{ margin-top:auto; }
+}
+/* 44px touch targets on the small caps links. */
+.pd-details__link{ display:inline-flex; align-items:flex-end; min-height:44px; box-sizing:border-box; border-bottom:0; box-shadow:inset 0 -2px 0 var(--pink); padding:0 0 4px; }
+.pd-details__link:hover{ box-shadow:inset 0 -2px 0 var(--cocoa); }
+
+/* Macro Bold audit fixes (2026-11-10) */
+/* ---- nutrition: narrow head panel that ends with the cake, wide table ---- */
+.pd-nut{ grid-template-columns:minmax(0,1fr) minmax(0,2fr); align-items:start; }
+.pd-nut__side{ align-self:start; border-right:0; }
+.pd-nut__main{ border-left:var(--rule) solid var(--line); align-self:stretch; }
+.pd-nut__src{ margin:0; }
+.pd-nut__cut{ display:block; width:100%; max-width:340px; height:auto; max-height:360px; object-fit:contain; margin:8px auto 0;
+  transform:rotate(-8deg); filter:drop-shadow(0 24px 24px rgba(26,17,12,.22)); }
+.pd-nut__cut:is([src*="carrot"],[src*="banana"],[src*="apple"],[src*="choc-slices"]){ transform:rotate(-4deg); }
+@media (min-width:750px){
+  .pd-nut__side{ position:sticky; top:calc(var(--pd-nav-h) + 16px); }
+  .pd-nut__side > .pd-eyebrow, .pd-nut__title{ position:static; }
+  .pd-nut__title{ font-size:clamp(44px,4.6vw,80px); }
+}
+@media (max-width:749px){
+  .pd-nut__main{ border-left:0; }
+  .pd-nut__side{ display:grid; grid-template-columns:minmax(0,1fr) 38%; align-items:end; column-gap:12px; row-gap:12px; }
+  .pd-nut__side > :not(.pd-nut__cut){ grid-column:1; }
+  .pd-nut__cut{ grid-column:2; grid-row:1 / span 3; align-self:center; max-height:180px; margin:0; }
+}
+@media (prefers-reduced-motion:reduce){ .pd-nut__cut{ transform:none; } }
+
+/* ---- purchase options: real round radios ---- */
+.pd-sub__opt input{ border-radius:50%; width:20px; height:20px; }
+.pd-sub__opt input:checked{ border-color:#fff; background:var(--cocoa); box-shadow:inset 0 0 0 4px var(--cocoa), inset 0 0 0 10px #fff; }
+
+/* ---- mobile sticky bar: ink button with white text (bar keeps a white rule so the button reads) ---- */
+.pd-sticky-atc{ background:#fff; color:var(--cocoa); border-top:var(--rule) solid var(--line); }
+.pd-sticky-atc__title, .pd-sticky-atc__price{ color:var(--cocoa); }
+.pd-sticky-atc__btn{ background:var(--cocoa); color:#fff; }
+.pd-sticky-atc__btn:hover:not([disabled]){ background:var(--cocoa-soft); }
+.pd-sticky-atc__btn:focus-visible{ outline:3px solid var(--berry); outline-offset:2px; }
+.pd-sticky-atc__btn[disabled]{ background:var(--butter); color:var(--ink-faint); }
+/* Two ruled boxes instead of one frame, so the page (not an empty ruled cell) shows
+   under the short head panel; the panel rides along beside the table. */
+.pd-nut{ border:0; }
+.pd-nut__side{ border:var(--rule) solid var(--line); overflow:clip; }
+.pd-nut__main{ border:var(--rule) solid var(--line); margin-left:calc(-1 * var(--rule)); }
+@media (max-width:749px){
+  .pd-nut__main{ margin-left:0; margin-top:calc(-1 * var(--rule)); border-left:var(--rule) solid var(--line); }
+}
+@media (max-width:749px){ .pd-nut{ grid-template-columns:minmax(0,1fr); } }
+@media (max-width:749px){
+  .pd-nut__side{ grid-template-columns:minmax(0,1fr) auto; align-items:center; }
+  .pd-nut__side > .pd-eyebrow, .pd-nut__side > .pd-nut__title{ grid-column:1 / -1; }
+  .pd-nut__side > .pd-nut__src{ grid-column:1; }
+  .pd-nut__cut{ grid-column:2; grid-row:auto; width:120px; max-height:150px; margin:-8px 0 -8px; }
+}

@@ -130,3 +130,50 @@
 
 /* Round "p." seal */
 .pd-foot__seal{ width:clamp(110px,10vw,150px); height:auto; }
+
+/* ======================= Macro Bold (2026-11-10) =======================
+   Ink footer. The serif wordmark runs huge across the top; menus and the
+   sign-up card sit under one rule; caps labels; square controls. */
+.pd-foot{ padding-top:clamp(56px,6vw,88px); }
+.pd-foot__grid{ grid-template-columns:minmax(0,2fr) minmax(0,1fr); column-gap:clamp(24px,4vw,64px); row-gap:0; }
+.pd-foot__brand{ grid-column:1 / -1; padding-bottom:clamp(36px,4vw,56px); margin-bottom:clamp(28px,3vw,40px); border-bottom:var(--rule) solid var(--line-dark); }
+.pd-foot__mark{ display:block; width:min(100%,780px); height:auto; }
+.pd-foot__colhead, html .pd-foot__colhead{ background:none; padding:0; border-radius:0; color:#fff; font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.14em; min-height:0; margin-bottom:14px; }
+.pd-foot li{ min-height:30px; }
+.pd-foot li a{ color:var(--on-dark-soft); font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.pd-foot li a:hover{ color:var(--pink); }
+.pd-foot__card{ border-radius:0; background:none; border:var(--rule) solid var(--line-dark); }
+.pd-foot__card-media{ border-radius:0; }
+.pd-foot__card-title, html .pd-foot__card-title{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:32px; line-height:.9; color:#fff; }
+.pd-foot__form input{ border-radius:0; border-color:var(--cocoa-soft); }
+.pd-foot__form button{ border-radius:0; font-family:var(--mono); font-weight:800; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.pd-foot__form button:hover{ transform:none; }
+.pd-foot__social{ border-radius:0; background:none; border:var(--rule) solid var(--line-dark); }
+.pd-foot__social-label{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.pd-foot__social-links a{ border-radius:0; }
+.pd-foot__social-links a:hover{ transform:none; }
+.pd-foot__bar{ border-top-color:var(--line-dark); color:#8A776B; font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin-top:clamp(36px,4vw,56px); }
+.pd-foot__credit{ text-transform:none; letter-spacing:.02em; }
+.pd-foot__credit a{ border-bottom-width:2px; }
+@media (max-width:1180px){
+  .pd-foot__grid{ grid-template-columns:1fr; }
+  .pd-foot__rail{ max-width:none; margin-top:36px; }
+}
+.pd-foot__colhead, html .pd-foot__colhead{ text-transform:uppercase; }
+@media (max-width:520px){ .pd-foot__cols{ grid-template-columns:1fr 1fr; row-gap:28px; column-gap:16px; } }
+
+/* ---- Macro Bold audit fixes (2026-11-10) ----
+   Legal row passes AA on ink; phone links get 44px tap height; the newsletter photo
+   (packaged cake with another brand's tape) is swapped for the tray cut-out look. */
+.pd-foot__bar{ color:#B5A397; }
+.pd-foot__legal a{ display:inline-flex; align-items:center; min-height:44px; }
+@media (max-width:749px){ .pd-foot li{ min-height:44px; } }
+.pd-foot__card-media--cut{ background:var(--butter); display:grid; place-items:center; }
+.pd-foot__card-media--cut img{ width:auto; height:86%; object-fit:contain; filter:drop-shadow(0 14px 16px rgba(26,17,12,.25)); }
+.pd-foot__card-media--cut img{ max-width:100%; min-width:0; }
+.pd-foot__rail, .pd-foot__card{ min-width:0; }
+@media (max-width:1180px){ .pd-foot__grid{ grid-template-columns:minmax(0,1fr); } }
+.pd-foot__card-media--cut img{ width:100%; height:100%; padding:10px 16px; box-sizing:border-box; object-fit:contain; }
+.pd-foot__brand .pd-foot__mark{ max-width:none; width:min(100%,780px); opacity:1; }
+.pd-foot__card-media--cut{ display:block; height:150px; }
+.pd-foot__card-media--cut img{ height:150px; width:100%; }

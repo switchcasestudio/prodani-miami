@@ -16,26 +16,34 @@
        only; the grid stays flat once it wraps on tablet/phone). {%- endcomment -%}
     <ul class="pd-badges__row{% if section.settings.wave_icons %} pd-badges__row--wave{% endif %}">
       {%- for block in section.blocks -%}
+        {%- if block.settings.figure != blank -%}
+          {%- comment -%} Macro Bold: a big figure over a caps label replaces the icon. {%- endcomment -%}
+          <li class="pd-badge-item pd-badge-item--fig" {{ block.shopify_attributes }}>
+            <b class="pd-badge-item__fig">{% render 'prodani-review-count', text: block.settings.figure, fallback: '130+' %}</b>
+            <span class="pd-badge-item__label">{% render 'prodani-review-count', text: block.settings.label, fallback: '130+' %}</span>
+          </li>
+        {%- else -%}
         <li class="pd-badge-item" {{ block.shopify_attributes }}>
-          {%- comment -%} The icon slices are cocoa circles clipped at the bottom edge. The
-             disc is a cocoa circle behind them (exact colour match, #211913) that completes
-             the round shape; object-fit:contain keeps the whole symbol visible, never cut. {%- endcomment -%}
-          <span class="pd-badge-item__disc">
-            {%- if block.settings.image != blank -%}
-              {{ block.settings.image | image_url: width: 320
-                 | image_tag: loading: 'lazy', alt: '', class: 'pd-badge-item__icon' }}
-            {%- else -%}
-              <img class="pd-badge-item__icon"
-                   src="{{ block.settings.icon | append: '.png' | asset_url }}"
-                   alt="" loading="lazy" width="340" height="245">
+            {%- comment -%} The icon slices are cocoa circles clipped at the bottom edge. The
+               disc is a cocoa circle behind them (exact colour match, #211913) that completes
+               the round shape; object-fit:contain keeps the whole symbol visible, never cut. {%- endcomment -%}
+            <span class="pd-badge-item__disc">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 320
+                   | image_tag: loading: 'lazy', alt: '', class: 'pd-badge-item__icon' }}
+              {%- else -%}
+                <img class="pd-badge-item__icon"
+                     src="{{ block.settings.icon | append: '.png' | asset_url }}"
+                     alt="" loading="lazy" width="340" height="245">
+              {%- endif -%}
+            </span>
+            {%- if block.settings.icon contains 'prodani-icon-' and block.settings.image == blank -%}
+              {%- comment -%} 2026 line icons: inlined so stroke="currentColor" takes the text colour. {%- endcomment -%}
+              <span class="pd-badge-item__line" aria-hidden="true">{{ block.settings.icon | append: '.svg' | inline_asset_content }}</span>
             {%- endif -%}
-          </span>
-          {%- if block.settings.icon contains 'prodani-icon-' and block.settings.image == blank -%}
-            {%- comment -%} 2026 line icons: inlined so stroke="currentColor" takes the text colour. {%- endcomment -%}
-            <span class="pd-badge-item__line" aria-hidden="true">{{ block.settings.icon | append: '.svg' | inline_asset_content }}</span>
-          {%- endif -%}
-          <span class="pd-badge-item__label">{% render 'prodani-review-count', text: block.settings.label, fallback: '130+' %}</span>
-        </li>
+            <span class="pd-badge-item__label">{% render 'prodani-review-count', text: block.settings.label, fallback: '130+' %}</span>
+          </li>
+        {%- endif -%}
       {%- endfor -%}
     </ul>
   </div>
@@ -71,6 +79,7 @@
       "name": "Badge",
       "limit": 8,
       "settings": [
+        { "type": "text", "id": "figure", "label": "Big figure (optional)", "info": "Shown instead of the icon, e.g. 0g. {count} becomes the live review count." },
         { "type": "text", "id": "label", "label": "Label", "info": "{count} becomes the live Judge.me review count." },
         {
           "type": "select", "id": "icon", "label": "Bundled icon",

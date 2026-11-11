@@ -42,6 +42,15 @@
       {%- endif -%}
     </header>
 
+    {%- comment -%}
+      Audit fix (2026-11-10): the form shares the width with a photo of the trays (sticky
+      on desktop, a modest band above the form on phones), so the page shows the cakes.
+    {%- endcomment -%}
+    <div class="pd-cat__layout">
+    <figure class="pd-cat__photo">
+      <img src="{{ 'prodani-trays.jpg' | asset_url }}" alt="Eight ProDani protein cakes in their trays: chocolate chip, strawberry, orange, blueberry, carrot, chocolate fudge, banana and apple"
+           width="1200" height="730" loading="lazy" sizes="(min-width: 990px) 34vw, 100vw">
+    </figure>
     {%- form 'contact', class: 'pd-cat__form', data-pd-catering: '', data-min: minimum -%}
       {%- if form.posted_successfully? -%}
 
@@ -84,7 +93,7 @@
                 <label class="pd-cat__qty-field">
                   <span class="pd-sr-only">{{ section.settings.step1_question | escape }}</span>
                   <input type="number" name="contact[Cake quantity]" min="{{ minimum }}" step="1" inputmode="numeric"
-                         placeholder="{{ minimum }}" required data-pd-qty data-min-msg="{{ section.settings.min_message | escape }}">
+                         value="{{ minimum }}" placeholder="{{ minimum }}" required data-pd-qty data-min-msg="{{ section.settings.min_message | escape }}">
                   <span class="pd-cat__qty-unit">cakes</span>
                 </label>
                 <button type="button" class="pd-cat__qty-btn" data-qty-inc aria-label="Ten more cakes">+</button>
@@ -201,6 +210,7 @@
 
       {%- endif -%}
     {%- endform -%}
+    </div>
 
   </div>
 </section>

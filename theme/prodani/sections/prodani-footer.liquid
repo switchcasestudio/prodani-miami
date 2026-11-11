@@ -15,9 +15,9 @@
     <div class="pd-foot__grid">
       {%- comment -%} 1. brand {%- endcomment -%}
       <div class="pd-foot__brand">
-        {%- comment -%} 2026 brand seal, ivory hairlines over the cocoa footer. {%- endcomment -%}
-        <img class="pd-foot__seal" src="{{ 'prodani-stamp-seal-ivory.svg' | asset_url }}" alt="{{ shop.name | escape }}"
-             width="1000" height="1000" loading="lazy">
+        {%- comment -%} Macro Bold: the wordmark runs huge across the top of the footer, white with a pink full stop. {%- endcomment -%}
+        <img class="pd-foot__mark" src="{{ 'prodani-wordmark-ivory.svg' | asset_url }}" alt="{{ shop.name | escape }}"
+             width="1144" height="435" loading="lazy">
       </div>
 
       {%- comment -%} 2. the three menus {%- endcomment -%}
@@ -53,7 +53,14 @@
           {%- if card_img == blank and section.settings.signup_product != blank -%}
             {%- assign card_img = section.settings.signup_product.featured_image -%}
           {%- endif -%}
-          {%- if card_img != blank -%}
+          {%- comment -%} Macro Bold audit (2026-11-10): prefer the product's clean cut-out over its packaged shot. {%- endcomment -%}
+          {%- capture fcut -%}{% if section.settings.signup_product != blank %}{% render 'prodani-flavor-map', handle: section.settings.signup_product.handle %}{% endif %}{%- endcapture -%}
+          {%- assign fcut = fcut | strip | split: '|' -%}
+          {%- if section.settings.signup_image == blank and fcut[4] != blank -%}
+            <div class="pd-foot__card-media pd-foot__card-media--cut">
+              <img src="{{ fcut[4] | asset_url }}" alt="" loading="lazy" width="400" height="640">
+            </div>
+          {%- elsif card_img != blank -%}
             <div class="pd-foot__card-media">
               {{ card_img | image_url: width: 800 | image_tag: loading: 'lazy', alt: '' }}
             </div>

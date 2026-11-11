@@ -52,21 +52,66 @@
       <span class="pd-macro__l">Calories</span>
     </div>
   {%- endif -%}
-  {%- if sugar != blank or edit -%}
+  {%- comment -%}
+    Audit fix (2026-11-10): beside a "No sugar added" tag, a "4g sugar" cell reads as a
+    contradiction. When the no_sugar_added claim is explicitly true the cell states the
+    claim itself (0g added sugar); the total sugar stays in the nutrition table.
+  {%- endcomment -%}
+  {%- if mf.no_sugar_added.value == true -%}
+    <div class="pd-macro" role="listitem">
+      <span class="pd-macro__n">0g</span>
+      <span class="pd-macro__l">Added sugar</span>
+    </div>
+  {%- elsif sugar != blank or edit -%}
     <div class="pd-macro{% if sugar == blank %} is-sample{% endif %}" role="listitem">
       {%- if sugar == blank %}<span class="pd-sample-flag">sample</span>{% endif -%}
       <span class="pd-macro__n">{{ sugar | default: 2 }}g</span>
       <span class="pd-macro__l">Sugar</span>
     </div>
   {%- endif -%}
+  {%- if mf.gluten_free.value -%}
+    <div class="pd-macro" role="listitem">
+      <span class="pd-macro__n">GF</span>
+      <span class="pd-macro__l">Gluten free</span>
+    </div>
+  {%- endif -%}
 </div>
 {%- endif -%}
 
-<div class="pd-badges">
-  {%- if mf.high_protein.value -%}<img src="{{ 'prodani-badge-high-protein.png' | asset_url }}" alt="High protein" width="46" height="46" loading="lazy">{%- endif -%}
-  {%- if mf.gluten_free.value -%}<img src="{{ 'prodani-badge-gluten-free.png' | asset_url }}" alt="Gluten free" width="46" height="46" loading="lazy">{%- endif -%}
-  {%- if mf.no_sugar_added.value -%}<img src="{{ 'prodani-badge-no-sugar-added.png' | asset_url }}" alt="No sugar added" width="46" height="46" loading="lazy">{%- endif -%}
-  {%- if mf.non_gmo.value -%}<img src="{{ 'prodani-badge-non-gmo.png' | asset_url }}" alt="Non-GMO" width="46" height="46" loading="lazy">{%- endif -%}
-  {%- if mf.low_calorie.value -%}<img src="{{ 'prodani-badge-low-calorie.png' | asset_url }}" alt="Low calorie" width="46" height="46" loading="lazy">{%- endif -%}
-  {%- if mf.high_fiber.value -%}<img src="{{ 'prodani-badge-high-fiber.png' | asset_url }}" alt="High fiber" width="46" height="46" loading="lazy">{%- endif -%}
-</div>
+{%- comment -%}
+  Macro Bold (2026-11-10): the claim badges are set as square caps tags above the
+  title (CSS order) instead of round icons. Same rule: a tag only when its boolean is
+  explicitly true. The first approved claim gets the pink fill.
+{%- endcomment -%}
+{%- liquid
+  assign claims = ''
+  if mf.high_protein.value
+    assign claims = claims | append: 'High protein|'
+  endif
+  comment
+    Gluten free already has its own cell in the macro row when that row shows.
+  endcomment
+  if mf.gluten_free.value and has_any == false
+    assign claims = claims | append: 'Gluten free|'
+  endif
+  if mf.no_sugar_added.value
+    assign claims = claims | append: 'No sugar added|'
+  endif
+  if mf.non_gmo.value
+    assign claims = claims | append: 'Non-GMO|'
+  endif
+  if mf.low_calorie.value
+    assign claims = claims | append: 'Low calorie|'
+  endif
+  if mf.high_fiber.value
+    assign claims = claims | append: 'High fiber|'
+  endif
+  assign claim_list = claims | split: '|'
+-%}
+{%- if claim_list.size > 0 -%}
+<ul class="pd-badges" aria-label="Product claims">
+  {%- for c in claim_list -%}
+    <li class="pd-tag{% if forloop.first %} pd-tag--pink{% endif %}">{{ c }}</li>
+  {%- endfor -%}
+</ul>
+{%- endif -%}

@@ -1,14 +1,15 @@
 {%- comment -%}
   The Spread Collection (2026-10-30). A public coming-soon page for the three spreads
   Dani is developing (Hazelnut, Pistachio, Lotus). Copy, claims and imagery come from
-  the owners' concept deck "Prodani presents new spreads"; the jar photos are the
-  deck's renders, used as placeholders until real product photography exists.
+  the owners' concept deck "Prodani presents new spreads"; the deck's jar renders
+  were removed 2026-11-10 (audit): the flavors are set as type until real product
+  photography is uploaded in the editor.
 
   Open to search engines since 2026-11-02. Nothing here sells anything: no price, no cart. The only action is a notify-me email (native customer form, tagged
   `spreads-waitlist`) so Dani has a list to tell when the jars land.
 
-  Every image slot has a bundled fallback so the page renders before anyone
-  uploads a photo; pick a real one in the editor to replace it.
+  Image slots render only when a photo is picked in the editor; with none, the
+  typographic layout stands on its own.
 {%- endcomment -%}
 
 {{ 'prodani-spreads.css' | asset_url | stylesheet_tag }}
@@ -65,17 +66,29 @@
         </div>
       </div>
 
-      <div class="pd-bezel pd-spreads__hero-media">
-        {%- if section.settings.hero_image != blank -%}
+      {%- comment -%}
+        Audit fix (2026-11-10): the deck's jar renders (AI-looking, with a different
+        palm-tree "ProDani" logo) are gone from the page. Until real photography is
+        uploaded in the editor, the flavors are set as type: three ruled cells.
+      {%- endcomment -%}
+      {%- if section.settings.hero_image != blank -%}
+        <div class="pd-bezel pd-spreads__hero-media">
           {{ section.settings.hero_image | image_url: width: 1800
              | image_tag: loading: 'eager', fetchpriority: 'high',
                widths: '800, 1200, 1800', sizes: '(min-width: 1580px) 1500px, 100vw',
                alt: section.settings.hero_alt }}
-        {%- else -%}
-          <img src="{{ 'prodani-spread-trio.jpg' | asset_url }}" width="1218" height="541"
-               alt="{{ section.settings.hero_alt | escape }}" loading="eager" fetchpriority="high">
-        {%- endif -%}
-      </div>
+        </div>
+      {%- elsif flavors.size > 0 -%}
+        <ol class="pd-spreads__type" aria-hidden="true">
+          {%- for block in flavors -%}
+            <li class="pd-spreads__type-cell" style="--accent:{{ block.settings.accent | default: '#6B3B28' }}">
+              <span class="pd-spreads__type-n">0{{ forloop.index }}</span>
+              <span class="pd-spreads__type-name">{{ block.settings.name | escape }}</span>
+              <span class="pd-spreads__type-kind">{{ block.settings.kind | escape }}{% if section.settings.soon_label != blank %} &middot; {{ section.settings.soon_label | escape }}{% endif %}</span>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
     </div>
   </header>
 
@@ -108,16 +121,13 @@
         <ol class="pd-spreads__cards">
           {%- for block in flavors -%}
             <li class="pd-spreads__card" style="--accent:{{ block.settings.accent | default: '#6B3B28' }}" {{ block.shopify_attributes }}>
-              <div class="pd-bezel pd-spreads__card-media">
-                {%- if block.settings.image != blank -%}
+              {%- if block.settings.image != blank -%}
+                <div class="pd-bezel pd-spreads__card-media">
                   {{ block.settings.image | image_url: width: 900
                      | image_tag: loading: 'lazy', widths: '450, 700, 900',
                        sizes: '(min-width: 981px) 30vw, 92vw', alt: block.settings.alt }}
-                {%- elsif block.settings.bundled != 'none' -%}
-                  <img src="{{ block.settings.bundled | prepend: 'prodani-spread-' | append: '.jpg' | asset_url }}"
-                       width="400" height="500" alt="{{ block.settings.alt | escape }}" loading="lazy">
-                {%- endif -%}
-              </div>
+                </div>
+              {%- endif -%}
               <span class="pd-spreads__card-bar" aria-hidden="true"></span>
               <p class="pd-spreads__card-n">0{{ forloop.index }}</p>
               <h3 class="pd-spreads__card-title">
@@ -153,14 +163,18 @@
             <p class="pd-spreads__promise"><span>{{ section.settings.promise_label | escape }}</span>{{ section.settings.band_promise | escape }}</p>
           {%- endif -%}
         </div>
-        <div class="pd-spreads__band-media">
-          {%- if section.settings.band_image != blank -%}
+        {%- if section.settings.band_image != blank -%}
+          <div class="pd-spreads__band-media">
             {{ section.settings.band_image | image_url: width: 900
                | image_tag: loading: 'lazy', widths: '450, 700, 900', sizes: '(min-width: 981px) 420px, 92vw', alt: section.settings.band_alt }}
-          {%- else -%}
-            <img src="{{ 'prodani-spread-scoop.jpg' | asset_url }}" width="415" height="482" alt="{{ section.settings.band_alt | escape }}" loading="lazy">
-          {%- endif -%}
-        </div>
+          </div>
+        {%- elsif flavors.size > 0 -%}
+          <ol class="pd-spreads__band-names" aria-hidden="true">
+            {%- for block in flavors -%}
+              <li style="--accent:{{ block.settings.accent | default: '#6B3B28' }}"><span>0{{ forloop.index }}</span>{{ block.settings.name | escape }}</li>
+            {%- endfor -%}
+          </ol>
+        {%- endif -%}
       </div>
     </div>
   {%- endif -%}
@@ -178,7 +192,7 @@
             <p class="pd-lede pd-spreads__trio-lede" style="margin:0">{{ section.settings.formats_lede | escape }}</p>
           {%- endif -%}
         </div>
-        <div class="pd-spreads__formats-grid">
+        <div class="pd-spreads__formats-grid{% if section.settings.formats_image == blank %} pd-spreads__formats-grid--solo{% endif %}">
           <ol class="pd-spreads__formats-list">
             {%- for block in formats -%}
               <li class="pd-spreads__format" {{ block.shopify_attributes }}>
@@ -192,14 +206,12 @@
               </li>
             {%- endfor -%}
           </ol>
-          <div class="pd-bezel pd-spreads__formats-media">
-            {%- if section.settings.formats_image != blank -%}
+          {%- if section.settings.formats_image != blank -%}
+            <div class="pd-bezel pd-spreads__formats-media">
               {{ section.settings.formats_image | image_url: width: 1200
                  | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 981px) 48vw, 92vw', alt: section.settings.formats_alt }}
-            {%- else -%}
-              <img src="{{ 'prodani-spread-gift.jpg' | asset_url }}" width="803" height="482" alt="{{ section.settings.formats_alt | escape }}" loading="lazy">
-            {%- endif -%}
-          </div>
+            </div>
+          {%- endif -%}
         </div>
         {%- if section.settings.formats_note != blank -%}
           <p class="pd-spreads__note">{{ section.settings.formats_note | escape }}</p>

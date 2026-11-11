@@ -40,6 +40,13 @@
 <a class="pd-card{% if product.images.size < 2 %} pd-card--single{% endif %}{% if fl[0] != blank %} pd-card--flavor{% endif %}"
    {% if fl[0] != blank %}style="--fc:{{ fl[2] }};--fbg:{{ fl[3] }}"{% endif %}
    href="{{ product.url }}" data-pd-item data-collections="{{ handles | strip }}">
+  {%- comment -%} Macro Bold: the protein figure leads the card, before the photo. {%- endcomment -%}
+  {%- if protein != blank -%}
+    <div class="pd-card__lead">
+      <p class="pd-card__big"><b>{{ protein }}</b><small>g</small></p>
+      <p class="pd-card__lbl">Protein{% if calories != blank %} · {{ calories }} cal{% endif %}</p>
+    </div>
+  {%- endif -%}
   <div class="pd-card__media">
     {%- if fl[4] != blank -%}
       <img class="pd-card__cut" src="{{ fl[4] | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">

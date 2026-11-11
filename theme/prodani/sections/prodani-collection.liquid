@@ -124,7 +124,13 @@
       {%- endif -%}
     {%- endfor -%}
 
-    {%- if soon_count > 0 -%}
+    {%- if soon_count > 0 and section.settings.soon_style == 'line' -%}
+      {%- comment -%} Macro Bold audit (2026-11-10): coming-soon flavors as one quiet line, not a row of cards. {%- endcomment -%}
+      <p class="pd-soon-line">
+        <b>{{ section.settings.soon_heading | default: 'Coming soon' | escape }}:</b>
+        {% for block in section.blocks %}{% if block.type == 'soon' %}<span {{ block.shopify_attributes }}>{{ block.settings.name | escape }}</span>{% endif %}{% endfor %}
+      </p>
+    {%- elsif soon_count > 0 -%}
       <div class="pd-collection__row pd-collection__row--soon">
         <div class="pd-collection__rowhead">
           <h3 class="pd-collection__rowtitle">{{ section.settings.soon_heading | default: 'Coming soon' | escape }}</h3>
@@ -183,6 +189,7 @@
   "tag": "section",
   "class": "pd-section",
   "settings": [
+    { "type": "select", "id": "soon_style", "label": "Coming-soon flavors", "options": [ { "value": "cards", "label": "Cards" }, { "value": "line", "label": "One line" } ], "default": "cards" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "The prodani collection" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "mix & match" },
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "shop" },

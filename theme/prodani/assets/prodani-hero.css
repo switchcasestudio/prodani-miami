@@ -63,25 +63,44 @@
   color:rgba(255, 248, 240,.66);
 }
 
-.pd-btn{
-  display:inline-flex; align-items:center; gap:10px; height:54px; padding:0 28px;
-  border-radius:999px; background:var(--cocoa); color:var(--cream);
-  font-weight:700; font-size:15px; text-decoration:none;
-  transition:transform .4s var(--bounce), background .3s;
+/* .pd-btn lives in prodani-tokens.css. */
+.pd-giant__line:nth-child(2){ font-size:clamp(39.92px, min(12.88vw, 23.96vh), 228.32px); }
+
+.pd-hero__foot{
+  display:flex; align-items:center; gap:clamp(18px,3vw,40px); flex-wrap:wrap;
+  margin-top:clamp(24px,3.5vw,44px);
 }
-.pd-btn svg{ width:16px; height:16px; flex:0 0 auto; }
-.pd-btn:hover{ transform:none; }
-.pd-btn--pink{ background:var(--pink); color:var(--cocoa); }
-.pd-btn--pink:hover{ background:var(--pink-deep); }
+.pd-hero__note{
+  margin:0; font-weight:600; font-size:13.5px; letter-spacing:.02em;
+  color:rgba(255, 248, 240,.66);
+}
+
+.pd-giant__line:nth-child(2){ font-size:clamp(39.92px, min(12.88vw, 23.96vh), 228.32px); }
+
+.pd-hero__foot{
+  display:flex; align-items:center; gap:clamp(18px,3vw,40px); flex-wrap:wrap;
+  margin-top:clamp(24px,3.5vw,44px);
+}
+.pd-hero__note{
+  margin:0; font-weight:600; font-size:13.5px; letter-spacing:.02em;
+  color:rgba(255, 248, 240,.66);
+}
+
+/* .pd-btn lives in prodani-tokens.css. */
+.pd-giant__line:nth-child(2){ font-size:clamp(39.92px, min(12.88vw, 23.96vh), 228.32px); }
+
+.pd-hero__foot{
+  display:flex; align-items:center; gap:clamp(18px,3vw,40px); flex-wrap:wrap;
+  margin-top:clamp(24px,3.5vw,44px);
+}
+.pd-hero__note{
+  margin:0; font-weight:600; font-size:13.5px; letter-spacing:.02em;
+  color:rgba(255, 248, 240,.66);
+}
+
+
 
 .pd-giant__line:nth-child(2){ font-family:var(--script); color:var(--pink); letter-spacing:-.01em;  font-weight:700; }
-
-/* button-in-button: the arrow rides in its own disc, flush right */
-.pd-btn svg{ width:28px; height:28px; padding:7px; box-sizing:border-box; border-radius:50%;
-  background:rgba(255, 248, 240,.16); transition:transform .6s var(--ease); }
-.pd-btn--pink svg{ background:rgba(72, 49, 42,.14); }
-.pd-btn:hover svg{ transform:translate(2px,-1px); }
-.pd-btn:active{ transform:scale(.98); }
 
 /* ---- Mobile: the hero goes big (2026-09-01, per Moses) ---- */
 @media (max-width:749px){

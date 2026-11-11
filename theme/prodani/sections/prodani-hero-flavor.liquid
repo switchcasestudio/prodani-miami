@@ -1,4 +1,4 @@
-{%- comment -%} Option B hero: one flavor in the spotlight, price and macros read live from the product. {%- endcomment -%}
+{%- comment -%} Flavor hero: one flavor in the spotlight, price and macros read live from the product. {%- endcomment -%}
 {{ 'prodani-hero-flavor.css' | asset_url | stylesheet_tag }}
 {%- liquid
   assign p = section.settings.product
@@ -9,33 +9,88 @@
 {%- assign f = fm | strip | split: '|' -%}
 {%- capture nm -%}{% render 'prodani-flavor-map', handle: next_p.handle %}{%- endcapture -%}
 {%- assign n = nm | strip | split: '|' -%}
-<section class="pd-hero pd-fh" style="--c:{{ f[2] }};--bg:{{ f[3] }}">
+{%- comment -%}
+  Macro Bold hero (2026-11-10): the numbers are the headline. Left: the claim set huge,
+  the spotlight flavor as a tag, two buttons and a row of big figures. Right: a bone panel
+  with three cakes, the per-cake price and the pink "7 flavors" stamp. The headline reads
+  the spotlight product's protein live; {protein} in the setting is replaced with it.
+{%- endcomment -%}
+{%- liquid
+  assign protein = p.metafields.prodani.protein_g.value
+  assign cals = p.metafields.prodani.calories.value
+  assign headline = section.settings.headline | default: '{protein}g protein. 0g added sugar. It’s cake.'
+  if protein != blank
+    assign headline = headline | replace: '{protein}', protein
+  else
+    assign headline = headline | replace: '{protein}g protein. ', '' | replace: '{protein}', ''
+  endif
+  assign lines = headline | split: '. '
+  assign third = blank
+  if section.settings.third_product != blank
+    capture tm
+      render 'prodani-flavor-map', handle: section.settings.third_product.handle
+    endcapture
+    assign tb = tm | strip | split: '|'
+    assign third = tb[4]
+  endif
+  for prod in collections['personal-protein-cakes'].products
+    if third == blank and prod.handle != p.handle and prod.handle != next_p.handle
+      capture tm
+        render 'prodani-flavor-map', handle: prod.handle
+      endcapture
+      assign tb = tm | strip | split: '|'
+      unless tb[4] == blank or tb[4] contains 'slices'
+        assign third = tb[4]
+      endunless
+    endif
+  endfor
+  assign v = p.selected_or_first_available_variant
+-%}
+<section class="pd-hero pd-fh">
   <div class="pd-fh__copy">
     <div class="pd-fh__eyebrow">
-      <span class="pd-fh__badge">{{ section.settings.eyebrow | escape }}</span>
-      {%- if p.metafields.prodani.protein_g.value != blank -%}
-        <span class="pd-fh__badge pd-fh__badge--white">{{ p.metafields.prodani.protein_g.value }}g protein · {{ p.metafields.prodani.calories.value }} cal</span>
-      {%- endif -%}
+      <span class="pd-tag pd-tag--pink">{{ section.settings.eyebrow | escape }}</span>
+      <a class="pd-fh__flavor" href="{{ p.url }}">{{ f[0] }} {{ f[1] }}{% if protein != blank %} · {{ protein }}g protein{% endif %}{% if cals != blank %} · {{ cals }} cal{% endif %}</a>
     </div>
-    <h1 class="pd-fh__h">{{ f[0] }} <em>{{ f[1] }}</em></h1>
+    <h1 class="pd-fh__h">
+      {%- for l in lines -%}
+        {%- assign t = l | strip -%}
+        {%- unless t contains '.' -%}{%- assign t = t | append: '.' -%}{%- endunless -%}
+        <span class="pd-fh__line{% if forloop.last %} pd-fh__line--u{% endif %}">{{ t | escape }}</span>{% unless forloop.last %} {% endunless %}
+      {%- endfor -%}
+    </h1>
     <p class="pd-fh__p">{{ section.settings.text | escape }}</p>
     <div class="pd-fh__cta">
-      <a class="pd-fh__pill pd-fh__pill--pink" href="{{ p.url }}">{{ section.settings.cta_label | escape }} · {{ p.price | money }}</a>
-      <a class="pd-fh__pill pd-fh__pill--ghost" href="{{ section.settings.cta2_link }}">{{ section.settings.cta2_label | escape }}</a>
+      <a class="pd-btn" href="{{ p.url }}">{{ section.settings.cta_label | escape }} · {{ p.price | money }}</a>
+      <a class="pd-btn pd-btn--ghost" href="{{ section.settings.cta2_link }}">{{ section.settings.cta2_label | escape }}</a>
     </div>
+    {%- if section.settings.macros != blank -%}
     <ul class="pd-fh__macros">
       {%- assign macros = section.settings.macros | split: ',' -%}
       {%- for m in macros -%}{%- assign bits = m | strip | split: ' ' -%}<li><b>{{ bits[0] }}</b> {{ m | strip | remove_first: bits[0] | strip }}</li>{%- endfor -%}
     </ul>
+    {%- endif -%}
   </div>
-  <div class="pd-fh__art" aria-hidden="true">
-    <div class="pd-fh__ring"></div><div class="pd-fh__halo"></div>
-    <i class="pd-fh__crumb c1"></i><i class="pd-fh__crumb c2"></i><i class="pd-fh__crumb c3"></i>
-    <img src="{{ f[4] | asset_url }}" alt="" width="360" height="640" fetchpriority="high">
+  <div class="pd-fh__art">
+    <div class="pd-fh__cakes" aria-hidden="true">
+      {%- if n[4] != blank -%}<img class="pd-fh__cake pd-fh__cake--l" src="{{ n[4] | asset_url }}" alt="" width="360" height="640" loading="lazy">{%- endif -%}
+      <img class="pd-fh__cake pd-fh__cake--c" src="{{ f[4] | asset_url }}" alt="" width="360" height="640" fetchpriority="high">
+      {%- if third != blank -%}<img class="pd-fh__cake pd-fh__cake--r" src="{{ third | asset_url }}" alt="" width="360" height="640" loading="lazy">{%- endif -%}
+    </div>
+    {%- capture each -%}{% render 'prodani-pack-price', variant: v, mode: 'each' %}{%- endcapture -%}
+    <a class="pd-fh__price" href="{{ p.url }}">
+      {%- if each != blank -%}
+        <b>{{ each | strip | remove: ' per cake' | strip_html | strip }}</b>
+        <span>per cake</span>
+        <small>{{ f[0] }} {{ f[1] }} 5-pack, {{ p.price | money }}</small>
+      {%- else -%}
+        <b>{{ p.price | money }}</b><small>{{ f[0] }} {{ f[1] }}</small>
+      {%- endif -%}
+    </a>
+    <div class="pd-fh__sticker"><div><b>{{ collections['personal-protein-cakes'].products_count | default: 7 }}</b>flavors<br>baked weekly</div></div>
   </div>
-  <div class="pd-fh__sticker"><div><b>{{ collections['personal-protein-cakes'].products_count | default: 7 }}</b>flavors<br>baked weekly</div></div>
-  {%- if next_p != blank -%}<a class="pd-fh__next" href="{{ next_p.url }}">Next up: {{ n[0] }} {{ n[1] }} →</a>{%- endif -%}
 </section>
+{%- if section.settings.show_marquee -%}
 <div class="pd-mq" aria-hidden="true"><div class="pd-mq__t">
   {%- for i in (1..2) -%}
     {%- for prod in collections['personal-protein-cakes'].products -%}
@@ -45,6 +100,7 @@
     {%- endfor -%}
   {%- endfor -%}
 </div></div>
+{%- endif -%}
 {% schema %}
 {
   "name": "Flavor hero",
@@ -52,12 +108,15 @@
   "class": "pd-section",
   "settings": [
     { "type": "product", "id": "product", "label": "Flavor in the spotlight" },
-    { "type": "product", "id": "next_product", "label": "Next up flavor" },
+    { "type": "product", "id": "next_product", "label": "Second cake in the picture" },
+    { "type": "product", "id": "third_product", "label": "Third cake in the picture" },
     { "type": "text", "id": "eyebrow", "label": "Badge", "default": "Flavor of the week" },
+    { "type": "text", "id": "headline", "label": "Headline", "info": "Sentences break onto their own lines. {protein} is replaced with the spotlight cake's protein.", "default": "{protein}g protein. 0g added sugar. It’s cake." },
     { "type": "textarea", "id": "text", "label": "Text" },
     { "type": "text", "id": "cta_label", "label": "Main button", "default": "Shop the 5-pack" },
     { "type": "text", "id": "cta2_label", "label": "Second button", "default": "See all flavors" },
     { "type": "url", "id": "cta2_link", "label": "Second button link" },
+    { "type": "checkbox", "id": "show_marquee", "label": "Flavor-name ticker under the hero", "default": false },
     { "type": "text", "id": "macros", "label": "Chips, comma separated", "default": "0g added sugar, GF gluten free, 30s to warm" }
   ],
   "presets": [{ "name": "Flavor hero" }]
