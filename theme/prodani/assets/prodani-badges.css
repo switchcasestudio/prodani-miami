@@ -19,28 +19,10 @@
 .pd-badge-item{
   display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
 }
-/* Disc completes the clipped circle and sets a perfectly round silhouette.
-   Pinned to the literal slice colour #362619 — the PNGs bake that brown in, and
-   the v3 --cocoa token (#2C1F18) no longer matches it; a token here would show a
-   two-tone circle. Follows the artwork, not the palette. */
-.pd-badge-item__disc{
-  width:clamp(72px,7.5vw,108px); aspect-ratio:1; border-radius:50%;
-  background:#362619; overflow:hidden; display:grid; place-items:center;
-  transition:transform .45s var(--bounce);
-}
-.pd-badge-item__icon{
-  /* contain keeps the whole symbol visible (never cut); transparent areas of the slice
-     fall through to the cocoa disc, so the badge reads as one clean circle. */
-  width:112%; height:112%; object-fit:contain; display:block;
-}
-.pd-badge-item:hover .pd-badge-item__disc{ transform:translateY(-4px) scale(1.04); }
+.pd-badge-item__custom{ width:clamp(40px,4vw,56px); height:auto; display:block; }
 .pd-badge-item__label{
   font-weight:700; font-size:clamp(12.5px,1.05vw,15px); color:var(--cocoa);
   letter-spacing:-.01em; line-height:1.25;
-}
-@media (prefers-reduced-motion: reduce){
-  .pd-badge-item__disc{ transition:none; }
-  .pd-badge-item:hover .pd-badge-item__disc{ transform:none; }
 }
 
 /* ---- icons riding the wave ----
@@ -61,9 +43,7 @@
 /* Bottom marquee closing the pink band into cream. -1px kills the hairline seam. */
 .pd-marquee--badges{ display:block; margin-top:clamp(6px,1.5vw,18px); margin-bottom:-1px; }
 
-/* v4: the value strip goes text-only — mono caps in a hairline-ruled row.
-   The cocoa-disc PNGs belong to the playful direction and stay hidden here. */
-.pd-badge-item__disc{ display:none; }
+/* v4: the value strip goes text-only — mono caps in a hairline-ruled row. */
 .pd-badges__row{ gap:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .pd-badges__row .pd-badge-item{ padding:clamp(18px,2.2vw,30px) 8px; transform:none !important; }
 .pd-badges__row .pd-badge-item + .pd-badge-item{ border-left:1px solid var(--line); }
@@ -103,7 +83,6 @@ html .pd-badge-item{ align-items:flex-start; text-align:left; gap:10px; padding:
 .pd-badge-item__fig{ display:block; color:var(--cocoa); font-family:var(--script); font-weight:900; font-stretch:70%;
   font-size:clamp(40px,4.4vw,72px); line-height:.86; letter-spacing:-.02em; text-transform:uppercase; white-space:nowrap; }
 .pd-badge-item__label{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; line-height:1.25; }
-.pd-badge-item__disc{ border-radius:0; background:none; }
 @media (max-width:1180px){
   .pd-badges__row{ grid-template-columns:repeat(3,minmax(0,1fr)); }
   .pd-badge-item:nth-child(3n){ border-right:0; }

@@ -28,16 +28,16 @@
 | `nutrition_facts` | Rich text | full nutrition table | Nutrition accordion |
 | `faq` | Rich text | product-specific Q&A | FAQ accordion |
 
-### Claim badges (booleans — each maps to an existing badge PNG)
+### Claim badges (booleans — each shows as a text tag; the round PNG badges were removed 2026-11-17)
 
-| Key | Type | Badge asset |
+| Key | Type | Tag text |
 |---|---|---|
-| `high_protein` | true/false | `prodani-badge-high-protein.png` |
-| `gluten_free` | true/false | `prodani-badge-gluten-free.png` |
-| `no_sugar_added` | true/false | `prodani-badge-no-sugar-added.png` |
-| `non_gmo` | true/false | `prodani-badge-non-gmo.png` |
-| `low_calorie` | true/false | `prodani-badge-low-calorie.png` |
-| `high_fiber` | true/false | `prodani-badge-high-fiber.png` |
+| `high_protein` | true/false | High protein |
+| `gluten_free` | true/false | Gluten free |
+| `no_sugar_added` | true/false | No sugar added |
+| `non_gmo` | true/false | Non GMO |
+| `low_calorie` | true/false | Low calorie |
+| `high_fiber` | true/false | High fiber |
 
 > **Claims gate (T2):** a badge/claim must only be switched **true** for a SKU once Dani
 > has approved and can substantiate it. The theme just displays what admin sets — it does

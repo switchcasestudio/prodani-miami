@@ -1,0 +1,11 @@
+{
+  "_note": "Changes on top of data/site.json. A row [name, amount, dv] replaces the row with the same nutrient, [name, null] removes it. 'accept' lists check messages the owner chose to print as-is (substring match). Rule (owner decision 2026-11-17): if sources disagree, the product image wins; contradictions left after that go to the owner.",
+  "personal-hazelnuts-cake": {
+    "why": "owner decision 2026-11-17: Total Fat 7g but sat 2.5 + poly 2.1 + mono 7.4 = 12g on both the image and Shopify. Poly/mono are optional on FDA labels, so they are left off.",
+    "rows": [["Polyunsaturated Fat", null], ["Monounsaturated Fat", null]]
+  },
+  "personal-chocolate-fudge-cake-copy": {
+    "why": "owner decision 2026-11-17: print Dubai Dream exactly as the product image (sodium 12%, cholesterol without %).",
+    "accept": ["Cholesterol 35mg has no % Daily Value", "Sodium 160mg is printed as 12%"]
+  }
+}

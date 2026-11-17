@@ -176,3 +176,4 @@ directions/out/
 
 # headless Chrome profile used by theme/scripts/og/build.mjs
 theme/scripts/og/.hc/
+theme/scripts/nutrition/out/

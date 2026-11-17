@@ -124,42 +124,42 @@
           "type": "badge",
           "settings": {
             "label": "High Protein",
-            "icon": "prodani-badge-high-protein"
+            "icon": "none"
           }
         },
         "n2": {
           "type": "badge",
           "settings": {
             "label": "Non GMO",
-            "icon": "prodani-badge-non-gmo"
+            "icon": "none"
           }
         },
         "n3": {
           "type": "badge",
           "settings": {
             "label": "No Sugar Added",
-            "icon": "prodani-badge-no-sugar-added"
+            "icon": "none"
           }
         },
         "n4": {
           "type": "badge",
           "settings": {
             "label": "Gluten Free",
-            "icon": "prodani-badge-gluten-free"
+            "icon": "none"
           }
         },
         "n5": {
           "type": "badge",
           "settings": {
             "label": "High Fiber",
-            "icon": "prodani-badge-high-fiber"
+            "icon": "none"
           }
         },
         "n6": {
           "type": "badge",
           "settings": {
             "label": "Low Calorie",
-            "icon": "prodani-badge-low-calorie"
+            "icon": "none"
           }
         }
       },

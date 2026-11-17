@@ -24,19 +24,12 @@
           </li>
         {%- else -%}
         <li class="pd-badge-item" {{ block.shopify_attributes }}>
-            {%- comment -%} The icon slices are cocoa circles clipped at the bottom edge. The
-               disc is a cocoa circle behind them (exact colour match, #211913) that completes
-               the round shape; object-fit:contain keeps the whole symbol visible, never cut. {%- endcomment -%}
-            <span class="pd-badge-item__disc">
-              {%- if block.settings.image != blank -%}
-                {{ block.settings.image | image_url: width: 320
-                   | image_tag: loading: 'lazy', alt: '', class: 'pd-badge-item__icon' }}
-              {%- else -%}
-                <img class="pd-badge-item__icon"
-                     src="{{ block.settings.icon | append: '.png' | asset_url }}"
-                     alt="" loading="lazy" width="340" height="245">
-              {%- endif -%}
-            </span>
+            {%- comment -%} Text only (2026-11-17: the round icon badges don't match the
+               site). An uploaded custom icon still shows; the old disc PNGs are gone. {%- endcomment -%}
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 160
+                 | image_tag: loading: 'lazy', alt: '', class: 'pd-badge-item__custom' }}
+            {%- endif -%}
             {%- if block.settings.icon contains 'prodani-icon-' and block.settings.image == blank -%}
               {%- comment -%} 2026 line icons: inlined so stroke="currentColor" takes the text colour. {%- endcomment -%}
               <span class="pd-badge-item__line" aria-hidden="true">{{ block.settings.icon | append: '.svg' | inline_asset_content }}</span>
@@ -84,6 +77,7 @@
         {
           "type": "select", "id": "icon", "label": "Bundled icon",
           "options": [
+            { "value": "none",                          "label": "No icon (text only)" },
             { "value": "prodani-icon-protein",          "label": "Line: Protein" },
             { "value": "prodani-icon-no-added-sugar",   "label": "Line: No added sugar" },
             { "value": "prodani-icon-gluten-free",      "label": "Line: Gluten free" },
@@ -91,15 +85,9 @@
             { "value": "prodani-icon-baked-in-miami",   "label": "Line: Baked in Miami" },
             { "value": "prodani-icon-verified-reviews", "label": "Line: Verified reviews" },
             { "value": "prodani-icon-subscribe",        "label": "Line: Subscribe" },
-            { "value": "prodani-icon-build-your-box",   "label": "Line: Build your box" },
-            { "value": "prodani-badge-high-protein",  "label": "High protein" },
-            { "value": "prodani-badge-non-gmo",       "label": "Non GMO" },
-            { "value": "prodani-badge-no-sugar-added","label": "No sugar added" },
-            { "value": "prodani-badge-gluten-free",   "label": "Gluten free" },
-            { "value": "prodani-badge-high-fiber",    "label": "High fiber" },
-            { "value": "prodani-badge-low-calorie",   "label": "Low calorie" }
+            { "value": "prodani-icon-build-your-box",   "label": "Line: Build your box" }
           ],
-          "default": "prodani-badge-high-protein"
+          "default": "none"
         },
         { "type": "image_picker", "id": "image", "label": "Custom icon (overrides the bundled one)" }
       ]
