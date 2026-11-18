@@ -1,0 +1,149 @@
+{%- comment -%}
+  Flavor spotlight: every flavor gets the whole screen, one scroll each.
+
+  The stage is position:sticky inside a tall section, so the browser does the pinning and
+  the script only decides which flavor is on. Everything moves the way the page scrolls:
+  names rise through a mask, the tray travels up and out, the ground changes to the
+  flavor's own tint. The index on the side lists all the flavors, so nobody has to scroll
+  through six to find the seventh.
+
+  Without JavaScript, in the theme editor, or with one flavor only, the same markup is a
+  plain stacked list (see prodani-flavors.css, the rules that are not under .is-live).
+
+  Numbers come from the product (prodani.protein_g, prodani.calories, the variant price).
+  Nothing is typed in here, so a figure can never disagree with the product page.
+{%- endcomment -%}
+{{ 'prodani-flavors.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign source = section.settings.collection | default: collections['personal-protein-cakes']
+  assign total = 0
+  for product in source.products limit: 12
+    capture fm
+      render 'prodani-flavor-map', handle: product.handle
+    endcapture
+    assign fl = fm | strip | split: '|'
+    if fl[0] != blank
+      assign total = total | plus: 1
+    endif
+  endfor
+  assign total_label = total | prepend: '0' | slice: -2, 2
+-%}
+{%- if total > 0 -%}
+<section class="pd-flv" data-pd-flv style="--n:{{ total }}"
+         {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %} aria-labelledby="pd-flv-title-{{ section.id }}">
+  <div class="pd-flv__stage">
+    <header class="pd-flv__head">
+      <h2 class="pd-flv__title" id="pd-flv-title-{{ section.id }}"><span class="pd-tag pd-tag--pink">{{ section.settings.heading | escape }}</span></h2>
+      <p class="pd-flv__count" aria-hidden="true"><b data-pd-flv-n>01</b><span>/ {{ total_label }}</span></p>
+    </header>
+
+    <ol class="pd-flv__slides">
+      {%- assign i = 0 -%}
+      {%- for product in source.products limit: 12 -%}
+        {%- capture fm -%}{% render 'prodani-flavor-map', handle: product.handle %}{%- endcapture -%}
+        {%- assign fl = fm | strip | split: '|' -%}
+        {%- if fl[0] == blank -%}{%- continue -%}{%- endif -%}
+        {%- liquid
+          assign i = i | plus: 1
+          assign v = product.selected_or_first_available_variant
+          assign protein = product.metafields.prodani.protein_g.value
+          assign cals = product.metafields.prodani.calories.value
+          case fl[4]
+            when 'pd-cut-choc-slices.webp'
+              assign cw = 577
+              assign ch = 640
+            when 'pd-cut-hazelnut.webp'
+              assign cw = 251
+              assign ch = 640
+            when 'pd-cut-carrot-v.webp'
+              assign cw = 127
+              assign ch = 314
+            when 'pd-cut-pistachio.webp'
+              assign cw = 264
+              assign ch = 640
+            when 'pd-cut-banana-v.webp'
+              assign cw = 298
+              assign ch = 767
+            when 'pd-cut-cherry-white.webp'
+              assign cw = 250
+              assign ch = 640
+            when 'pd-cut-apple-v.webp'
+              assign cw = 294
+              assign ch = 762
+            else
+              assign cw = 360
+              assign ch = 640
+          endcase
+        -%}
+        {%- capture each -%}{% render 'prodani-pack-price', variant: v, mode: 'each' %}{%- endcapture -%}
+        {%- assign each = each | strip_html | remove: ' per cake' | strip -%}
+        <li class="pd-flv__slide" data-pd-flv-slide data-tint="{{ fl[3] }}" data-pos="{% if i == 1 %}on{% else %}after{% endif %}"
+            style="--tint:{{ fl[3] }};--fc:{{ fl[2] }}">
+          <div class="pd-flv__copy">
+            <h3 class="pd-flv__name">
+              <span class="pd-flv__mask"><span>{{ fl[0] }}</span></span>
+              <span class="pd-flv__mask"><span>{{ fl[1] }}</span></span>
+            </h3>
+            <ul class="pd-flv__facts">
+              {%- if protein != blank -%}<li><b>{{ protein }}<small>g</small></b>Protein</li>{%- endif -%}
+              {%- if cals != blank -%}<li><b>{{ cals }}</b>Calories</li>{%- endif -%}
+              {%- if each != blank -%}<li><b>{{ each }}</b>Per cake</li>{%- endif -%}
+            </ul>
+            <div class="pd-flv__cta">
+              <a class="pd-btn" href="{{ product.url }}">{{ section.settings.cta_label | escape }} · {{ v.price | money }}</a>
+              {%- if section.settings.box_label != blank -%}
+                <a class="pd-btn pd-btn--ghost" href="{{ section.settings.box_link | default: '/#box' }}" data-pd-flv-add="{{ fl[5] }}">{{ section.settings.box_label | escape }}</a>
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="pd-flv__art">
+            {%- if protein != blank -%}<p class="pd-flv__ghost" aria-hidden="true">{{ protein }}<small>g</small></p>{%- endif -%}
+            <img class="pd-flv__cake" src="{{ fl[4] | asset_url }}" alt="{{ fl[0] }} {{ fl[1] }} protein cake" width="{{ cw }}" height="{{ ch }}"
+                 {% if i == 1 %}loading="eager"{% else %}loading="lazy"{% endif %} decoding="async">
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    <nav class="pd-flv__index" aria-label="Jump to a flavor">
+      {%- assign i = 0 -%}
+      {%- for product in source.products limit: 12 -%}
+        {%- capture fm -%}{% render 'prodani-flavor-map', handle: product.handle %}{%- endcapture -%}
+        {%- assign fl = fm | strip | split: '|' -%}
+        {%- if fl[0] == blank -%}{%- continue -%}{%- endif -%}
+        {%- assign i = i | plus: 1 -%}
+        {%- assign num = i | prepend: '0' | slice: -2, 2 -%}
+        <button type="button" class="pd-flv__go" data-pd-flv-go{% if i == 1 %} aria-current="true"{% endif %}>
+          <span class="pd-flv__go-n">{{ num }}</span><span class="pd-flv__go-t">{{ fl[0] }} {{ fl[1] }}</span>
+        </button>
+      {%- endfor -%}
+    </nav>
+  </div>
+</section>
+{%- if section.settings.soon != blank -%}
+  <p class="pd-flv__soon"><b>{{ section.settings.soon_heading | escape }}:</b>
+    {%- assign soon = section.settings.soon | split: ',' -%}
+    {%- for s in soon %}<span>{{ s | strip | escape }}</span>{% endfor -%}
+  </p>
+{%- endif -%}
+<script src="{{ 'prodani-flavors.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Flavor spotlight",
+  "tag": "section",
+  "class": "pd-section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Flavors", "info": "One screen per cake, in the collection's order. Leave empty for Personal Protein Cakes." },
+    { "type": "text", "id": "heading", "label": "Label", "default": "The 7 flavors" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "flavors" },
+    { "type": "text", "id": "cta_label", "label": "Main button", "default": "Shop the 5-pack" },
+    { "type": "text", "id": "box_label", "label": "Second button", "info": "Drops one of this cake into the box builder on the same page. Leave empty to hide.", "default": "Add to a box" },
+    { "type": "url", "id": "box_link", "label": "Second button link", "info": "Used when the page has no box builder." },
+    { "type": "header", "content": "Coming soon line" },
+    { "type": "text", "id": "soon_heading", "label": "Lead-in", "default": "Coming soon" },
+    { "type": "text", "id": "soon", "label": "Flavors, comma separated", "info": "Leave empty to hide the line." }
+  ],
+  "presets": [{ "name": "Flavor spotlight" }]
+}
+{% endschema %}

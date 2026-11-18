@@ -126,7 +126,8 @@ for (const [name, marker] of [
   // Macro Bold homepage (2026-11-10): badges, stat deck, bleed word and contact are switched off on purpose.
   ['header',      'pd-nav'],
   ['hero',        'pd-hero'],
-  ['collection',  'pd-collection'],
+  // 2026-11-18: the flavor spotlight takes the grid's place; either one counts until the spotlight is live.
+  ['flavors',     ['pd-flv', 'pd-collection']],
   ['box builder', 'pd-box'],
   ['catering band', 'pd-shout'],
   ['comparison',  'pd-cmp'],
@@ -134,7 +135,7 @@ for (const [name, marker] of [
   ['reviews',     'pd-reviews'],
   ['instagram',   'pd-ig'],
   ['footer',      'pd-foot'],
-]) home.includes(marker) ? ok(name) : bad(name, `"${marker}" missing`)
+]) [].concat(marker).some(m => home.includes(m)) ? ok(name) : bad(name, `"${[].concat(marker).join('" or "')}" missing`)
 
 /* ---------- 3b. the product page carries its reviews ---------- */
 head('3b. Product page reviews')

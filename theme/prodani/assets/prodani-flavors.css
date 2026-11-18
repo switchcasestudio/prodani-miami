@@ -1,0 +1,143 @@
+/* Flavor spotlight (2026-11-18). Macro Bold: condensed caps, ink rules, the number is the hero.
+   Two layers of rules:
+   1. the plain stacked list (no JS, theme editor): every flavor is a ruled row;
+   2. .is-live (set by prodani-flavors.js): a sticky stage, one flavor on at a time.
+   Motion follows the scroll: names rise through a mask, the tray travels up and out. */
+
+.pd-flv{
+  --io: cubic-bezier(.77, 0, .175, 1);      /* things that travel across the stage */
+  --out: cubic-bezier(.23, 1, .32, 1);      /* things that arrive */
+  --stage-h: calc(100svh - var(--pd-nav-h, 64px));
+  --step: 72svh;                            /* scroll distance that belongs to one flavor */
+  position:relative; background:var(--butter); border-bottom:var(--rule) solid var(--line);
+}
+.pd-flv__head{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px var(--pad) 0; }
+.pd-flv__title{ margin:0; font:inherit; line-height:1; letter-spacing:0; }
+html .pd-flv__title{ font-family:var(--mono); font-stretch:100%; }
+.pd-flv__count{ margin:0; display:flex; align-items:baseline; gap:8px; color:var(--cocoa);
+  font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; font-variant-numeric:tabular-nums; }
+.pd-flv__count b{ font-family:var(--script); font-weight:900; font-stretch:70%; font-size:40px; line-height:.9; letter-spacing:-.01em; }
+
+.pd-flv__slides{ list-style:none; margin:0; padding:0; }
+.pd-flv__slide{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); align-items:center; gap:24px;
+  padding:clamp(28px,4vw,56px) var(--pad); background:var(--tint); border-top:var(--rule) solid var(--line); min-height:420px; }
+.pd-flv__copy{ min-width:0; display:flex; flex-direction:column; align-items:flex-start; container-type:inline-size; }
+.pd-flv__name{ margin:0; color:var(--cocoa); }
+html .pd-flv__name{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; letter-spacing:-.02em;
+  font-size:clamp(56px, min(11.5vw, 21svh), 190px); line-height:.86; white-space:nowrap; overflow-wrap:normal; word-break:normal; }
+/* Sized from the column it sits in, so the longest name (nine letters) always fits on its line. */
+@supports (font-size:1cqi){ html .pd-flv__name{ font-size:clamp(56px, min(23cqi, 21svh), 190px); } }
+/* The mask: padded so the heavy caps are not shaved, pulled back so the lines still sit tight. */
+.pd-flv__mask{ display:block; overflow:hidden; padding:.05em .04em .03em 0; margin:-.05em 0 -.03em; }
+.pd-flv__mask > span{ display:block; will-change:transform; }
+
+.pd-flv__facts{ list-style:none; margin:clamp(18px,2.4svh,30px) 0 0; padding:0; display:flex; flex-wrap:wrap; gap:14px clamp(22px,3vw,48px); }
+.pd-flv__facts li{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa); }
+.pd-flv__facts b{ display:block; margin-bottom:6px; font-family:var(--script); font-weight:900; font-stretch:70%;
+  font-size:clamp(32px,3.4vw,56px); line-height:.9; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.pd-flv__facts small{ font-size:.5em; letter-spacing:0; margin-left:.04em; }
+.pd-flv__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(20px,3svh,34px); }
+.pd-flv__cta .pd-btn--ghost{ background:transparent; }
+
+.pd-flv__art{ position:relative; min-width:0; height:100%; min-height:340px; }
+.pd-flv__cake{ position:absolute; left:50%; top:50%; translate:-50% -50%; rotate:3deg; height:min(84%, 640px); width:auto; max-width:86%;
+  object-fit:contain; filter:drop-shadow(0 30px 34px rgba(26,17,12,.22)); will-change:transform; }
+/* The protein figure, tone on tone behind the tray. */
+.pd-flv__ghost{ position:absolute; right:38%; top:0; margin:0; z-index:0; white-space:nowrap; pointer-events:none;
+  color:color-mix(in srgb, var(--fc) 26%, var(--tint)); font-family:var(--script); font-weight:900; font-stretch:70%;
+  font-size:clamp(140px, min(21vw, 42svh), 380px); line-height:.8; letter-spacing:-.04em; }
+.pd-flv__ghost small{ font-size:.42em; letter-spacing:-.02em; }
+.pd-flv__cake{ z-index:1; }
+
+.pd-flv__index{ display:none; }
+.pd-flv__soon{ margin:0; padding:18px var(--pad); border-bottom:var(--rule) solid var(--line); background:#fff; color:var(--cocoa);
+  font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; display:flex; flex-wrap:wrap; gap:8px 18px; }
+.pd-flv__soon b{ color:var(--berry); }
+
+@media (max-width:900px){
+  .pd-flv__slide{ grid-template-columns:1fr; gap:8px; }
+  .pd-flv__art{ order:-1; height:300px; min-height:0; }
+  .pd-flv__copy{ container-type:normal; }
+  html .pd-flv__name{ font-size:clamp(46px,15vw,84px); }
+}
+
+/* ======================= live: one flavor per scroll ======================= */
+.pd-flv.is-live{ height:calc(var(--stage-h) + (var(--n) - 1) * var(--step)); border-bottom:0; }
+.pd-flv.is-live .pd-flv__stage{ position:sticky; top:var(--pd-nav-h, 64px); height:var(--stage-h); overflow:hidden;
+  background-color:var(--tint, var(--butter)); transition:background-color .7s ease; border-bottom:var(--rule) solid var(--line);
+  display:grid; grid-template-rows:auto minmax(0,1fr); }
+.pd-flv.is-live .pd-flv__slides{ display:grid; min-height:0; }
+.pd-flv.is-live .pd-flv__slide{ grid-area:1 / 1; min-height:0; background:none; border-top:0; padding-block:0 clamp(20px,3.4svh,40px);
+  padding-right:calc(var(--pad) + 200px); visibility:hidden; transition:visibility 0s .9s; }
+.pd-flv.is-live .pd-flv__slide[data-pos="on"]{ visibility:visible; transition-delay:0s; }
+
+.pd-flv.is-live .pd-flv__mask > span{ transition:transform .75s var(--io); }
+.pd-flv.is-live .pd-flv__mask + .pd-flv__mask > span{ transition-delay:.05s; }
+.pd-flv.is-live [data-pos="before"] .pd-flv__mask > span{ transform:translateY(-112%); }
+.pd-flv.is-live [data-pos="after"] .pd-flv__mask > span{ transform:translateY(112%); }
+
+.pd-flv.is-live .pd-flv__cake{ transition:transform .85s var(--io); }
+.pd-flv.is-live [data-pos="before"] .pd-flv__cake{ transform:translateY(-140%) rotate(-6deg); }
+.pd-flv.is-live [data-pos="after"] .pd-flv__cake{ transform:translateY(140%) rotate(7deg); }
+.pd-flv.is-live .pd-flv__ghost{ transition:transform .85s var(--io), opacity .45s ease; }
+.pd-flv.is-live [data-pos="before"] .pd-flv__ghost{ transform:translateY(-34%); opacity:0; }
+.pd-flv.is-live [data-pos="after"] .pd-flv__ghost{ transform:translateY(34%); opacity:0; }
+
+/* Leaving is quick; arriving waits for the name to land. */
+.pd-flv.is-live .pd-flv__facts, .pd-flv.is-live .pd-flv__cta{ transition:opacity .18s ease, transform .18s ease; }
+.pd-flv.is-live :is([data-pos="before"],[data-pos="after"]) :is(.pd-flv__facts,.pd-flv__cta){ opacity:0; transform:translateY(14px); }
+.pd-flv.is-live [data-pos="on"] .pd-flv__facts{ transition:opacity .45s ease .3s, transform .6s var(--out) .3s; }
+.pd-flv.is-live [data-pos="on"] .pd-flv__cta{ transition:opacity .45s ease .38s, transform .6s var(--out) .38s; }
+
+/* The index: every flavor, always on screen. */
+.pd-flv.is-live .pd-flv__index{ position:absolute; right:var(--pad); top:50%; transform:translateY(-50%); z-index:3;
+  display:flex; flex-direction:column; align-items:flex-start; gap:2px; }
+.pd-flv__go{ appearance:none; border:0; background:none; cursor:pointer; padding:0; min-height:32px; display:flex; align-items:center; gap:10px;
+  color:var(--cocoa); opacity:.5; font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.13em; text-transform:uppercase;
+  transition:opacity .2s ease; }
+.pd-flv__go::before{ content:""; width:8px; height:8px; background:var(--cocoa); flex:none; transform:scale(0); transition:transform .25s var(--out); }
+.pd-flv__go-n{ font-variant-numeric:tabular-nums; }
+.pd-flv__go[aria-current="true"]{ opacity:1; }
+.pd-flv__go[aria-current="true"]::before{ transform:scale(1); }
+.pd-flv__go:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; opacity:1; }
+@media (hover:hover) and (pointer:fine){ .pd-flv__go:hover{ opacity:1; } }
+
+@media (max-width:900px){
+  .pd-flv{ --step: 62svh; }
+  .pd-flv__head{ padding-top:14px; }
+  .pd-flv__count b{ font-size:30px; }
+  .pd-flv.is-live .pd-flv__stage{ grid-template-rows:auto auto minmax(0,1fr); }
+  .pd-flv.is-live .pd-flv__slides{ grid-row:3; }
+  .pd-flv.is-live .pd-flv__slide{ grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr) auto; gap:0; padding:6px var(--pad) 16px; align-items:stretch; }
+  .pd-flv.is-live .pd-flv__copy{ display:contents; }
+  .pd-flv.is-live .pd-flv__name{ grid-row:1; }
+  html .pd-flv.is-live .pd-flv__name{ font-size:clamp(44px, min(15vw, 9.5svh), 84px); }
+  .pd-flv.is-live .pd-flv__art{ grid-row:2; order:0; height:auto; min-height:0; }
+  .pd-flv.is-live .pd-flv__cake{ height:min(92%, 420px); max-width:70%; }
+  .pd-flv.is-live .pd-flv__ghost{ font-size:min(44vw, 30svh); top:4%; right:50%; }
+  .pd-flv.is-live .pd-flv__facts{ grid-row:3; margin:0; gap:8px 22px; }
+  .pd-flv.is-live .pd-flv__facts b{ font-size:30px; margin-bottom:3px; }
+  .pd-flv.is-live .pd-flv__cta{ grid-row:4; margin-top:12px; gap:8px; flex-wrap:nowrap; }
+  .pd-flv.is-live .pd-flv__slide{ grid-template-rows:auto minmax(0,1fr) auto auto; }
+  .pd-flv.is-live .pd-flv__cta .pd-btn{ flex:1 1 auto; min-height:52px; padding:0 10px; font-size:12px; letter-spacing:.03em; }
+  .pd-flv.is-live .pd-flv__cta .pd-btn--ghost{ flex:0 1 auto; }
+
+  /* The index becomes a row of seven segments under the label. */
+  .pd-flv.is-live .pd-flv__index{ position:static; transform:none; grid-row:2; flex-direction:row; gap:4px; padding:6px var(--pad) 0; }
+  .pd-flv__go{ flex:1; min-height:32px; opacity:1; gap:0; }
+  .pd-flv__go::before{ width:100%; height:4px; transform:none; background:rgba(26,17,12,.18); transition:background-color .3s ease; }
+  .pd-flv__go[aria-current="true"]::before{ background:var(--cocoa); }
+  .pd-flv__go-n, .pd-flv__go-t{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+}
+@media (max-width:380px){
+  .pd-flv.is-live .pd-flv__cta{ flex-wrap:wrap; }
+  .pd-flv.is-live .pd-flv__cta .pd-btn{ flex:1 1 100%; min-height:46px; }
+}
+
+/* Reduced motion: the flavors still change with the scroll, as a plain cross-fade. */
+@media (prefers-reduced-motion:reduce){
+  .pd-flv.is-live .pd-flv__slide{ transition:opacity .2s ease !important; opacity:0; }
+  .pd-flv.is-live .pd-flv__slide[data-pos="on"]{ opacity:1; }
+  .pd-flv.is-live .pd-flv__mask > span, .pd-flv.is-live .pd-flv__cake, .pd-flv.is-live .pd-flv__ghost,
+  .pd-flv.is-live .pd-flv__facts, .pd-flv.is-live .pd-flv__cta{ transform:none !important; opacity:1 !important; }
+}

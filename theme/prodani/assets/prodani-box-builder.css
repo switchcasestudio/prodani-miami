@@ -287,3 +287,41 @@
 .pd-box .pd-lede--intro{ margin-top:14px; }
 .pd-box__size[aria-checked="true"]::after{ display:none; }
 .pd-box__size[aria-checked="true"]{ box-shadow:inset 0 0 0 4px var(--cocoa) !important; background:var(--butter); }
+
+/* ======================= The box you can see (2026-11-18) =======================
+   One slot per cake, side by side like the trays in the real box. A cake leaves its
+   tile and lands in the next free slot. Replaces the progress bar. */
+.pd-box__yours{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px 28px; flex-wrap:wrap; margin-bottom:18px; }
+.pd-box__yours .pd-box__count{ margin:0; }
+.pd-box__tray{ --slots:6; display:grid; grid-template-columns:repeat(var(--slots), minmax(0, 1fr)); flex:0 1 auto; min-width:0;
+  width:calc(var(--slots) * 46px + 4px); max-width:100%; height:clamp(72px, 8vw, 104px); border:var(--rule) solid var(--line); background:#fff; }
+.pd-box__slot{ position:relative; display:block; min-width:0; border-right:1px solid rgba(26,17,12,.16); overflow:hidden;
+  background-color:transparent; transition:background-color .25s ease; }
+.pd-box__slot:last-child{ border-right:0; }
+.pd-box__slot img{ position:absolute; inset:7% 12%; width:76%; height:86%; object-fit:contain; opacity:0; transform:scale(.82);
+  transition:opacity .16s ease, transform .3s cubic-bezier(.23,1,.32,1); }
+.pd-box__slot img:not([src]){ display:none; }
+.pd-box__slot.is-full{ background-color:var(--tint, var(--butter)); }
+.pd-box__slot.is-full img{ opacity:1; transform:none; }
+.pd-box__slot.is-landing img{ opacity:0; transform:scale(.82); transition:none; }
+/* A flavor with no picture still shows as a block of its own colour. */
+.pd-box__slot.is-plain.is-full{ background-color:var(--fc, var(--cocoa)); }
+.pd-box__ghost{ position:fixed; z-index:120; margin:0; pointer-events:none; object-fit:contain; will-change:transform;
+  filter:drop-shadow(0 10px 14px rgba(26,17,12,.25)); }
+
+/* Flavor tiles: the cut-out of the cake on its own tint. */
+.pd-box__flavor-media--cut{ --mh:clamp(104px, 11vw, 150px); aspect-ratio:auto; height:var(--mh); background:var(--tint, var(--butter)); display:flex; align-items:center; justify-content:center; }
+.pd-box__flavor-media--cut img{ flex:none; width:auto; height:calc(var(--mh) * .86); max-width:80%; object-fit:contain; filter:drop-shadow(0 8px 10px rgba(26,17,12,.18)); }
+.pd-box__flavor.is-active .pd-box__flavor-media--cut{ box-shadow:inset 0 0 0 2px var(--cocoa) !important; }
+
+/* Press feedback on the one control tapped over and over. */
+.pd-box__step-btn{ transition:transform .12s ease-out, background .2s; }
+.pd-box__step-btn:active:not([disabled]){ transform:scale(.92); }
+.pd-box__add:active:not([disabled]), .pd-box__expand:active{ transform:scale(.98); }
+
+@media (max-width:749px){
+  .pd-box__yours{ gap:10px; }
+  .pd-box__tray{ height:64px; }
+  .pd-box__flavor-media--cut{ --mh:88px; }
+}
+@media (prefers-reduced-motion:reduce){ .pd-box__slot img{ transform:none; } }

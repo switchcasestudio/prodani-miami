@@ -1,13 +1,14 @@
 {%- comment -%}
   Option B flavor worlds, keyed by product handle (some handles are historic and do not
-  match the flavor: dubai-dream-cake-copy IS Cherry White). Output: "Name|Second|ink|bg|cutout".
+  match the flavor: dubai-dream-cake-copy IS Cherry White). Output: "Name|Second|ink|bg|cutout|key". The key (added 2026-11-18) names the flavor for the box builder
+  and the flavor spotlight; older callers read fields 0 to 4 only.
 {%- endcomment -%}
 {%- case handle -%}
-  {%- when 'personal-hazelnuts-cake' -%}Hazelnut|Fudge|#9A5F2C|#F6E1C8|pd-cut-hazelnut.webp
-  {%- when 'moist-chocolate-fudge-cake-copy' -%}Chocolate|Fudge|#5B3A2E|#EAD5C8|pd-cut-choc-slices.webp
-  {%- when 'personal-chocolate-fudge-cake-copy' -%}Dubai|Dream|#5F7230|#EBEFCB|pd-cut-pistachio.webp
-  {%- when 'dubai-dream-cake-copy' -%}Cherry|White|#C13A5A|#FBE4E9|pd-cut-cherry-white.webp
-  {%- when 'carrot-cake' -%}Carrot|Cake|#B9560F|#FBE2C9|pd-cut-carrot-v.webp
-  {%- when 'banana-bread-copy' -%}Banana|Bread|#8F6A0E|#FBEEC2|pd-cut-banana-v.webp
-  {%- when 'cinnamon-apple-cake-copy' -%}Cinnamon|Apple|#94602C|#F6E4CC|pd-cut-apple-v.webp
+  {%- when 'personal-hazelnuts-cake' -%}Hazelnut|Fudge|#9A5F2C|#F6E1C8|pd-cut-hazelnut.webp|hazelnut
+  {%- when 'moist-chocolate-fudge-cake-copy' -%}Chocolate|Fudge|#5B3A2E|#EAD5C8|pd-cut-choc-slices.webp|chocolate
+  {%- when 'personal-chocolate-fudge-cake-copy' -%}Dubai|Dream|#5F7230|#EBEFCB|pd-cut-pistachio.webp|pistachio
+  {%- when 'dubai-dream-cake-copy' -%}Cherry|White|#C13A5A|#FBE4E9|pd-cut-cherry-white.webp|cherry
+  {%- when 'carrot-cake' -%}Carrot|Cake|#B9560F|#FBE2C9|pd-cut-carrot-v.webp|carrot
+  {%- when 'banana-bread-copy' -%}Banana|Bread|#8F6A0E|#FBEEC2|pd-cut-banana-v.webp|banana
+  {%- when 'cinnamon-apple-cake-copy' -%}Cinnamon|Apple|#94602C|#F6E4CC|pd-cut-apple-v.webp|apple
 {%- endcase -%}

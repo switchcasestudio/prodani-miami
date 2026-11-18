@@ -292,6 +292,8 @@
     {%- comment -%} Brand foundation — must win over base.css, so it loads after. {%- endcomment -%}
     {{ 'archivo-var-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
     {{ 'prodani-tokens.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Hero entrance, page transition, press feedback: CSS only. {%- endcomment -%}
+    {{ 'prodani-motion.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}

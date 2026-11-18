@@ -178,13 +178,27 @@
     {%- comment -%} Step 2 — flavors {%- endcomment -%}
     <div class="pd-box__step">
       <p class="pd-box__step-label"><span>2</span> Choose your flavors</p>
+      {%- comment -%}
+        The box itself (2026-11-18): one slot per cake, filled in the order you pick.
+        It replaces the progress bar, so "how many are left" is something you see, not
+        a number you read. The slots are drawn by prodani-box-builder.js; the count
+        next to them is the text version and is what a screen reader hears.
+      {%- endcomment -%}
+      <div class="pd-box__yours">
+        <div class="pd-box__tray" data-pd-tray aria-hidden="true"></div>
+        <div class="pd-box__count" role="status"><strong data-pd-selected>0</strong> of <strong data-pd-total>0</strong> selected</div>
+      </div>
       <div class="pd-box__flavors" data-pd-rail>
         {%- for block in section.blocks -%}
           {%- if block.type == 'flavor' -%}
             {%- assign variant_id = block.settings.product.selected_or_first_available_variant.id -%}
+            {%- capture bf -%}{% render 'prodani-box-flavor', name: block.settings.name %}{%- endcapture -%}
+            {%- assign bf = bf | strip | split: '|' -%}
             <div
               class="pd-box__flavor{% if block.settings.sold_out %} is-soldout{% endif %}"
               data-flavor="{{ block.id }}"
+              data-key="{{ bf[0] }}"
+              {% if bf[2] != blank %}style="--tint:{{ bf[2] }};--fc:{{ bf[3] }}"{% endif %}
               data-name="{{ block.settings.name | escape }}"
               data-variant="{{ variant_id }}"
               data-soldout="{% if block.settings.sold_out %}true{% else %}false{% endif %}"
@@ -197,8 +211,13 @@
                 swatch). Sold-out moves to a compact inline tag instead of a full block.
               {%- endcomment -%}
               {%- if block.settings.image != blank -%}
-                <div class="pd-box__flavor-media">
+                <div class="pd-box__flavor-media" data-pd-thumb>
                   {{ block.settings.image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '160,320', alt: block.settings.name | escape }}
+                </div>
+              {%- elsif bf[1] != blank -%}
+                {%- comment -%} No uploaded photo: the site's own cut-out of this cake on its tint. {%- endcomment -%}
+                <div class="pd-box__flavor-media pd-box__flavor-media--cut" data-pd-thumb>
+                  <img src="{{ bf[1] | asset_url }}" alt="" width="{{ bf[4] }}" height="{{ bf[5] }}" loading="lazy">
                 </div>
               {%- endif -%}
               <div class="pd-box__flavor-info">
@@ -218,10 +237,7 @@
         {%- endfor -%}
       </div>
 
-      {%- comment -%} progress {%- endcomment -%}
       <div class="pd-box__tracker" data-pd-tracker>
-        <div class="pd-box__count"><strong data-pd-selected>0</strong> of <strong data-pd-total>0</strong> selected</div>
-        <div class="pd-box__bar"><span data-pd-bar style="width:0%"></span></div>
         <div class="pd-box__upsell" data-pd-upsell hidden></div>
       </div>
     </div>

@@ -1,0 +1,53 @@
+/* ProDani motion, the CSS half (2026-11-18). The scroll reveals stay in prodani-motion.js.
+   What lives here runs with no JavaScript at all, starts on the first paint and stays
+   smooth while the page is still loading:
+     1. the hero entrance: the headline lands word by word, the trays settle in;
+     2. the page-to-page transition: the page closes like a box lid and the next one opens;
+     3. press feedback on buttons.
+   Everything that moves is inside prefers-reduced-motion: no-preference. */
+
+/* ---- 1. Hero entrance (once per page load) ---- */
+@media (prefers-reduced-motion: no-preference){
+  html:not(.shopify-design-mode) .pd-fh__w{ display:inline-block; animation:pd-word .8s cubic-bezier(.23,1,.32,1) both;
+    animation-delay:calc(90ms + var(--i, 0) * 55ms); }
+  /* An underline does not reach inline-block children, so the words carry their own. */
+  html:not(.shopify-design-mode) .pd-fh__line--u .pd-fh__w{ text-decoration:underline; text-decoration-color:var(--pink);
+    text-decoration-thickness:.09em; text-underline-offset:.08em; text-decoration-skip-ink:none; }
+  /* The word rises from behind its own baseline: it moves up exactly as fast as the clip opens. */
+  @keyframes pd-word{
+    from{ transform:translateY(105%); clip-path:inset(-.1em -.1em 105% -.1em); }
+    to{ transform:none; clip-path:inset(-.2em -.1em -.2em -.1em); }
+  }
+  @keyframes pd-rise{ from{ opacity:0; translate:0 18px; } }
+  @keyframes pd-cake{ from{ opacity:0; translate:0 -42%; } }
+  @keyframes pd-cake-lead{ from{ translate:0 -46%; } }   /* the first-paint image never hides */
+  @keyframes pd-stamp{ from{ opacity:0; scale:1.4; } }
+
+  html:not(.shopify-design-mode) .pd-fh__eyebrow{ animation:pd-rise .6s cubic-bezier(.23,1,.32,1) both; }
+  html:not(.shopify-design-mode) .pd-fh__p{ animation:pd-rise .7s cubic-bezier(.23,1,.32,1) .55s both; }
+  html:not(.shopify-design-mode) .pd-fh__cta{ animation:pd-rise .7s cubic-bezier(.23,1,.32,1) .65s both; }
+  html:not(.shopify-design-mode) .pd-fh__cake--l{ animation:pd-cake .9s cubic-bezier(.23,1,.32,1) .12s both; }
+  html:not(.shopify-design-mode) .pd-fh__cake--c{ animation:pd-cake-lead .9s cubic-bezier(.23,1,.32,1) both; }
+  html:not(.shopify-design-mode) .pd-fh__cake--r{ animation:pd-cake .9s cubic-bezier(.23,1,.32,1) .24s both; }
+  html:not(.shopify-design-mode) .pd-fh__price{ animation:pd-rise .6s cubic-bezier(.23,1,.32,1) .6s both; }
+  html:not(.shopify-design-mode) .pd-fh__sticker{ animation:pd-stamp .28s cubic-bezier(.23,1,.32,1) .85s both; }
+}
+
+/* ---- 2. Page transition: the lid closes, the next page opens ----
+   Native cross-document view transitions. The browser starts loading the next page at
+   once and only then plays this, so it adds no waiting. Browsers without it just navigate. */
+@media (prefers-reduced-motion: no-preference){
+  @view-transition{ navigation:auto; }
+  ::view-transition{ background:#1A110C; }
+  ::view-transition-group(root){ animation-duration:.46s; }
+  ::view-transition-old(root){ animation:pd-lid-close .2s cubic-bezier(.6,0,.3,1) both; }
+  ::view-transition-new(root){ animation:pd-lid-open .3s cubic-bezier(.23,1,.32,1) .16s both; }
+  @keyframes pd-lid-close{ from{ clip-path:inset(0 0 0 0); } to{ clip-path:inset(0 50% 0 50%); } }
+  @keyframes pd-lid-open{ from{ clip-path:inset(0 50% 0 50%); } to{ clip-path:inset(0 0 0 0); } }
+}
+
+/* ---- 3. Press feedback ---- */
+.pd-btn{ transition:transform .16s ease-out, background .2s, color .2s; }
+.pd-btn:active{ transform:scale(.97); }
+/* A finger has no hover: without this a tapped button stays lifted. */
+@media (hover: none){ .pd-btn:hover{ transform:none; } .pd-btn:active{ transform:scale(.97); } }

@@ -173,7 +173,8 @@
         "cta_link": "/collections/personal-protein-cakes",
         "soon_heading": "Coming soon",
         "soon_note": "Not available to order yet"
-      }
+      },
+      "disabled": true
     },
     "bleed": {
       "type": "prodani-bleed",
@@ -623,11 +624,24 @@
         "flip": true,
         "tone": "cream"
       }
+    },
+    "flavors": {
+      "type": "prodani-flavors",
+      "settings": {
+        "heading": "The 7 flavors",
+        "anchor": "flavors",
+        "cta_label": "Shop the 5-pack",
+        "box_label": "Add to a box",
+        "box_link": "/#box",
+        "soon_heading": "Coming soon",
+        "soon": "Lemon, Matcha, Birthday Cake"
+      }
     }
   },
   "order": [
     "hero",
     "badges",
+    "flavors",
     "collection",
     "bleed",
     "box",
@@ -642,5 +656,3 @@
     "contact"
   ]
 }
-
-

@@ -1,0 +1,24 @@
+{%- comment -%}
+  Box builder: which cake a flavor row is, worked out from its name, so the row can show
+  the same cut-out and tint as the rest of the site without anyone uploading an image.
+  Output: "key|cutout|tint|ink|width|height", or nothing for a name it does not know.
+  The keys match field 6 of prodani-flavor-map.
+{%- endcomment -%}
+{%- liquid
+  assign nm = name | downcase
+  if nm contains 'hazelnut'
+    echo 'hazelnut|pd-cut-hazelnut.webp|#F6E1C8|#9A5F2C|251|640'
+  elsif nm contains 'pistachio' or nm contains 'dubai'
+    echo 'pistachio|pd-cut-pistachio.webp|#EBEFCB|#5F7230|264|640'
+  elsif nm contains 'cherry'
+    echo 'cherry|pd-cut-cherry-white.webp|#FBE4E9|#C13A5A|250|640'
+  elsif nm contains 'carrot'
+    echo 'carrot|pd-cut-carrot-v.webp|#FBE2C9|#B9560F|127|314'
+  elsif nm contains 'banana'
+    echo 'banana|pd-cut-banana-v.webp|#FBEEC2|#8F6A0E|298|767'
+  elsif nm contains 'apple'
+    echo 'apple|pd-cut-apple-v.webp|#F6E4CC|#94602C|294|762'
+  elsif nm contains 'chocolate' or nm contains 'ganache'
+    echo 'chocolate|pd-cut-choc-slices.webp|#EAD5C8|#5B3A2E|577|640'
+  endif
+-%}

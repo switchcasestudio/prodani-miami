@@ -33,7 +33,11 @@
   var subFreq = root.querySelector('[data-pd-box-freq]');
   var subPlan = root.querySelector('[data-pd-box-plan]');
 
-  var state = { size: 0, price: 0, sel: {}, curated: null };
+  // seq is the order the cakes went in, one flavor id per slot of the tray.
+  var state = { size: 0, price: 0, sel: {}, curated: null, seq: [] };
+  var elTray = root.querySelector('[data-pd-tray]');
+  var slots = [], byId = {};
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- fold: steps 2–4 stay closed until the shopper engages ---- */
   var more = root.querySelector('[data-pd-more]');
@@ -63,6 +67,7 @@
     state.size = parseInt(btn.getAttribute('data-size'), 10) || 0;
     state.price = parseFloat(btn.getAttribute('data-price')) || 0;
     if (!keepCurated) clearCurated();
+    buildTray();
     refresh();
   }
 
@@ -111,6 +116,12 @@
     state.size = size;
     state.price = price;
     state.curated = card;
+    state.seq = [];
+    flavorEls.forEach(function (el) {
+      var fid = el.getAttribute('data-flavor');
+      for (var q = 0; q < (state.sel[fid] || 0); q++) state.seq.push(fid);
+    });
+    buildTray();
 
     // Reflect the curated size on the size buttons so step 1 and step 2 agree.
     sizeBtns.forEach(function (b) {
@@ -157,6 +168,12 @@
     var minus = el.querySelector('[data-minus]');
     var plus = el.querySelector('[data-plus]');
     state.sel[id] = 0;
+    byId[id] = el;
+    var thumb = el.querySelector('[data-pd-thumb] img');
+    el._thumbEl = thumb;
+    el._thumb = thumb ? (thumb.currentSrc || thumb.src) : '';
+    el._tint = el.style.getPropertyValue('--tint');
+    el._ink = el.style.getPropertyValue('--fc');
 
     minus.addEventListener('click', function () { bump(id, -1); });
     plus.addEventListener('click', function () { bump(id, 1); });
@@ -171,13 +188,97 @@
   });
 
   function bump(id, delta) {
-    if (delta > 0 && (totalQty() >= state.size || state.size === 0)) return;
+    if (delta > 0 && (totalQty() >= state.size || state.size === 0)) return false;
+    if (delta < 0 && !state.sel[id]) return false;
     state.sel[id] = Math.max(0, (state.sel[id] || 0) + delta);
+    var landing = -1;
+    if (delta > 0) { state.seq.push(id); landing = state.seq.length - 1; }
+    else { var at = state.seq.lastIndexOf(id); if (at > -1) state.seq.splice(at, 1); }
     // Hand-editing a curated box makes it yours — drop the preset highlight, keep the
     // quantities. The size and price stay put so the deal doesn't silently change.
     if (state.curated) clearCurated();
-    refresh();
+    refresh(landing);
+    if (landing > -1) fly(byId[id], slots[landing]);
+    return true;
   }
+
+  /* ---- the tray: one slot per cake ---- */
+
+  function buildTray() {
+    if (!elTray) return;
+    if (slots.length !== state.size) {
+      elTray.innerHTML = '';
+      slots = [];
+      for (var i = 0; i < state.size; i++) {
+        var slot = document.createElement('span');
+        slot.className = 'pd-box__slot';
+        slot.appendChild(document.createElement('img')).alt = '';
+        elTray.appendChild(slot);
+        slots.push(slot);
+      }
+      elTray.style.setProperty('--slots', state.size || 1);
+    }
+  }
+
+  // landing: the slot a cake is flying to right now. It stays empty until the cake arrives.
+  function renderTray(landing) {
+    slots.forEach(function (slot, i) {
+      var id = state.seq[i], el = id ? byId[id] : null, img = slot.firstChild;
+      if (!el) { slot.classList.remove('is-full', 'is-landing'); slot._f = null; return; }
+      if (slot._f !== id) {
+        slot._f = id;
+        if (el._thumb) img.src = el._thumb; else img.removeAttribute('src');
+        slot.style.setProperty('--tint', el._tint || '');
+        slot.style.setProperty('--fc', el._ink || '');
+        slot.classList.toggle('is-plain', !el._thumb);
+      }
+      slot.classList.add('is-full');
+      slot.classList.toggle('is-landing', i === landing && canFly(el));
+    });
+  }
+
+  function canFly(tile) { return !calm && tile && tile._thumbEl && typeof tile._thumbEl.animate === 'function'; }
+
+  // The cake leaves its tile and drops into the next free slot. The count has already
+  // changed by the time it lands; this only shows where the cake went.
+  function fly(tile, slot) {
+    if (!slot) return;
+    if (!canFly(tile)) { slot.classList.remove('is-landing'); return; }
+    var a = tile._thumbEl.getBoundingClientRect(), b = slot.getBoundingClientRect();
+    if (!a.width || !b.width) { slot.classList.remove('is-landing'); return; }
+    var g = document.createElement('img');
+    g.src = tile._thumb; g.alt = ''; g.className = 'pd-box__ghost';
+    g.style.cssText = 'left:' + a.left + 'px;top:' + a.top + 'px;width:' + a.width + 'px;height:' + a.height + 'px;';
+    document.body.appendChild(g);
+    var dx = (b.left + b.width / 2) - (a.left + a.width / 2);
+    var dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+    var sc = Math.min(1, (b.height * 0.84) / a.height);
+    var lift = Math.min(60, 24 + Math.abs(dx) * 0.08);
+    var anim = g.animate([
+      { transform: 'translate(0,0) scale(1) rotate(0deg)' },
+      { transform: 'translate(' + (dx * 0.5) + 'px,' + (dy * 0.5 - lift) + 'px) scale(' + ((1 + sc) / 2) + ') rotate(-7deg)', offset: 0.5 },
+      { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sc + ') rotate(0deg)' }
+    ], { duration: 460, easing: 'cubic-bezier(.6,0,.3,1)' });
+    var land = function () { if (g.parentNode) g.parentNode.removeChild(g); slot.classList.remove('is-landing'); };
+    anim.onfinish = land; anim.oncancel = land;
+  }
+
+  // A flavor picked somewhere else on the page (the flavor spotlight's "Add to a box").
+  document.addEventListener('pd:box:add', function (e) {
+    var key = e.detail && e.detail.key;
+    var el = flavorEls.filter(function (f) { return key && f.getAttribute('data-key') === key && f.getAttribute('data-soldout') !== 'true'; })[0];
+    openMore();
+    if (!state.size && sizeBtns[0]) selectSize(sizeBtns[0]);
+    var target = root.querySelector('.pd-box__yours') || root;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - (window.innerHeight * 0.22);
+    window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: calm ? 'auto' : 'smooth' });
+    if (!el) return;
+    // Wait for the fold to open and the scroll to settle, so the cake is seen going in.
+    setTimeout(function () {
+      if (!bump(el.getAttribute('data-flavor'), 1)) elNote.textContent = 'Your box is full. Remove a cake or pick a bigger box to add ' + el.getAttribute('data-name') + '.';
+      else elNote.textContent = '';
+    }, calm ? 60 : 900);
+  });
 
   /* ---- step 3: purchase options ---- */
 
@@ -232,8 +333,9 @@
 
   /* ---- render ---- */
 
-  function refresh() {
+  function refresh(landing) {
     var total = totalQty();
+    renderTray(typeof landing === 'number' ? landing : -1);
     flavorEls.forEach(function (el) { el._sync(); });
     if (elSelected) elSelected.textContent = total;
     if (elTotal) elTotal.textContent = state.size || 0;
