@@ -12,6 +12,17 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /* pdArrival (set in the layout head) says whether this page came in through the page
+     transition. If it did, the transition was the entrance and the first screen has
+     already been shown: hiding it again to fade it in reads as a flash. So what is on
+     screen stays put, and everything further down reveals as usual. */
+  if (window.pdArrival && window.pdArrival.then) window.pdArrival.then(start); else start(false);
+
+  function start(arrived) {
+  var vh = window.innerHeight;
+  function shown(el) { return arrived && el.getBoundingClientRect().top < vh; }
+  function fresh(list) { return gsap.utils.toArray(list).filter(function (el) { return !shown(el); }); }
+
   var mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', function () {
     var EASE = 'power3.out';
@@ -19,7 +30,7 @@
 
     /* ---- Hero entrance: video settles, type rises line by line ---- */
     var hero = document.querySelector('.pd-hero');
-    if (hero) {
+    if (hero && !arrived) {
       var media = hero.querySelector('.pd-hero__video video, .pd-hero__video img');
       var kicker = hero.querySelector('.pd-hero__kicker');
       var lines = hero.querySelectorAll('.pd-giant__line');
@@ -33,7 +44,7 @@
     }
 
     /* ---- Once-only reveals for section furniture ---- */
-    gsap.utils.toArray([
+    fresh([
       '.pd-sec-head',
       '.pd-story__media', '.pd-story__text',
       '.pd-shout__frame', '.pd-shout__text',
@@ -54,7 +65,7 @@
       { sel: '.pd-review', y: RISE },
       { sel: '.pd-box__curated-card', y: RISE }
     ].forEach(function (group) {
-      var els = gsap.utils.toArray(group.sel);
+      var els = fresh(group.sel);
       if (!els.length) return;
       gsap.set(els, { y: group.y, autoAlpha: 0 });
       ScrollTrigger.batch(els, {
@@ -71,7 +82,7 @@
 
     /* ---- Muffin stamp: pops in like a sticker being slapped on ---- */
     var stamp = document.querySelector('.pd-story__stamp');
-    if (stamp) {
+    if (stamp && !shown(stamp)) {
       gsap.set(stamp, { scale: 0.8, autoAlpha: 0 });
       ScrollTrigger.create({
         trigger: stamp, start: 'top 92%', once: true,
@@ -84,11 +95,12 @@
     /* ---- PDP: media + info entrance, macros pop ---- */
     var productInfo = document.querySelector('.product__media-wrapper');
     if (productInfo) {
+      var seen = shown(productInfo);
       var infoCol = document.querySelector('.product__info-wrapper');
       var ptl = gsap.timeline({ defaults: { ease: EASE } });
-      ptl.from(productInfo, { y: RISE, autoAlpha: 0, duration: 0.8 }, 0.1);
-      if (infoCol) ptl.from(infoCol, { y: RISE, autoAlpha: 0, duration: 0.8 }, 0.25);
-      var macros = gsap.utils.toArray('.pd-macro');
+      if (!seen) ptl.from(productInfo, { y: RISE, autoAlpha: 0, duration: 0.8 }, 0.1);
+      if (infoCol && !seen) ptl.from(infoCol, { y: RISE, autoAlpha: 0, duration: 0.8 }, 0.25);
+      var macros = fresh('.pd-macro');
       if (macros.length) {
         gsap.set(macros, { y: 16, autoAlpha: 0 });
         ScrollTrigger.batch(macros, {
@@ -101,7 +113,7 @@
     }
 
     /* ---- Claim badges: the one playful moment ---- */
-    var badges = gsap.utils.toArray('.pd-badge-item');
+    var badges = fresh('.pd-badge-item');
     if (badges.length) {
       gsap.set(badges, { scale: 0.82, autoAlpha: 0 });
       ScrollTrigger.batch(badges, {
@@ -120,7 +132,7 @@
     var box = document.querySelector('[data-pd-box]');
     if (box) {
       // Entrance: size chips pop in like choices being dealt
-      var sizes = gsap.utils.toArray(box.querySelectorAll('.pd-box__size'));
+      var sizes = fresh(box.querySelectorAll('.pd-box__size'));
       if (sizes.length) {
         gsap.set(sizes, { scale: 0.85, autoAlpha: 0 });
         ScrollTrigger.create({
@@ -138,7 +150,7 @@
       // 2026-10-11: it had no entrance). Transform is cleared afterwards so the
       // button's own CSS hover/press transforms work again.
       var expandBtn = box.querySelector('.pd-box__expand');
-      if (expandBtn) {
+      if (expandBtn && !shown(expandBtn)) {
         gsap.set(expandBtn, { y: 28, scale: 0.9, autoAlpha: 0 });
         ScrollTrigger.create({
           trigger: expandBtn, start: 'top 94%', once: true,
@@ -153,7 +165,7 @@
       }
 
       // Flavor tiles cascade in tighter than the generic grids
-      var flavors = gsap.utils.toArray(box.querySelectorAll('.pd-box__flavor'));
+      var flavors = fresh(box.querySelectorAll('.pd-box__flavor'));
       if (flavors.length) {
         gsap.set(flavors, { y: 24, autoAlpha: 0 });
         ScrollTrigger.batch(flavors, {
@@ -201,6 +213,8 @@
     }
 
     /* Trigger positions drift as images and fonts land */
-    window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+    if (document.readyState === 'complete') ScrollTrigger.refresh();
+    else window.addEventListener('load', function () { ScrollTrigger.refresh(); });
   });
+  }
 })();

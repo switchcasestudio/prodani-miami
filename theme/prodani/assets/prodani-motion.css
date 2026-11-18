@@ -2,7 +2,7 @@
    What lives here runs with no JavaScript at all, starts on the first paint and stays
    smooth while the page is still loading:
      1. the hero entrance: the headline lands word by word, the trays settle in;
-     2. the page-to-page transition: the page closes like a box lid and the next one opens;
+     2. the page-to-page transition: the page fades and the next one rises into place;
      3. press feedback on buttons.
    Everything that moves is inside prefers-reduced-motion: no-preference. */
 
@@ -33,17 +33,18 @@
   html:not(.shopify-design-mode) .pd-fh__sticker{ animation:pd-stamp .28s cubic-bezier(.23,1,.32,1) .85s both; }
 }
 
-/* ---- 2. Page transition: the lid closes, the next page opens ----
+/* ---- 2. Page transition: the old page lets go, the next one rises into place ----
    Native cross-document view transitions. The browser starts loading the next page at
-   once and only then plays this, so it adds no waiting. Browsers without it just navigate. */
+   once and only then plays this, so it adds no waiting. Browsers without it just navigate.
+   Opacity and transform only: the next page is still loading while this plays, and those
+   are the two properties that keep moving when the main thread is busy. (A clip-path
+   "lid" was tried first and dropped its frames in iPhone Safari.) */
 @media (prefers-reduced-motion: no-preference){
   @view-transition{ navigation:auto; }
-  ::view-transition{ background:#1A110C; }
-  ::view-transition-group(root){ animation-duration:.46s; }
-  ::view-transition-old(root){ animation:pd-lid-close .2s cubic-bezier(.6,0,.3,1) both; }
-  ::view-transition-new(root){ animation:pd-lid-open .3s cubic-bezier(.23,1,.32,1) .16s both; }
-  @keyframes pd-lid-close{ from{ clip-path:inset(0 0 0 0); } to{ clip-path:inset(0 50% 0 50%); } }
-  @keyframes pd-lid-open{ from{ clip-path:inset(0 50% 0 50%); } to{ clip-path:inset(0 0 0 0); } }
+  ::view-transition-old(root){ animation:pd-page-out .14s ease-out both; }
+  ::view-transition-new(root){ animation:pd-page-in .32s cubic-bezier(.23,1,.32,1) .06s both; }
+  @keyframes pd-page-out{ to{ opacity:0; } }
+  @keyframes pd-page-in{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
 }
 
 /* ---- 3. Press feedback ---- */

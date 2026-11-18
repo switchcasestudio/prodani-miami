@@ -294,6 +294,9 @@
     {{ 'prodani-tokens.css' | asset_url | stylesheet_tag }}
     {%- comment -%} Hero entrance, page transition, press feedback: CSS only. {%- endcomment -%}
     {{ 'prodani-motion.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Resolves true when this page arrived through the page transition. The scroll
+        reveals wait for it, so they never hide a first screen the visitor has already been shown. {%- endcomment -%}
+    <script>window.pdArrival=new Promise(function(r){if(!('onpagereveal' in window))return r(false);addEventListener('pagereveal',function(e){r(!!e.viewTransition)},{once:true});setTimeout(function(){r(false)},1500)});</script>
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
