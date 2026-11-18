@@ -35,14 +35,13 @@
     </button>
     <a href="{{ routes.root_url }}" class="pd-nav__logo" aria-label="{{ shop.name | escape }} — home">
       {%- comment -%}
-        The 2026 wordmark: SVG with the type outlined, cocoa ink and a caramel full
-        stop. Drawn as an <img>, not a mask, so the caramel dot keeps its own colour.
+        The logo is inline SVG (snippets/prodani-logo.liquid): the letters take the link's colour,
+        the full stop keeps its own. The link carries the accessible name.
       {%- endcomment -%}
       {%- if section.settings.logo != blank -%}
         {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, class: 'pd-nav__logo-img' }}
       {%- elsif section.settings.use_brand_logo -%}
-        <img class="pd-nav__logo-img pd-nav__logo-img--brand" src="{{ 'prodani-wordmark.svg' | asset_url }}"
-             alt="{{ shop.name | escape }}" width="1144" height="435">
+        {%- render 'prodani-logo', class: 'pd-nav__logo-svg' -%}
       {%- else -%}
         {{ section.settings.logo_text | default: shop.name | escape | downcase }}
       {%- endif -%}
@@ -137,7 +136,7 @@
   "class": "pd-header-group",
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo image" },
-    { "type": "checkbox", "id": "use_brand_logo", "label": "Use the bundled prodani wordmark", "default": true },
+    { "type": "checkbox", "id": "use_brand_logo", "label": "Use the bundled prodani logo", "default": true },
     { "type": "text", "id": "logo_text", "label": "Logo text (if no image)", "default": "prodani" },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
     { "type": "text", "id": "box_label", "label": "Mobile menu button label", "default": "Build your box" },

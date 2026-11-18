@@ -15,9 +15,8 @@
     <div class="pd-foot__grid">
       {%- comment -%} 1. brand {%- endcomment -%}
       <div class="pd-foot__brand">
-        {%- comment -%} Macro Bold: the wordmark runs huge across the top of the footer, white with a pink full stop. {%- endcomment -%}
-        <img class="pd-foot__mark" src="{{ 'prodani-wordmark-ivory.svg' | asset_url }}" alt="{{ shop.name | escape }}"
-             width="1144" height="435" loading="lazy">
+        {%- comment -%} Macro Bold: the logo runs huge across the top of the footer, white with a pink full stop. {%- endcomment -%}
+        {%- render 'prodani-logo', class: 'pd-foot__mark', label: shop.name -%}
       </div>
 
       {%- comment -%} 2. the three menus {%- endcomment -%}

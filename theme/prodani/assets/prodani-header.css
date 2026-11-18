@@ -306,3 +306,12 @@ html{ scroll-padding-top:calc(var(--pd-nav-h) + 16px); }
 }
 .pd-menu{ border-top:0; }
 .pd-menu__cta{ background:var(--cocoa); color:#fff; }
+
+/* ======================= Logo "Full Stop" (2026-11-18) =======================
+   Inline SVG, 4.33:1. Sized by height: 40px on desktop, 32px on phones (the logo's own spec).
+   Letters = the link colour, stop = --pd-logo-dot (berry by default). */
+.pd-nav__logo{ display:inline-flex; align-items:center; color:var(--cocoa); flex:none; }
+.pd-nav__logo-svg{ display:block; height:40px; width:auto; }
+@media (max-width:959px){ .pd-nav__logo-svg{ height:32px; } }
+@media (max-width:359px){ .pd-nav__logo-svg{ height:28px; } }
+@media (max-width:339px){ .pd-nav__logo-svg{ height:24px; } }   /* 104px wide: still above the 88px minimum */

@@ -7,8 +7,8 @@ html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#FFFFFF;
 .card{position:relative;width:1200px;height:630px;overflow:hidden;box-sizing:border-box;border:6px solid #1A110C}
 .d{font-weight:900;font-stretch:70%;text-transform:uppercase;letter-spacing:-.015em;line-height:.86}
 .lbl{font-weight:800;font-size:20px;letter-spacing:.14em;text-transform:uppercase}
-.wm{position:absolute;left:56px;top:44px}
-.wm img{height:64px;display:block}
+.wm{position:absolute;left:56px;top:48px}
+.wm img{height:54px;display:block}
 .panel{position:absolute;left:640px;top:0;right:0;bottom:0;background:#F3EEE6;border-left:6px solid #1A110C}
 .big{position:absolute;left:52px;top:150px;font-size:210px}
 .big small{font-size:.42em;margin-left:.04em;text-transform:none}
@@ -37,16 +37,16 @@ const F=[
  {h:'dubai-dream-cake-copy',n:['Cherry','White'],c:'#C13A5A',bg:'#FBD9E0',img:'pd-cut-cherry-white.webp',tall:1,m:['20g protein','170 cal','4g sugar'],p:'$42.99'},
  {h:'personal-chocolate-fudge-cake-copy',n:['Dubai','Dream'],c:'#5F7230',bg:'#EBEFCB',img:'pd-cut-pistachio.webp',tall:1,m:['20g protein','180 cal','4g sugar'],p:'$42.99'},
  {h:'personal-hazelnuts-cake',n:['Hazelnut','Fudge'],c:'#9A5F2C',bg:'#F6E1C8',img:'pd-cut-hazelnut.webp',tall:1,m:['20g protein','180 cal','4g sugar'],p:'$42.99'},
- {h:'moist-chocolate-fudge-cake-copy',n:['Chocolate','Fudge'],c:'#5B3A2E',bg:'#EAD5C8',img:'pd-cut-choc-slices.webp',tall:0,m:['18g protein','150 cal','1g sugar'],p:'$37.99'},
- {h:'banana-bread-copy',n:['Banana','Bread'],c:'#8F6A0E',bg:'#FBEEC2',img:'pd-cut-banana-v.webp',tall:1,m:['16g protein','160 cal','11g sugar'],p:'$36.99'},
- {h:'cinnamon-apple-cake-copy',n:['Cinnamon','Apple'],c:'#94602C',bg:'#F6E4CC',img:'pd-cut-apple-v.webp',tall:1,m:['15g protein','120 cal','5g sugar'],p:'$38.99'},
- {h:'carrot-cake',n:['Carrot','Cake'],c:'#B9560F',bg:'#FBE2C9',img:'pd-cut-carrot-v.webp',tall:1,m:['15g protein','100 cal','3g sugar'],p:'$36.99'},
+ {h:'moist-chocolate-fudge-cake-copy',n:['Chocolate','Fudge'],c:'#5B3A2E',bg:'#EAD5C8',img:'pd-cut-chocolate.webp',tall:1,m:['18g protein','150 cal','1g sugar'],p:'$37.99'},
+ {h:'banana-bread-copy',n:['Banana','Bread'],c:'#8F6A0E',bg:'#FBEEC2',img:'pd-cut-banana.webp',tall:1,m:['16g protein','160 cal','11g sugar'],p:'$36.99'},
+ {h:'cinnamon-apple-cake-copy',n:['Cinnamon','Apple'],c:'#94602C',bg:'#F6E4CC',img:'pd-cut-apple.webp',tall:1,m:['15g protein','120 cal','5g sugar'],p:'$38.99'},
+ {h:'carrot-cake',n:['Carrot','Cake'],c:'#B9560F',bg:'#FBE2C9',img:'pd-cut-carrot.webp',tall:1,m:['15g protein','100 cal','3g sugar'],p:'$36.99'},
 ];
 const i=new URLSearchParams(location.search).get('i');
 if(i==='home'){
  document.body.innerHTML=`<div class="card home">
   <div class="panel"></div>
-  <div class="wm"><img src="../../prodani/assets/prodani-wordmark.svg" alt="prodani"></div>
+  <div class="wm"><img src="../../prodani/assets/prodani-logo.svg" alt="prodani"></div>
   <h1 class="title h d">20g protein. 0g added sugar. <u>It’s cake.</u></h1>
   <div class="meta lbl">Personal protein cakes · Miami</div>
   <div class="trio"><img src="../../prodani/assets/pd-cut-pistachio.webp" alt=""><img src="../../prodani/assets/pd-cut-cherry-white.webp" alt=""><img src="../../prodani/assets/pd-cut-hazelnut.webp" alt=""></div>
@@ -57,7 +57,7 @@ if(i==='home'){
  document.body.innerHTML=`<div class="card">
   <div class="panel"></div>
   <div class="art ${f.tall?'tall':''}"><img src="../../prodani/assets/${f.img}" alt=""></div>
-  <div class="wm"><img src="../../prodani/assets/prodani-wordmark.svg" alt="prodani"></div>
+  <div class="wm"><img src="../../prodani/assets/prodani-logo.svg" alt="prodani"></div>
   <div class="big d">${pr}<small>g</small></div>
   <div class="big-l lbl">Protein · ${rest}</div>
   <h1 class="title name d ${(f.n[0]+f.n[1]).length>13?"long":""}">${f.n[0]} ${f.n[1]}</h1>
