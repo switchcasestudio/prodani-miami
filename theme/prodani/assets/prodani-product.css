@@ -407,3 +407,26 @@ variant-selects{ display:block; }
   padding:12px 0; border-top:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); }
 .pd-size-static__l{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
 .pd-size-static__v{ font-family:var(--sans); font-size:15px; font-weight:800; color:var(--cocoa); }
+
+/* Lightbox: show each image whole, fitted to the screen. Dawn renders the modal
+   images at width=1100 (wider than a phone) and full width on desktop, so the
+   tall 4:5 nutrition label opened far larger than the screen. Pinch zoom still works. */
+.product-media-modal__content > img.global-media-settings{
+  width:auto !important;
+  max-width:100%;
+  height:auto;
+  max-height:calc(100vh - 4rem);
+  max-height:calc(100dvh - 4rem);
+  object-fit:contain;
+  margin-inline:auto;
+}
+@media screen and (max-width:749px){
+  .product-media-modal__content{ display:flex; align-items:center; justify-content:center; min-height:100vh; min-height:100dvh; }
+  .product-media-modal__content > img.global-media-settings{ max-height:calc(100dvh - 8rem); }
+}
+
+/* Fewer than four images: share the row out so no empty ruled cell is left over. */
+.pd-gal--cut .product__media-list:has(> .product__media-item:nth-child(2):last-child){ grid-template-columns:repeat(2,minmax(0,1fr)); }
+.pd-gal--cut .product__media-list:has(> .product__media-item:nth-child(3):last-child){ grid-template-columns:repeat(3,minmax(0,1fr)); }
+.pd-gal--cut .product__media-list:has(> .product__media-item:nth-child(2):last-child) > .product__media-item:last-child,
+.pd-gal--cut .product__media-list:has(> .product__media-item:nth-child(3):last-child) > .product__media-item:last-child{ border-right:0; }
