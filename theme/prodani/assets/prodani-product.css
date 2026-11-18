@@ -359,10 +359,11 @@ variant-selects{ display:block; }
 .pd-related{ padding-bottom:clamp(56px,6vw,88px) !important; }
 @media (min-width:990px){ .product__media-wrapper .pd-gal--cut .product__media-list{ border-bottom:var(--rule) solid var(--line) !important; } }
 @media (max-width:749px){ .pd-gal__cut{ transform:translateX(min(20vw,80px)) rotate(-10deg); } }
-/* Round 4: wide cut-outs (carrot, banana, apple) sit flatter and smaller. */
-.pd-gal__cut[src*="carrot"], .pd-gal__cut[src*="banana"], .pd-gal__cut[src*="apple"], .pd-gal__cut[src*="choc-slices"]{ height:auto; width:72%; max-width:72%; transform:rotate(-6deg); margin-top:12%; }
+/* Round 4: the older carrot cut-out sits flatter and smaller. (Banana, apple and chocolate were re-shot
+   top-down on 2026-11-18 and take the default treatment.) */
+.pd-gal__cut[src*="carrot"]{ height:auto; width:72%; max-width:72%; transform:rotate(-6deg); margin-top:12%; }
 @media (max-width:749px){
-  .pd-gal__cut[src*="carrot"], .pd-gal__cut[src*="banana"], .pd-gal__cut[src*="apple"], .pd-gal__cut[src*="choc-slices"]{ transform:rotate(-6deg); width:80%; max-width:80%; margin-top:30%; }
+  .pd-gal__cut[src*="carrot"]{ transform:rotate(-6deg); width:80%; max-width:80%; margin-top:30%; }
 }
 /* The "g" descender drops below the line box: clear it before the caps label. */
 .pd-gal__num{ --num:clamp(88px,12vw,200px); font-size:var(--num); }
@@ -380,11 +381,10 @@ variant-selects{ display:block; }
 .pd-gal__stage .pd-gal__num small{ margin-top:calc(var(--num) * .2); }
 .pd-gal__cutbox{ position:relative; min-height:0; }
 .pd-gal__stage .pd-gal__cut,
-.pd-gal__stage .pd-gal__cut[src*="carrot"], .pd-gal__stage .pd-gal__cut[src*="banana"],
-.pd-gal__stage .pd-gal__cut[src*="apple"], .pd-gal__stage .pd-gal__cut[src*="choc-slices"]{
+.pd-gal__stage .pd-gal__cut[src*="carrot"]{
   position:absolute; inset:4% 0 6% 0; width:100%; height:90%; max-width:none; margin:0; object-fit:contain;
   transform:translate(8%,2%) rotate(-10deg); }
-.pd-gal__stage .pd-gal__cut:is([src*="carrot"],[src*="banana"],[src*="apple"],[src*="choc-slices"]){ transform:translate(4%,4%) rotate(-6deg) scale(.92); }
+.pd-gal__stage .pd-gal__cut[src*="carrot"]{ transform:translate(4%,4%) rotate(-6deg) scale(.92); }
 @media (prefers-reduced-motion:reduce){ .pd-gal__stage .pd-gal__cut{ transform:translate(8%,2%); } }
 
 /* Desktop: the hero fills the gallery column and the stage rides along (sticky) beside

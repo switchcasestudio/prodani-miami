@@ -276,7 +276,7 @@
 .pd-nut__src{ margin:0; }
 .pd-nut__cut{ display:block; width:100%; max-width:340px; height:auto; max-height:360px; object-fit:contain; margin:8px auto 0;
   transform:rotate(-8deg); filter:drop-shadow(0 24px 24px rgba(26,17,12,.22)); }
-.pd-nut__cut:is([src*="carrot"],[src*="banana"],[src*="apple"],[src*="choc-slices"]){ transform:rotate(-4deg); }
+.pd-nut__cut[src*="carrot"]{ transform:rotate(-4deg); }
 @media (min-width:750px){
   .pd-nut__side{ position:sticky; top:calc(var(--pd-nav-h) + 16px); }
   .pd-nut__side > .pd-eyebrow, .pd-nut__title{ position:static; }
