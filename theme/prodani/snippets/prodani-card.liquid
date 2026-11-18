@@ -49,7 +49,19 @@
   {%- endif -%}
   <div class="pd-card__media">
     {%- if fl[4] != blank -%}
-      <img class="pd-card__cut" src="{{ fl[4] | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+      {%- comment -%} Intrinsic size of each cut-out, so the browser reserves the box (no layout
+         shift). CSS sets the rendered height; these only give the aspect ratio. {%- endcomment -%}
+      {%- case fl[4] -%}
+        {%- when 'pd-cut-choc-slices.webp' -%}{%- assign cw = 577 -%}{%- assign ch = 640 -%}
+        {%- when 'pd-cut-hazelnut.webp' -%}{%- assign cw = 251 -%}{%- assign ch = 640 -%}
+        {%- when 'pd-cut-carrot-v.webp' -%}{%- assign cw = 127 -%}{%- assign ch = 314 -%}
+        {%- when 'pd-cut-pistachio.webp' -%}{%- assign cw = 264 -%}{%- assign ch = 640 -%}
+        {%- when 'pd-cut-banana-v.webp' -%}{%- assign cw = 298 -%}{%- assign ch = 767 -%}
+        {%- when 'pd-cut-cherry-white.webp' -%}{%- assign cw = 250 -%}{%- assign ch = 640 -%}
+        {%- when 'pd-cut-apple-v.webp' -%}{%- assign cw = 294 -%}{%- assign ch = 762 -%}
+        {%- else -%}{%- assign cw = nil -%}{%- assign ch = nil -%}
+      {%- endcase -%}
+      <img class="pd-card__cut" src="{{ fl[4] | asset_url }}" alt="{{ product.title | escape }}"{% if cw %} width="{{ cw }}" height="{{ ch }}"{% endif %} loading="lazy">
     {%- elsif product.featured_image != blank -%}
       {{ product.featured_image | image_url: width: 800
          | image_tag: loading: 'lazy', class: 'pd-card__img pd-card__img--main',

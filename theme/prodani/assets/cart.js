@@ -221,13 +221,23 @@ class CartItems extends window.StandardEvents.createViewEventElement(HTMLElement
           if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle('is-empty', parsedState.item_count === 0);
 
           sectionsToRender.forEach((section) => {
-            const elementToReplace =
-              document.getElementById(section.id).querySelector(section.selector) ||
-              document.getElementById(section.id);
+            // Prodani: the custom header has no #cart-icon-bubble. Skip any section whose
+            // element is missing; before this guard the TypeError stopped the loop and the
+            // cart total never updated after a quantity change (found 2026-11-17).
+            const host = document.getElementById(section.id);
+            if (!host || !parsedState.sections || !parsedState.sections[section.section]) return;
+            const elementToReplace = host.querySelector(section.selector) || host;
             elementToReplace.innerHTML = this.getSectionInnerHTML(
               parsedState.sections[section.section],
               section.selector
             );
+          });
+          // Prodani header count ("Cart (n)") lives outside Dawn's sections.
+          document.querySelectorAll('.pd-nav__count').forEach((el) => {
+            el.textContent = parsedState.item_count;
+          });
+          document.querySelectorAll('.pd-nav__cart').forEach((el) => {
+            el.setAttribute('aria-label', `Open cart, ${parsedState.item_count} items`);
           });
           const updatedValue = parsedState.items[line - 1] ? parsedState.items[line - 1].quantity : undefined;
           let message = '';

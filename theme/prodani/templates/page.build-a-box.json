@@ -127,13 +127,6 @@
             "icon": "none"
           }
         },
-        "n2": {
-          "type": "badge",
-          "settings": {
-            "label": "Non GMO",
-            "icon": "none"
-          }
-        },
         "n3": {
           "type": "badge",
           "settings": {
@@ -147,29 +140,12 @@
             "label": "Gluten Free",
             "icon": "none"
           }
-        },
-        "n5": {
-          "type": "badge",
-          "settings": {
-            "label": "High Fiber",
-            "icon": "none"
-          }
-        },
-        "n6": {
-          "type": "badge",
-          "settings": {
-            "label": "Low Calorie",
-            "icon": "none"
-          }
         }
       },
       "block_order": [
         "n1",
-        "n2",
         "n3",
-        "n4",
-        "n5",
-        "n6"
+        "n4"
       ],
       "settings": {
         "heading": "",

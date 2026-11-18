@@ -101,3 +101,10 @@ html .pd-badge-item:first-child{ padding-left:var(--pad); }
 @media (max-width:560px){ html .pd-badge-item, html .pd-badge-item:first-child{ padding:18px var(--pad) 20px; } }
 /* Audit fix: every phone cell on the page gutter (16px). */
 @media (max-width:560px){ html .pd-badges .pd-badge-item{ padding-inline:var(--pad) !important; } }
+/* Three badges (build-a-box keeps only the claims the labels back up): three columns,
+   no empty half row. */
+.pd-badges__row:has(> .pd-badge-item:nth-child(3):last-child){ grid-template-columns:repeat(3,minmax(0,1fr)); }
+@media (max-width:1180px){ .pd-badges__row:has(> .pd-badge-item:nth-child(3):last-child) .pd-badge-item:nth-child(-n+3){ border-bottom:0; } }
+@media (max-width:560px){ .pd-badges__row:has(> .pd-badge-item:nth-child(3):last-child){ grid-template-columns:1fr; }
+  .pd-badges__row:has(> .pd-badge-item:nth-child(3):last-child) .pd-badge-item{ border-right:0; border-bottom:var(--rule) solid var(--line); }
+  .pd-badges__row:has(> .pd-badge-item:nth-child(3):last-child) .pd-badge-item:last-child{ border-bottom:0; } }
