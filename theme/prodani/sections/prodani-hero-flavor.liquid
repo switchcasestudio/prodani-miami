@@ -44,6 +44,21 @@
     endif
   endfor
   assign v = p.selected_or_first_available_variant
+  assign fan = ''
+  for prod in collections['personal-protein-cakes'].products
+    if prod.handle != p.handle
+      capture tm
+        render 'prodani-flavor-map', handle: prod.handle
+      endcapture
+      assign tb = tm | strip | split: '|'
+      unless tb[4] == blank or tb[4] contains 'slices'
+        assign fan = fan | append: tb[4] | append: '~' | append: tb[0] | append: ','
+      endunless
+    endif
+  endfor
+  assign fan = fan | split: ','
+  assign fan_count = fan.size
+  assign fan_half = fan_count | divided_by: 2
 -%}
 {%- comment -%}
   2026-11-18 recomposition (Moses): the whole hero is one bone canvas, no split panel.
@@ -84,9 +99,29 @@
   </h1>
   <div class="pd-fh__foot">
     <p class="pd-fh__p">{{ section.settings.text | escape }}</p>
+    {%- comment -%}
+      2026-11-19 (Moses, option A): the hero sells the mix. One solid button to the box
+      builder; the flavor of the week stays one tap away as a text link, not a second
+      button competing with the first. The price is one line, read from the box product's
+      cheapest per-cake variant, instead of a tag sitting on the cakes.
+    {%- endcomment -%}
+    {%- liquid
+      assign box = all_products[section.settings.box_product]
+      assign per_min = 0
+      for bv in box.variants
+        assign size = bv.title | split: ' ' | first | plus: 0
+        if size > 0 and bv.available
+          assign per = bv.price | times: 1.0 | divided_by: size | round
+          if per_min == 0 or per < per_min
+            assign per_min = per
+          endif
+        endif
+      endfor
+    -%}
+    {%- if per_min > 0 -%}<p class="pd-fh__from">{{ fan_count | plus: 1 }} flavors · from {{ per_min | money }} a cake</p>{%- endif -%}
     <div class="pd-fh__cta">
-      <a class="pd-btn" href="{{ p.url }}">{{ section.settings.cta_label | escape }} · {{ p.price | money }}</a>
-      <a class="pd-btn pd-btn--ghost" href="{{ section.settings.cta2_link }}">{{ section.settings.cta2_label | escape }}</a>
+      <a class="pd-btn" href="{{ section.settings.box_link | default: '#box' }}">{{ section.settings.box_label | default: 'Build your box' | escape }}</a>
+      <a class="pd-fh__alt" href="{{ p.url }}">{{ section.settings.cta_label | escape }}: {{ f[0] }} {{ f[1] }} · {{ p.price | money }}</a>
     </div>
     {%- if section.settings.macros != blank -%}
     <ul class="pd-fh__macros">
@@ -96,25 +131,21 @@
     {%- endif -%}
   </div>
   <div class="pd-fh__art">
-    {%- comment -%} The stage hugs the three trays, so the tag and the stamp stay pinned to the cakes at any width. {%- endcomment -%}
-    <div class="pd-fh__stage">
-    <div class="pd-fh__cakes" aria-hidden="true">
-      {%- if n[4] != blank -%}<img class="pd-fh__cake pd-fh__cake--l" src="{{ n[4] | asset_url }}" alt="" width="360" height="640" decoding="async">{%- endif -%}
-      <img class="pd-fh__cake pd-fh__cake--c" src="{{ f[4] | asset_url }}" alt="" width="360" height="640" fetchpriority="high">
-      {%- if third != blank -%}<img class="pd-fh__cake pd-fh__cake--r" src="{{ third | asset_url }}" alt="" width="360" height="640" decoding="async">{%- endif -%}
-    </div>
-    {%- capture each -%}{% render 'prodani-pack-price', variant: v, mode: 'each' %}{%- endcapture -%}
-    {%- comment -%} One clamp: the per-cake price, then flavor and pack on two tight lines. {%- endcomment -%}
-    <a class="pd-fh__price" href="{{ p.url }}">
-      {%- if each != blank -%}
-        <b>{{ each | strip | remove: ' per cake' | strip_html | strip }}</b>
-        <span class="pd-fh__price-unit">per cake</span>
-        <small><span>{{ f[0] }} {{ f[1] }}</span><span>5-pack, {{ p.price | money }}</span></small>
-      {%- else -%}
-        <b>{{ p.price | money }}</b><small><span>{{ f[0] }} {{ f[1] }}</span></small>
-      {%- endif -%}
-    </a>
-    <div class="pd-fh__sticker"><div><b>{{ collections['personal-protein-cakes'].products_count | default: 7 }}</b>flavors<br>baked weekly</div></div>
+    {%- comment -%}
+      2026-11-19 (Moses): all 7 flavors as a fan, the flavor of the week in the middle,
+      raised and in front. --k is each tray's place from the middle (-3 to 3), --d its
+      distance from it. Side trays load small; the middle one is the LCP image.
+    {%- endcomment -%}
+    <div class="pd-fh__fan" aria-hidden="true">
+      {%- for t in fan -%}
+        {%- assign bits = t | split: '~' -%}
+        {%- if forloop.index0 < fan_half -%}{%- assign k = forloop.index0 | minus: fan_half -%}{%- else -%}{%- assign k = forloop.index0 | minus: fan_half | plus: 1 -%}{%- endif -%}
+        {%- if forloop.index0 == fan_half -%}
+          <img class="pd-fh__tray pd-fh__tray--c" src="{{ f[4] | asset_url }}" alt="" width="370" height="950" fetchpriority="high" style="--k:0;--d:0">
+        {%- endif -%}
+        <img class="pd-fh__tray" src="{{ bits[0] | asset_url }}" alt="" width="370" height="950" decoding="async" fetchpriority="low" style="--k:{{ k }};--d:{{ k | abs }}">
+      {%- endfor -%}
+      {%- if fan.size == 0 -%}<img class="pd-fh__tray pd-fh__tray--c" src="{{ f[4] | asset_url }}" alt="" width="370" height="950" fetchpriority="high" style="--k:0;--d:0">{%- endif -%}
     </div>
   </div>
 </section>
@@ -141,7 +172,10 @@
     { "type": "text", "id": "eyebrow", "label": "Badge", "default": "Flavor of the week" },
     { "type": "text", "id": "headline", "label": "Headline", "info": "Sentences break onto their own lines. {protein} is replaced with the spotlight cake's protein.", "default": "{protein}g protein. 0g added sugar. It’s cake." },
     { "type": "textarea", "id": "text", "label": "Text" },
-    { "type": "text", "id": "cta_label", "label": "Main button", "default": "Shop the 5-pack" },
+    { "type": "text", "id": "box_label", "label": "Main button", "default": "Build your box" },
+    { "type": "text", "id": "box_link", "label": "Main button link", "default": "#box" },
+    { "type": "text", "id": "box_product", "label": "Box product handle (for the 'from $ a cake' line)", "default": "build-your-box" },
+    { "type": "text", "id": "cta_label", "label": "Flavor-of-the-week link", "default": "Shop the 5-pack" },
     { "type": "text", "id": "cta2_label", "label": "Second button", "default": "See all flavors" },
     { "type": "url", "id": "cta2_link", "label": "Second button link" },
     { "type": "checkbox", "id": "show_marquee", "label": "Flavor-name ticker under the hero", "default": false },
