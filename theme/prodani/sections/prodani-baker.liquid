@@ -88,7 +88,54 @@
       {%- if story_img == blank and section.settings.product != blank -%}
         {%- assign story_img = section.settings.product.featured_image -%}
       {%- endif -%}
-      {%- if story_img == blank and section.settings.bundled_photo != 'none' -%}
+      {%- assign story_video = section.settings.story_video | default: 'none' -%}
+      {%- if story_video != 'none' -%}
+        {%- comment -%}
+          Video in place of the photo (2026-11-18). The poster is the real element: a <picture>
+          (WebP, JPG fallback) with alt text, visible with no JS and for crawlers. The muted
+          video sits over it and only shows once it is actually playing; it loads when the
+          section comes into view, pauses off screen, and never plays under reduced motion.
+          If the browser cannot play it (codec, Low Power Mode, error), the poster stays.
+          MP4 (H.264) only: every browser plays it, and Shopify's CDN serves .webm as
+          audio/webm with nosniff, which a browser may refuse as video (2026-11-18).
+          Files: assets/<name>.mp4, .webp + .jpg posters, 720x720,
+          made by theme/prodani-motion/scripts/web-video.mjs.
+        {%- endcomment -%}
+        <div class="pd-story__media pd-story__media--video" data-pd-video>
+          <div class="pd-story__frame">
+            <picture>
+              <source srcset="{{ story_video | append: '.webp' | asset_url }}" type="image/webp">
+              <img src="{{ story_video | append: '.jpg' | asset_url }}"
+                   alt="{{ section.settings.video_alt | default: section.settings.image_alt | escape }}"
+                   width="720" height="720" loading="lazy" decoding="async">
+            </picture>
+            <video muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1">
+              <source src="{{ story_video | append: '.mp4' | asset_url }}" type="video/mp4">
+            </video>
+          </div>
+          {%- if section.settings.stamp != blank -%}
+            <div class="pd-story__stamp">{{ section.settings.stamp }}</div>
+          {%- endif -%}
+        </div>
+        <script>
+          (function () {
+            var w = document.currentScript && document.currentScript.previousElementSibling;
+            if (!w || !w.hasAttribute('data-pd-video') || !('IntersectionObserver' in window)) return;
+            if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var v = w.querySelector('video');
+            v.addEventListener('playing', function () { w.classList.add('is-playing'); });
+            new IntersectionObserver(function (es) {
+              es.forEach(function (e) {
+                if (e.isIntersecting) {
+                  v.preload = 'auto';
+                  var p = v.play();
+                  if (p && p.catch) p.catch(function () {}); // refused: the poster stays
+                } else if (!v.paused) v.pause();
+              });
+            }, { rootMargin: '200px 0px' }).observe(w);
+          })();
+        </script>
+      {%- elsif story_img == blank and section.settings.bundled_photo != 'none' -%}
         <div class="pd-story__media">
           {%- comment -%}
             Real intrinsic size (800x1200) so the browser reserves the right box and
@@ -162,6 +209,15 @@
       "default": "prodani-dani-1"
     },
     { "type": "text", "id": "image_alt", "label": "Photo alt text" },
+    {
+      "type": "select", "id": "story_video", "label": "Video (replaces the photo)",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "prodani-heat-and-eat", "label": "Heat and eat (graphic, 1:1)" }
+      ],
+      "default": "none"
+    },
+    { "type": "text", "id": "video_alt", "label": "Video alt text (shown on the poster image)" },
     {
       "type": "text", "id": "photo_focus", "label": "Photo focus",
       "info": "The frame is wider than these portraits, so a centred crop clips the head. 50% 10% keeps it.",

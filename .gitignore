@@ -91,6 +91,9 @@ service-account*.json
 # this negation the theme's core stylesheet was never committed — a fresh clone
 # was silently broken, and local edits could go stale across branch switches.
 !theme/prodani/assets/prodani-tokens.css
+# Same accident: the motion design tokens (durations, easings, colours, logo geometry), no secrets.
+!theme/prodani-motion/src/motion-tokens.json
+!theme/prodani-motion/src/tokens.ts
 # Same accident, different word: Shopify's storefront password page (the holding page shown
 # when a store is locked) has "password" in its file names. These are plain theme templates,
 # not credentials. While they were ignored, a clone or a second working copy had no password

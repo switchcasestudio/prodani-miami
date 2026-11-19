@@ -93,9 +93,9 @@
         "c5": {
           "type": "card",
           "settings": {
-            "figure": "30s",
+            "figure": "5–10s",
             "title": "Heat. Cut. Melt. Enjoy.",
-            "description": "Thirty seconds in the microwave or 3 to 5 minutes in the oven, and it's warm and soft. With coffee, after a workout or after dinner: dessert that fits your everyday.",
+            "description": "Out of the tray, then 5 to 10 seconds in the microwave, or 3 to 5 minutes in the oven, and it's warm and soft. With coffee, after a workout or after dinner: dessert that fits your everyday.",
             "cta_label": "Build your box",
             "cta_link": "/#box",
             "product": "carrot-cake",
@@ -227,16 +227,18 @@
         "b4"
       ],
       "settings": {
-        "heading": "Where sweet meets balance",
+        "heading": "Heat & Eat",
         "eyebrow": "Miami · since 2023",
         "use_page_content": false,
-        "lede": "<p>Desserts that support your lifestyle, not work against it.</p>",
-        "body": "<p>High-protein treats with zero added sugar, made to satisfy cravings while staying mindful of how your body feels. Indulgence should feel satisfying, not heavy.</p>",
+        "lede": "<p>Out of the tray, 5 to 10 seconds in the microwave, then it\u2019s dessert.</p>",
+        "body": "<p>Every ProDani cake is a personal cake, baked in small batches in Miami. Keep it in the fridge. When the craving hits, take the cake out of its tray, heat it for 5 to 10 seconds in the microwave and eat. High-protein, zero added sugar, ready when the craving is.</p><p><em>The tray is aluminum, so it never goes in the microwave.</em></p>",
         "bundled_photo": "prodani-catering-trays",
         "image_alt": "A tray spread of ProDani protein cakes",
         "stamp": "<p>Baked in Miami</p>",
         "heading_tag": "h2",
-        "photo_focus": "50% 8%"
+        "photo_focus": "50% 8%",
+        "story_video": "prodani-heat-and-eat",
+        "video_alt": "HEAT AND EAT. Take the cake out of its tray, then 5 to 10 seconds in the microwave."
       }
     },
     "reviews": {
@@ -372,8 +374,8 @@
         "n5": {
           "type": "badge",
           "settings": {
-            "figure": "30s",
-            "label": "In the microwave",
+            "figure": "5–10s",
+            "label": "In the microwave, out of the tray",
             "icon": "prodani-icon-baked-in-miami"
           }
         },
@@ -567,7 +569,7 @@
           "type": "row",
           "settings": {
             "label": "Tastes like",
-            "us": "Cake. Warm in 30 seconds.",
+            "us": "Cake. Warm in 10 seconds.",
             "two": "Chalk and sucralose.",
             "three": "Cake. Then a nap.",
             "big": false
@@ -603,7 +605,7 @@
       "type": "prodani-panel",
       "settings": {
         "heading": "A real cake. Not a bar <em>pretending.</em>",
-        "body": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. Sweetness starts with real food like sweet potato, plus a touch of allulose and monk fruit. Thirty seconds in the microwave and it's warm and soft.",
+        "body": "Complete protein, mainly from egg whites and grass-fed whey isolate, with all nine essential amino acids. Sweetness starts with real food like sweet potato, plus a touch of allulose and monk fruit. Out of the tray, 5 to 10 seconds in the microwave, and it's warm and soft.",
         "cta_label": "See the flavors",
         "cta_link": "/collections/personal-protein-cakes",
         "bundled": "prodani-real-cake.jpg",
