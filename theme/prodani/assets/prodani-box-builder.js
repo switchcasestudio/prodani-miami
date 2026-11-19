@@ -36,8 +36,16 @@
   // seq is the order the cakes went in, one flavor id per slot of the tray.
   var state = { size: 0, price: 0, sel: {}, curated: null, seq: [] };
   var elTray = root.querySelector('[data-pd-tray]');
-  var slots = [], byId = {};
+  var slots = [], traySlots = [], byId = {};
   var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Desktop (Moses 2026-11-18): the box is drawn inside each size card and the builder is
+  // open from the start. Phones keep the fold and the tray in step 2.
+  var desk = window.matchMedia ? window.matchMedia('(min-width: 750px)') : { matches: true };
+  function miniSlots(btn) {
+    var m = btn && btn.querySelector('[data-pd-mini]');
+    return m ? Array.prototype.slice.call(m.children) : [];
+  }
+  function chosenBtn() { return sizeBtns.filter(function (b) { return b.getAttribute('aria-checked') === 'true'; })[0]; }
 
   /* ---- fold: steps 2–4 stay closed until the shopper engages ---- */
   var more = root.querySelector('[data-pd-more]');
@@ -206,15 +214,15 @@
 
   function buildTray() {
     if (!elTray) return;
-    if (slots.length !== state.size) {
+    if (traySlots.length !== state.size) {
       elTray.innerHTML = '';
-      slots = [];
+      traySlots = [];
       for (var i = 0; i < state.size; i++) {
         var slot = document.createElement('span');
         slot.className = 'pd-box__slot';
         slot.appendChild(document.createElement('img')).alt = '';
         elTray.appendChild(slot);
-        slots.push(slot);
+        traySlots.push(slot);
       }
       elTray.style.setProperty('--slots', state.size || 1);
     }
@@ -222,6 +230,11 @@
 
   // landing: the slot a cake is flying to right now. It stays empty until the cake arrives.
   function renderTray(landing) {
+    var mine = desk.matches ? miniSlots(chosenBtn()) : traySlots;
+    // Every other box on show goes back to empty outlines.
+    sizeBtns.forEach(function (b) { miniSlots(b).forEach(function (sl) { if (mine.indexOf(sl) < 0) empty(sl); }); });
+    traySlots.forEach(function (sl) { if (mine.indexOf(sl) < 0) empty(sl); });
+    slots = mine;
     slots.forEach(function (slot, i) {
       var id = state.seq[i], el = id ? byId[id] : null, img = slot.firstChild;
       if (!el) { slot.classList.remove('is-full', 'is-landing'); slot._f = null; return; }
@@ -236,6 +249,8 @@
       slot.classList.toggle('is-landing', i === landing && canFly(el));
     });
   }
+
+  function empty(slot) { slot.classList.remove('is-full', 'is-landing'); slot._f = null; }
 
   function canFly(tile) { return !calm && tile && tile._thumbEl && typeof tile._thumbEl.animate === 'function'; }
 
@@ -269,7 +284,7 @@
     var el = flavorEls.filter(function (f) { return key && f.getAttribute('data-key') === key && f.getAttribute('data-soldout') !== 'true'; })[0];
     openMore();
     if (!state.size && sizeBtns[0]) selectSize(sizeBtns[0]);
-    var target = root.querySelector('.pd-box__yours') || root;
+    var target = (desk.matches ? root.querySelector('.pd-box__sizes') : root.querySelector('.pd-box__yours')) || root;
     var top = target.getBoundingClientRect().top + window.pageYOffset - (window.innerHeight * 0.22);
     window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: calm ? 'auto' : 'smooth' });
     if (!el) return;
@@ -323,8 +338,9 @@
     }
     if (target) {
       elUpsell.hidden = false;
-      elUpsell.innerHTML = '<span></span><button type="button">Switch</button>';
+      elUpsell.innerHTML = '<span></span><button type="button"></button>';
       elUpsell.querySelector('span').textContent = msg;
+      elUpsell.querySelector('button').textContent = 'Switch to ' + nextSize;
       elUpsell.querySelector('button').onclick = function () { selectSize(target); };
     } else {
       elUpsell.hidden = true;
@@ -353,7 +369,7 @@
     var ready = state.size > 0 && total === state.size;
     elAdd.disabled = !ready;
     if (state.size === 0) { elAdd.textContent = 'Choose a box to start'; }
-    else if (total < state.size) { elAdd.textContent = 'Add ' + (state.size - total) + ' more'; }
+    else if (total < state.size) { var left = state.size - total; elAdd.textContent = 'Pick ' + left + ' more cake' + (left === 1 ? '' : 's'); }
     else if (total > state.size) { elAdd.textContent = 'Remove ' + (total - state.size); }
     else { elAdd.textContent = subscribing() ? 'Subscribe — add box to cart' : 'Add box to cart'; }
 
@@ -426,6 +442,10 @@
       elNote.textContent = 'Something went wrong adding to cart. Please try again.';
     });
   }
+
+  if (desk.matches) openMore();
+  var onDesk = function () { if (desk.matches) openMore(); refresh(); };
+  if (desk.addEventListener) desk.addEventListener('change', onDesk); else if (desk.addListener) desk.addListener(onDesk);
 
   // Initialise from the size marked selected in Liquid (if any).
   var preselected = sizeBtns.filter(function (b) { return b.getAttribute('aria-checked') === 'true'; })[0];

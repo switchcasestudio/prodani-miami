@@ -2,7 +2,8 @@
   Flavor spotlight: every flavor gets the whole screen, one scroll each.
 
   The stage is position:sticky inside a tall section, so the browser does the pinning and
-  the script only decides which flavor is on. Everything moves the way the page scrolls:
+  the script decides which flavor is on and keeps a scroll gesture to one flavor (see
+  prodani-flavors.js). Everything moves the way the page scrolls:
   names rise through a mask, the tray travels up and out, the ground changes to the
   flavor's own tint. The index on the side lists all the flavors, so nobody has to scroll
   through six to find the seventh.
@@ -33,7 +34,7 @@
          {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %} aria-labelledby="pd-flv-title-{{ section.id }}">
   <div class="pd-flv__stage">
     <header class="pd-flv__head">
-      <h2 class="pd-flv__title" id="pd-flv-title-{{ section.id }}"><span class="pd-tag pd-tag--pink">{{ section.settings.heading | escape }}</span></h2>
+      <h2 class="pd-flv__title" id="pd-flv-title-{{ section.id }}"><span class="pd-tag pd-tag--berry">{{ section.settings.heading | escape }}</span></h2>
       <p class="pd-flv__count" aria-hidden="true"><b data-pd-flv-n>01</b><span>/ {{ total_label }}</span></p>
     </header>
 
@@ -84,8 +85,15 @@
               <span class="pd-flv__mask"><span>{{ fl[0] }}</span></span>
               <span class="pd-flv__mask"><span>{{ fl[1] }}</span></span>
             </h3>
+            {%- comment -%} The protein figure is the biggest thing on the screen (Moses 2026-11-18):
+                it is what someone looking for a protein cake reads first. {%- endcomment -%}
+            {%- if protein != blank -%}
+              <p class="pd-flv__protein">
+                <span class="pd-flv__mask"><span class="pd-flv__num">{{ protein }}<small>g</small></span></span>
+                <span class="pd-flv__unit">Protein</span>
+              </p>
+            {%- endif -%}
             <ul class="pd-flv__facts">
-              {%- if protein != blank -%}<li><b>{{ protein }}<small>g</small></b>Protein</li>{%- endif -%}
               {%- if cals != blank -%}<li><b>{{ cals }}</b>Calories</li>{%- endif -%}
               {%- if each != blank -%}<li><b>{{ each }}</b>Per cake</li>{%- endif -%}
             </ul>
@@ -97,6 +105,8 @@
             </div>
           </div>
           <div class="pd-flv__art">
+            {%- comment -%} The protein figure again, huge and tone on tone behind the tray: an accent
+                for the canvas, not a second reading (it is hidden from screen readers). {%- endcomment -%}
             {%- if protein != blank -%}<p class="pd-flv__ghost" aria-hidden="true">{{ protein }}<small>g</small></p>{%- endif -%}
             <img class="pd-flv__cake" src="{{ fl[4] | asset_url }}" alt="{{ fl[0] }} {{ fl[1] }} protein cake" width="{{ cw }}" height="{{ ch }}"
                  {% if i == 1 %}loading="eager"{% else %}loading="lazy"{% endif %} decoding="async">

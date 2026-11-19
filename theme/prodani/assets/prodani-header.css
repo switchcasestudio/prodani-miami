@@ -315,3 +315,20 @@ html{ scroll-padding-top:calc(var(--pd-nav-h) + 16px); }
 @media (max-width:959px){ .pd-nav__logo-svg{ height:32px; } }
 @media (max-width:359px){ .pd-nav__logo-svg{ height:28px; } }
 @media (max-width:339px){ .pd-nav__logo-svg{ height:24px; } }   /* 104px wide: still above the 88px minimum */
+
+/* ======================= Berry marks + calmer caps (2026-11-18) =======================
+   Moses: the light pink in the header becomes berry #B3335D (the logo's full stop), and
+   the caps links were tracked too wide. .1em -> .045em reads as words, not letter rows.
+   Search and Account icons are gone from the bar (kept in the phone menu). */
+.pd-announce__dot{ background:var(--berry); }
+.pd-nav__link::after{ background:var(--berry); height:2px; bottom:5px; }
+.pd-nav__link, .pd-nav__cart, .pd-nav__count, .pd-nav__box{ letter-spacing:.045em; }
+.pd-nav__sublink, .pd-menu__sub a, .pd-menu__util{ letter-spacing:.045em; }
+.pd-menu__link[aria-current="page"]{ text-decoration-color:var(--berry); }
+.pd-nav__menu-btn:focus-visible{ outline-color:var(--berry); }
+@media (min-width:960px) and (max-width:1240px){
+  .pd-nav__link{ letter-spacing:.035em; }
+}
+@media (min-width:960px) and (max-width:1080px){
+  .pd-nav__link{ letter-spacing:.025em; }
+}

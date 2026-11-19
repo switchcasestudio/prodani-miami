@@ -277,3 +277,11 @@ font-weight:600; }
 .pd-spreads__type-name{ overflow-wrap:normal; word-break:normal; hyphens:none; white-space:nowrap; font-size:min(150px, 18.5cqi); }
 @media (max-width:749px){ .pd-spreads__type-name{ font-size:min(96px, 19cqi); } }
 @media (min-width:750px){ .pd-spreads__type-name{ font-size:min(170px, 22cqi); } .pd-spreads__type-cell{ min-height:clamp(240px,22vw,340px); } }
+
+/* ---- the trio on the homepage (prodani-spreads-trio, Moses 2026-11-18) ----
+   The same cards, no photo yet; the lede and a ghost button sit on the right. */
+.pd-spreads--home{ background:#fff; padding-bottom:clamp(56px,7vw,110px); border-bottom:var(--rule) solid var(--line); }
+.pd-spreads--home .pd-spreads__trio{ padding-top:clamp(48px,6vw,96px); }
+.pd-spreads__home-soon{ margin-left:12px; vertical-align:middle; }
+.pd-spreads__home-side{ display:flex; flex-direction:column; align-items:flex-start; gap:18px; }
+.pd-spreads--home .pd-sec-head{ align-items:flex-end; }

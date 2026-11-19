@@ -1,103 +1,127 @@
-/* Flavor hero, Macro Bold (2026-11-10). Two columns split by a 2px ink rule:
-   the claim set huge on white, three cakes on a bone panel. */
-.pd-fh{ display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); border-bottom:var(--rule) solid var(--line);
-  min-height:min(calc(100svh - 114px), 860px); background:#fff; position:relative; }
-.pd-fh__copy{ padding:clamp(32px,3.4vw,52px) var(--pad) clamp(36px,3.8vw,56px); display:flex; flex-direction:column; align-items:flex-start;
-  border-right:var(--rule) solid var(--line); min-width:0; }
+/* Flavor hero, Macro Bold. Recomposed 2026-11-18 (Moses): one bone canvas for the whole
+   hero instead of a white text panel beside a bone picture panel. The cakes sit on the
+   right of the same canvas; the price tag and the stamp hang off the cakes.
+   Hierarchy: headline (numbers first) > cakes > main button > price tag > text.
+   Accent marks are berry #B3335D (tag, underline marker, stamp), not the light pink.
+   Height: exactly the first screen under the ticker (38px) and the nav (--pd-nav-h).
+   The entrance lives in prodani-motion.css. */
+
+.pd-fh{
+  --fh-gap:clamp(18px,2.2vw,32px);
+  position:relative; isolation:isolate; overflow:hidden;
+  display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto 1fr auto; row-gap:var(--fh-gap);
+  height:calc(100svh - 38px - var(--pd-nav-h)); min-height:560px;
+  padding:clamp(26px,3.2vw,48px) var(--pad) clamp(28px,3.4vw,52px);
+  background:var(--butter); border-bottom:var(--rule) solid var(--line);
+}
+
+/* ---- copy: left 58% of the canvas ---- */
+.pd-fh__eyebrow, .pd-fh__h, .pd-fh__foot{ position:relative; z-index:2; max-width:56%; }
 .pd-fh__eyebrow{ display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
-.pd-fh__flavor{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--cocoa); text-decoration:none; }
-.pd-fh__flavor:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; }
-.pd-fh__h{ margin:clamp(22px,2.4vw,34px) 0 0; color:var(--cocoa); font-size:clamp(64px,8.6vw,150px); line-height:.86; }
-.pd-fh__line{ display:inline; }
-.pd-fh__line--u{ text-decoration:underline; text-decoration-color:var(--pink); text-decoration-thickness:.09em; text-underline-offset:.08em; text-decoration-skip-ink:none; }
-.pd-fh__p{ margin:clamp(22px,2.2vw,30px) 0 0; max-width:40ch; font-size:clamp(16px,1.3vw,19px); line-height:1.4; font-weight:600; color:var(--cocoa); text-wrap:pretty; }
-.pd-fh__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(24px,2.4vw,32px); }
-.pd-fh__macros{ list-style:none; margin:auto 0 0; padding:clamp(28px,3vw,44px) 0 0; display:flex; flex-wrap:wrap; gap:clamp(22px,3vw,44px); }
+.pd-fh__flavor{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--cocoa); text-decoration:none; }
+.pd-fh__lc{ text-transform:none; }
+.pd-fh__flavor:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; text-decoration-color:var(--berry); }
+
+/* Headline: one sentence per line. Sized by width AND height so it always fits the screen.
+   The longest line ("0g added sugar.") is about 6.4em wide. */
+.pd-fh__h{ align-self:center; margin:0; color:var(--cocoa); font-size:min(7.4vw, 11.6svh, 116px); line-height:.88; }
+@media (min-width:901px){ .pd-fh__line{ white-space:nowrap; } }
+.pd-fh__line{ display:block; width:fit-content; position:relative; }
+.pd-fh__w{ display:inline-block; }
+/* "20g": the number at full size, the unit small and lowercase on the same baseline. */
+.pd-fh__n{ white-space:nowrap; }
+.pd-fh__u{ font-size:.64em; text-transform:none; letter-spacing:0; margin-left:.03em; }
+/* The marker: a berry bar under the last line. Drawn by the entrance; static without it. */
+.pd-fh__line--u{ margin-top:.1em; }
+.pd-fh__line--u::after{ content:""; position:absolute; left:0; right:0; bottom:-.07em; height:.1em; background:var(--berry);
+  transform-origin:left center; z-index:-1; }
+
+.pd-fh__foot{ display:flex; flex-direction:column; align-items:flex-start; gap:clamp(18px,1.8vw,26px); }
+.pd-fh__p{ margin:0; max-width:36ch; font-size:clamp(15px,1.15vw,17px); line-height:1.45; font-weight:600; color:var(--cocoa-soft); text-wrap:pretty; }
+.pd-fh__cta{ display:flex; flex-wrap:wrap; gap:12px; }
+.pd-fh__macros{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:clamp(22px,3vw,44px); }
 .pd-fh__macros li{ font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--cocoa); }
 .pd-fh__macros b{ display:block; font-family:var(--script); font-weight:900; font-stretch:70%; font-size:clamp(30px,2.6vw,40px); line-height:.9; letter-spacing:-.01em; margin-bottom:6px; }
 
-.pd-fh__art{ position:relative; background:var(--butter); overflow:hidden; min-height:520px; }
-.pd-fh__cakes{ position:absolute; inset:0; }
-/* Sized by width so a tall copy column never blows the cakes up. */
-.pd-fh__cake{ position:absolute; top:9%; width:29%; height:auto; max-height:62%; object-fit:contain; filter:drop-shadow(0 28px 36px rgba(26,17,12,.24)); }
-.pd-fh__cake--l{ left:5%; transform:rotate(-8deg); }
-.pd-fh__cake--c{ left:50%; top:13%; width:31%; transform:translateX(-50%) rotate(4deg); z-index:1; }
-.pd-fh__cake--r{ right:5%; top:7%; transform:rotate(-3deg); }
-.pd-fh__price{ position:absolute; left:8%; bottom:8%; z-index:2; background:#fff; border:var(--rule) solid var(--cocoa); padding:14px 18px 12px;
-  color:var(--cocoa); text-decoration:none; font-family:var(--mono); font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; transition:background .2s; }
-.pd-fh__price:hover{ background:var(--pink); }
-.pd-fh__price b{ display:block; font-family:var(--script); font-weight:900; font-stretch:70%; font-size:48px; line-height:.9; letter-spacing:-.02em; }
-.pd-fh__price small{ display:block; margin-top:4px; font-size:11px; letter-spacing:.08em; color:var(--ink-soft); }
-.pd-fh__sticker{ position:absolute; right:7%; bottom:8%; z-index:2; width:124px; height:124px; border-radius:50%; background:var(--pink);
-  display:grid; place-items:center; text-align:center; color:var(--cocoa); font-family:var(--mono); font-weight:800; font-size:11px; letter-spacing:.1em;
-  text-transform:uppercase; line-height:1.15; transform:rotate(-12deg); }
+/* ---- cakes: the right side of the same canvas ----
+   --fh-x is the side inset: the page gutter, or more on wide screens so the hero lines
+   up with the header's 1580px row. The stage is sized by the trays (max-content), and
+   the price tag and the stamp hang off the stage, not off the canvas. */
+.pd-fh{ --fh-x:max(var(--pad), calc((100% - 1580px) / 2 + var(--pad))); padding-inline:var(--fh-x);
+  /* Tray height: a definite length (not a %) so the stage can measure the trays' drawn width.
+     36vw keeps the three trays (about 1.07 x this wide) inside the right 42% of the row. */
+  --fh-h:min(calc((100svh - 38px - var(--pd-nav-h)) * .78), 560px, 36vw); }
+.pd-fh__art{ position:absolute; z-index:1; top:0; bottom:0; right:var(--fh-x); width:calc((100% - 2 * var(--fh-x)) * .42); pointer-events:none; }
+.pd-fh__stage{ position:absolute; top:50%; left:50%; translate:-50% -50%; width:max-content; }
+.pd-fh__cakes{ display:flex; align-items:center; }
+.pd-fh__cake{ display:block; flex:none; height:calc(var(--fh-h) * .88); width:auto; margin:0 calc(var(--fh-h) * -.03);
+  filter:drop-shadow(0 26px 30px rgba(26,17,12,.22)); }
+.pd-fh__cake--l{ rotate:-7deg; translate:0 3%; }
+.pd-fh__cake--c{ height:var(--fh-h); rotate:3deg; position:relative; z-index:1; }
+.pd-fh__cake--r{ rotate:-2deg; translate:0 -2%; }
+
+/* Price tag: one clamp. Big per-cake price, then flavor and pack on two tight lines. */
+.pd-fh__price{ position:absolute; z-index:2; left:-6%; bottom:4%; pointer-events:auto;
+  display:block; width:max-content; background:#fff; border:var(--rule) solid var(--cocoa); padding:12px 16px 12px;
+  color:var(--cocoa); text-decoration:none; font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+  transition:background .2s, color .2s; }
+.pd-fh__price:hover{ background:var(--cocoa); color:#fff; }
+.pd-fh__price b{ display:block; font-family:var(--script); font-weight:900; font-stretch:70%; font-size:clamp(38px,3.2vw,48px); line-height:.9; letter-spacing:-.02em; }
+.pd-fh__price-unit{ display:block; margin-top:2px; }
+.pd-fh__price small{ display:block; margin-top:10px; padding-top:8px; border-top:1px solid currentColor; font-size:11px; letter-spacing:.08em; line-height:1.25; }
+.pd-fh__price small span{ display:block; }
+
+/* The stamp: berry, white type, tipped. */
+.pd-fh__sticker{ position:absolute; z-index:2; right:-9%; top:2%;
+  width:118px; height:118px; border-radius:50%; background:var(--berry); color:#fff;
+  display:grid; place-items:center; text-align:center; font-family:var(--mono); font-weight:800; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; line-height:1.15; rotate:-12deg; }
 .pd-fh__sticker b{ display:block; font-family:var(--script); font-weight:900; font-stretch:70%; font-size:40px; line-height:.9; letter-spacing:0; }
-.pd-fh__next{ position:absolute; right:0; top:0; z-index:2; background:var(--cocoa); color:#fff; text-decoration:none; padding:10px 14px;
-  font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
-.pd-fh__next:hover{ background:var(--cocoa-soft); }
+
+/* Short laptop screens: the text paragraph goes first, the claim and the button stay. */
+@media (min-width:901px) and (max-height:700px){ .pd-fh__p{ display:none; } }
+
+/* Tablets: the copy needs more of the width. */
+@media (min-width:901px) and (max-width:1180px){
+  .pd-fh{ --fh-h:min(calc((100svh - 38px - var(--pd-nav-h)) * .74), 33vw); }
+  .pd-fh__eyebrow, .pd-fh__h, .pd-fh__foot{ max-width:58%; }
+  .pd-fh__h{ font-size:min(6.9vw, 11svh); }
+  .pd-fh__art{ width:calc((100% - 2 * var(--fh-x)) * .4); }
+  .pd-fh__sticker{ width:100px; height:100px; font-size:9.5px; }
+  .pd-fh__sticker b{ font-size:32px; }
+}
+
+/* ---- phones and small tablets: the cakes come first, the copy below ---- */
+@media (max-width:900px){
+  .pd-fh{ height:auto; min-height:calc(100svh - 38px - var(--pd-nav-h)); grid-template-rows:auto auto auto auto; row-gap:0;
+    padding:0 0 28px; align-content:start; }
+  .pd-fh__eyebrow, .pd-fh__h, .pd-fh__foot{ max-width:none; padding-inline:var(--pad); }
+  .pd-fh{ padding-inline:0; --fh-h:calc(min(39svh, 380px) * .86); }
+  .pd-fh__art{ position:relative; order:-1; top:auto; bottom:auto; right:auto; width:auto; height:min(39svh, 380px); min-height:230px;
+    display:flex; align-items:center; justify-content:center; }
+  .pd-fh__stage{ position:static; translate:none; width:auto; }
+  .pd-fh__price{ left:var(--pad); bottom:12px; padding:9px 12px 9px; }
+  .pd-fh__price b{ font-size:32px; }
+  .pd-fh__price small{ margin-top:6px; padding-top:6px; font-size:10px; }
+  .pd-fh__sticker{ right:var(--pad); top:auto; bottom:12px; width:88px; height:88px; font-size:8.5px; letter-spacing:.06em; }
+  .pd-fh__sticker b{ font-size:26px; }
+  .pd-fh__eyebrow{ padding-top:20px; }
+  .pd-fh__h{ margin-top:16px; font-size:clamp(46px,13.6vw,96px); }
+  .pd-fh__foot{ margin-top:22px; }
+  .pd-fh__cta{ width:100%; }
+  .pd-fh__cta .pd-btn{ flex:1 1 auto; padding:0 18px; }
+}
+@media (max-width:560px){
+  .pd-fh__p{ display:none; }
+  .pd-fh__eyebrow{ gap:10px; }
+  .pd-fh__flavor{ font-size:11px; letter-spacing:.08em; }
+}
 
 /* Flavor ticker under the hero: condensed caps between two ink rules. */
 .pd-mq{ overflow:hidden; white-space:nowrap; padding:0; border-bottom:var(--rule) solid var(--line);
   font-size:clamp(28px,3.2vw,48px); line-height:1; color:var(--cocoa); }
 .pd-mq__t{ display:inline-flex; padding:16px 0 12px; animation:pd-mq 48s linear infinite; }
 .pd-mq__t span{ display:inline-flex; align-items:center; gap:28px; padding-right:28px; }
-.pd-mq__t span::before{ content:""; width:12px; height:12px; border-radius:0; background:var(--pink); flex:none; }
+.pd-mq__t span::before{ content:""; width:12px; height:12px; border-radius:0; background:var(--berry); flex:none; }
 @keyframes pd-mq{ to{ transform:translateX(-50%); } }
-
-@media (max-width:900px){
-  .pd-fh{ grid-template-columns:1fr; min-height:0; }
-  .pd-fh__copy{ border-right:0; border-bottom:var(--rule) solid var(--line); padding:28px var(--pad) 32px; }
-  .pd-fh__h{ font-size:clamp(58px,17.5vw,104px); }
-  .pd-fh__cta{ width:100%; }
-  .pd-fh__cta .pd-btn{ flex:1 1 auto; padding:0 18px; }
-  .pd-fh__macros{ gap:18px 26px; margin-top:0; padding-top:30px; }
-  .pd-fh__art{ min-height:440px; }
-  .pd-fh__cake{ width:25%; max-height:64%; }
-  .pd-fh__cake--c{ width:28%; }
-  .pd-fh__price b{ font-size:38px; }
-  .pd-fh__sticker{ width:108px; height:108px; font-size:9.5px; letter-spacing:.06em; }
-  .pd-fh__sticker b{ font-size:30px; }
-}
 @media (prefers-reduced-motion:reduce){ .pd-mq__t{ animation:none; } }
-
-/* ---- Macro Bold audit fixes (2026-11-10) ----
-   Phones: the cakes come first (a real cake on the first screen), copy below. */
-@media (max-width:560px){
-  .pd-fh__art{ order:-1; min-height:0; height:46svh; max-height:380px; border-bottom:var(--rule) solid var(--line); }
-  .pd-fh__copy{ border-bottom:0; padding-top:22px; }
-  .pd-fh__cake{ top:8%; width:26%; max-height:80%; }
-  .pd-fh__cake--c{ top:6%; width:28%; }
-  .pd-fh__price{ left:16px; bottom:14px; padding:10px 12px 8px; }
-  .pd-fh__price b{ font-size:32px; }
-  .pd-fh__price small{ display:none; }
-  .pd-fh__sticker{ right:16px; bottom:14px; width:92px; height:92px; font-size:9px; }
-  .pd-fh__sticker b{ font-size:26px; }
-  .pd-fh__h{ margin-top:16px; font-size:clamp(52px,15.5vw,68px); }
-  .pd-fh__p{ margin-top:16px; font-size:16px; }
-  .pd-fh__cta{ margin-top:20px; }
-}
-
-/* ---- Hero = exactly one screen (Moses 2026-11-10) ----
-   Height is the viewport minus the ticker (38px) and the nav (--pd-nav-h). The headline
-   scales with the viewport height as well as its width so the copy always fits. */
-.pd-fh{ height:calc(100svh - 38px - var(--pd-nav-h)); min-height:560px; max-height:none; }
-.pd-fh__copy{ justify-content:center; overflow:hidden; }
-.pd-fh__h{ font-size:min(8.6vw, 12.5svh); }
-.pd-fh__art{ min-height:0; }
-/* Three trays at one height, side by side, centred in the bone panel. */
-.pd-fh__cake{ top:50%; width:auto; height:min(56%, 480px); max-height:none; translate:0 -56%; }
-.pd-fh__cake--l{ left:10%; transform:rotate(-6deg); }
-.pd-fh__cake--c{ left:50%; top:50%; width:auto; height:min(60%, 520px); transform:translateX(-50%) rotate(3deg); }
-.pd-fh__cake--r{ right:10%; left:auto; top:50%; transform:rotate(-2deg); }
-@media (max-width:900px){
-  .pd-fh{ height:auto; min-height:calc(100svh - 38px - var(--pd-nav-h)); grid-template-rows:minmax(240px,1fr) auto; }
-  .pd-fh__art{ order:-1; height:auto; max-height:none; border-bottom:var(--rule) solid var(--line); }
-  .pd-fh__copy{ border-bottom:0; justify-content:flex-start; }
-  .pd-fh__h{ font-size:clamp(50px,14.5vw,96px); }
-}
-@media (max-width:560px){
-  .pd-fh__p{ display:none; }
-  .pd-fh__copy{ padding:20px var(--pad) 24px; }
-  .pd-fh__h{ margin-top:14px; }
-  .pd-fh__cake, .pd-fh__cake--c{ height:min(74%, 300px); }
-}

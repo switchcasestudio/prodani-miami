@@ -116,6 +116,14 @@
             {%- if count == section.settings.popular_count -%}<span class="pd-box__tag pd-box__tag--popular">Most Popular</span>{%- endif -%}
             {%- if count == section.settings.value_count -%}<span class="pd-box__tag pd-box__tag--value">Best Value</span>{%- endif -%}
             <span class="pd-box__size-count"><b>{{ count }}</b> cakes</span>
+            {%- comment -%} The box itself, drawn in the card (Moses 2026-11-18): one empty cake
+                outline per cake, six to a row like the real box. The chosen card fills as
+                flavors are added (prodani-box-builder.js). Desktop only; phones keep the
+                tray in step 2. {%- endcomment -%}
+            {%- assign rows = count | plus: 5 | divided_by: 6 -%}
+            <span class="pd-box__mini" data-pd-mini aria-hidden="true" style="--rows:{{ rows }}">
+              {%- for n in (1..count) -%}<span class="pd-box__slot"><img alt="" width="40" height="100"></span>{%- endfor -%}
+            </span>
             <span class="pd-box__size-price">${{ price }}</span>
             <span class="pd-box__size-per">${{ per }}/cake</span>
           </button>
@@ -162,9 +170,11 @@
     </div>
 
     {%- comment -%}
-      Steps 2–4 start folded (Moses, 2026-10-08: the full builder reads as too
-      technical up front). Picking a size, choosing a curated box, or the arrow
+      Steps 2–4 start folded on phones (Moses, 2026-10-08: the full builder reads as
+      too technical up front). Picking a size, choosing a curated box, or the arrow
       below opens them. `inert` keeps the folded controls out of the tab order.
+      On desktop (750px and up) the builder is open from the start (Moses 2026-11-18);
+      prodani-box-builder.js opens it and the button is hidden.
     {%- endcomment -%}
     <button type="button" class="pd-box__expand" data-pd-expand aria-expanded="false" aria-controls="pd-box-more-{{ section.id }}">
       <span data-pd-expand-label>Choose your flavors</span>
@@ -237,9 +247,6 @@
         {%- endfor -%}
       </div>
 
-      <div class="pd-box__tracker" data-pd-tracker>
-        <div class="pd-box__upsell" data-pd-upsell hidden></div>
-      </div>
     </div>
 
     {%- comment -%}
@@ -247,6 +254,10 @@
       writes into the builder's own state rather than a product form, because the box
       posts many line items at once and each needs the selling_plan attached.
     {%- endcomment -%}
+    {%- comment -%} Steps 3 and 4 side by side on desktop: the options on the left, the
+        price and the one main button on the right (Moses 2026-11-18: the buttons were
+        out of hierarchy, the size nudge looked like the main action). {%- endcomment -%}
+    <div class="pd-box__end">
     {%- if section.settings.sub_enabled -%}
       <div class="pd-box__step">
         <p class="pd-box__step-label"><span>3</span> One-time or subscribe</p>
@@ -298,15 +309,20 @@
       </div>
     {%- endif -%}
 
-    {%- comment -%} Step 4 — validate + add {%- endcomment -%}
-    <div class="pd-box__cta" data-pd-cta>
-      <div class="pd-box__cta-price">
-        <span class="pd-box__cta-total" data-pd-cta-total></span>
-        <span class="pd-box__cta-per" data-pd-cta-per></span>
+    {%- comment -%} Step 4 — validate + add. The size nudge sits under the button as a
+        quiet text link, never a second filled button. {%- endcomment -%}
+    <div class="pd-box__summary">
+      <div class="pd-box__cta" data-pd-cta>
+        <div class="pd-box__cta-price">
+          <span class="pd-box__cta-total" data-pd-cta-total></span>
+          <span class="pd-box__cta-per" data-pd-cta-per></span>
+        </div>
+        <button type="button" class="pd-box__add" data-pd-add disabled>Choose a box to start</button>
       </div>
-      <button type="button" class="pd-box__add" data-pd-add disabled>Choose a box to start</button>
+      <div class="pd-box__upsell" data-pd-upsell hidden></div>
+      <p class="pd-box__note" data-pd-note role="status"></p>
     </div>
-    <p class="pd-box__note" data-pd-note role="status"></p>
+    </div>
     </div>
     </div>
   </div>

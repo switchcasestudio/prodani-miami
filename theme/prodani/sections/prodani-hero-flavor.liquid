@@ -10,10 +10,9 @@
 {%- capture nm -%}{% render 'prodani-flavor-map', handle: next_p.handle %}{%- endcapture -%}
 {%- assign n = nm | strip | split: '|' -%}
 {%- comment -%}
-  Macro Bold hero (2026-11-10): the numbers are the headline. Left: the claim set huge,
-  the spotlight flavor as a tag, two buttons and a row of big figures. Right: a bone panel
-  with three cakes, the per-cake price and the pink "7 flavors" stamp. The headline reads
-  the spotlight product's protein live; {protein} in the setting is replaced with it.
+  Macro Bold hero (2026-11-10, recomposed 2026-11-18): the numbers are the headline.
+  The headline reads the spotlight product's protein live; {protein} in the setting is
+  replaced with it.
 {%- endcomment -%}
 {%- liquid
   assign protein = p.metafields.prodani.protein_g.value
@@ -46,28 +45,44 @@
   endfor
   assign v = p.selected_or_first_available_variant
 -%}
+{%- comment -%}
+  2026-11-18 recomposition (Moses): the whole hero is one bone canvas, no split panel.
+  Hierarchy: the claim (numbers first) > the cakes > the main button > the price tag.
+  Every sentence of the headline is its own line, so "0g" can never wrap away from
+  "added sugar". A number with a unit ("20g") is set as a big number and a small
+  lowercase g: in a condensed caps face "20G" reads as "206" and "0G" as "OG".
+  Each word is its own span so the entrance can land it (prodani-motion.css):
+  --l is the line, --j the word's place in its line.
+{%- endcomment -%}
 <section class="pd-hero pd-fh">
-  <div class="pd-fh__copy">
-    <div class="pd-fh__eyebrow">
-      <span class="pd-tag pd-tag--pink">{{ section.settings.eyebrow | escape }}</span>
-      <a class="pd-fh__flavor" href="{{ p.url }}">{{ f[0] }} {{ f[1] }}{% if protein != blank %} · {{ protein }}g protein{% endif %}{% if cals != blank %} · {{ cals }} cal{% endif %}</a>
-    </div>
-    {%- comment -%} Each word is its own span so the headline can land word by word
-       (prodani-motion.css). --i is the word's place in the whole headline. {%- endcomment -%}
-    <h1 class="pd-fh__h">
-      {%- assign wi = 0 -%}
-      {%- for l in lines -%}
-        {%- assign t = l | strip -%}
-        {%- unless t contains '.' -%}{%- assign t = t | append: '.' -%}{%- endunless -%}
-        {%- assign words = t | split: ' ' -%}
-        <span class="pd-fh__line{% if forloop.last %} pd-fh__line--u{% endif %}">
-          {%- for w in words -%}
-            <span class="pd-fh__w" style="--i:{{ wi }}">{{ w | escape }}</span>{% unless forloop.last %} {% endunless %}
-            {%- assign wi = wi | plus: 1 -%}
-          {%- endfor -%}
-        </span>{% unless forloop.last %} {% endunless %}
-      {%- endfor -%}
-    </h1>
+  <div class="pd-fh__eyebrow">
+    <span class="pd-tag pd-tag--berry">{{ section.settings.eyebrow | escape }}</span>
+    <a class="pd-fh__flavor" href="{{ p.url }}">{{ f[0] }} {{ f[1] }}{% if protein != blank %} · {{ protein }}<span class="pd-fh__lc">g</span> protein{% endif %}{% if cals != blank %} · {{ cals }} cal{% endif %}</a>
+  </div>
+  <h1 class="pd-fh__h">
+    {%- for l in lines -%}
+      {%- assign t = l | strip -%}
+      {%- unless t contains '.' -%}{%- assign t = t | append: '.' -%}{%- endunless -%}
+      {%- assign words = t | split: ' ' -%}
+      {%- assign li = forloop.index0 -%}
+      <span class="pd-fh__line{% if forloop.last %} pd-fh__line--u{% endif %}" style="--l:{{ li }}">
+        {%- for w in words -%}
+          {%- liquid
+            assign num = w | remove_last: 'g'
+            assign numchk = num | plus: 0 | append: ''
+            assign is_qty = false
+            if num != w and num != blank and numchk == num
+              assign is_qty = true
+            endif
+          -%}
+          <span class="pd-fh__w" style="--j:{{ forloop.index0 }}">
+            {%- if is_qty -%}<span class="pd-fh__n">{{ num | escape }}<span class="pd-fh__u">g</span></span>{%- else -%}{{ w | escape }}{%- endif -%}
+          </span>{% unless forloop.last %} {% endunless %}
+        {%- endfor -%}
+      </span>{% unless forloop.last %} {% endunless %}
+    {%- endfor -%}
+  </h1>
+  <div class="pd-fh__foot">
     <p class="pd-fh__p">{{ section.settings.text | escape }}</p>
     <div class="pd-fh__cta">
       <a class="pd-btn" href="{{ p.url }}">{{ section.settings.cta_label | escape }} · {{ p.price | money }}</a>
@@ -81,22 +96,26 @@
     {%- endif -%}
   </div>
   <div class="pd-fh__art">
+    {%- comment -%} The stage hugs the three trays, so the tag and the stamp stay pinned to the cakes at any width. {%- endcomment -%}
+    <div class="pd-fh__stage">
     <div class="pd-fh__cakes" aria-hidden="true">
-      {%- if n[4] != blank -%}<img class="pd-fh__cake pd-fh__cake--l" src="{{ n[4] | asset_url }}" alt="" width="360" height="640" loading="lazy">{%- endif -%}
+      {%- if n[4] != blank -%}<img class="pd-fh__cake pd-fh__cake--l" src="{{ n[4] | asset_url }}" alt="" width="360" height="640" decoding="async">{%- endif -%}
       <img class="pd-fh__cake pd-fh__cake--c" src="{{ f[4] | asset_url }}" alt="" width="360" height="640" fetchpriority="high">
-      {%- if third != blank -%}<img class="pd-fh__cake pd-fh__cake--r" src="{{ third | asset_url }}" alt="" width="360" height="640" loading="lazy">{%- endif -%}
+      {%- if third != blank -%}<img class="pd-fh__cake pd-fh__cake--r" src="{{ third | asset_url }}" alt="" width="360" height="640" decoding="async">{%- endif -%}
     </div>
     {%- capture each -%}{% render 'prodani-pack-price', variant: v, mode: 'each' %}{%- endcapture -%}
+    {%- comment -%} One clamp: the per-cake price, then flavor and pack on two tight lines. {%- endcomment -%}
     <a class="pd-fh__price" href="{{ p.url }}">
       {%- if each != blank -%}
         <b>{{ each | strip | remove: ' per cake' | strip_html | strip }}</b>
-        <span>per cake</span>
-        <small>{{ f[0] }} {{ f[1] }} 5-pack, {{ p.price | money }}</small>
+        <span class="pd-fh__price-unit">per cake</span>
+        <small><span>{{ f[0] }} {{ f[1] }}</span><span>5-pack, {{ p.price | money }}</span></small>
       {%- else -%}
-        <b>{{ p.price | money }}</b><small>{{ f[0] }} {{ f[1] }}</small>
+        <b>{{ p.price | money }}</b><small><span>{{ f[0] }} {{ f[1] }}</span></small>
       {%- endif -%}
     </a>
     <div class="pd-fh__sticker"><div><b>{{ collections['personal-protein-cakes'].products_count | default: 7 }}</b>flavors<br>baked weekly</div></div>
+    </div>
   </div>
 </section>
 {%- if section.settings.show_marquee -%}

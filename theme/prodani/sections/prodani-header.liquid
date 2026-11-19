@@ -72,16 +72,8 @@
     </nav>
 
     <div class="pd-nav__right">
-      <a class="pd-icon-btn pd-nav__search" href="{{ routes.search_url }}" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-          <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>
-        </svg>
-      </a>
-      <a class="pd-icon-btn pd-nav__account" href="{{ routes.account_url }}" aria-label="Account">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-          <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>
-        </svg>
-      </a>
+      {%- comment -%} Search and Account icons removed from the bar 2026-11-18 (Moses: a cleaner
+          header). Both stay in the ☰ menu below 960px; desktop has no Account link now. {%- endcomment -%}
       <a class="pd-nav__box" href="{{ section.settings.box_url | default: '/#box' }}">{{ section.settings.box_label | default: 'Build your box' | escape }}</a>
       <a class="pd-nav__cart" href="{{ routes.cart_url }}"
          aria-label="Open cart, {{ cart.item_count }} items">

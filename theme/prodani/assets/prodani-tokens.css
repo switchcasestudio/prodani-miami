@@ -150,6 +150,8 @@ html .pd-review__title, html .pd-foot__colhead, html .pd-foot__card-title{ font-
 .pd-tag{ display:inline-block; font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
   padding:6px 9px; border:var(--rule) solid var(--cocoa); color:var(--cocoa); background:#fff; line-height:1; }
 .pd-tag--pink{ background:var(--pink); border-color:var(--pink); }
+/* Berry #B3335D (Moses 2026-11-18): the accent mark for section tags, white type. */
+.pd-tag--berry{ background:var(--berry); border-color:var(--berry); color:#fff; }
 
 /* Keyboard focus is visible everywhere. */
 :where(a, button, input, select, textarea, summary):focus-visible{ outline:3px solid var(--berry); outline-offset:2px; }

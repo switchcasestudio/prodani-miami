@@ -42,11 +42,6 @@ html .pd-flv__name{ font-family:var(--script); font-weight:900; font-stretch:70%
 .pd-flv__art{ position:relative; min-width:0; height:100%; min-height:340px; }
 .pd-flv__cake{ position:absolute; left:50%; top:50%; translate:-50% -50%; rotate:3deg; height:min(84%, 640px); width:auto; max-width:86%;
   object-fit:contain; filter:drop-shadow(0 30px 34px rgba(26,17,12,.22)); will-change:transform; }
-/* The protein figure, tone on tone behind the tray. */
-.pd-flv__ghost{ position:absolute; right:38%; top:0; margin:0; z-index:0; white-space:nowrap; pointer-events:none;
-  color:color-mix(in srgb, var(--fc) 26%, var(--tint)); font-family:var(--script); font-weight:900; font-stretch:70%;
-  font-size:clamp(140px, min(21vw, 42svh), 380px); line-height:.8; letter-spacing:-.04em; }
-.pd-flv__ghost small{ font-size:.42em; letter-spacing:-.02em; }
 .pd-flv__cake{ z-index:1; }
 
 .pd-flv__index{ display:none; }
@@ -62,7 +57,8 @@ html .pd-flv__name{ font-family:var(--script); font-weight:900; font-stretch:70%
 }
 
 /* ======================= live: one flavor per scroll ======================= */
-.pd-flv.is-live{ height:calc(var(--stage-h) + (var(--n) - 1) * var(--step)); border-bottom:0; }
+/* Every flavor owns one --step of scroll, the first and the last included (prodani-flavors.js). */
+.pd-flv.is-live{ height:calc(var(--stage-h) + var(--n) * var(--step)); border-bottom:0; }
 .pd-flv.is-live .pd-flv__stage{ position:sticky; top:var(--pd-nav-h, 64px); height:var(--stage-h); overflow:hidden;
   background-color:var(--tint, var(--butter)); transition:background-color .7s ease; border-bottom:var(--rule) solid var(--line);
   display:grid; grid-template-rows:auto minmax(0,1fr); }
@@ -79,9 +75,6 @@ html .pd-flv__name{ font-family:var(--script); font-weight:900; font-stretch:70%
 .pd-flv.is-live .pd-flv__cake{ transition:transform .85s var(--io); }
 .pd-flv.is-live [data-pos="before"] .pd-flv__cake{ transform:translateY(-140%) rotate(-6deg); }
 .pd-flv.is-live [data-pos="after"] .pd-flv__cake{ transform:translateY(140%) rotate(7deg); }
-.pd-flv.is-live .pd-flv__ghost{ transition:transform .85s var(--io), opacity .45s ease; }
-.pd-flv.is-live [data-pos="before"] .pd-flv__ghost{ transform:translateY(-34%); opacity:0; }
-.pd-flv.is-live [data-pos="after"] .pd-flv__ghost{ transform:translateY(34%); opacity:0; }
 
 /* Leaving is quick; arriving waits for the name to land. */
 .pd-flv.is-live .pd-flv__facts, .pd-flv.is-live .pd-flv__cta{ transition:opacity .18s ease, transform .18s ease; }
@@ -114,7 +107,6 @@ html .pd-flv__name{ font-family:var(--script); font-weight:900; font-stretch:70%
   html .pd-flv.is-live .pd-flv__name{ font-size:clamp(44px, min(15vw, 9.5svh), 84px); }
   .pd-flv.is-live .pd-flv__art{ grid-row:2; order:0; height:auto; min-height:0; }
   .pd-flv.is-live .pd-flv__cake{ height:min(92%, 420px); max-width:70%; }
-  .pd-flv.is-live .pd-flv__ghost{ font-size:min(44vw, 30svh); top:4%; right:50%; }
   .pd-flv.is-live .pd-flv__facts{ grid-row:3; margin:0; gap:8px 22px; }
   .pd-flv.is-live .pd-flv__facts b{ font-size:30px; margin-bottom:3px; }
   .pd-flv.is-live .pd-flv__cta{ grid-row:4; margin-top:12px; gap:8px; flex-wrap:nowrap; }
@@ -138,6 +130,73 @@ html .pd-flv__name{ font-family:var(--script); font-weight:900; font-stretch:70%
 @media (prefers-reduced-motion:reduce){
   .pd-flv.is-live .pd-flv__slide{ transition:opacity .2s ease !important; opacity:0; }
   .pd-flv.is-live .pd-flv__slide[data-pos="on"]{ opacity:1; }
-  .pd-flv.is-live .pd-flv__mask > span, .pd-flv.is-live .pd-flv__cake, .pd-flv.is-live .pd-flv__ghost,
+  .pd-flv.is-live .pd-flv__mask > span, .pd-flv.is-live .pd-flv__cake,
   .pd-flv.is-live .pd-flv__facts, .pd-flv.is-live .pd-flv__cta{ transform:none !important; opacity:1 !important; }
+}
+
+/* ======================= Protein first (Moses 2026-11-18) =======================
+   Moses 2026-11-18, later: with the ghost figure behind, two big numbers competed. Final
+   hierarchy, from his own font-size edit: name first (~130px at a 1260px window), the figure
+   second (~95px), "Protein" in a light weight beside it, then calories and price.
+   The protein figure is the biggest thing on the stage:
+   "20g" = the number in full plus a small lowercase g (as in the hero), "Protein" beside it.
+   The name drops to a label size; calories and price stay small. */
+html .pd-flv__name{ font-size:clamp(48px, min(22cqi, 18svh), 160px); }
+@supports not (font-size:1cqi){ html .pd-flv__name{ font-size:clamp(48px, min(11vw, 18svh), 160px); } }
+.pd-flv__protein{ margin:clamp(8px,1.6svh,18px) 0 0; display:flex; align-items:flex-end; gap:clamp(10px,1.2vw,18px); color:var(--cocoa); }
+/* The mask needs room for the descender of the small g (it hangs below the digits). */
+.pd-flv__protein{ --num:clamp(72px, min(19cqi, 14svh), 136px); }
+@supports not (font-size:1cqi){ .pd-flv__protein{ --num:clamp(64px, min(9.5vw, 14svh), 136px); } }
+.pd-flv__protein .pd-flv__mask{ padding-bottom:calc(var(--num) * .2); margin-bottom:calc(var(--num) * -.2); }
+.pd-flv__num small{ display:inline-block; padding-bottom:.08em; }
+.pd-flv__num{ font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:none; white-space:nowrap;
+  font-size:var(--num); line-height:.8; letter-spacing:-.03em; font-variant-numeric:tabular-nums; }
+.pd-flv__num small{ font-size:.42em; letter-spacing:0; margin-left:.03em; }
+.pd-flv__unit{ font-family:var(--mono); font-size:clamp(13px,1.15vw,17px); font-weight:500; letter-spacing:.16em; text-transform:uppercase; padding-bottom:.55em; }
+.pd-flv__facts{ margin-top:clamp(14px,2.2svh,26px); }
+.pd-flv__facts b{ font-size:clamp(26px,2.4vw,40px); }
+/* The number lands just after the name. */
+.pd-flv.is-live .pd-flv__protein .pd-flv__mask > span{ transition-delay:.09s; }
+.pd-flv.is-live .pd-flv__unit{ transition:opacity .18s ease; }
+.pd-flv.is-live :is([data-pos="before"],[data-pos="after"]) .pd-flv__unit{ opacity:0; }
+.pd-flv.is-live [data-pos="on"] .pd-flv__unit{ transition:opacity .45s ease .35s; }
+
+@media (max-width:900px){
+  /* Phones: name on top, then the number and the tray side by side, then facts and buttons. */
+  .pd-flv.is-live .pd-flv__slide{ grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto minmax(0,1fr) auto auto; column-gap:0; }
+  .pd-flv.is-live .pd-flv__name, .pd-flv.is-live .pd-flv__facts, .pd-flv.is-live .pd-flv__cta{ grid-column:1 / -1; }
+  html .pd-flv.is-live .pd-flv__name{ font-size:clamp(42px, min(16.5vw, 10svh), 84px); }
+  .pd-flv.is-live .pd-flv__protein{ grid-row:2; grid-column:1; flex-direction:row; align-items:flex-end; gap:10px; margin:6px 0 0; }
+  .pd-flv.is-live .pd-flv__protein{ --num:min(15vw, 9svh); }
+  .pd-flv.is-live .pd-flv__unit{ font-size:12px; padding-bottom:.5em; }
+  .pd-flv.is-live .pd-flv__art{ grid-row:3; grid-column:1; }
+  .pd-flv.is-live .pd-flv__cake{ height:min(92%, 420px); max-width:70%; }
+  .pd-flv.is-live .pd-flv__facts{ grid-row:4; margin-top:6px; }
+  .pd-flv.is-live .pd-flv__cta{ grid-row:5; }
+  .pd-flv.is-live .pd-flv__facts b{ font-size:26px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .pd-flv.is-live .pd-flv__unit{ opacity:1 !important; }
+}
+
+/* ======================= Ghost figure (Moses 2026-11-18) =======================
+   The protein figure a second time, as a background accent: far bigger than the real one,
+   tipped, tone on tone, bleeding off the canvas behind the tray. The copy and the index
+   sit above it. It drifts in with the tray, a little slower. */
+.pd-flv__copy{ position:relative; z-index:2; }
+.pd-flv__ghost{ position:absolute; left:50%; top:50%; translate:-56% -50%; rotate:-14deg; margin:0; z-index:0; white-space:nowrap; pointer-events:none;
+  color:color-mix(in srgb, var(--fc) 14%, var(--tint)); font-family:var(--script); font-weight:900; font-stretch:70%;
+  font-size:clamp(360px, min(68vw, 128svh), 1240px); line-height:.8; letter-spacing:-.05em; text-transform:none; user-select:none; }
+.pd-flv__ghost small{ font-size:.42em; letter-spacing:0; margin-left:.02em; }
+.pd-flv__cake{ z-index:1; }
+.pd-flv.is-live .pd-flv__ghost{ transition:transform 1.1s var(--io), opacity .5s ease; }
+.pd-flv.is-live [data-pos="before"] .pd-flv__ghost{ transform:translateY(-24%); opacity:0; }
+.pd-flv.is-live [data-pos="after"] .pd-flv__ghost{ transform:translateY(24%); opacity:0; }
+@media (max-width:900px){
+  /* Phones: one big tipped shape behind the whole row (number and tray), paler still. */
+  .pd-flv.is-live .pd-flv__ghost{ font-size:min(118vw, 62svh); translate:-62% -50%; color:color-mix(in srgb, var(--fc) 11%, var(--tint)); }
+  .pd-flv.is-live .pd-flv__protein{ position:relative; z-index:2; }
+}
+@media (prefers-reduced-motion:reduce){
+  .pd-flv.is-live .pd-flv__ghost{ transform:none !important; opacity:1 !important; }
 }

@@ -611,18 +611,21 @@
       }
     },
     "spreads": {
-      "type": "prodani-panel",
+      "type": "prodani-spreads-trio",
+      "blocks": {
+        "s1": { "type": "flavor", "settings": { "name": "Hazelnut", "kind": "Spread", "tagline": "Deep. Silky. Familiar.", "text": "The chocolate-hazelnut favorite, made the ProDani way.", "direction": "Cocoa-forward \u00b7 roasted hazelnut \u00b7 luxurious texture", "pairs": "Toast, pancakes, fruit, baking, a straight-from-the-spoon moment.", "accent": "#6B3B28" } },
+        "s2": { "type": "flavor", "settings": { "name": "Pistachio", "kind": "Spread", "tagline": "Distinctive. Nutty. Vibrant.", "text": "An unmistakable pistachio expression with a soft green signature.", "direction": "Pistachio-led \u00b7 gently toasted \u00b7 smooth", "pairs": "Croissants, yogurt bowls, dates, pastries, and dessert toppings.", "accent": "#73703E" } },
+        "s3": { "type": "flavor", "settings": { "name": "Lotus", "kind": "Spread", "tagline": "Cozy. Caramelized. Playful.", "text": "Cookie-butter-style warmth inspired by spiced biscuits, with a rich caramel personality.", "direction": "Caramel \u00b7 gentle spice \u00b7 cookie-butter mood", "pairs": "Apples, oatmeal, waffles, ice cream and gifting.", "accent": "#A75E30" } }
+      },
+      "block_order": ["s1", "s2", "s3"],
       "settings": {
         "anchor": "spreads",
-        "eyebrow": "The Spread Collection",
-        "heading": "Spread <em>something good.</em>",
-        "body": "Three new flavors in one beautiful jar, for toast, fruit, baking and straight from the spoon.",
+        "eyebrow": "The spread collection",
+        "soon_label": "Coming soon",
+        "heading": "Meet the trio.",
+        "lede": "Three new spreads, one color-coded family: for toast, fruit, baking and straight from the spoon.",
         "cta_label": "Meet the spreads",
-        "cta_link": "/pages/spreads",
-        "bundled": "prodani-spread-open.jpg",
-        "image_alt": "Three Prodani spread jars in an open gift box",
-        "flip": true,
-        "tone": "cream"
+        "cta_link": "/pages/spreads"
       }
     },
     "flavors": {
@@ -634,7 +637,7 @@
         "box_label": "Add to a box",
         "box_link": "/#box",
         "soon_heading": "Coming soon",
-        "soon": "Lemon, Matcha, Birthday Cake"
+        "soon": ""
       }
     }
   },
