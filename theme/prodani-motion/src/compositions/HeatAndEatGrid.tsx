@@ -6,7 +6,7 @@ import { C, LOGO, RISE, SCENES, clamp, headline, label } from "../tokens";
 
 /* Heat and eat., version B, all vector. Timings: motion-tokens.json scenes.heatAndEatGrid.
    1. a field of i-stems (the logo's 1 : 2.8 bar) rises in, diagonal, and pulses in a heat wave
-   2. a window opens in the middle of the field: a fast 5-4-3-2-1 over "5 SECONDS IN THE MICROWAVE",
+   2. a window opens in the middle of the field: OUT OF THE TRAY / 5–10 / SECONDS IN THE MICROWAVE,
       a pink timer line along its bottom edge
    3. the window widens into a band across the frame; HEAT AND EAT. rises into it as one line,
       the stop drops after EAT (the "ding"); the field keeps pulsing around it
@@ -62,11 +62,9 @@ export const HeatAndEatGrid: React.FC = () => {
   const h = lerp(winH * open, bandH, toBand);
   const win = { x: cx - w / 2, y: cy - h / 2, w, h };
 
-  // the countdown: 5 4 3 2 1, each digit rising in quickly
-  const per = (S.count[1] - S.count[0]) / 5;
-  const ci = Math.floor((f - S.count[0]) / per);
+  // the heating time, rising in as one figure
   const counting = f >= S.count[0] && f < S.count[1];
-  const digitIn = counting ? interpolate(f - (S.count[0] + ci * per), [0, 4], [100, 0], { ...clamp, easing: RISE.easeIn }) : 0;
+  const figIn = interpolate(f, [S.count[0], S.count[0] + RISE.inEnd], [100, 0], { ...clamp, easing: RISE.easeIn });
   const timer = interpolate(f, S.count, [0, 1], clamp);
   const labelSize = (landscape ? 0.07 : 0.085) * winH;
   const labelIn = interpolate(f, [S.window[1] - 4, S.window[1] - 4 + RISE.inEnd], [100, 0], { ...clamp, easing: RISE.easeIn });
@@ -85,14 +83,18 @@ export const HeatAndEatGrid: React.FC = () => {
       {/* inside the window */}
       {open > 0 && f < S.band[0] ? (
         <div style={{ position: "absolute", left: win.x, top: win.y, width: win.w, height: win.h, overflow: "hidden" }}>
-          <div style={{ position: "absolute", left: 0, right: 0, top: 0.08 * winH, height: labelSize * 1.5, overflow: "hidden", textAlign: "center" }}>
-            <div style={{ ...label, color: C.white, fontSize: labelSize, lineHeight: 1.5, translate: `0px ${labelIn}%` }}>{S.microLabel}</div>
+          {/* OUT OF THE TRAY / 5–10 / SECONDS IN THE MICROWAVE: the tray is aluminum, so it is said first */}
+          <div style={{ position: "absolute", left: 0, right: 0, top: 0.07 * winH, height: labelSize * 1.5, overflow: "hidden", textAlign: "center" }}>
+            <div style={{ ...label, color: C.white, fontSize: labelSize, lineHeight: 1.5, translate: `0px ${labelIn}%` }}>{S.trayLabel}</div>
           </div>
           {counting ? (
-            <div style={{ position: "absolute", left: 0, right: 0, top: 0.26 * winH, height: 0.62 * winH, overflow: "hidden", textAlign: "center" }}>
-              <div style={{ ...headline, color: C.white, fontSize: 0.78 * winH, lineHeight: 0.8, translate: `0px ${digitIn}%` }}>{5 - ci}</div>
+            <div style={{ position: "absolute", left: 0, right: 0, top: 0.25 * winH, height: 0.48 * winH, overflow: "hidden", textAlign: "center" }}>
+              <div style={{ ...headline, color: C.white, fontSize: 0.6 * winH, lineHeight: 0.8, translate: `0px ${figIn}%` }}>{S.figure}</div>
             </div>
           ) : null}
+          <div style={{ position: "absolute", left: 0, right: 0, top: 0.76 * winH, height: labelSize * 1.5, overflow: "hidden", textAlign: "center" }}>
+            <div style={{ ...label, color: C.white, fontSize: labelSize, lineHeight: 1.5, translate: `0px ${labelIn}%` }}>{S.microLabel}</div>
+          </div>
         </div>
       ) : null}
       {/* 3. HEAT AND EAT. rises into the band as one line */}

@@ -9,7 +9,7 @@ import { C, LOGO, RISE, SCENES, clamp } from "../tokens";
    1. the i's stem lifts out of "prodani.", tips 90 degrees and grows into the cake (a white bar)
    2. heat: square outlines ripple out of the cake, steam dashes rise in a travelling wave
    3. the cake slides down into the timer track, HEAT builds up in stripes, the pink timer fills
-      over "5 SECONDS IN THE MICROWAVE"
+      over "OUT OF THE TRAY / 5–10 SECONDS IN THE MICROWAVE"
    4. AND EAT rises in beside HEAT (the pair is never split), the stop drops after EAT (the "ding");
       rows of HEAT AND EAT rise in and drift
    5. Rise into the end card with "HEAT AND EAT." */
@@ -133,7 +133,11 @@ export const HeatAndEatVector: React.FC = () => {
       </svg>
       {revealing ? stripes : f >= S.reveal[1] ? line() : null}
       {f >= S.barFill[0] && f < S.trackGone[0] ? (
-        <RiseLabel text={S.microLabel} size={0.034 * m} top={track.y + track.h + 0.045 * m} f={f} at={S.barFill[0]} />
+        <>
+          {/* the tray is aluminum: out of the tray first, always said before the time */}
+          <RiseLabel text={S.trayLabel} size={0.03 * m} top={track.y + track.h + 0.04 * m} f={f} at={S.barFill[0]} />
+          <RiseLabel text={S.microLabel} size={0.03 * m} top={track.y + track.h + 0.04 * m + 0.05 * m} f={f} at={S.barFill[0] + 3} />
+        </>
       ) : null}
       <svg width={W} height={H} style={{ position: "absolute", inset: 0 }}>{steam}</svg>
       <Bands f={f} at={S.bandsAt} W={W} H={H} m={m} skip={0.4 * fs2} />

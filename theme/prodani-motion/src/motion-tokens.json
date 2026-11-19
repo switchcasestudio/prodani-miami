@@ -252,7 +252,8 @@
       "bandsAt": 148,
       "riseAt": 172,
       "line": "HEAT AND EAT.",
-      "microLabel": "5 SECONDS IN THE MICROWAVE"
+      "microLabel": "5–10 SECONDS IN THE MICROWAVE",
+      "trayLabel": "OUT OF THE TRAY"
     },
     "heatAndEatGrid": {
       "$comment": "All-vector Heat and eat, version B: a field of i-stems in a heat wave, a 5-second countdown window, HEAT AND EAT. in a band. Frames at tempo.fps.",
@@ -282,7 +283,9 @@
       "stopDropAt": 110,
       "riseAt": 156,
       "line": "HEAT AND EAT.",
-      "microLabel": "5 SECONDS IN THE MICROWAVE"
+      "microLabel": "SECONDS IN THE MICROWAVE",
+      "trayLabel": "OUT OF THE TRAY",
+      "figure": "5–10"
     }
   }
 }
