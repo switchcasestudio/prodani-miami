@@ -114,7 +114,24 @@
                     {% endif %}
                   >
                     <td class="cart-item__media">
-                      {% if item.image %}
+                      {%- comment -%} Prodani (Moses 2026-11-18): the cakes show the site's own tray
+                          cut-out on its tint, like everywhere else; the box (no product photo)
+                          shows three trays. Anything else keeps its product photo. {%- endcomment -%}
+                      {%- capture cfm -%}{% render 'prodani-flavor-map', handle: item.product.handle %}{%- endcapture -%}
+                      {%- assign cfl = cfm | strip | split: '|' -%}
+                      {% if cfl[4] != blank %}
+                        <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
+                        <div class="cart-item__image-container pd-cart-cut" style="--tint:{{ cfl[3] }}">
+                          <img src="{{ cfl[4] | asset_url }}" class="cart-item__image" alt="{{ item.product.title | escape }}" loading="lazy" width="150" height="150">
+                        </div>
+                      {% elsif item.image == blank %}
+                        <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
+                        <div class="cart-item__image-container pd-cart-cut pd-cart-cut--box" aria-hidden="true">
+                          <img src="{{ 'pd-cut-hazelnut.webp' | asset_url }}" alt="" loading="lazy" width="358" height="924">
+                          <img src="{{ 'pd-cut-cherry-white.webp' | asset_url }}" alt="" loading="lazy" width="368" height="950">
+                          <img src="{{ 'pd-cut-pistachio.webp' | asset_url }}" alt="" loading="lazy" width="388" height="950">
+                        </div>
+                      {% elsif item.image %}
                         {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
                         <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
                         <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
@@ -144,6 +161,13 @@
                         -%}
                       </div>
 
+                      {%- comment -%} How many cakes this line is (Moses 2026-11-18: "$42.99 is not one
+                          cake"): read from the variant title ("5 Personal Cakes", "12 cakes"). {%- endcomment -%}
+                      {%- assign pack_n = item.variant.title | split: ' ' | first | plus: 0 -%}
+                      {%- if pack_n > 1 -%}
+                        {%- assign pack_each = item.final_price | times: 1.0 | divided_by: pack_n | round -%}
+                        <p class="pd-cart-pack"><b>{{ pack_n }} cakes</b> in this {% if item.product.handle contains 'box' %}box{% else %}pack{% endif %}<span> · {{ pack_each | money }} per cake</span></p>
+                      {%- endif -%}
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
                           <span class="visually-hidden">

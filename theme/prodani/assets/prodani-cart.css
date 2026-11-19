@@ -399,3 +399,14 @@ cart-items.is-empty .cart__warnings{ padding-bottom:clamp(40px,5vw,64px); }
 .pd-cart-recover__link:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; }
 @media (min-width:821px){ .pd-cart-recover__grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 cart-items:not(.is-empty) .pd-cart-recover{ display:none; }
+
+/* ---- Cakes as the site's cut-outs; how many cakes per line (Moses 2026-11-18) ---- */
+.pd-cart-cut{ background:var(--tint, var(--butter)) !important; display:flex; align-items:center; justify-content:center; aspect-ratio:1; overflow:hidden; }
+.pd-cart-cut img{ width:auto !important; height:86% !important; max-width:80%; object-fit:contain; filter:drop-shadow(0 6px 8px rgba(26,17,12,.18)); }
+.pd-cart-cut--box{ background:var(--butter) !important; gap:4%; }
+.pd-cart-cut--box img{ height:78% !important; max-width:28%; }
+.pd-cart-cut--box img:nth-child(1){ rotate:-6deg; } .pd-cart-cut--box img:nth-child(3){ rotate:5deg; }
+.pd-cart-pack{ display:inline-flex; flex-wrap:wrap; align-items:center; gap:4px; margin:8px 0 6px; padding:6px 10px; background:var(--berry); color:#fff;
+  font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; line-height:1.2; }
+.pd-cart-pack b{ font-weight:800; }
+.pd-cart-pack span{ opacity:.85; }

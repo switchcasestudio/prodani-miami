@@ -267,6 +267,7 @@
                     </details>
                   </div>
                 {%- when 'quantity_selector' -%}
+                  <p class="pd-step-label pd-step-label--qty"><span>3</span> How many {% if product.selected_or_first_available_variant.title contains 'ake' %}packs{% else %}items{% endif %}?</p>
                   <div
                     id="Quantity-Form-{{ section.id }}"
                     class="product-form__input product-form__quantity{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} product-form__quantity-top{% endif %}"
@@ -525,32 +526,59 @@
                   -%}
                 {%- when 'variant_picker' -%}
                   {%- comment -%}
-                    Audit fix (2026-11-10): with a single variant there is nothing to pick, so
-                    a selector-looking box is noise. Show one quiet line instead
-                    ("5 cakes per pack · $8.60 each"). The form still posts the variant id
-                    from buy-buttons' hidden input.
+                    Step 1, Size (Moses 2026-11-18: "one stage at a time"; no family cake). The
+                    cakes are sold as one pack (the unavailable "1 family cake" variant is left
+                    out), so the step shows that pack as the chosen card and, beside it, the
+                    other way to buy: a mixed box of 6, 12 or 18 (link to the builder, sizes and
+                    lowest price per cake read off the box product). With more than one variant
+                    on sale, Dawn's picker shows inside the step instead of the pack card.
                   {%- endcomment -%}
-                  {%- if product.variants.size == 1 and product.has_only_default_variant == false -%}
-                    {%- liquid
-                      assign sv = product.selected_or_first_available_variant
-                      assign sv_n = sv.title | split: ' ' | first | plus: 0
-                    -%}
-                    <p class="pd-size-static" {{ block.shopify_attributes }}>
-                      <span class="pd-size-static__l">{{ product.options.first | escape }}</span>
-                      {%- if sv_n > 1 -%}
-                        {%- assign sv_each = sv.price | times: 1.0 | divided_by: sv_n | round -%}
-                        <span class="pd-size-static__v">{{ sv_n }} cakes per pack &middot; {{ sv_each | money }} each</span>
-                      {%- else -%}
-                        <span class="pd-size-static__v">{{ sv.title | escape }}</span>
+                  {%- liquid
+                    assign avail = product.variants | where: 'available'
+                    assign sv = product.selected_or_first_available_variant
+                    assign sv_n = sv.title | split: ' ' | first | plus: 0
+                    assign box = all_products['build-your-box']
+                    assign box_best = 0
+                    assign box_sizes = ''
+                    if box != blank and box.available and product.handle != 'build-your-box'
+                      for bv in box.variants
+                        assign bn = bv.title | split: ' ' | first | plus: 0
+                        if bn > 0
+                          assign bper = bv.price | times: 1.0 | divided_by: bn | round
+                          if box_best == 0 or bper < box_best
+                            assign box_best = bper
+                          endif
+                          if box_sizes == ''
+                            assign box_sizes = bn | append: ''
+                          else
+                            assign box_sizes = box_sizes | append: ', ' | append: bn
+                          endif
+                        endif
+                      endfor
+                      assign box_sizes = box_sizes | replace_last: ', ', ' or '
+                    endif
+                  -%}
+                  <div class="pd-step pd-size-step" {{ block.shopify_attributes }}>
+                    <p class="pd-step-label"><span>1</span> {{ product.options.first | default: 'Size' | escape }}</p>
+                    {%- if avail.size > 1 -%}
+                      {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+                    {%- endif -%}
+                    <div class="pd-size">
+                      {%- if avail.size <= 1 -%}
+                        <div class="pd-size__opt is-on" aria-current="true">
+                          <span class="pd-size__tick" aria-hidden="true"></span>
+                          <span class="pd-size__t">{% if sv_n > 1 %}{{ sv_n }} personal cakes{% else %}{{ sv.title | escape }}{% endif %}</span>
+                          <span class="pd-size__p">{{ sv.price | money }}{% if sv_n > 1 %}{% assign sv_each = sv.price | times: 1.0 | divided_by: sv_n | round %} &middot; {{ sv_each | money }} per cake{% endif %}</span>
+                        </div>
                       {%- endif -%}
-                    </p>
-                  {%- else -%}
-                    {% render 'product-variant-picker',
-                      product: product,
-                      block: block,
-                      product_form_id: product_form_id
-                    %}
-                  {%- endif -%}
+                      {%- if box_best > 0 -%}
+                        <a class="pd-size__opt pd-size__opt--box" href="/#box">
+                          <span class="pd-size__t">Build a box <span aria-hidden="true">&rarr;</span></span>
+                          <span class="pd-size__p">{{ box_sizes }} cakes, mix any flavors &middot; from {{ box_best | money }} per cake</span>
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </div>
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',
                     block: block,

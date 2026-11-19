@@ -109,3 +109,5 @@
    Prodani column already carries the comparison). */
 .pd-cmp .pd-fl__h small{ font-size:.42em; letter-spacing:0; margin:0 .08em; vertical-align:.12em; }
 .pd-cmp__table .is-no{ text-decoration:none; }
+/* Lowercase units in the comparison too: "15–20g", "0g", not "0G" (2026-11-18). */
+html .pd-cmp__table .is-big{ text-transform:none; }  /* beats the shared caps rule in prodani-tokens.css */

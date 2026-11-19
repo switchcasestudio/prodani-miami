@@ -45,6 +45,13 @@
   if mf.storage != blank or mf.shelf_life != blank
     assign has_storage = true
   endif
+  # Moses 2026-11-18: cakes keep 8 days in the fridge and 90 days in the freezer. Used
+  # for any cake until the prodani.storage / shelf_life metafields say otherwise.
+  assign cake_shelf = false
+  if has_storage == false and product.type contains 'ake'
+    assign cake_shelf = true
+    assign has_storage = true
+  endif
   assign has_ship = false
   if shop.shipping_policy.body != blank or shop.refund_policy.body != blank
     assign has_ship = true
@@ -81,6 +88,9 @@
       <div class="pd-details__cell">
         <h2 class="pd-details__h">Storage &amp; shelf life</h2>
         {%- if has_storage -%}
+          {%- if cake_shelf -%}
+            <p><b>Fridge:</b> up to 8 days.<br><b>Freezer:</b> up to 90 days.</p>
+          {%- endif -%}
           {%- if mf.storage != blank %}<p>{{ mf.storage.value }}</p>{% endif -%}
           {%- if mf.shelf_life != blank %}<p>{{ mf.shelf_life.value }}</p>{% endif -%}
         {%- else -%}
@@ -92,13 +102,13 @@
 
     {%- if has_ship or edit -%}
       <div class="pd-details__cell">
-        <h2 class="pd-details__h">Shipping &amp; returns</h2>
+        <h2 class="pd-details__h">{% if shop.shipping_policy.body != blank %}Shipping &amp; returns{% else %}Returns{% endif %}</h2>
         <div class="pd-details__rte">
+          {%- comment -%} Moses 2026-11-18: anyone with a problem is welcome to reach out and we
+              make it right. The 24-hour window is the store's refund policy. {%- endcomment -%}
+          <p>Something not right with your cakes? Write to us and we will make it right. Refunds and cancellations within 24 hours of ordering.</p>
           {%- if shop.shipping_policy.body != blank -%}
             {{ shop.shipping_policy.body }}
-          {%- elsif edit -%}
-            <p class="is-sample">Sample — U.S. shipping details and the free-shipping threshold
-              appear here once confirmed (ticket T5).</p>
           {%- endif -%}
           {%- if shop.refund_policy.body != blank -%}
             <p><a class="pd-details__link" href="{{ shop.refund_policy.url }}">Read our full returns policy</a></p>

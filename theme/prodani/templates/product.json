@@ -124,16 +124,6 @@
         "padding_bottom": 12
       }
     },
-    "reviews": {
-      "type": "prodani-product-reviews",
-      "settings": {
-        "heading": "What people said",
-        "eyebrow": "VERIFIED · JUDGE.ME",
-        "anchor": "reviews",
-        "all_reviews_url": "/#reviews",
-        "all_reviews_label": "Read all 132 reviews"
-      }
-    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -151,11 +141,60 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "store-reviews": {
+      "type": "prodani-reviews",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "Itamar",
+            "rating": 5,
+            "title": "I felt the love in every bite",
+            "body": "Simply delicious, 100% clean, absolutely healthy. Real protein. This is what they serve in heaven when you want something good and tasty.",
+            "note": "Verified buyer"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "Shalom",
+            "rating": 5,
+            "title": "Can't stop eating this cake",
+            "body": "The cake is absolutely delicious, and the chocolate is incredibly rich and indulgent — every bite is pure perfection.",
+            "note": "Verified buyer"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "Shai",
+            "rating": 5,
+            "title": "The healthiest dessert ever",
+            "body": "10/10. The white chocolate one is a must.",
+            "note": "Verified buyer"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "heading": "132 verified reviews",
+        "lead": "count",
+        "anchor": "reviews",
+        "eyebrow": "Verified · Judge.me",
+        "show_widget": true,
+        "more_label": "Read all reviews",
+        "less_label": "Show fewer"
+      }
     }
   },
   "order": [
     "main",
-    "reviews",
-    "related-products"
+    "related-products",
+    "store-reviews"
   ]
 }

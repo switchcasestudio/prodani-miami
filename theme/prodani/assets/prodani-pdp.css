@@ -315,3 +315,36 @@
   .pd-nut__side > .pd-nut__src{ grid-column:1; }
   .pd-nut__cut{ grid-column:2; grid-row:auto; width:120px; max-height:150px; margin:-8px 0 -8px; }
 }
+
+/* ======================= Nutrition facelift (Moses 2026-11-18) =======================
+   "Humongous", the % column too small, and a gap under the frame. Now: one ruled frame,
+   two panels of the same height (no sticky panel, so no gap), a compact table about half
+   as tall, amounts and % values the same readable size, Calories and Protein marked in berry. */
+.pd-nut{ grid-template-columns:minmax(0,1fr) minmax(0,1.35fr); align-items:stretch; border:var(--rule) solid var(--line); max-width:1180px; margin-inline:auto; }
+.pd-nut__side{ position:static !important; align-self:stretch; border:0; border-right:var(--rule) solid var(--line); justify-content:space-between; }
+.pd-nut__main{ border:0; margin:0; padding:clamp(18px,2vw,28px); }
+.pd-nut__title{ font-size:clamp(36px,3.2vw,56px) !important; }
+.pd-nut__cut{ max-height:300px; }
+.pd-nut__table th, .pd-nut__table td{ padding:6px 0; border-bottom-width:1px; }
+.pd-nut__table th{ font-size:13.5px; }
+.pd-nut__amt{ font-size:17px !important; padding-right:14px; }
+.pd-nut__dv{ width:3.6em; font-family:var(--sans); font-size:13.5px; font-weight:800; letter-spacing:0; color:var(--cocoa); }
+.pd-nut__table tr.is-sub th{ padding-left:14px; }
+.pd-nut__table tr.is-sub .pd-nut__amt{ font-size:15px !important; }
+.pd-nut__table tr.is-hl > *{ background:var(--berry); color:#fff; }
+.pd-nut__table tr.is-hl th, .pd-nut__table tr.is-hl .pd-nut__dv{ color:#fff; }
+.pd-nut__table tr.is-hl .pd-nut__amt{ font-size:20px !important; }
+.pd-nut__table tr.is-hl th{ padding-left:10px; }
+.pd-nut__table tr.is-hl .pd-nut__dv{ padding-right:10px; }
+.pd-nut__note{ font-size:11.5px; line-height:1.45; }
+@media (max-width:749px){
+  .pd-nut{ grid-template-columns:minmax(0,1fr); }
+  .pd-nut__side{ border-right:0; border-bottom:var(--rule) solid var(--line); }
+}
+.pd-nut__side{ display:flex !important; flex-direction:column; justify-content:flex-start; gap:12px; }
+.pd-nut__side > .pd-eyebrow{ position:static !important; }
+.pd-nut__cut{ flex:1 1 auto; min-height:0; width:auto; max-width:70%; max-height:420px !important; height:100%; margin:12px auto 0 !important; align-self:center; }
+@media (max-width:749px){ .pd-nut__side{ display:grid !important; } .pd-nut__cut{ height:auto; max-height:150px !important; } }
+
+/* Lowercase units (Moses 2026-11-18: "0G" reads as "OG"): "20g", "0g", like the hero. */
+.pd-macro__n{ text-transform:none; }
