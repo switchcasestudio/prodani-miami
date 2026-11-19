@@ -212,3 +212,7 @@ html:has(.pd-reviews__panel[open]){ overflow:hidden; }
 .pd-reviews__panel .jdgm-rev__body, .pd-reviews__panel .jdgm-rev__body p{ font-size:14.5px !important; line-height:1.55 !important; }
 .pd-reviews__panel .jdgm-rev__timestamp, .pd-reviews__panel .jdgm-rev__product, .pd-reviews__panel .jdgm-rev__author{ font-size:12.5px !important; }
 .pd-reviews__panel .jdgm-histogram, .pd-reviews__panel .jdgm-rev-widg__summary{ font-size:13px !important; }
+
+/* Phones (Moses 2026-11-19): less white above the rating; the section before already
+   ends with its own padding. */
+@media (max-width:980px){ .pd-reviews{ padding-top:40px; } }

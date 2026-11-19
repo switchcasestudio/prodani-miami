@@ -111,3 +111,10 @@
 .pd-cmp__table .is-no{ text-decoration:none; }
 /* Lowercase units in the comparison too: "15–20g", "0g", not "0G" (2026-11-18). */
 html .pd-cmp__table .is-big{ text-transform:none; }  /* beats the shared caps rule in prodani-tokens.css */
+
+/* Phones (Moses 2026-11-19): the table sits right under the note (no rule and gap in
+   between), and each row label is a thin caption over its figures, not a full band. */
+@media (max-width:749px){
+  .pd-cmp__head{ border-bottom:0; padding-bottom:0; margin-bottom:18px; }
+  .pd-cmp__table tbody th{ padding:7px 12px 5px; line-height:1.2; }
+}
