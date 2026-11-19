@@ -213,7 +213,7 @@ head('7. Copy hygiene')
 const ourCopy = home
   .replace(/<script[\s\S]*?<\/script>/g, '')
   .replace(/<style[\s\S]*?<\/style>/g, '')
-  .replace(/<div[^>]*id=["']judgeme_all_reviews_page["'][\s\S]*?<\/details>/g, '')
+  .replace(/<div[^>]*id=["']judgeme_all_reviews_page["'][\s\S]*?<\/(?:details|dialog)>/g, '')  // the list sits in a <dialog> side panel since 2026-11-18
   .replace(/<blockquote[\s\S]*?<\/blockquote>/g, '')
   .replace(/<[^>]+>/g, ' ')
 const visible = ourCopy
