@@ -126,14 +126,66 @@
       if (first && window.matchMedia('(min-width: 861px)').matches) { try { first.focus({ preventScroll: true }); } catch (e) {} }
     }
   }
+  /* A missing field says so under itself: iOS Safari's own bubble was easy to miss, and
+     an empty date field even looks filled in (mobile audit 2026-11-18). */
+  function say(field) {
+    if (field.validity.valueMissing) {
+      if (field.type === 'date') return 'Pick the date of your event.';
+      if (field.type === 'email') return 'Add an email so we can send your quote.';
+      if (field.name === 'contact[name]') return 'Add your name.';
+      if (field.tagName === 'TEXTAREA') return 'Tell us a little about the event.';
+      if (field === qty) return 'How many cakes? The minimum is ' + min + '.';
+    }
+    if (field.validity.typeMismatch && field.type === 'email') return 'That email looks incomplete. Check it for typos.';
+    return field.validationMessage || 'Please check this field.';
+  }
+  function anchorOf(field) { return field.closest('.pd-cat__qty') || field.closest('.pd-cat__field') || field; }
+  function clearErr(field) {
+    field.removeAttribute('aria-invalid');
+    if (field._pdErr) { field._pdErr.remove(); field._pdErr = null; field.removeAttribute('aria-describedby'); }
+  }
+  function showErr(field) {
+    clearErr(field);
+    var box = anchorOf(field);
+    var e = document.createElement('p');
+    e.className = 'pd-cat__ferr'; e.setAttribute('role', 'alert');
+    e.id = 'pd-err-' + (field.name || 'f').replace(/[^a-z0-9]+/gi, '-');
+    e.textContent = say(field);
+    box.insertAdjacentElement('afterend', e);
+    field._pdErr = e;
+    field.setAttribute('aria-invalid', 'true');
+    field.setAttribute('aria-describedby', e.id);
+    var navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pd-nav-h')) || 64;
+    var r = box.getBoundingClientRect();
+    if (r.top < navH + 8 || r.bottom > window.innerHeight) window.scrollBy({ top: r.top - navH - 24, behavior: 'smooth' });
+    try { field.focus({ preventScroll: true }); } catch (x) { field.focus(); }
+  }
   function valid(n) {
-    var fs = steps[n - 1]; var ok = true;
+    var fs = steps[n - 1];
     var fields = fs.querySelectorAll('input, select, textarea');
     for (var i = 0; i < fields.length; i++) {
-      if (!fields[i].checkValidity()) { fields[i].reportValidity(); ok = false; break; }
+      if (!fields[i].checkValidity()) { showErr(fields[i]); return false; }
+      clearErr(fields[i]);
     }
-    return ok;
+    return true;
   }
+  form.addEventListener('input', function (e) {
+    var f = e.target; if (f && f.getAttribute && f.getAttribute('aria-invalid') === 'true' && f.checkValidity()) clearErr(f);
+  });
+  form.addEventListener('change', function (e) {
+    var f = e.target; if (f && f.getAttribute && f.getAttribute('aria-invalid') === 'true' && f.checkValidity()) clearErr(f);
+  });
+  /* The last step posts the form: same messages instead of the browser bubble. */
+  form.setAttribute('novalidate', '');
+  form.addEventListener('submit', function (e) {
+    for (var k = 1; k <= steps.length; k++) {
+      if (!valid(k)) {
+        e.preventDefault();
+        if (wizard && k !== current) { show(k, false); valid(k); }
+        return;
+      }
+    }
+  });
 
   if (qty) {
     qty.addEventListener('input', function () { checkMin(); updateTally(); summarize(); });
