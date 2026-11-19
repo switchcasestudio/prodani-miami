@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Web versions of one composition for the theme: WebM (VP9) + MP4 (H.264, faststart) + a poster
+// Web versions of one composition for the theme: MP4 (H.264, faststart) + a poster
 // still as WebP and JPG, all at SIZE px, written to theme/prodani/assets/<name>.*
 // usage: node scripts/web-video.mjs <CompositionId> <posterFrame> <name> [size=720]
 import { bundle } from "@remotion/bundler";
@@ -21,7 +21,7 @@ const composition = await selectComposition({ serveUrl, id });
 const scale = Number(sizeArg || 720) / composition.width;
 
 const out = (ext) => path.join(assets, `${name}.${ext}`);
-await renderMedia({ composition, serveUrl, codec: "vp9", crf: 44, scale, outputLocation: out("webm"), muted: true });
+// MP4 only: Shopify's CDN serves .webm as audio/webm (nosniff), which browsers may refuse as video.
 const rawMp4 = path.join(tmp, `${name}.raw.mp4`);
 await renderMedia({ composition, serveUrl, codec: "h264", crf: 26, scale, outputLocation: rawMp4, muted: true, x264Preset: "slow" });
 // moov atom first, so the browser can start playing before the whole file arrives
@@ -29,4 +29,4 @@ execFileSync("npx", ["remotion", "ffmpeg", "-v", "error", "-y", "-i", rawMp4, "-
 await renderStill({ composition, serveUrl, frame: Number(frameArg), scale, imageFormat: "webp", output: out("webp") });
 await renderStill({ composition, serveUrl, frame: Number(frameArg), scale, imageFormat: "jpeg", jpegQuality: 82, output: out("jpg") });
 
-for (const ext of ["webm", "mp4", "webp", "jpg"]) console.log(`${name}.${ext}  ${(fs.statSync(out(ext)).size / 1024).toFixed(0)} KB`);
+for (const ext of ["mp4", "webp", "jpg"]) console.log(`${name}.${ext}  ${(fs.statSync(out(ext)).size / 1024).toFixed(0)} KB`);

@@ -96,7 +96,9 @@
           video sits over it and only shows once it is actually playing; it loads when the
           section comes into view, pauses off screen, and never plays under reduced motion.
           If the browser cannot play it (codec, Low Power Mode, error), the poster stays.
-          Files: assets/<name>.webm (VP9) + .mp4 (H.264), .webp + .jpg posters, 720x720,
+          MP4 (H.264) only: every browser plays it, and Shopify's CDN serves .webm as
+          audio/webm with nosniff, which a browser may refuse as video (2026-11-18).
+          Files: assets/<name>.mp4, .webp + .jpg posters, 720x720,
           made by theme/prodani-motion/scripts/web-video.mjs.
         {%- endcomment -%}
         <div class="pd-story__media pd-story__media--video" data-pd-video>
@@ -108,7 +110,6 @@
                    width="720" height="720" loading="lazy" decoding="async">
             </picture>
             <video muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1">
-              <source src="{{ story_video | append: '.webm' | asset_url }}" type="video/webm">
               <source src="{{ story_video | append: '.mp4' | asset_url }}" type="video/mp4">
             </video>
           </div>
