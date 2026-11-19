@@ -296,6 +296,11 @@
     {{ 'prodani-motion.css' | asset_url | stylesheet_tag }}
     {%- comment -%} Resolves true when this page arrived through the page transition. The scroll
         reveals wait for it, so they never hide a first screen the visitor has already been shown. {%- endcomment -%}
+    {%- unless request.design_mode -%}
+      {%- comment -%} Page entrance (prodani-motion.css section 4): <main> waits, invisible, for
+          the script after it to number the first screen. 2.5s safety net. {%- endcomment -%}
+      <script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: no-preference)').matches){document.documentElement.classList.add('pd-enter');setTimeout(function(){document.documentElement.classList.remove('pd-enter')},2500)}</script>
+    {%- endunless -%}
     <script>window.pdArrival=new Promise(function(r){if(!('onpagereveal' in window))return r(false);addEventListener('pagereveal',function(e){r(!!e.viewTransition)},{once:true});setTimeout(function(){r(false)},1500)});</script>
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -359,6 +364,19 @@
     >
       {{ content_for_layout }}
     </main>
+    {%- unless request.design_mode -%}
+    {%- comment -%} Number what is on the first screen, in reading order, then let <main> show:
+        each numbered piece rises in 120ms after the one before (prodani-motion.css §4).
+        A piece is the outermost match, so a card arrives whole, not word by word. The home
+        hero (.pd-fh) and the flavor spotlight have their own motion and are left alone. {%- endcomment -%}
+    <script>(function(){var h=document.documentElement;if(!h.classList.contains('pd-enter'))return;try{var m=document.getElementById('MainContent'),vh=window.innerHeight,got=[],n=0;
+      m.querySelectorAll('h1,h2,h3,h4,.pd-eyebrow,.pd-tag,.pd-lede,p,.pd-btn,.button,img,picture,video,table,form,dl,blockquote,figure,.pd-rte,.pd-card,.pd-review,.pd-box__size,.pd-box__modes,.pd-box__flavor,.pd-spreads__card,.product__media-wrapper,.pd-macro').forEach(function(el){
+        if(el.closest('.pd-fh,[data-pd-flv],.pd-mq,.visually-hidden,[hidden],[aria-hidden="true"],.pd-box__end'))return;
+        for(var k=0;k<got.length;k++){if(got[k].contains(el))return;}
+        var r=el.getBoundingClientRect();if(!r.width||!r.height||r.top>=vh||r.bottom<=0)return;
+        got.push(el);el.style.setProperty('--pd-i',Math.min(n++,12));el.setAttribute('data-pd-in','');
+      });}catch(e){}h.classList.remove('pd-enter');})();</script>
+    {%- endunless -%}
 
     {% sections 'footer-group' %}
 

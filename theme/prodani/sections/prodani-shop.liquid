@@ -39,16 +39,32 @@
       {%- if collection == blank or collection.handle == 'all-products' or collection.handle == 'all' -%}
         {%- assign on_all = true -%}
       {%- endif -%}
+      {%- comment -%} Moses 2026-11-18: Cakes · Spreads · Bread. A tab whose collection has
+          nothing on sale yet (or no collection picked) reads "Soon": a link to its
+          preview page if one is set, plain text otherwise. Counts are the products on
+          sale (collection.products), not products_count, which also counts drafts. {%- endcomment -%}
+      {%- assign all_n = collections['all-products'].products.size | default: collections.all.products.size -%}
       <nav class="pd-filters" aria-label="Shop by category">
         <a class="pd-filter" href="{{ routes.all_products_collection_url }}"{% if on_all %} aria-current="page"{% endif %}>
-          All <sup>{{ collections['all-products'].products_count | default: collections.all.products_count }}</sup>
+          All <sup>{{ all_n }}</sup>
         </a>
         {%- for block in section.blocks -%}
           {%- assign c = block.settings.collection -%}
-          {%- if c != blank -%}
+          {%- assign live = 0 -%}
+          {%- if c != blank -%}{%- assign live = c.products.size -%}{%- endif -%}
+          {%- assign label = block.settings.label | default: c.title -%}
+          {%- if live > 0 -%}
             <a class="pd-filter" href="{{ c.url }}"{% if collection.handle == c.handle %} aria-current="page"{% endif %} {{ block.shopify_attributes }}>
-              {{ block.settings.label | default: c.title | escape }} <sup>{{ c.products_count }}</sup>
+              {{ label | escape }} <sup>{{ live }}</sup>
             </a>
+          {%- elsif block.settings.soon_link != blank -%}
+            <a class="pd-filter pd-filter--soon" href="{{ block.settings.soon_link }}" {{ block.shopify_attributes }}>
+              {{ label | escape }} <span class="pd-filter__soon">{{ block.settings.soon_label | default: 'Soon' | escape }}</span>
+            </a>
+          {%- elsif label != blank -%}
+            <span class="pd-filter pd-filter--soon" aria-disabled="true" {{ block.shopify_attributes }}>
+              {{ label | escape }} <span class="pd-filter__soon">{{ block.settings.soon_label | default: 'Soon' | escape }}</span>
+            </span>
           {%- endif -%}
         {%- endfor -%}
       </nav>
@@ -103,7 +119,9 @@
       "limit": 6,
       "settings": [
         { "type": "collection", "id": "collection", "label": "Category collection" },
-        { "type": "text", "id": "label", "label": "Label (defaults to collection title)" }
+        { "type": "text", "id": "label", "label": "Label (defaults to collection title)" },
+        { "type": "url", "id": "soon_link", "label": "Link while nothing is on sale", "info": "Optional, e.g. a preview page. Without it the tab shows as plain text." },
+        { "type": "text", "id": "soon_label", "label": "Tag while nothing is on sale", "default": "Soon" }
       ]
     }
   ],

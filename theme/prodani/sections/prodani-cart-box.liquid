@@ -1,0 +1,71 @@
+{%- comment -%}
+  Cart: "rather mix flavors?" (Moses 2026-11-18, "in case they change their mind").
+  Shown when the cart has items and none of them is a box: a short line with the box
+  sizes and the lowest price per cake, read off the box product's variants (titled
+  "6 cakes", "12 cakes"...), and a link to the builder. Nothing is changed in the cart.
+{%- endcomment -%}
+{%- liquid
+  assign box = section.settings.box_product
+  assign has_box = false
+  if box != blank
+    for item in cart.items
+      if item.product_id == box.id
+        assign has_box = true
+        break
+      endif
+    endfor
+  endif
+  assign best = 0
+  assign sizes = ''
+  if box != blank
+    for v in box.variants
+      assign n = v.title | split: ' ' | first | plus: 0
+      if n > 0
+        assign per = v.price | times: 1.0 | divided_by: n | round
+        if best == 0 or per < best
+          assign best = per
+        endif
+        if sizes == ''
+          assign sizes = n | append: ''
+        else
+          assign sizes = sizes | append: ', ' | append: n
+        endif
+      endif
+    endfor
+    assign sizes = sizes | replace_last: ', ', ' or '
+  endif
+-%}
+{%- if cart.item_count > 0 and has_box == false and box != blank -%}
+  <style>
+    .pd-cartbox__in{ margin:0 0 28px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 28px;
+      padding:20px 24px; border:2px solid var(--cocoa, #1a110c); background:var(--butter, #f2ece6); color:var(--cocoa, #1a110c); }
+    .pd-cartbox__t{ margin:0; font-size:16px; line-height:1.5; font-weight:600; }
+    .pd-cartbox__t b{ display:block; font-family:var(--mono, inherit); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; margin-bottom:4px; }
+    .pd-cartbox__a{ display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 22px; background:var(--cocoa, #1a110c); color:#fff; text-decoration:none;
+      font-weight:800; font-size:13px; letter-spacing:.08em; text-transform:uppercase; }
+    .pd-cartbox__a:hover{ background:var(--cocoa-soft, #33211b); }
+  </style>
+  <div class="pd-cartbox pd-wrap">
+    <div class="pd-cartbox__in">
+      <p class="pd-cartbox__t">
+        <b>{{ section.settings.eyebrow | escape }}</b>
+        {%- assign best_money = best | money -%}{%- assign line = section.settings.text | replace: '[sizes]', sizes | replace: '[price]', best_money -%}{{ line | escape }}
+      </p>
+      <a class="pd-cartbox__a" href="{{ section.settings.link | default: '/#box' }}">{{ section.settings.button | escape }}</a>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart: build a box instead",
+  "settings": [
+    { "type": "product", "id": "box_product", "label": "Box product" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Rather mix flavors?" },
+    { "type": "text", "id": "text", "label": "Text", "info": "[sizes] and [price] are filled in from the box product.", "default": "Build a box of [sizes] cakes, any flavors, from [price] a cake." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Build your box" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "enabled_on": { "templates": ["cart"] }
+}
+{% endschema %}

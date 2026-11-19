@@ -385,3 +385,70 @@
   .pd-box__end, .pd-box__summary{ display:contents; }
   .pd-box__upsell{ margin:12px 0 0; }
 }
+
+/* ======================= Tap to add; steps 3–4 after the first cake (Moses 2026-11-18) =======================
+   The whole flavor tile adds one cake (the stepper still adds and removes). The options
+   and the summary stay out of sight until a cake is in the box, then rise in. On desktop
+   they sit on the same three columns as the size cards: options across the first two,
+   the summary in the third, both the same height. */
+.pd-box__flavor{ cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.pd-box__flavor.is-soldout{ cursor:default; }
+.pd-box__flavor-media img{ transition:transform .3s cubic-bezier(.23,1,.32,1); }
+@media (hover:hover) and (pointer:fine){ .pd-box__flavor:not(.is-soldout):hover .pd-box__flavor-media img{ transform:translateY(-4px); } }
+.pd-box__flavor:not(.is-soldout):active .pd-box__flavor-media img{ transform:scale(.96); transition-duration:.12s; }
+
+.pd-box:not(.has-picks) .pd-box__end{ display:none !important; }
+@keyframes pd-end-in{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion:no-preference){ .pd-box.has-picks .pd-box__end{ animation:pd-end-in .5s cubic-bezier(.23,1,.32,1) both; } }
+
+@media (min-width:750px){
+  .pd-box__end{ grid-template-columns:repeat(3, minmax(0,1fr)); column-gap:0; row-gap:16px; align-items:stretch; }
+  .pd-box__end > .pd-box__step{ display:contents; }
+  .pd-box__end .pd-box__step-label{ grid-column:1 / -1; grid-row:1; margin:0; }
+  .pd-box__end .pd-sub--box{ grid-column:1 / 3; grid-row:2; max-width:none; padding-right:clamp(24px,3vw,48px); }
+  .pd-box__end .pd-sub--box .pd-sub__opt{ flex:1; }
+  .pd-box__summary{ grid-column:3; grid-row:2; margin-top:0; display:flex; flex-direction:column; }
+  .pd-box__summary .pd-box__upsell{ margin-top:auto; padding-top:14px; }
+}
+
+/* ======================= One screen (Moses 2026-11-18) =======================
+   On a laptop the whole builder (title, sizes, all seven flavors with their steppers)
+   fits in one view under the nav, with air around it: title and line share a row, the
+   step label shares a row with the tabs, the cards and the tiles are shorter, and the
+   seven flavors sit in one row that spans the full width. Sizes lean on svh so a short
+   screen gets a smaller box, not a cut-off one. */
+@media (min-width:750px){
+  .pd-box{ padding-block:clamp(36px,6svh,64px); }
+  .pd-box .pd-sec-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px 40px; flex-wrap:wrap; margin-bottom:clamp(18px,3.4svh,36px); }
+  .pd-box .pd-sec-title{ font-size:clamp(36px, min(4vw, 7svh), 64px); margin:0; }
+  .pd-box .pd-sec-head .pd-lede{ margin:0; font-size:15px; max-width:44ch; color:var(--ink-soft); }
+  .pd-box .pd-sec-head > div{ display:contents; }
+
+  .pd-box .pd-wrap > .pd-box__step{ display:grid; grid-template-columns:1fr auto; align-items:center; row-gap:12px; margin-bottom:clamp(20px,3.6svh,36px); }
+  .pd-box .pd-wrap > .pd-box__step > .pd-box__step-label{ margin:0; }
+  .pd-box .pd-wrap > .pd-box__step > .pd-box__modes{ margin:0; justify-self:end; }
+  .pd-box .pd-wrap > .pd-box__step > :not(.pd-box__step-label):not(.pd-box__modes){ grid-column:1 / -1; }
+  .pd-box__mode{ padding:9px 14px; font-size:11px; }
+
+  .pd-box__size{ min-height:0; padding:clamp(14px,2.2svh,22px) 22px clamp(14px,2.2svh,20px); }
+  .pd-box__size-count b{ font-size:clamp(52px, min(5.4vw, 10svh), 96px); margin-bottom:4px; }
+  .pd-box__size-price{ padding-top:clamp(8px,1.6svh,16px); font-size:clamp(24px, min(2.4vw, 4.4svh), 34px); }
+  .pd-box__mini{ --cw:clamp(12px, min(1.2vw, 2.4svh), 20px); --gap:4px; margin-top:30px; }
+
+  .pd-box__step-label{ margin-bottom:12px; }
+  .pd-box__flavors{ grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); }
+  .pd-box__flavor{ padding:10px; gap:8px; }
+  .pd-box__flavor-media--cut{ --mh:clamp(64px, min(6.6vw, 10svh), 110px); }
+  .pd-box__flavor-name{ font-size:12px; line-height:1.3; }
+  .pd-box__flavor-macro{ font-size:10px; letter-spacing:.08em; }
+  .pd-box__step-btn{ width:30px; height:30px; font-size:17px; }
+  .pd-box__qty{ font-size:14px; }
+}
+
+/* Subscription price: the one-time price struck, small, before the plan price. */
+.pd-box__cta-was{ font-size:.5em; color:var(--ink-faint); text-decoration-thickness:2px; margin-right:.15em; vertical-align:.25em; }
+
+/* A full screen of its own (Moses 2026-11-18): at least the view under the nav, the
+   builder centred in it, so the next section never peeks in underneath. */
+.pd-box{ min-height:calc(100svh - var(--pd-nav-h, 64px)); display:flex; flex-direction:column; justify-content:center; }
+.pd-box > .pd-wrap{ width:100%; }

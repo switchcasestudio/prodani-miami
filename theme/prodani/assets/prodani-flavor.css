@@ -103,3 +103,9 @@
 
 /* ---- Macro Bold audit fixes (2026-11-10): struck bakery values pass AA (6.3:1). ---- */
 .pd-cmp__table .is-no{ color:var(--ink-faint); }
+
+/* Compare (Moses 2026-11-18): "PRODANI vs. Bar vs. Bakery." Prodani is the one in berry,
+   the two "vs." are small; the bakery column is plain, no strike-through (the dark
+   Prodani column already carries the comparison). */
+.pd-cmp .pd-fl__h small{ font-size:.42em; letter-spacing:0; margin:0 .08em; vertical-align:.12em; }
+.pd-cmp__table .is-no{ text-decoration:none; }

@@ -48,8 +48,10 @@
     {%- endcomment -%}
     <div class="pd-cat__layout">
     <figure class="pd-cat__photo">
-      <img src="{{ 'prodani-trays.jpg' | asset_url }}" alt="Eight ProDani protein cakes in their trays: chocolate chip, strawberry, orange, blueberry, carrot, chocolate fudge, banana and apple"
-           width="1200" height="730" loading="lazy" sizes="(min-width: 990px) 34vw, 100vw">
+      {%- comment -%} 2026-11-18 (Moses): the new eight-tray photo, shown whole at its own
+          proportions (same file as the homepage events band). {%- endcomment -%}
+      <img src="{{ 'prodani-events-trays.jpg' | asset_url }}" alt="Eight Prodani cakes in their trays, laid out on a stone counter"
+           width="1608" height="978" loading="lazy">
     </figure>
     {%- form 'contact', class: 'pd-cat__form', data-pd-catering: '', data-min: minimum -%}
       {%- if form.posted_successfully? -%}
@@ -241,7 +243,7 @@
     {
       "type": "textarea", "id": "flavors", "label": "Flavors (comma separated)",
       "info": "One number field per flavor. From Dani's brochure; switch to the live cake list here when confirmed.",
-      "default": "Hazelnut, Chocolate Fudge, Pistachio, White Chocolate Matcha"
+      "default": "Chocolate Fudge, Hazelnut Fudge, Carrot Cake, Dubai Dream, Banana Bread, Cherry White, Cinnamon Apple"
     },
     { "type": "text", "id": "mix_label", "label": "Recommend-a-mix option", "default": "Suggest a balanced mix for me" },
     { "type": "text", "id": "presentation_label", "label": "Presentation label", "default": "How will you serve them?" },

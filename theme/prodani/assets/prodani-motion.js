@@ -20,7 +20,12 @@
 
   function start(arrived) {
   var vh = window.innerHeight;
-  function shown(el) { return arrived && el.getBoundingClientRect().top < vh; }
+  // A piece the page entrance already brought in (theme.liquid, data-pd-in), or one that
+  // holds or sits inside one, never gets a second scroll reveal.
+  function shown(el) {
+    if (el.closest('[data-pd-in]') || el.querySelector('[data-pd-in]')) return true;
+    return arrived && el.getBoundingClientRect().top < vh;
+  }
   function fresh(list) { return gsap.utils.toArray(list).filter(function (el) { return !shown(el); }); }
 
   var mm = gsap.matchMedia();

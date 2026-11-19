@@ -354,3 +354,8 @@
   .pd-cat__head{ max-width:none; }
   .pd-cat__head > .pd-cat__lede{ max-width:44ch; }
 }
+
+/* The events photo (2026-11-18) is landscape: shown whole at 1608x978 on every width,
+   at the top of the sticky column on desktop. */
+.pd-cat__photo img, .pd-cat__layout .pd-cat__photo img{ aspect-ratio:1608 / 978 !important; object-position:50% 50% !important; }
+.pd-cat__flavors > :last-child:nth-child(odd){ grid-column:1 / -1; }  /* 7 flavors: the last one spans the row */

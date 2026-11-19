@@ -185,6 +185,14 @@
 
     minus.addEventListener('click', function () { bump(id, -1); });
     plus.addEventListener('click', function () { bump(id, 1); });
+    // Tapping the cake itself adds one (Moses 2026-11-18); only "−" takes one out.
+    el.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('[data-stepper]')) return;
+      if (soldout) return;
+      if (!state.size && sizeBtns.length) selectSize(chosenBtn() || sizeBtns[0]);
+      if (!bump(id, 1)) elNote.textContent = 'Your box is full. Remove a cake or pick a bigger box.';
+      else elNote.textContent = '';
+    });
 
     el._sync = function () {
       var q = state.sel[id];
@@ -357,15 +365,31 @@
     if (elTotal) elTotal.textContent = state.size || 0;
     if (elBar) elBar.style.width = (state.size ? Math.min(100, (total / state.size) * 100) : 0) + '%';
 
-    if (elCtaTotal) elCtaTotal.textContent = state.size ? money(state.price) : '';
+    // Subscribing shows the plan's price, read off the plan itself (data-pct on the
+    // option, from its price adjustment), with the one-time price struck beside it.
+    // Moses 2026-11-18: picking "Subscribe & save" changed nothing on screen, so it read
+    // as broken. If a plan has no percentage, the one-time price stays and the line
+    // says where the saving comes from.
+    var pct = 0;
+    if (subscribing() && subPlan && subPlan.selectedOptions && subPlan.selectedOptions[0]) {
+      pct = parseFloat(subPlan.selectedOptions[0].getAttribute('data-pct')) || 0;
+    }
+    var pay = pct ? Math.round(state.price * (100 - pct)) / 100 : state.price;
+    if (elCtaTotal) {
+      elCtaTotal.textContent = '';
+      if (state.size) {
+        if (pct) { var was = document.createElement('s'); was.className = 'pd-box__cta-was'; was.textContent = money(state.price); elCtaTotal.appendChild(was); elCtaTotal.appendChild(document.createTextNode(' ')); }
+        elCtaTotal.appendChild(document.createTextNode(money(pay)));
+      }
+    }
     if (elCtaPer) {
-      var per = state.size ? money(state.price / state.size) + '/cake' : '';
-      // The subscription discount lives on the selling plan, so the real total is
-      // computed by Shopify at checkout. Don't state a discounted number we'd be
-      // guessing at — say where the saving comes from instead.
-      elCtaPer.textContent = subscribing() && per ? per + ' · subscription savings applied at checkout' : per;
+      var per = state.size ? money(pay / state.size) + '/cake' : '';
+      if (subscribing() && per) per += pct ? ' · ' + pct + '% off every delivery' : ' · subscription savings applied at checkout';
+      elCtaPer.textContent = per;
     }
 
+    // Steps 3 and 4 appear once the first cake is in the box (Moses 2026-11-18).
+    root.classList.toggle('has-picks', total > 0);
     var ready = state.size > 0 && total === state.size;
     elAdd.disabled = !ready;
     if (state.size === 0) { elAdd.textContent = 'Choose a box to start'; }

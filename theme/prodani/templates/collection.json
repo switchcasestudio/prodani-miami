@@ -2,8 +2,40 @@
   "sections": {
     "grid": {
       "type": "prodani-shop",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "cakes": {
+          "type": "filter",
+          "settings": {
+            "collection": "personal-protein-cakes",
+            "label": "Cakes",
+            "soon_link": "",
+            "soon_label": "Soon"
+          }
+        },
+        "spreads": {
+          "type": "filter",
+          "settings": {
+            "collection": "spreads",
+            "label": "Spreads",
+            "soon_link": "/pages/spreads",
+            "soon_label": "Soon"
+          }
+        },
+        "bread": {
+          "type": "filter",
+          "settings": {
+            "collection": "",
+            "label": "Bread",
+            "soon_link": "",
+            "soon_label": "Soon"
+          }
+        }
+      },
+      "block_order": [
+        "cakes",
+        "spreads",
+        "bread"
+      ],
       "settings": {
         "heading": "",
         "eyebrow": "mix & match",

@@ -22,10 +22,10 @@
         "body": "<p>Weddings, celebrations, corporate gatherings and wellness events. Tell us about yours and we reply personally with a quote. Orders start at 70 cakes.</p>",
         "cta_label": "Plan your event",
         "cta_link": "/pages/catering",
-        "image_alt": "Prodani cakes laid out in their trays",
+        "image_alt": "Eight Prodani cakes in their trays, laid out on a stone counter",
         "badge_text": "",
         "badge_speed": 26,
-        "bundled_photo": "prodani-catering-trays",
+        "bundled_photo": "prodani-events-trays",
         "ribbon_items": "",
         "ribbon_speed": 38,
         "photo_focus": "50% 50%"
@@ -514,7 +514,8 @@
         "sub_blurb": "Delivered on your schedule. Skip, pause, change or cancel anytime.",
         "build_tab_label": "Build your own",
         "curated_tab_label": "Curated boxes",
-        "box_product": "build-your-box"
+        "box_product": "build-your-box",
+        "curated_enabled": false
       }
     },
     "instagram": {
@@ -591,7 +592,7 @@
         "r4"
       ],
       "settings": {
-        "heading": "Cake vs. <em>the bar</em> vs. the bakery.",
+        "heading": "<em>Prodani</em> <small>vs.</small> Bar <small>vs.</small> Bakery.",
         "note": "Per serving. Typical values for a protein bar and a slice of bakery cake.",
         "col_us": "Prodani cake",
         "col_two": "Protein bar",
@@ -613,9 +614,9 @@
     "spreads": {
       "type": "prodani-spreads-trio",
       "blocks": {
-        "s1": { "type": "flavor", "settings": { "name": "Hazelnut", "kind": "Spread", "tagline": "Deep. Silky. Familiar.", "text": "The chocolate-hazelnut favorite, made the ProDani way.", "direction": "Cocoa-forward \u00b7 roasted hazelnut \u00b7 luxurious texture", "pairs": "Toast, pancakes, fruit, baking, a straight-from-the-spoon moment.", "accent": "#6B3B28" } },
-        "s2": { "type": "flavor", "settings": { "name": "Pistachio", "kind": "Spread", "tagline": "Distinctive. Nutty. Vibrant.", "text": "An unmistakable pistachio expression with a soft green signature.", "direction": "Pistachio-led \u00b7 gently toasted \u00b7 smooth", "pairs": "Croissants, yogurt bowls, dates, pastries, and dessert toppings.", "accent": "#73703E" } },
-        "s3": { "type": "flavor", "settings": { "name": "Lotus", "kind": "Spread", "tagline": "Cozy. Caramelized. Playful.", "text": "Cookie-butter-style warmth inspired by spiced biscuits, with a rich caramel personality.", "direction": "Caramel \u00b7 gentle spice \u00b7 cookie-butter mood", "pairs": "Apples, oatmeal, waffles, ice cream and gifting.", "accent": "#A75E30" } }
+        "s1": { "type": "flavor", "settings": { "name": "Hazelnut", "kind": "Spread", "bundled": "hazelnut", "tagline": "Deep. Silky. Familiar.", "text": "The chocolate-hazelnut favorite, made the ProDani way.", "direction": "Cocoa-forward \u00b7 roasted hazelnut \u00b7 luxurious texture", "pairs": "Toast, pancakes, fruit, baking, a straight-from-the-spoon moment.", "accent": "#6B3B28" } },
+        "s2": { "type": "flavor", "settings": { "name": "Pistachio", "kind": "Spread", "bundled": "pistachio", "tagline": "Distinctive. Nutty. Vibrant.", "text": "An unmistakable pistachio expression with a soft green signature.", "direction": "Pistachio-led \u00b7 gently toasted \u00b7 smooth", "pairs": "Croissants, yogurt bowls, dates, pastries, and dessert toppings.", "accent": "#73703E" } },
+        "s3": { "type": "flavor", "settings": { "name": "Lotus", "kind": "Spread", "bundled": "cookie-butter", "tagline": "Cozy. Caramelized. Playful.", "text": "Cookie-butter-style warmth inspired by spiced biscuits, with a rich caramel personality.", "direction": "Caramel \u00b7 gentle spice \u00b7 cookie-butter mood", "pairs": "Apples, oatmeal, waffles, ice cream and gifting.", "accent": "#A75E30" } }
       },
       "block_order": ["s1", "s2", "s3"],
       "settings": {
@@ -659,3 +660,4 @@
     "contact"
   ]
 }
+

@@ -8,22 +8,22 @@
 
 /* ---- 1. Hero entrance (once per page load) ----
    No loader, no blank screen: the bone canvas is there on the first paint and each
-   piece arrives at its own pace (Moses 2026-11-18). Order follows the hierarchy:
-     eyebrow (quick) > headline line by line, word by word > the trays, each at its own
-     speed > the berry marker draws under "It's cake." > text and buttons > price tag >
-     the stamp lands last.
-   Opacity and transform only, so it stays smooth while the rest of the page loads.
-   The middle tray (the LCP image) only rises; it never starts invisible. */
+   piece arrives on its own, in reading order, a touch slower than the first version
+   (Moses 2026-11-18, round 2: "one element at a time, in order"):
+     eyebrow > headline, line by line, word by word > the berry marker > the text >
+     the button > the side trays > the price tag > the stamp.
+   The middle tray (the LCP image) is never invisible: it only drifts up, slowly, from
+   the start. Opacity and transform only. */
 @media (prefers-reduced-motion: no-preference){
-  html:not(.shopify-design-mode) .pd-fh__w{ animation:pd-word .78s cubic-bezier(.23,1,.32,1) both;
-    animation-delay:calc(110ms + var(--l, 0) * 130ms + var(--j, 0) * 45ms); }
+  html:not(.shopify-design-mode) .pd-fh__w{ animation:pd-word .9s cubic-bezier(.23,1,.32,1) both;
+    animation-delay:calc(300ms + var(--l, 0) * 190ms + var(--j, 0) * 70ms); }
   /* The word rises from behind its own baseline: it moves up exactly as fast as the clip opens. */
   @keyframes pd-word{
     from{ transform:translateY(105%); clip-path:inset(-.1em -.1em 105% -.1em); }
     to{ transform:none; clip-path:inset(-.25em -.15em -.25em -.15em); }
   }
   /* The marker draws left to right once the last line has landed. */
-  html:not(.shopify-design-mode) .pd-fh__line--u::after{ animation:pd-mark .6s cubic-bezier(.77,0,.175,1) .78s both; }
+  html:not(.shopify-design-mode) .pd-fh__line--u::after{ animation:pd-mark .7s cubic-bezier(.77,0,.175,1) 1.25s both; }
   @keyframes pd-mark{ from{ transform:scaleX(0); } }
 
   @keyframes pd-rise{ from{ opacity:0; translate:0 16px; } }
@@ -34,14 +34,14 @@
   @keyframes pd-tray-lead{ from{ transform:translateY(6%); } }
   @keyframes pd-stamp{ from{ opacity:0; scale:1.35; rotate:-30deg; } }
 
-  html:not(.shopify-design-mode) .pd-fh__eyebrow{ animation:pd-rise .5s cubic-bezier(.23,1,.32,1) 40ms both; }
-  html:not(.shopify-design-mode) .pd-fh__cake--c{ animation:pd-tray-lead 1.1s cubic-bezier(.23,1,.32,1) 60ms both; }
-  html:not(.shopify-design-mode) .pd-fh__cake--l{ animation:pd-tray 1.25s cubic-bezier(.23,1,.32,1) .2s both; }
-  html:not(.shopify-design-mode) .pd-fh__cake--r{ animation:pd-tray .95s cubic-bezier(.23,1,.32,1) .34s both; }
-  html:not(.shopify-design-mode) .pd-fh__p{ animation:pd-fade .7s ease-out .62s both; }
-  html:not(.shopify-design-mode) .pd-fh__cta{ animation:pd-rise .6s cubic-bezier(.23,1,.32,1) .72s both; }
-  html:not(.shopify-design-mode) .pd-fh__price{ animation:pd-rise .55s cubic-bezier(.23,1,.32,1) .9s both; }
-  html:not(.shopify-design-mode) .pd-fh__sticker{ animation:pd-stamp .42s cubic-bezier(.23,1,.32,1) 1.08s both; }
+  html:not(.shopify-design-mode) .pd-fh__eyebrow{ animation:pd-rise .7s cubic-bezier(.23,1,.32,1) 120ms both; }
+  html:not(.shopify-design-mode) .pd-fh__cake--c{ animation:pd-tray-lead 1.6s cubic-bezier(.23,1,.32,1) 80ms both; }
+  html:not(.shopify-design-mode) .pd-fh__p{ animation:pd-fade .8s ease-out 1.35s both; }
+  html:not(.shopify-design-mode) .pd-fh__cta{ animation:pd-rise .75s cubic-bezier(.23,1,.32,1) 1.5s both; }
+  html:not(.shopify-design-mode) .pd-fh__cake--l{ animation:pd-tray 1.2s cubic-bezier(.23,1,.32,1) 1.65s both; }
+  html:not(.shopify-design-mode) .pd-fh__cake--r{ animation:pd-tray 1.2s cubic-bezier(.23,1,.32,1) 1.85s both; }
+  html:not(.shopify-design-mode) .pd-fh__price{ animation:pd-rise .7s cubic-bezier(.23,1,.32,1) 2.1s both; }
+  html:not(.shopify-design-mode) .pd-fh__sticker{ animation:pd-stamp .5s cubic-bezier(.23,1,.32,1) 2.35s both; }
 }
 
 /* ---- 2. Page transition: the old page lets go, the next one rises into place ----
@@ -53,9 +53,10 @@
 @media (prefers-reduced-motion: no-preference){
   @view-transition{ navigation:auto; }
   ::view-transition-old(root){ animation:pd-page-out .14s ease-out both; }
-  ::view-transition-new(root){ animation:pd-page-in .32s cubic-bezier(.23,1,.32,1) .06s both; }
+  /* The new page only fades in: its first screen then arrives piece by piece (section 4). */
+  ::view-transition-new(root){ animation:pd-page-in .24s ease-out .06s both; }
   @keyframes pd-page-out{ to{ opacity:0; } }
-  @keyframes pd-page-in{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+  @keyframes pd-page-in{ from{ opacity:0; } to{ opacity:1; } }
 }
 
 /* ---- 3. Press feedback ---- */
@@ -63,3 +64,17 @@
 .pd-btn:active{ transform:scale(.97); }
 /* A finger has no hover: without this a tapped button stays lifted. */
 @media (hover: none){ .pd-btn:hover{ transform:none; } .pd-btn:active{ transform:scale(.97); } }
+
+/* ---- 4. Every page: the first screen arrives one piece at a time (Moses 2026-11-18) ----
+   Like the home hero, but generic: a script right after <main> (layout/theme.liquid)
+   picks what is on the first screen (headings, text, buttons, pictures, cards, the box
+   sizes), in reading order, and numbers it; each piece rises 18px and fades in 120ms
+   after the one before. Until the script has run, <main> is held invisible by the class
+   set in <head> (a timer clears it if anything goes wrong). The home hero keeps its own
+   choreography above. `translate` + backwards fill, so nothing's own transform is touched
+   once it has landed. */
+@media (prefers-reduced-motion: no-preference){
+  html.pd-enter #MainContent{ opacity:0; }
+  [data-pd-in]{ animation:pd-in .8s cubic-bezier(.23,1,.32,1) backwards; animation-delay:calc(80ms + var(--pd-i, 0) * 120ms); }
+  @keyframes pd-in{ from{ opacity:0; translate:0 18px; } }
+}

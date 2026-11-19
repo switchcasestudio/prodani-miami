@@ -42,8 +42,11 @@
           {%- endif -%}
         {%- endif -%}
 
+        {%- comment -%} The pillars: in the text column, or (pillars_row, the about page, Moses
+            2026-11-18) as one ruled row of four under the story and the photo. {%- endcomment -%}
+        {%- capture pillars -%}
         {%- if section.blocks.size > 0 -%}
-          <ul class="pd-story__list">
+          <ul class="pd-story__list{% if section.settings.pillars_row %} pd-story__list--row{% endif %}">
             {%- for block in section.blocks -%}
               {%- comment -%} Line icon per pillar (Moses 2026-10-11: the rows read empty). The
                   same 2026 line set as the benefit strip; "Auto" picks it from the label. {%- endcomment -%}
@@ -74,6 +77,8 @@
             {%- endfor -%}
           </ul>
         {%- endif -%}
+        {%- endcapture -%}
+        {%- unless section.settings.pillars_row -%}{{ pillars }}{%- endunless -%}
         {%- if section.settings.cta_label != blank -%}
           <a class="pd-btn pd-btn--ghost pd-story__cta" href="{{ section.settings.cta_link | default: '/pages/meet-your-baker' }}">{{ section.settings.cta_label | escape }}</a>
         {%- endif -%}
@@ -115,6 +120,7 @@
         </div>
       {%- endif -%}
     </div>
+    {%- if section.settings.pillars_row -%}{{ pillars }}{%- endif -%}
   </div>
 </section>
 
@@ -124,6 +130,7 @@
   "tag": "section",
   "class": "pd-section",
   "settings": [
+    { "type": "checkbox", "id": "pillars_row", "label": "Pillars as a row of four under the story", "default": false },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Meet your baker" },
     {
       "type": "select", "id": "heading_tag", "label": "Heading level",

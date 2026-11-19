@@ -71,10 +71,14 @@
     <div class="pd-box__step">
       <p class="pd-box__step-label"><span>1</span> Choose your box</p>
 
+      {%- comment -%} Curated boxes are switched off for now (Moses 2026-11-18); the blocks stay
+          in the editor, so turning "Show curated boxes" back on restores the tab. {%- endcomment -%}
       {%- assign curated_count = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'curated' -%}{%- assign curated_count = curated_count | plus: 1 -%}{%- endif -%}
-      {%- endfor -%}
+      {%- if section.settings.curated_enabled -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'curated' -%}{%- assign curated_count = curated_count | plus: 1 -%}{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
 
       {%- if curated_count > 0 -%}
         <div class="pd-box__modes" role="tablist" aria-label="How to choose your box">
@@ -292,7 +296,10 @@
                     {% unless has_plans %}disabled{% endunless %}>
               {%- if has_plans -%}
                 {%- for plan in sub_group.selling_plans -%}
-                  <option value="{{ plan.id }}">{{ plan.name }}</option>
+                  {%- comment -%} The plan's own percentage, so the summary can show the
+                      subscription price instead of only promising it at checkout. {%- endcomment -%}
+                  {%- assign adj = plan.price_adjustments | first -%}
+                  <option value="{{ plan.id }}"{% if adj.value_type == 'percentage' %} data-pct="{{ adj.value }}"{% endif %}>{{ plan.name }}</option>
                 {%- endfor -%}
               {%- else -%}
                 <option>Every 2 weeks</option>
@@ -348,6 +355,7 @@
     { "type": "number", "id": "value_count", "label": "\"Best Value\" cake count", "default": 18 },
     { "type": "checkbox", "id": "upsell_enabled", "label": "Show upsell nudges", "default": true },
     { "type": "header", "content": "Curated boxes" },
+    { "type": "checkbox", "id": "curated_enabled", "label": "Show curated boxes", "default": true },
     { "type": "text", "id": "curated_tab_label", "label": "\"Curated\" tab label", "default": "Curated boxes" },
     { "type": "product", "id": "box_product", "label": "Box product", "info": "One product with a variant per box size, titled \"6 cakes\", \"12 cakes\"… The whole box is added as one line at that variant's price, with the flavors listed on it." },
     { "type": "header", "content": "Subscriptions" },

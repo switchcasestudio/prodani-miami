@@ -76,3 +76,20 @@
   .pd-story--feature .pd-story__media{ grid-column:1; border-right:0; border-bottom:var(--rule) solid var(--line); min-height:420px; }
   .pd-story--feature .pd-story__text{ grid-column:1; grid-row:2; padding:28px var(--pad) 32px; }
 }
+
+/* About page (Moses 2026-11-18): the four pillars as one ruled row under the story and
+   the photo, instead of a narrow stack in the text column. Each cell: a larger icon, the
+   label, the line. Two by two on tablets, a stack on phones. */
+.pd-story__list--row{ grid-column:1 / -1; margin-top:clamp(40px,6vw,80px); grid-template-columns:repeat(4, minmax(0,1fr)); gap:0;
+  border:0; border-top:var(--rule) solid var(--line); border-left:var(--rule) solid var(--line); }
+.pd-story__list--row li{ flex-direction:column; align-items:flex-start; gap:18px; padding:clamp(22px,2.4vw,32px);
+  border:0; border-right:var(--rule) solid var(--line); border-bottom:var(--rule) solid var(--line); background:#fff; }
+.pd-story__list--row li:last-child{ border-bottom:var(--rule) solid var(--line); }
+.pd-story__list--row .pd-story__icon{ width:56px; height:56px; background:var(--butter); }
+.pd-story__list--row .pd-story__icon svg{ width:30px; height:30px; }
+.pd-story__list--row b{ font-size:12px; }
+.pd-story__list--row .pd-story__copy{ gap:10px; }
+.pd-story__list--row .pd-story__copy > span{ font-size:15.5px; line-height:1.55; }
+@media (max-width:1100px){ .pd-story__list--row{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width:560px){ .pd-story__list--row{ grid-template-columns:1fr; } }
+.pd-story__stamp{ background:var(--berry) !important; color:#fff !important; }  /* berry, not the light pink (2026-11-18) */

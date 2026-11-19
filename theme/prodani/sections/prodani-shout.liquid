@@ -29,7 +29,7 @@
     {%- endif -%}
     {%- if shout_img != blank or section.settings.bundled_photo != 'none' -%}
       <div class="pd-shout__media">
-        <div class="pd-shout__frame">
+        <div class="pd-shout__frame{% if shout_img == blank and section.settings.bundled_photo == 'prodani-events-trays' %} pd-shout__frame--whole{% endif %}">
           {%- if shout_img != blank -%}
             {{ shout_img | image_url: width: 900
                | image_tag: loading: 'lazy',
@@ -37,10 +37,17 @@
                  sizes: '(min-width: 981px) 420px, 92vw',
                  widths: '400, 600, 900' }}
           {%- else -%}
+            {%- comment -%} The events photo (Moses 2026-11-18) is shown whole, at its own
+                proportions; the older bundled photos keep the cropped frame. {%- endcomment -%}
+            {%- if section.settings.bundled_photo == 'prodani-events-trays' -%}
+              <img class="pd-shout__whole" src="{{ 'prodani-events-trays.jpg' | asset_url }}"
+                   alt="{{ section.settings.image_alt | escape }}" loading="lazy" width="1608" height="978">
+            {%- else -%}
             <img src="{{ section.settings.bundled_photo | append: '.jpg' | asset_url }}"
                  alt="{{ section.settings.image_alt | escape }}" loading="lazy"
                  width="800" height="1200"
                  style="object-position:{{ section.settings.photo_focus | default: '50% 12%' }};">
+            {%- endif -%}
           {%- endif -%}
         </div>
         {%- if section.settings.badge_text != blank -%}
@@ -79,7 +86,8 @@
         { "value": "prodani-dani-1", "label": "Dani — portrait" },
         { "value": "prodani-dani-2", "label": "Dani — with cake" },
         { "value": "prodani-trays", "label": "Tray spread" },
-        { "value": "prodani-catering-trays", "label": "Trays, current flavors" }
+        { "value": "prodani-catering-trays", "label": "Trays, current flavors" },
+        { "value": "prodani-events-trays", "label": "Eight trays on stone (events)" }
       ],
       "default": "prodani-dani-2"
     },

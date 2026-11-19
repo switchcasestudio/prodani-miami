@@ -110,19 +110,35 @@
         is server-side, so the full list is present even before their app-embed JS
         loads. The embed only adds styling and the star webfont.
       {%- endcomment -%}
-      <details class="pd-reviews__more">
-        <summary class="pd-btn pd-btn--outline">
-          <span class="pd-reviews__more-open">{{ section.settings.more_label | escape }}</span>
-          <span class="pd-reviews__more-close">{{ section.settings.less_label | escape }}</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </summary>
+      {%- comment -%} Moses 2026-11-18: unfolding all 133 reviews in place made the page
+          endless ("one big MESS"). The full list now opens in a side panel with its own
+          scroll; the page keeps its length. Esc, the close button or the backdrop shut it. {%- endcomment -%}
+      <div class="pd-reviews__more">
+        <button type="button" class="pd-btn pd-btn--outline" data-pd-reviews-open aria-haspopup="dialog" aria-controls="pd-reviews-panel">
+          {{ section.settings.more_label | escape }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <dialog class="pd-reviews__panel" id="pd-reviews-panel" aria-labelledby="pd-reviews-panel-title">
+        <div class="pd-reviews__panel-head">
+          <p class="pd-reviews__panel-title" id="pd-reviews-panel-title">{%- if big != blank -%}{{ big }} {{ label | escape }}{%- else -%}{{ heading | escape }}{%- endif -%}</p>
+          <button type="button" class="pd-reviews__panel-close" data-pd-reviews-close aria-label="Close reviews">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
         <div class="pd-reviews__widget" id="judgeme_all_reviews_page">
           {% render 'judgeme_all_reviews' %}
         </div>
-      </details>
+      </dialog>
+      <script>
+        (function(){
+          var d=document.getElementById('pd-reviews-panel'), o=document.querySelector('[data-pd-reviews-open]');
+          if(!d||!o||!d.showModal) return;
+          o.addEventListener('click',function(){ d.showModal(); });
+          d.querySelector('[data-pd-reviews-close]').addEventListener('click',function(){ d.close(); });
+          d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
+        })();
+      </script>
     {%- endif -%}
 
     {%- comment -%} 2026-09-01: the "Shop the collection" CTA was removed on

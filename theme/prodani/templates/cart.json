@@ -29,10 +29,21 @@
         "subtotal",
         "buttons"
       ]
+    },
+    "box-instead": {
+      "type": "prodani-cart-box",
+      "settings": {
+        "box_product": "build-your-box",
+        "eyebrow": "Rather mix flavors?",
+        "text": "Build a box of [sizes] cakes, any flavors, from [price] a cake.",
+        "button": "Build your box",
+        "link": "/#box"
+      }
     }
   },
   "order": [
     "cart-items",
+    "box-instead",
     "cart-footer"
   ]
 }

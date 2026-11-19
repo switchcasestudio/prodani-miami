@@ -321,3 +321,10 @@ a.pd-filter{ text-decoration:none; display:inline-flex; align-items:center; }
   .pd-card__cut{ height:150px; }
   .pd-card--flavor .pd-card__media{ height:166px; }
 }
+
+/* Category tabs with nothing on sale yet (Moses 2026-11-18: Cakes · Spreads · Bread):
+   quieter outline, a small berry "Soon" tag; plain text when there is no preview page. */
+.pd-filter--soon{ color:var(--ink-soft); box-shadow:inset 0 0 0 2px rgba(26,17,12,.18); }
+.pd-filter__soon{ margin-left:8px; padding:3px 6px; background:var(--berry); color:#fff; font-size:9.5px; letter-spacing:.12em; line-height:1; }
+span.pd-filter--soon{ cursor:default; display:inline-flex; align-items:center; }
+span.pd-filter--soon:hover{ background:none; transform:none; }

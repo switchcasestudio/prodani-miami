@@ -184,3 +184,31 @@ blockquote.pd-review__body{ border-left:0 !important; padding-left:0 !important;
   .pd-reviews--rating .pd-reviews__head{ margin-bottom:28px; }
   .pd-reviews--rating .pd-reviews__hero{ flex-direction:row; align-items:flex-end; }
 }
+
+/* Count and label on one baseline (Moses 2026-11-18: "REVIEWS" hung below the 133).
+   The last line of the label sits on the numerals' baseline. */
+.pd-reviews__hero{ align-items:flex-end; align-items:last baseline; }
+.pd-reviews__side{ padding-bottom:0; }
+
+/* ======================= All reviews in a side panel (Moses 2026-11-18) =======================
+   A right-hand sheet the height of the screen, scrolling on its own; the page underneath
+   stays put. Judge.me's list inside is quietened: smaller type, one hairline per review. */
+.pd-reviews__more .pd-btn svg{ width:18px; height:18px; margin-left:10px; }
+html:has(.pd-reviews__panel[open]){ overflow:hidden; }
+.pd-reviews__panel{ position:fixed; inset:0 0 0 auto; margin:0; width:min(620px, 100vw); max-width:100vw; height:100dvh; max-height:100dvh;
+  padding:0; border:0; border-left:var(--rule) solid var(--line); background:#fff; color:var(--cocoa); overflow:auto; overscroll-behavior:contain; }
+.pd-reviews__panel::backdrop{ background:rgba(26,17,12,.45); }
+.pd-reviews__panel[open]{ animation:pd-panel-in .35s cubic-bezier(.23,1,.32,1); }
+@keyframes pd-panel-in{ from{ translate:40px 0; opacity:0; } }
+@media (prefers-reduced-motion:reduce){ .pd-reviews__panel[open]{ animation:none; } }
+.pd-reviews__panel-head{ position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:18px clamp(20px,3vw,32px); background:#fff; border-bottom:var(--rule) solid var(--line); }
+.pd-reviews__panel-title{ margin:0; font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase; font-size:clamp(26px,2.4vw,34px); line-height:.9; }
+.pd-reviews__panel-close{ width:44px; height:44px; display:grid; place-items:center; border:0; background:var(--cocoa); color:#fff; cursor:pointer; flex:none; }
+.pd-reviews__panel-close svg{ width:20px; height:20px; }
+.pd-reviews__panel .pd-reviews__widget{ margin:0; border-top:0; padding:8px clamp(20px,3vw,32px) 40px; }
+.pd-reviews__panel .jdgm-rev{ padding:18px 0 !important; }
+.pd-reviews__panel .jdgm-rev__title{ font-size:15px !important; }
+.pd-reviews__panel .jdgm-rev__body, .pd-reviews__panel .jdgm-rev__body p{ font-size:14.5px !important; line-height:1.55 !important; }
+.pd-reviews__panel .jdgm-rev__timestamp, .pd-reviews__panel .jdgm-rev__product, .pd-reviews__panel .jdgm-rev__author{ font-size:12.5px !important; }
+.pd-reviews__panel .jdgm-histogram, .pd-reviews__panel .jdgm-rev-widg__summary{ font-size:13px !important; }

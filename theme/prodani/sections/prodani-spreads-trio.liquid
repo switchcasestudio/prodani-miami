@@ -1,9 +1,9 @@
 {%- comment -%}
   The spreads on the homepage: the "Meet the trio" cards from the spreads page
-  (sections/prodani-spreads.liquid), without a photo (Moses 2026-11-18: the open-box
-  photo goes; "I love this so much more").
-  Each card has an optional photo. It stays empty until there is a real photo of each
-  jar on its own, then shows above that card's colour bar.
+  (sections/prodani-spreads.liquid) instead of the open-box photo (Moses 2026-11-18:
+  "I love this so much more"). Each card shows its own jar (an uploaded photo, or the
+  bundled one), so the three read as three spreads, not one set. The text and the
+  "Meet the spreads" button come after the cards.
   Styles come from prodani-spreads.css (the same cards as on the spreads page).
 {%- endcomment -%}
 {{ 'prodani-spreads.css' | asset_url | stylesheet_tag }}
@@ -20,12 +20,6 @@
           </p>
           <h2 class="pd-spreads__h2" id="pd-trio-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
         </div>
-        <div class="pd-spreads__home-side">
-          {%- if section.settings.lede != blank -%}<p class="pd-lede pd-spreads__trio-lede" style="margin:0">{{ section.settings.lede | escape }}</p>{%- endif -%}
-          {%- if section.settings.cta_label != blank -%}
-            <a class="pd-btn pd-btn--ghost" href="{{ section.settings.cta_link | default: '/pages/spreads' }}">{{ section.settings.cta_label | escape }}</a>
-          {%- endif -%}
-        </div>
       </div>
       <ol class="pd-spreads__cards">
         {%- for block in flavors -%}
@@ -35,6 +29,11 @@
                 {{ block.settings.image | image_url: width: 900
                    | image_tag: loading: 'lazy', widths: '450, 700, 900',
                      sizes: '(min-width: 981px) 30vw, 92vw', alt: block.settings.alt }}
+              </div>
+            {%- elsif block.settings.bundled != blank and block.settings.bundled != 'none' -%}
+              <div class="pd-spreads__card-media">
+                <img src="{{ 'prodani-spread-' | append: block.settings.bundled | append: '.jpg' | asset_url }}"
+                     alt="{{ block.settings.alt | default: block.settings.name | escape }}" width="400" height="500" loading="lazy">
               </div>
             {%- endif -%}
             <span class="pd-spreads__card-bar" aria-hidden="true"></span>
@@ -56,6 +55,12 @@
           </li>
         {%- endfor -%}
       </ol>
+      <div class="pd-spreads__home-foot">
+        {%- if section.settings.lede != blank -%}<p class="pd-lede pd-spreads__trio-lede">{{ section.settings.lede | escape }}</p>{%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <a class="pd-btn pd-btn--ghost" href="{{ section.settings.cta_link | default: '/pages/spreads' }}">{{ section.settings.cta_label | escape }}</a>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
@@ -87,7 +92,9 @@
         { "type": "text", "id": "direction", "label": "Flavor direction" },
         { "type": "text", "id": "pairs", "label": "Perfect with" },
         { "type": "color", "id": "accent", "label": "Accent color", "default": "#6B3B28" },
-        { "type": "image_picker", "id": "image", "label": "Jar photo", "info": "Optional. Shows above the colour bar once there is a photo of this jar on its own." },
+        { "type": "image_picker", "id": "image", "label": "Jar photo", "info": "Shows above the colour bar. If empty, the bundled photo below is used." },
+        { "type": "select", "id": "bundled", "label": "Bundled jar photo", "default": "none",
+          "options": [ { "value": "none", "label": "None" }, { "value": "hazelnut", "label": "Hazelnut" }, { "value": "pistachio", "label": "Pistachio" }, { "value": "cookie-butter", "label": "Lotus (cookie butter)" } ] },
         { "type": "text", "id": "alt", "label": "Photo description" }
       ]
     }

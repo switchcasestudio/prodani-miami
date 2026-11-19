@@ -283,5 +283,31 @@ font-weight:600; }
 .pd-spreads--home{ background:#fff; padding-bottom:clamp(56px,7vw,110px); border-bottom:var(--rule) solid var(--line); }
 .pd-spreads--home .pd-spreads__trio{ padding-top:clamp(48px,6vw,96px); }
 .pd-spreads__home-soon{ margin-left:12px; vertical-align:middle; }
-.pd-spreads__home-side{ display:flex; flex-direction:column; align-items:flex-start; gap:18px; }
+/* each jar on its own, above its colour bar; the text and the button after the cards */
+.pd-spreads--home .pd-spreads__card-media{ border-bottom:var(--rule) solid var(--line); overflow:hidden; background:#f3ece4; }
+.pd-spreads--home .pd-spreads__card-media img{ aspect-ratio:4/5; max-height:min(52vh, 520px); width:100%; object-fit:cover; }
+.pd-spreads--home .pd-spreads__card-bar{ border-top:0; }
+.pd-spreads__home-foot{ display:flex; align-items:center; justify-content:space-between; gap:20px 40px; flex-wrap:wrap; margin-top:clamp(28px,3.4vw,48px); }
+.pd-spreads__home-foot .pd-spreads__trio-lede{ margin:0; max-width:52ch; }
 .pd-spreads--home .pd-sec-head{ align-items:flex-end; }
+
+/* Calmer trio (Moses 2026-11-18: "a little too big, I need some space to calm the
+   eyes"): shorter jar photos, smaller type in the cards, more room around the band. */
+.pd-spreads--home{ padding-bottom:clamp(64px,9svh,120px); }
+.pd-spreads--home .pd-spreads__trio{ padding-top:clamp(64px,9svh,120px); }
+.pd-spreads--home .pd-sec-head{ margin-bottom:clamp(28px,4svh,48px); }
+.pd-spreads--home .pd-spreads__h2{ font-size:clamp(40px, min(5vw, 9svh), 80px); }
+.pd-spreads--home .pd-spreads__card-media{ display:flex; justify-content:center; padding-block:clamp(18px,3svh,32px);
+  background:color-mix(in srgb, var(--accent) 10%, #fff); }
+.pd-spreads--home .pd-spreads__card-media img{ width:auto; height:clamp(180px, 27svh, 280px); max-height:none; aspect-ratio:4/5; object-fit:cover; }
+.pd-spreads--home .pd-spreads__card > :not(.pd-spreads__card-media):not(.pd-spreads__card-bar){ margin-inline:clamp(18px,2vw,30px); }
+.pd-spreads--home .pd-spreads__card{ padding-bottom:clamp(20px,2.4vw,30px); }
+.pd-spreads--home .pd-spreads__card-n{ margin-top:18px; font-size:34px; }
+.pd-spreads--home .pd-spreads__card-title{ margin-top:8px; font-size:clamp(28px,2.4vw,38px); }
+.pd-spreads--home .pd-spreads__card-tag{ font-size:15px; margin-top:10px; }
+.pd-spreads--home .pd-spreads__card-text{ font-size:14.5px; margin-top:6px; }
+.pd-spreads--home .pd-spreads__card-specs dd{ font-size:13.5px; }
+
+/* A full screen of its own, like the box builder above it (Moses 2026-11-18). */
+.pd-spreads--home{ min-height:calc(100svh - var(--pd-nav-h, 64px)); display:flex; flex-direction:column; justify-content:center; }
+.pd-spreads--home > .pd-spreads__trio{ width:100%; }

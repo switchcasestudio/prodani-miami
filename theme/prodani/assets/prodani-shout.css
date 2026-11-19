@@ -79,3 +79,9 @@
   .pd-shout__media{ max-width:none; }
   .pd-shout__script{ font-size:clamp(48px,14vw,72px); }
 }
+
+/* The events photo (2026-11-18): shown whole at its own 1608x978 proportions, given the
+   wider half of the band, so it is never cropped or blown up past its size. */
+.pd-shout__frame--whole, #catering .pd-shout__frame--whole{ aspect-ratio:1608 / 978; }
+.pd-shout__frame--whole img{ object-fit:cover; height:100%; }
+@media (min-width:981px){ .pd-shout:has(.pd-shout__frame--whole) .pd-shout__in{ grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); } }
