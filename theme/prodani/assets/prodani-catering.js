@@ -115,8 +115,12 @@
       count.textContent = 'Step ' + current + ' of 4' + (title ? ' · ' + title.textContent : '');
     }
     if (focus) {
+      // Land with the step tabs (1-4) in full view under the sticky bar: the old fixed
+      // 100px put them half under the header on phones (mobile audit 2026-11-18).
       var card = form.querySelector('.pd-cat__card');
-      var top = card.getBoundingClientRect().top + window.scrollY - 100;
+      var tabs = (navItems[0] && navItems[0].closest('ol, ul, nav')) || card;
+      var navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pd-nav-h')) || 64;
+      var top = Math.min(tabs.getBoundingClientRect().top, card.getBoundingClientRect().top) + window.scrollY - navH - 12;
       if (window.scrollY > top) window.scrollTo({ top: top, behavior: 'smooth' });
       var first = steps[current - 1].querySelector('input, select, textarea, button');
       if (first && window.matchMedia('(min-width: 861px)').matches) { try { first.focus({ preventScroll: true }); } catch (e) {} }

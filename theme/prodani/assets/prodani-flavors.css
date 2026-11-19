@@ -116,7 +116,8 @@ html .pd-flv__name{ font-family:var(--script); font-weight:900; font-stretch:70%
 
   /* The index becomes a row of seven segments under the label. */
   .pd-flv.is-live .pd-flv__index{ position:static; transform:none; grid-row:2; flex-direction:row; gap:4px; padding:6px var(--pad) 0; }
-  .pd-flv__go{ flex:1; min-height:32px; opacity:1; gap:0; }
+  /* 44px tall to tap (mobile audit 2026-11-18: 49x32), the negative margin keeps the row 32px. */
+  .pd-flv__go{ flex:1; min-height:44px; margin-block:-6px; opacity:1; gap:0; }
   .pd-flv__go::before{ width:100%; height:4px; transform:none; background:rgba(26,17,12,.18); transition:background-color .3s ease; }
   .pd-flv__go[aria-current="true"]::before{ background:var(--cocoa); }
   .pd-flv__go-n, .pd-flv__go-t{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
@@ -196,6 +197,11 @@ html .pd-flv__name{ font-size:clamp(48px, min(22cqi, 18svh), 160px); }
   /* Phones: one big tipped shape behind the whole row (number and tray), paler still. */
   .pd-flv.is-live .pd-flv__ghost{ font-size:min(118vw, 62svh); translate:-62% -50%; color:color-mix(in srgb, var(--fc) 11%, var(--tint)); }
   .pd-flv.is-live .pd-flv__protein{ position:relative; z-index:2; }
+  /* .pd-flv__copy is display:contents on phones, so its z-index does nothing here: lift each
+     piece of copy above the ghost, or the figure paints over calories and price (mobile audit
+     2026-11-18: "150 CALORIES $7.60" read as "60"). */
+  .pd-flv.is-live :is(.pd-flv__name, .pd-flv__facts, .pd-flv__cta){ position:relative; z-index:2; }
+  .pd-flv.is-live .pd-flv__index{ position:relative; inset:auto; z-index:3; }
 }
 @media (prefers-reduced-motion:reduce){
   .pd-flv.is-live .pd-flv__ghost{ transform:none !important; opacity:1 !important; }

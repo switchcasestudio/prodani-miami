@@ -43,7 +43,7 @@
   },
   "order": [
     "cart-items",
-    "box-instead",
-    "cart-footer"
+    "cart-footer",
+    "box-instead"
   ]
 }

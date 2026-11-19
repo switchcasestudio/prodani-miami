@@ -311,3 +311,8 @@ font-weight:600; }
 /* A full screen of its own, like the box builder above it (Moses 2026-11-18). */
 .pd-spreads--home{ min-height:calc(100svh - var(--pd-nav-h, 64px)); display:flex; flex-direction:column; justify-content:center; }
 .pd-spreads--home > .pd-spreads__trio{ width:100%; }
+
+/* Claim tags: each tag draws its own box (neighbours overlap by one rule), so a wrapped
+   second row no longer leaves the first row's top rule hanging past it (mobile audit 2026-11-18). */
+.pd-spreads__chips{ border:0; padding:0 var(--rule) var(--rule) 0; }
+.pd-spreads__chips li{ border:var(--rule) solid var(--line); margin:0 calc(-1 * var(--rule)) calc(-1 * var(--rule)) 0; }

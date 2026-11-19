@@ -410,3 +410,29 @@ cart-items:not(.is-empty) .pd-cart-recover{ display:none; }
   font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; line-height:1.2; }
 .pd-cart-pack b{ font-weight:800; }
 .pd-cart-pack span{ opacity:.85; }
+
+/* ---- free local delivery progress (mobile audit 2026-11-18) ---- */
+#main-cart-footer .pd-free{ margin:0 0 18px; }
+#main-cart-footer .pd-free__msg{ margin:0 0 8px; font-family:var(--sans); font-size:14px; line-height:1.45; color:var(--cocoa); }
+#main-cart-footer .pd-free__msg b{ font-weight:800; }
+#main-cart-footer .pd-free__bar{ height:6px; background:rgba(26,17,12,.12); overflow:hidden; }
+#main-cart-footer .pd-free__bar span{ display:block; height:100%; background:var(--berry); transition:width .4s ease; }
+@media (prefers-reduced-motion:reduce){ #main-cart-footer .pd-free__bar span{ transition:none; } }
+
+/* ---- phone checkout bar (mobile audit 2026-11-18), same look as the product page bar ---- */
+.pd-cart-bar{ position:fixed; left:0; right:0; bottom:0; z-index:30; display:none; align-items:center; gap:12px;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom)); background:#fff; color:var(--cocoa); border-top:var(--rule) solid var(--line);
+  transform:translateY(115%); visibility:hidden; transition:transform .35s var(--ease, ease), visibility 0s .35s; }
+.pd-cart-bar.is-visible{ transform:translateY(0); visibility:visible; transition:transform .35s var(--ease, ease), visibility 0s; }
+.pd-cart-bar__info{ display:flex; flex-direction:column; min-width:0; flex:1; }
+.pd-cart-bar__l{ font-family:var(--mono); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.pd-cart-bar__v{ font-family:var(--script); font-weight:900; font-stretch:70%; font-size:24px; line-height:1; font-variant-numeric:tabular-nums; }
+.pd-cart-bar__btn{ flex:none; min-height:48px; padding:0 22px; border:0; border-radius:0; background:var(--cocoa); color:#fff; cursor:pointer;
+  font-family:var(--mono); font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.pd-cart-bar__btn[disabled]{ opacity:.5; cursor:default; }
+.pd-cart-bar__btn:focus-visible{ outline:3px solid var(--berry); outline-offset:2px; }
+@media (max-width:749px){ .pd-cart-bar{ display:flex; } }
+@media (prefers-reduced-motion:reduce){ .pd-cart-bar{ transition:none; } }
+
+/* the free-delivery line sits inside the ruled totals box, which has no padding of its own */
+#main-cart-footer .pd-free{ margin:0; padding:14px 20px; border-bottom:var(--rule) solid var(--line); }

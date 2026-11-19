@@ -1,0 +1,15 @@
+{%- comment -%}
+  Phone checkout bar on the cart page (mobile audit 2026-11-18: with one pack in the cart,
+  Check out started below the first screen). Same idea as the product page bar
+  (prodani-sticky-atc): it shows the total and clicks the real Check out button, so
+  Shopify's checkout runs untouched. Hidden while the real button or the footer is on
+  screen, when the cart is empty, and on wider screens.
+{%- endcomment -%}
+<div class="pd-cart-bar" data-pd-cart-bar>
+  <div class="pd-cart-bar__info">
+    <span class="pd-cart-bar__l">{{ 'sections.cart.estimated_total' | t }}</span>
+    <span class="pd-cart-bar__v" data-pd-cart-bar-total>{{ cart.total_price | money }}</span>
+  </div>
+  <button type="button" class="pd-cart-bar__btn" data-pd-cart-bar-go>{{ 'sections.cart.checkout' | t }}</button>
+</div>
+<script src="{{ 'prodani-cart-bar.js' | asset_url }}" defer="defer"></script>

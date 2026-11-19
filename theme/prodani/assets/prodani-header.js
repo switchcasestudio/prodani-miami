@@ -65,6 +65,35 @@
     }
   }
 
+  /* The "Cart (n)" count is rendered by the server. When Safari brings a page back from
+     its back/forward cache, or the tab is shown again, that number can be old: add to
+     cart, press Back, and the product page still said Cart (1) with 2 in the cart
+     (mobile audit 2026-11-18). Ask /cart.js for the real count in those cases only. */
+  var refreshing = false;
+  function refreshCount() {
+    if (refreshing || !document.querySelector('.pd-nav__count')) return;
+    refreshing = true;
+    fetch((window.Shopify && Shopify.routes ? Shopify.routes.root : '/') + 'cart.js', { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (c) {
+        if (!c || typeof c.item_count !== 'number') return;
+        document.querySelectorAll('.pd-nav__count').forEach(function (el) {
+          if (el.textContent.trim() !== String(c.item_count)) el.textContent = c.item_count;
+        });
+        document.querySelectorAll('.pd-nav__cart').forEach(function (el) {
+          el.setAttribute('aria-label', 'Open cart, ' + c.item_count + ' items');
+        });
+      })
+      .catch(function () {})
+      .then(function () { refreshing = false; });
+  }
+  function cameBack() {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    return !!(nav && nav.type === 'back_forward');
+  }
+  window.addEventListener('pageshow', function (e) { if (e.persisted || cameBack()) refreshCount(); });
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') refreshCount(); });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else { init(); }
