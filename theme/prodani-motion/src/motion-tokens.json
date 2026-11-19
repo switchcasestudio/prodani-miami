@@ -186,6 +186,77 @@
       "photo": "pd-cut-chocolate.webp",
       "line": "HEAT AND EAT.",
       "placeholder": "[HEATING DETAILS FROM DANI]"
+    },
+    "heatAndEatVector": {
+      "$comment": "All-vector Heat and eat (no photos). Frames at tempo.fps.",
+      "durationFrames": 400,
+      "keyFrame": 145,
+      "lift": [
+        12,
+        24
+      ],
+      "tip": [
+        24,
+        38
+      ],
+      "wordOut": [
+        26,
+        42
+      ],
+      "center": [
+        24,
+        44
+      ],
+      "grow": [
+        38,
+        56
+      ],
+      "rings": {
+        "from": 44,
+        "every": 6,
+        "count": 7,
+        "life": 40,
+        "growTo": 1.5
+      },
+      "steam": {
+        "range": [
+          44,
+          172
+        ],
+        "columns": 7,
+        "periodFrames": 48,
+        "scrollFrames": 12
+      },
+      "morph": [
+        96,
+        114
+      ],
+      "reveal": [
+        108,
+        132
+      ],
+      "stripes": 12,
+      "barFill": [
+        120,
+        165
+      ],
+      "stopDropAt": 168,
+      "trackGone": [
+        175,
+        190
+      ],
+      "hFall": [
+        190,
+        212
+      ],
+      "recenter": [
+        196,
+        214
+      ],
+      "bandsAt": 250,
+      "riseAt": 300,
+      "line": "HEAT AND EAT.",
+      "placeholder": "[HEATING DETAILS FROM DANI]"
     }
   }
 }

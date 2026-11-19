@@ -3,6 +3,7 @@ import { Composition, Folder } from "remotion";
 import "./fonts";
 import { CakeI } from "./compositions/CakeI";
 import { HeatAndEat } from "./compositions/HeatAndEat";
+import { HeatAndEatVector } from "./compositions/HeatAndEatVector";
 import { LogoSting } from "./compositions/LogoSting";
 import { Transition } from "./compositions/Transition";
 import { FPS, SCENES } from "./tokens";
@@ -22,6 +23,7 @@ export const RemotionRoot: React.FC = () => (
         <Composition id={`LogoSting-${fm.id}`} component={LogoSting} durationInFrames={SCENES.logoSting.durationFrames} fps={FPS} width={fm.width} height={fm.height} defaultProps={{ line: "" }} />
         <Composition id={`CakeI-${fm.id}`} component={CakeI} durationInFrames={SCENES.cakeI.durationFrames} fps={FPS} width={fm.width} height={fm.height} />
         <Composition id={`HeatAndEat-${fm.id}`} component={HeatAndEat} durationInFrames={SCENES.heatAndEat.durationFrames} fps={FPS} width={fm.width} height={fm.height} />
+        <Composition id={`HeatAndEatVector-${fm.id}`} component={HeatAndEatVector} durationInFrames={SCENES.heatAndEatVector.durationFrames} fps={FPS} width={fm.width} height={fm.height} />
       </Folder>
     ))}
   </>

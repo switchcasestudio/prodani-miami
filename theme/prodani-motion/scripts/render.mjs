@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const ids = ["Transition", "LogoSting", "CakeI", "HeatAndEat"].flatMap((c) => ["9x16", "1x1", "16x9"].map((f) => `${c}-${f}`));
+const ids = ["Transition", "LogoSting", "CakeI", "HeatAndEat", "HeatAndEatVector"].flatMap((c) => ["9x16", "1x1", "16x9"].map((f) => `${c}-${f}`));
 const only = process.argv.slice(2);
 const serveUrl = await bundle({ entryPoint: path.join(root, "src/index.ts") });
 for (const id of ids.filter((i) => !only.length || only.some((o) => i.startsWith(o)))) {
