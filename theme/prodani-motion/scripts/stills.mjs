@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const tokens = JSON.parse(fs.readFileSync(path.join(root, "src/motion-tokens.json"), "utf8"));
-const COMPS = { Transition: "transition", LogoSting: "logoSting", CakeI: "cakeI", HeatAndEat: "heatAndEat", HeatAndEatVector: "heatAndEatVector" };
+const COMPS = { Transition: "transition", LogoSting: "logoSting", CakeI: "cakeI", HeatAndEat: "heatAndEat", HeatAndEatVector: "heatAndEatVector", HeatAndEatGrid: "heatAndEatGrid" };
 const FORMATS = ["9x16", "1x1", "16x9"];
 
 // Optional filter, e.g. `HeatAndEat@130` renders that frame (all formats) to out/stills/test/.

@@ -188,75 +188,101 @@
       "placeholder": "[HEATING DETAILS FROM DANI]"
     },
     "heatAndEatVector": {
-      "$comment": "All-vector Heat and eat (no photos). Frames at tempo.fps.",
-      "durationFrames": 400,
-      "keyFrame": 145,
+      "$comment": "All-vector Heat and eat (no photos), version A. Frames at tempo.fps. The pair HEAT AND EAT is never split.",
+      "durationFrames": 240,
+      "keyFrame": 100,
       "lift": [
-        12,
-        24
+        6,
+        14
       ],
       "tip": [
-        24,
-        38
+        14,
+        24
       ],
       "wordOut": [
-        26,
-        42
+        16,
+        28
       ],
       "center": [
-        24,
-        44
+        14,
+        28
       ],
       "grow": [
-        38,
-        56
+        24,
+        36
       ],
       "rings": {
-        "from": 44,
-        "every": 6,
-        "count": 7,
-        "life": 40,
+        "from": 30,
+        "every": 5,
+        "count": 6,
+        "life": 28,
         "growTo": 1.5
       },
       "steam": {
         "range": [
-          44,
-          172
+          30,
+          118
         ],
         "columns": 7,
-        "periodFrames": 48,
-        "scrollFrames": 12
+        "periodFrames": 36,
+        "scrollFrames": 9
       },
       "morph": [
-        96,
-        114
+        58,
+        70
       ],
       "reveal": [
-        108,
-        132
+        64,
+        80
       ],
       "stripes": 12,
       "barFill": [
-        120,
-        165
+        72,
+        102
       ],
-      "stopDropAt": 168,
       "trackGone": [
-        175,
-        190
+        104,
+        114
       ],
-      "hFall": [
-        190,
-        212
+      "join": [
+        112,
+        128
       ],
-      "recenter": [
-        196,
-        214
-      ],
-      "bandsAt": 250,
-      "riseAt": 300,
+      "stopDropAt": 130,
+      "bandsAt": 148,
+      "riseAt": 172,
       "line": "HEAT AND EAT.",
-      "placeholder": "[HEATING DETAILS FROM DANI]"
+      "microLabel": "5 SECONDS IN THE MICROWAVE"
+    },
+    "heatAndEatGrid": {
+      "$comment": "All-vector Heat and eat, version B: a field of i-stems in a heat wave, a 5-second countdown window, HEAT AND EAT. in a band. Frames at tempo.fps.",
+      "durationFrames": 225,
+      "keyFrame": 62,
+      "fieldIn": [
+        0,
+        22
+      ],
+      "waveFrames": 40,
+      "window": [
+        22,
+        36
+      ],
+      "count": [
+        36,
+        86
+      ],
+      "band": [
+        86,
+        100
+      ],
+      "lineIn": [
+        94,
+        108
+      ],
+      "stopDropAt": 110,
+      "riseAt": 156,
+      "line": "HEAT AND EAT.",
+      "microLabel": "5 SECONDS IN THE MICROWAVE"
     }
   }
 }
