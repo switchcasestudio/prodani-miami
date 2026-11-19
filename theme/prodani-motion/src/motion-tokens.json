@@ -174,15 +174,15 @@
       ],
       "stopDropAt": 108,
       "hFall": [
-        124,
-        146
+        122,
+        140
       ],
       "recenter": [
-        130,
-        150
+        138,
+        154
       ],
-      "riseAt": 180,
-      "keyFrame": 165,
+      "riseAt": 184,
+      "keyFrame": 168,
       "photo": "pd-cut-chocolate.webp",
       "line": "HEAT AND EAT.",
       "placeholder": "[HEATING DETAILS FROM DANI]"
