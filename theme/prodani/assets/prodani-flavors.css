@@ -202,6 +202,13 @@ html .pd-flv__name{ font-size:clamp(48px, min(22cqi, 18svh), 160px); }
      2026-11-18: "150 CALORIES $7.60" read as "60"). */
   .pd-flv.is-live :is(.pd-flv__name, .pd-flv__facts, .pd-flv__cta){ position:relative; z-index:2; }
   .pd-flv.is-live .pd-flv__index{ position:relative; inset:auto; z-index:3; }
+  /* Tray travel stays inside its own row on phones: the desktop 140% throw parked the old
+     tray over the new flavor's name and index bars, and the new one rose through the price
+     and buttons (overlap check 2026-11-19). Short throw plus a fade instead. */
+  .pd-flv.is-live .pd-flv__cake{ transition:transform .7s var(--io), opacity .2s ease; }
+  .pd-flv.is-live [data-pos="before"] .pd-flv__cake{ transform:translateY(-28%) rotate(-4deg); opacity:0; }
+  .pd-flv.is-live [data-pos="after"] .pd-flv__cake{ transform:translateY(28%) rotate(5deg); opacity:0; }
+  .pd-flv.is-live [data-pos="on"] .pd-flv__cake{ transition:transform .7s var(--out) .12s, opacity .35s ease .18s; }
 }
 @media (prefers-reduced-motion:reduce){
   .pd-flv.is-live .pd-flv__ghost{ transform:none !important; opacity:1 !important; }
