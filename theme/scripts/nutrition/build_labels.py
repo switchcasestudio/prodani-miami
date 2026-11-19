@@ -22,7 +22,7 @@ THEME = os.path.normpath(os.path.join(HERE, '..', '..', 'prodani'))
 DATA = os.path.join(HERE, 'data')
 OUT = os.path.join(HERE, 'out')
 FONT = os.path.join(THEME, 'assets', 'archivo-var-latin.woff2')
-WORDMARK = os.path.join(THEME, 'assets', 'prodani-wordmark.svg')
+WORDMARK = os.path.join(THEME, 'assets', 'prodani-logo.svg')   # logo "Full Stop", 2026-11-18
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 STORE = 'https://prodanimiami.com'
 
@@ -379,7 +379,7 @@ def svg(c, panel='bone'):
 {body}
 </g>
 </g>
-{wordmark(CANVAS_W / 2, CANVAS_H - 120 - 70, 70)}
+{wordmark(CANVAS_W / 2, CANVAS_H - 120 - 58, 58)}
 </svg>
 '''
 

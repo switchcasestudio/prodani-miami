@@ -20,12 +20,9 @@
   object-fit:cover; border-radius:var(--r); display:block;
 }
 
-/* The stamp is the 2026 brand seal (cocoa disc, ivory type, caramel p.).
-   Brand rule: one stamp per surface, never rotated — so no tilt, and the
-   seal carries its own lines, which replaces the old "Baked in Miami" pill. */
+/* The stamp was a round seal image until Macro Bold; it is a pink text tag now (see below). */
 .pd-story__stamp{
   position:absolute; left:-26px; bottom:-22px; width:140px; height:140px; border-radius:50%;
-  background:url('prodani-stamp-seal.svg') center/contain no-repeat;
   box-shadow:0 14px 30px rgba(72, 49, 42,.22);
 }
 .pd-story__stamp p{ position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip-path:inset(50%); }

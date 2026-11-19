@@ -1,11 +1,9 @@
 {%- comment -%}
   Footer — nav columns on the left, a rail with signup + follow bar on the right,
-  then the oversized wordmark and a legal strip. Ported from the prototype.
+  then the oversized logo and a legal strip. Ported from the prototype.
 
-  The wordmark is an SVG, not styled text: a script face's glyph box is far taller
-  than its line box, so at full width the descender of the "p" punched straight
-  through the legal strip. The viewBox IS the glyph box, measured from Damion at
-  font-size 100 (ink runs x -11.8..306.4, y -64.6..24.8), plus a unit of slack.
+  The logo is inline SVG (snippets/prodani-logo.liquid), not styled text, so its box is exactly
+  the drawn letters and nothing overlaps the legal strip.
 {%- endcomment -%}
 
 {{ 'prodani-footer.css' | asset_url | stylesheet_tag }}
