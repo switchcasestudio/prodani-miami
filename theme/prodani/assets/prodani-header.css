@@ -281,7 +281,9 @@ html{ scroll-padding-top:calc(var(--pd-nav-h) + 16px); }
   .pd-nav__menu-btn svg{ stroke-width:2.2; }
   .pd-nav__shop-mobile{ font-size:13px; }
   .pd-nav__cart{ font-size:13px; padding:0 0 0 8px; }
-  .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce{ background:var(--cocoa); }
+  /* Parked strip = the nav's white, not cocoa: iOS 26+ Safari shows it blurred behind the
+     status bar, where the cocoa read as a grey band over the page (Moses 2026-11-19). */
+  .pd-header-group:has(.pd-nav[data-stuck="true"]) .pd-announce{ background:#fff; }
 }
 .pd-menu{ background:#fff; border-top:var(--rule) solid var(--line); }
 .pd-menu__list > li{ border-bottom:var(--rule) solid var(--line); }

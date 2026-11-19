@@ -101,3 +101,12 @@
 .pd-story__media--video img{ width:100%; height:100%; aspect-ratio:auto; max-height:none; border:0; object-fit:cover; display:block; }
 .pd-story__frame video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; }
 .pd-story__media--video.is-playing video{ opacity:1; }
+
+/* Phones (Moses 2026-11-19): the ruled list and the video below it read as one stack
+   (no white strip between two frames), and the section hands over to the reviews
+   without a 120px white gap. */
+@media (max-width:980px){
+  .pd-story:not(.pd-story--feature):not(:has(.pd-story__cta)) .pd-story__in{ row-gap:0; }
+  .pd-story:not(.pd-story--feature):not(:has(.pd-story__cta)) .pd-story__media{ margin-top:calc(-1 * var(--rule)); }
+  .pd-story{ padding-bottom:32px; }
+}
