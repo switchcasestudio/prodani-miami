@@ -147,20 +147,14 @@ const productHtml = pages[productRoute]?.html || ''
 const productBody = productHtml
   .replace(/<style[\s\S]*?<\/style>/g, '')
   .replace(/<script[\s\S]*?<\/script>/g, '')
+/* Since 2026-11-18 (Moses) the product page closes with the store reviews (the homepage
+   section, 133 reviews, "Read all reviews" opens the side panel) instead of the per-product
+   Judge.me block, which showed 0 reviews on every cake. */
 for (const [what, marker] of [
-  ['reviews section renders', 'pd-prevs'],
-  ['Judge.me widget element present', 'jdgm-review-widget'],
+  ['store reviews section renders', 'pd-reviews'],
+  ['reviews side panel present', 'pd-reviews__panel'],
+  ['Judge.me all-reviews list present', 'judgeme_all_reviews_page'],
 ]) productBody.includes(marker) ? ok(what) : bad(what, `"${marker}" missing on ${productRoute}`)
-/* The link out has to go somewhere real — an earlier draft pointed at
-   /pages/reviews, which does not exist on this store. */
-const allLink = productBody.match(/class="pd-prevs__all"[\s\S]{0,120}?href="([^"]+)"/)?.[1]
-if (!allLink) note('no "all reviews" link on the product page')
-else if (allLink.startsWith('#') || allLink.startsWith('/#')) ok('all-reviews link is an on-page anchor', allLink)
-else {
-  const r = await raw(new URL(allLink, SHOP).toString())
-  r.ok ? ok('all-reviews link resolves', `${allLink} → ${r.status}`)
-       : bad('all-reviews link is broken', `${allLink} → ${r.status}`)
-}
 
 /* ---------- 4. no stock Dawn leaking through ---------- */
 head('4. No stock Dawn remnants')
