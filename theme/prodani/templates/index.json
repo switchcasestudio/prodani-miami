@@ -236,7 +236,9 @@
         "image_alt": "A tray spread of ProDani protein cakes",
         "stamp": "<p>Baked in Miami</p>",
         "heading_tag": "h2",
-        "photo_focus": "50% 8%"
+        "photo_focus": "50% 8%",
+        "story_video": "prodani-heat-and-eat",
+        "video_alt": "HEAT AND EAT. Heat for 5 seconds in the microwave and eat."
       }
     },
     "reviews": {
