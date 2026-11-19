@@ -359,3 +359,7 @@
    at the top of the sticky column on desktop. */
 .pd-cat__photo img, .pd-cat__layout .pd-cat__photo img{ aspect-ratio:1608 / 978 !important; object-position:50% 50% !important; }
 .pd-cat__flavors > :last-child:nth-child(odd){ grid-column:1 / -1; }  /* 7 flavors: the last one spans the row */
+
+/* Field messages (mobile audit 2026-11-18): shown under the field that needs fixing. */
+.pd-cat__ferr{ margin:8px 0 0; color:var(--berry); font-family:var(--sans); font-size:14px; font-weight:700; line-height:1.4; text-transform:none; letter-spacing:0; }
+.pd-cat [aria-invalid="true"]{ box-shadow:inset 0 0 0 3px var(--berry); }

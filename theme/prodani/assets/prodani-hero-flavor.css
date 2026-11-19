@@ -102,8 +102,9 @@
   .pd-fh__stage{ position:static; translate:none; width:auto; }
   .pd-fh__price{ left:var(--pad); bottom:12px; padding:9px 12px 9px; }
   .pd-fh__price b{ font-size:32px; }
-  .pd-fh__price small{ margin-top:6px; padding-top:6px; font-size:10px; }
-  .pd-fh__sticker{ right:var(--pad); top:auto; bottom:12px; width:88px; height:88px; font-size:8.5px; letter-spacing:.06em; }
+  /* 10-11px floor on phones (mobile audit 2026-11-18: the stamp was 8.5px). */
+  .pd-fh__price small{ margin-top:6px; padding-top:6px; font-size:11px; }
+  .pd-fh__sticker{ right:var(--pad); top:auto; bottom:12px; width:100px; height:100px; font-size:10px; letter-spacing:.03em; }
   .pd-fh__sticker b{ font-size:26px; }
   .pd-fh__eyebrow{ padding-top:20px; }
   .pd-fh__h{ margin-top:16px; font-size:clamp(46px,13.6vw,96px); }
@@ -125,3 +126,13 @@
 .pd-mq__t span::before{ content:""; width:12px; height:12px; border-radius:0; background:var(--berry); flex:none; }
 @keyframes pd-mq{ to{ transform:translateX(-50%); } }
 @media (prefers-reduced-motion:reduce){ .pd-mq__t{ animation:none; } }
+
+/* A phone on its side (mobile audit 2026-11-18): the tray block filled the whole short
+   screen and the headline and button started below it. Keep the tray small there. */
+@media (orientation:landscape) and (max-height:520px) and (max-width:900px){
+  .pd-fh__art{ height:44svh; min-height:0; }
+  .pd-fh__price{ bottom:6px; padding:6px 10px; }
+  .pd-fh__price b{ font-size:24px; }
+  .pd-fh__sticker{ bottom:6px; width:96px; height:96px; font-size:10px; }
+  .pd-fh__sticker b{ font-size:22px; }
+}

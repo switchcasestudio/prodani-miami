@@ -1,0 +1,25 @@
+{%- comment -%}
+  Free local delivery progress in the cart (mobile audit 2026-11-18: the announcement bar
+  promises free delivery over $75, the cart never said how close you were).
+  threshold: whole dollars; blank or 0 renders nothing. Uses the cart total after discounts.
+{%- endcomment -%}
+{%- assign t = threshold | default: 0 | times: 1 -%}
+{%- if t > 0 and cart.item_count > 0 -%}
+  {%- assign t_cents = t | times: 100 -%}
+  {%- assign left = t_cents | minus: cart.total_price -%}
+  {%- if left > 0 -%}
+    {%- assign pct = cart.total_price | times: 100 | divided_by: t_cents -%}
+  {%- else -%}
+    {%- assign pct = 100 -%}
+  {%- endif -%}
+  <div class="pd-free" role="status">
+    <p class="pd-free__msg">
+      {%- if left > 0 -%}
+        <b>{{ left | money }}</b> away from free local delivery in Miami.
+      {%- else -%}
+        <b>Free local delivery</b> in Miami unlocked.
+      {%- endif -%}
+    </p>
+    <div class="pd-free__bar" aria-hidden="true"><span style="width:{{ pct }}%"></span></div>
+  </div>
+{%- endif -%}

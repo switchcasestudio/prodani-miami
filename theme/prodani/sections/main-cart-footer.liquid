@@ -45,6 +45,8 @@
               {% render block %}
             {%- when 'subtotal' -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
+                {%- comment -%} Inside .js-contents so Dawn re-renders it on every quantity change. {%- endcomment -%}
+                {%- render 'prodani-free-delivery', threshold: section.settings.free_delivery -%}
                 <div>
                   {%- if cart.cart_level_discount_applications.size > 0 -%}
                     <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
@@ -61,7 +63,7 @@
 
                 <div class="totals">
                   <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-                  <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+                  <p class="totals__total-value">{% if settings.currency_code_enabled %}{{ cart.total_price | money_with_currency }}{% else %}{{ cart.total_price | money }}{% endif %}</p>
                 </div>
 
                 <small class="tax-note caption-large rte">
@@ -134,6 +136,8 @@
   </div>
 </div>
 
+{%- render 'prodani-cart-bar' -%}
+
 {% schema %}
 {
   "name": "t:sections.main-cart-footer.name",
@@ -144,6 +148,13 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "number",
+      "id": "free_delivery",
+      "label": "Free local delivery from ($)",
+      "info": "Shows how far the cart is from free delivery. Keep it equal to the announcement bar and the delivery rates. Empty or 0 hides the line.",
+      "default": 75
     },
     {
       "type": "header",

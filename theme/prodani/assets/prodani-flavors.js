@@ -12,7 +12,9 @@
      only by a fresh swipe: nobody slides past the last flavor without seeing it.
    - Keys (arrows, Page Up/Down, Space) step one flavor the same way.
    - Touch and the scrollbar scroll natively; when they come to rest between two flavors
-     the page eases to the nearest one.
+     the page eases to the nearest one. A touch swipe moves one flavor: a glide that
+     would carry past the next flavor is brought back to it.
+   - A phone on its side (landscape, under 520px tall) gets the plain stacked list.
    The wheel listener has to be non-passive to stop the glide, so it is only attached while
    the section is near the screen. Nothing here runs in the theme editor. */
 (function () {
@@ -60,6 +62,7 @@
 
   function measure() {
     ticking = false;
+    if (off) return;
     var p = Math.min(travel() - 1, Math.max(0, pos()));
     set(Math.min(n - 1, Math.floor(p / step())));
   }
@@ -87,6 +90,7 @@
   var LOCK = 650;      // ms after a step before a new swipe can step again
 
   function onWheel(e) {
+    if (off) return;
     if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY) || !e.deltaY) return;
     var p = pos();
     if (!inside(p)) { leaving = false; return; }
@@ -120,7 +124,7 @@
 
   /* ---- keys: one flavor per press ---- */
   function onKey(e) {
-    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (off || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
     var t = e.target;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(t.tagName))) return;
     var d = 0;
@@ -137,8 +141,36 @@
 
   /* ---- touch and scrollbar: rest on a flavor, never between two ---- */
   var restTimer = 0, touching = false;
+  /* One flavor per swipe on touch too (mobile audit 2026-11-18: one ordinary flick on an
+     iPhone went from 01 to 04). When the finger lifts, the next flavor in the swipe's
+     direction becomes the catch point; if the glide carries the page past it, the page is
+     brought back to it. Swiping on from the first or the last flavor leaves the section. */
+  var tY0 = 0, tY = 0, catchK = -1, catchD = 0, catchUntil = 0;
+  function onTouchStart(e) {
+    touching = true; catchK = -1;
+    tY0 = tY = e.touches && e.touches[0] ? e.touches[0].clientY : 0;
+  }
+  function onTouchMove(e) { if (e.touches && e.touches[0]) tY = e.touches[0].clientY; }
+  function onTouchEnd() {
+    touching = false;
+    if (!near || off) return;
+    var dy = tY0 - tY;                                   // finger up = page moves down
+    if (Math.abs(dy) > 12) {
+      var p = pos(), d = dy > 0 ? 1 : -1;
+      var lo = -stage.offsetHeight, hi = travel() + stage.offsetHeight;
+      var k = p > lo && p < hi ? next(p, d) : -1;
+      if (k >= 0) { catchK = k; catchD = d; catchUntil = performance.now() + 2500; }
+    }
+    onRest();
+  }
+  function catchGlide() {
+    if (catchK < 0 || touching) return;
+    if (performance.now() > catchUntil) { catchK = -1; return; }
+    var over = (pos() - centre(catchK)) * catchD;        // how far past the catch point
+    if (over > step() * 0.15) { var k = catchK; catchK = -1; go(k); }
+  }
   function settle() {
-    if (touching || moving()) return;
+    if (touching || moving() || off) return;
     var p = pos();
     if (p <= centre(0) || p >= centre(n - 1)) return;    // the way in and out stays free
     var c = nearest(p);
@@ -157,8 +189,28 @@
     document.dispatchEvent(new CustomEvent('pd:box:add', { detail: { key: a.getAttribute('data-pd-flv-add') } }));
   });
 
-  root.classList.add('is-live');
-  set(0);
+  /* A phone on its side has too little height for the pinned stage: the tray vanished and
+     the buttons were cut off (mobile audit 2026-11-18). There the section is the plain
+     stacked list (the rules not under .is-live), and it switches back when turned upright. */
+  var short = window.matchMedia('(orientation: landscape) and (max-height: 520px)');
+  var off = false;
+  function mode() {
+    off = short.matches;
+    if (off) {
+      root.classList.remove('is-live');
+      slides.forEach(function (s) {
+        s.removeAttribute('inert');
+        var img = s.querySelector('img[loading="lazy"]'); if (img) img.loading = 'eager';
+      });
+      stage.style.removeProperty('--tint');
+      active = -1;
+    } else {
+      root.classList.add('is-live');
+      active = -1;
+      measure();
+    }
+  }
+  if (short.addEventListener) short.addEventListener('change', mode); else if (short.addListener) short.addListener(mode);
 
   var wheelOpts = { passive: false };
   function attach(on) {
@@ -174,11 +226,12 @@
     }, { rootMargin: '200px 0px' }).observe(root);
   } else { near = true; attach(true); }
 
-  window.addEventListener('scroll', function () { onScroll(); if (near) onRest(); }, { passive: true });
-  window.addEventListener('touchstart', function () { touching = true; }, { passive: true });
-  window.addEventListener('touchend', function () { touching = false; if (near) onRest(); }, { passive: true });
+  window.addEventListener('scroll', function () { onScroll(); if (near && !off) { catchGlide(); onRest(); } }, { passive: true });
+  window.addEventListener('touchstart', onTouchStart, { passive: true });
+  window.addEventListener('touchmove', onTouchMove, { passive: true });
+  window.addEventListener('touchend', onTouchEnd, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
-  measure();
+  mode();
   // The section just grew: tell the scroll-reveal layer to re-measure what sits below it.
   window.addEventListener('load', function () { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); });
 })();

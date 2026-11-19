@@ -64,7 +64,7 @@
 .pd-cmp__table .is-no{ color:#8A776B; text-decoration:line-through; text-decoration-thickness:2px; }
 @media (max-width:749px){
   .pd-cmp__note{ text-align:left; }
-  .pd-cmp__table thead th{ font-size:10px; letter-spacing:.08em; }
+  .pd-cmp__table thead th{ font-size:11px; letter-spacing:.06em; }
   .pd-cmp__table tbody th{ font-size:11px; }
   .pd-cmp__table td{ font-size:12px; }
   .pd-cmp__table .is-big{ font-size:26px; }

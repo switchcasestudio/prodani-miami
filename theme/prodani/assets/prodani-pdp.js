@@ -64,15 +64,19 @@
   });
 
   if ('IntersectionObserver' in window) {
-    // Show only once the real buy button has scrolled up out of view, and step aside
-    // for the footer: on iPhone the bar sat on top of the newsletter field.
+    // Show whenever the real buy button is off screen, above or below, and step aside
+    // for the footer: on iPhone the bar sat on top of the newsletter field. Below too
+    // since the mobile audit 2026-11-18: on a phone the real button sat more than two
+    // screens down (y=1865 on an 874pt screen), under the gallery, title and options, so
+    // the first screen had no way to buy. The bar clicks the real button, so the
+    // defaults it adds are the ones the form shows.
     var pastButton = false;
     var footerInView = false;
     var footer = document.querySelector('.pd-foot');
     function update() { bar.classList.toggle('is-visible', pastButton && !footerInView); }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.target === anchor) pastButton = !e.isIntersecting && e.boundingClientRect.top < 0;
+        if (e.target === anchor) pastButton = !e.isIntersecting;
         else footerInView = e.isIntersecting;
       });
       update();
@@ -88,7 +92,8 @@
       ticking = true;
       requestAnimationFrame(function () {
         ticking = false;
-        var past = anchor.getBoundingClientRect().bottom < 0;
+        var r = anchor.getBoundingClientRect();
+        var past = r.bottom < 0 || r.top > window.innerHeight;
         if (past !== pastButton) { pastButton = past; update(); }
       });
     }, { passive: true });
