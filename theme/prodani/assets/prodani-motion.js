@@ -12,20 +12,15 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* pdArrival (set in the layout head) says whether this page came in through the page
-     transition. If it did, the transition was the entrance and the first screen has
-     already been shown: hiding it again to fade it in reads as a flash. So what is on
-     screen stays put, and everything further down reveals as usual. */
-  if (window.pdArrival && window.pdArrival.then) window.pdArrival.then(start); else start(false);
+  /* .pd-tr-arrive (set in <head> by snippets/pd-transition.liquid) means this page came in
+     under the "Rise" panel. Then the panel is the entrance and the first screen is revealed
+     as it leaves: hiding it again to fade it in reads as a flash. So what is on screen stays
+     put, and everything further down reveals as usual. */
+  start(document.documentElement.classList.contains('pd-tr-arrive'));
 
   function start(arrived) {
   var vh = window.innerHeight;
-  // A piece the page entrance already brought in (theme.liquid, data-pd-in), or one that
-  // holds or sits inside one, never gets a second scroll reveal.
-  function shown(el) {
-    if (el.closest('[data-pd-in]') || el.querySelector('[data-pd-in]')) return true;
-    return arrived && el.getBoundingClientRect().top < vh;
-  }
+  function shown(el) { return arrived && el.getBoundingClientRect().top < vh; }
   function fresh(list) { return gsap.utils.toArray(list).filter(function (el) { return !shown(el); }); }
 
   var mm = gsap.matchMedia();
