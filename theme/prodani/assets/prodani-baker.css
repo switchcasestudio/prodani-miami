@@ -110,3 +110,21 @@
   .pd-story:not(.pd-story--feature):not(:has(.pd-story__cta)) .pd-story__media{ margin-top:calc(-1 * var(--rule)); }
   .pd-story{ padding-bottom:32px; }
 }
+
+/* Pillars as tap-to-open rows (Moses 2026-11-19: "make it drop down, no need to expose
+   all, it's daunting"). Closed, each row is the icon and the label; the chevron turns
+   when it opens. The row is the whole tap target (54px+). */
+.pd-story__list li.pd-story__item{ display:block; padding:0; }
+.pd-story__drop > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:16px; padding:14px 20px; min-height:54px;
+  -webkit-tap-highlight-color:transparent; }
+.pd-story__drop > summary::-webkit-details-marker{ display:none; }
+.pd-story__drop > summary b{ flex:1; }
+.pd-story__drop > summary:focus-visible{ outline:3px solid var(--berry); outline-offset:-3px; }
+.pd-story__chev{ flex:none; width:10px; height:10px; border-right:2px solid var(--cocoa); border-bottom:2px solid var(--cocoa);
+  rotate:45deg; translate:0 -3px; transition:rotate .25s cubic-bezier(.23,1,.32,1), translate .25s cubic-bezier(.23,1,.32,1); }
+.pd-story__drop[open] .pd-story__chev{ rotate:225deg; translate:0 2px; }
+.pd-story__drop > p{ margin:0; padding:0 20px 18px calc(20px + 44px + 16px); color:var(--cocoa); font-size:16px; font-weight:500; line-height:1.5; }
+.pd-story__drop:not(:has(.pd-story__icon)) > p{ padding-left:20px; }
+@media (hover:hover) and (pointer:fine){ .pd-story__drop > summary:hover b{ text-decoration:underline; text-underline-offset:4px; } }
+@media (max-width:620px){ .pd-story__drop > summary{ padding:12px 16px; } .pd-story__drop > p{ padding:0 16px 16px 16px; } }
+@media (prefers-reduced-motion:reduce){ .pd-story__chev{ transition:none; } }

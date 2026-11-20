@@ -65,6 +65,7 @@
                   endif
                 endif
               -%}
+              {%- if section.settings.pillars_row -%}
               <li {{ block.shopify_attributes }}>
                 {%- if icon != 'none' -%}
                   <span class="pd-story__icon" aria-hidden="true">{{ icon | append: '.svg' | inline_asset_content }}</span>
@@ -74,6 +75,22 @@
                   <span>{{ block.settings.text | escape }}</span>
                 </span>
               </li>
+              {%- else -%}
+              {%- comment -%} In the text column each pillar is a closed row that opens on tap
+                  (Moses 2026-11-19: "no need to expose all, it's daunting"). {%- endcomment -%}
+              <li class="pd-story__item" {{ block.shopify_attributes }}>
+                <details class="pd-story__drop">
+                  <summary>
+                    {%- if icon != 'none' -%}
+                      <span class="pd-story__icon" aria-hidden="true">{{ icon | append: '.svg' | inline_asset_content }}</span>
+                    {%- endif -%}
+                    <b>{{ block.settings.label | escape }}</b>
+                    <span class="pd-story__chev" aria-hidden="true"></span>
+                  </summary>
+                  <p>{{ block.settings.text | escape }}</p>
+                </details>
+              </li>
+              {%- endif -%}
             {%- endfor -%}
           </ul>
         {%- endif -%}

@@ -316,3 +316,25 @@ font-weight:600; }
    second row no longer leaves the first row's top rule hanging past it (mobile audit 2026-11-18). */
 .pd-spreads__chips{ border:0; padding:0 var(--rule) var(--rule) 0; }
 .pd-spreads__chips li{ border:var(--rule) solid var(--line); margin:0 calc(-1 * var(--rule)) calc(-1 * var(--rule)) 0; }
+
+/* Short trio (Moses 2026-11-19: "too much for a product that is coming soon"): three
+   cards in one row on every screen, each the jar, the name and its three words; then
+   one line and the button. Full-screen height only from tablet up. */
+.pd-spreads--home .pd-spreads__cards{ grid-template-columns:repeat(3, minmax(0,1fr)); }
+.pd-spreads--home .pd-spreads__card-title{ margin-top:16px; }
+.pd-spreads--home .pd-spreads__card-tag{ margin-top:6px; }
+@media (max-width:749px){
+  .pd-spreads--home{ min-height:0; padding-bottom:48px; }
+  .pd-spreads--home .pd-spreads__trio{ padding-top:44px; }
+  .pd-spreads--home .pd-sec-head{ margin-bottom:20px; }
+  .pd-spreads--home .pd-spreads__h2{ font-size:clamp(36px, 11vw, 52px); }
+  .pd-spreads--home .pd-spreads__card{ padding-bottom:14px; }
+  .pd-spreads--home .pd-spreads__card-media{ padding-block:12px; }
+  .pd-spreads--home .pd-spreads__card-media img{ height:auto; width:78%; }
+  .pd-spreads--home .pd-spreads__card > :not(.pd-spreads__card-media):not(.pd-spreads__card-bar){ margin-inline:10px; }
+  .pd-spreads--home .pd-spreads__card-title{ margin-top:10px; font-size:clamp(17px, 5.2vw, 22px); }
+  .pd-spreads--home .pd-spreads__card-title span{ display:block; margin:4px 0 0; font-size:9px; letter-spacing:.12em; }
+  .pd-spreads--home .pd-spreads__card-tag{ font-size:12px; line-height:1.3; font-weight:700; }
+  .pd-spreads__home-foot{ margin-top:22px; gap:16px; }
+  .pd-spreads__home-foot .pd-spreads__trio-lede{ font-size:15px; }
+}

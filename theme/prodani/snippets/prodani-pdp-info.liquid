@@ -57,36 +57,43 @@
     assign has_ship = true
   endif
 -%}
+{%- comment -%} Details as tap-to-open rows (Moses 2026-11-19: "all these should be drop down
+    menus, it's too daunting to read; if a user wants to read it, he can click on it"). {%- endcomment -%}
 <section class="pd-details" aria-label="Product details">
   <div class="pd-details__cells">
 
     {%- if ingredients != '' or edit -%}
-      <div class="pd-details__cell pd-details__cell--wide">
-        <h2 class="pd-details__h">What's in it</h2>
+      <details class="pd-details__cell pd-details__cell--wide">
+        <summary class="pd-details__sum"><h2 class="pd-details__h">What's in it</h2><span class="pd-details__chev" aria-hidden="true"></span></summary>
+        <div class="pd-details__body">
         {%- if ingredients != '' -%}
           <p>{{ ingredients | newline_to_br }}</p>
         {%- else -%}
           <p class="is-sample">Sample — the full ingredient list will appear here once
             <code>prodani.ingredients</code> is set in admin.</p>
         {%- endif -%}
-      </div>
+        </div>
+      </details>
     {%- endif -%}
 
     {%- if allergens != '' or edit -%}
-      <div class="pd-details__cell">
-        <h2 class="pd-details__h">Allergens</h2>
+      <details class="pd-details__cell">
+        <summary class="pd-details__sum"><h2 class="pd-details__h">Allergens</h2><span class="pd-details__chev" aria-hidden="true"></span></summary>
+        <div class="pd-details__body">
         {%- if allergens != '' -%}
           <p class="pd-details__warn">{{ allergens }}</p>
         {%- else -%}
           <p class="is-sample">Sample — allergen statement appears here once
             <code>prodani.allergens</code> is set in admin (ticket T2/T4).</p>
         {%- endif -%}
-      </div>
+        </div>
+      </details>
     {%- endif -%}
 
     {%- if has_storage or edit -%}
-      <div class="pd-details__cell">
-        <h2 class="pd-details__h">Storage &amp; shelf life</h2>
+      <details class="pd-details__cell">
+        <summary class="pd-details__sum"><h2 class="pd-details__h">Storage &amp; shelf life</h2><span class="pd-details__chev" aria-hidden="true"></span></summary>
+        <div class="pd-details__body">
         {%- if has_storage -%}
           {%- if cake_shelf -%}
             <p><b>Fridge:</b> up to 8 days.<br><b>Freezer:</b> up to 90 days.</p>
@@ -98,12 +105,14 @@
           <p class="is-sample">Sample — storage and shelf-life guidance appears here once set in
             admin. Whether items are refrigerated, frozen, or shelf-stable is pending (ticket T5).</p>
         {%- endif -%}
-      </div>
+        </div>
+      </details>
     {%- endif -%}
 
     {%- if has_ship or edit -%}
-      <div class="pd-details__cell">
-        <h2 class="pd-details__h">{% if shop.shipping_policy.body != blank %}Shipping &amp; returns{% else %}Returns{% endif %}</h2>
+      <details class="pd-details__cell">
+        <summary class="pd-details__sum"><h2 class="pd-details__h">{% if shop.shipping_policy.body != blank %}Shipping &amp; returns{% else %}Returns{% endif %}</h2><span class="pd-details__chev" aria-hidden="true"></span></summary>
+        <div class="pd-details__body">
         <div class="pd-details__rte">
           {%- comment -%} Moses 2026-11-18: anyone with a problem is welcome to reach out and we
               make it right. The 24-hour window is the store's refund policy. {%- endcomment -%}
@@ -115,14 +124,17 @@
             <p><a class="pd-details__link" href="{{ shop.refund_policy.url }}">Read our full returns policy</a></p>
           {%- endif -%}
         </div>
-      </div>
+        </div>
+      </details>
     {%- endif -%}
 
     {%- if mf.faq != blank -%}
-      <div class="pd-details__cell pd-details__cell--full">
-        <h2 class="pd-details__h">FAQ</h2>
+      <details class="pd-details__cell pd-details__cell--full">
+        <summary class="pd-details__sum"><h2 class="pd-details__h">FAQ</h2><span class="pd-details__chev" aria-hidden="true"></span></summary>
+        <div class="pd-details__body">
         <div class="pd-details__rte">{{ mf.faq | metafield_tag }}</div>
-      </div>
+        </div>
+      </details>
     {%- endif -%}
   </div>
 
@@ -154,6 +166,12 @@
               {%- liquid
                 assign t = row | strip_html | strip
                 if t == blank
+                  continue
+                endif
+                # No "Servings per container" (Moses 2026-11-19): a 5-pack and a box of 12
+                # differ; the serving is one cake, and that row stays.
+                assign t_d = t | downcase
+                if t_d contains 'servings per container'
                   continue
                 endif
                 assign first = t | slice: 0

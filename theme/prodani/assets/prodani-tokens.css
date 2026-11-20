@@ -160,3 +160,9 @@ html .pd-review__title, html .pd-foot__colhead, html .pd-foot__card-title{ font-
 .pd-btn--ghost:hover{ background:var(--cocoa); color:#fff; }
 .pd-btn--light{ background:#fff; color:var(--cocoa); border-color:#fff; }
 .pd-btn--light:hover{ background:var(--pink); border-color:var(--pink); }
+
+/* House rule (Moses 2026-11-19): a wrapped line never ends with one word alone on the
+   last line. text-wrap:pretty asks the browser to re-break the last lines so at least
+   two words sit together (Safari 26+, Chrome 117+; older browsers and Firefox simply
+   wrap as before). Applied to all text, headings included. */
+:where(p, li, dd, dt, td, th, figcaption, blockquote, label, summary, h1, h2, h3, h4, h5, h6, .rte, .pd-eyebrow){ text-wrap:pretty; }
