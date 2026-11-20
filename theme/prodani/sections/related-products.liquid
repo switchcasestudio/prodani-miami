@@ -35,6 +35,12 @@
         <h2 class="related-products__heading pd-sec-title inline-richtext">
           {{ section.settings.heading }}
         </h2>
+        {%- comment -%} Arrows (Moses 2026-11-19: "impossible to understand that there is
+            more"). Shown only while the row scrolls sideways (phones, more than 4 cakes). {%- endcomment -%}
+        <div class="pd-related__nav" data-pd-related-nav hidden>
+          <button type="button" class="pd-related__arrow" data-dir="-1" aria-label="Previous flavors"><span aria-hidden="true">&larr;</span></button>
+          <button type="button" class="pd-related__arrow" data-dir="1" aria-label="More flavors"><span aria-hidden="true">&rarr;</span></button>
+        </div>
       </div>
       <div class="pd-grid">
         {%- for recommendation in recommendations.products -%}
@@ -43,6 +49,37 @@
       </div>
     {% endif %}
   </product-recommendations>
+  <script>
+    (function () {
+      // The cards arrive after the page (product-recommendations fetches them), so the
+      // arrows are wired by delegation and re-checked whenever the row changes.
+      function grid(nav) { var r = nav.closest('.pd-related'); return r && r.querySelector('.pd-grid'); }
+      function sync() {
+        document.querySelectorAll('[data-pd-related-nav]').forEach(function (nav) {
+          var g = grid(nav); if (!g) return;
+          var more = g.scrollWidth > g.clientWidth + 2;
+          nav.hidden = !more;
+          if (!more) return;
+          nav.children[0].disabled = g.scrollLeft < 4;
+          nav.children[1].disabled = g.scrollLeft + g.clientWidth > g.scrollWidth - 4;
+        });
+      }
+      document.addEventListener('click', function (e) {
+        var b = e.target.closest('.pd-related__arrow'); if (!b) return;
+        var g = grid(b.parentNode); if (!g) return;
+        var col = g.firstElementChild ? g.firstElementChild.getBoundingClientRect().width : g.clientWidth / 2;
+        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        g.scrollBy({ left: Number(b.dataset.dir) * col, behavior: reduce ? 'auto' : 'smooth' });
+      });
+      document.addEventListener('scroll', function (e) {
+        if (e.target.closest && e.target.closest('.pd-related')) sync();
+      }, true);
+      window.addEventListener('resize', sync);
+      var host = document.querySelector('product-recommendations.pd-related');
+      if (host && 'MutationObserver' in window) new MutationObserver(sync).observe(host, { childList: true });
+      sync();
+    })();
+  </script>
   {% if section.settings.image_shape == 'arch' %}
     {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}

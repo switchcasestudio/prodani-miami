@@ -1,4 +1,6 @@
 {%- comment -%}
+  2026-11-19: three short cards in one row on every screen (jar, name, three words),
+  then one line and the button. Less to read for a product that is not on sale yet.
   The spreads on the homepage: the "Meet the trio" cards from the spreads page
   (sections/prodani-spreads.liquid) instead of the open-box photo (Moses 2026-11-18:
   "I love this so much more"). Each card shows its own jar (an uploaded photo, or the
@@ -28,7 +30,7 @@
               <div class="pd-spreads__card-media">
                 {{ block.settings.image | image_url: width: 900
                    | image_tag: loading: 'lazy', widths: '450, 700, 900',
-                     sizes: '(min-width: 981px) 30vw, 92vw', alt: block.settings.alt }}
+                     sizes: '(min-width: 750px) 30vw, 33vw', alt: block.settings.alt }}
               </div>
             {%- elsif block.settings.bundled != blank and block.settings.bundled != 'none' -%}
               <div class="pd-spreads__card-media">
@@ -37,21 +39,14 @@
               </div>
             {%- endif -%}
             <span class="pd-spreads__card-bar" aria-hidden="true"></span>
-            <p class="pd-spreads__card-n">0{{ forloop.index }}</p>
+            {%- comment -%} Home cards are short (Moses 2026-11-19: "too much for a product that
+                is coming soon"): the jar, the name and its three-word line. The flavor text,
+                the direction and the pairings stay on the spreads page; their settings are kept. {%- endcomment -%}
             <h3 class="pd-spreads__card-title">
               {{ block.settings.name | escape }}
               {%- if block.settings.kind != blank -%}<span>{{ block.settings.kind | escape }}</span>{%- endif -%}
             </h3>
             {%- if block.settings.tagline != blank -%}<p class="pd-spreads__card-tag">{{ block.settings.tagline | escape }}</p>{%- endif -%}
-            {%- if block.settings.text != blank -%}<p class="pd-spreads__card-text">{{ block.settings.text | escape }}</p>{%- endif -%}
-            <dl class="pd-spreads__card-specs">
-              {%- if block.settings.direction != blank -%}
-                <dt>{{ section.settings.direction_label | escape }}</dt><dd>{{ block.settings.direction | escape }}</dd>
-              {%- endif -%}
-              {%- if block.settings.pairs != blank -%}
-                <dt>{{ section.settings.pairs_label | escape }}</dt><dd>{{ block.settings.pairs | escape }}</dd>
-              {%- endif -%}
-            </dl>
           </li>
         {%- endfor -%}
       </ol>

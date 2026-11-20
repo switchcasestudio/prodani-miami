@@ -213,3 +213,11 @@ html .pd-flv__name{ font-size:clamp(48px, min(22cqi, 18svh), 160px); }
 @media (prefers-reduced-motion:reduce){
   .pd-flv.is-live .pd-flv__ghost{ transform:none !important; opacity:1 !important; }
 }
+
+/* The stage fills the screen Safari actually shows (Moses 2026-11-19, iPhone: an empty
+   strip under the buttons). 100svh is the height with Safari's toolbar out; once the
+   toolbar slides away the screen is taller and the section's own background showed
+   below the stage. dvh follows the toolbar. */
+@supports (height:100dvh){
+  .pd-flv{ --stage-h: calc(100dvh - var(--pd-nav-h, 64px)); }
+}

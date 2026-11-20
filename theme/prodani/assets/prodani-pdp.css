@@ -348,3 +348,43 @@
 
 /* Lowercase units (Moses 2026-11-18: "0G" reads as "OG"): "20g", "0g", like the hero. */
 .pd-macro__n{ text-transform:none; }
+
+/* ======================= Round 3 (Moses 2026-11-19) ======================= */
+/* Details as tap-to-open rows: the heading is the row, the chevron turns when it opens. */
+.pd-details__cell{ padding:0; }
+.pd-details__sum{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:16px;
+  min-height:60px; padding:14px clamp(18px,2.2vw,28px); -webkit-tap-highlight-color:transparent; }
+.pd-details__sum::-webkit-details-marker{ display:none; }
+.pd-details__sum .pd-details__h{ margin:0; font-size:clamp(24px,2.2vw,30px); }
+.pd-details__sum:focus-visible{ outline:3px solid var(--berry); outline-offset:-3px; }
+.pd-details__chev{ flex:none; width:11px; height:11px; border-right:2.5px solid var(--cocoa); border-bottom:2.5px solid var(--cocoa);
+  rotate:45deg; translate:0 -3px; transition:rotate .25s cubic-bezier(.23,1,.32,1), translate .25s cubic-bezier(.23,1,.32,1); }
+.pd-details__cell[open] .pd-details__chev{ rotate:225deg; translate:0 2px; }
+.pd-details__body{ padding:0 clamp(18px,2.2vw,28px) clamp(18px,2.2vw,26px); }
+@media (prefers-reduced-motion:no-preference){
+  .pd-details__cell[open] .pd-details__body{ animation:pd-drop-in .3s cubic-bezier(.23,1,.32,1) both; }
+  @keyframes pd-drop-in{ from{ opacity:0; translate:0 -6px; } }
+}
+@media (prefers-reduced-motion:reduce){ .pd-details__chev{ transition:none; } }
+.pd-details__cell, .pd-details__cell--wide, .pd-details__cell--full{ flex:1 1 100%; } /* one ruled row each, on every screen */
+
+/* Nutrition facts on phones: a tight header (no empty band under the title), the cake as
+   a big faded backdrop running off the panel's right side (only its top shows), and
+   smaller fact rows. */
+@media (max-width:749px){
+  .pd-nut__side{ display:block !important; position:relative !important; isolation:isolate; overflow:hidden; padding:18px 20px 16px !important; min-height:0; }
+  .pd-nut__side > .pd-eyebrow{ margin:0 0 6px; }
+  .pd-nut__title{ margin:0; }
+  .pd-nut__side > .pd-nut__src{ margin:8px 0 0 !important; max-width:74%; font-size:13px; line-height:1.4; }
+  .pd-nut__cut{ position:absolute; z-index:-1; top:-14px; right:-6%; width:46% !important; height:auto !important;
+    max-width:none !important; max-height:none !important; margin:0 !important; rotate:-12deg; opacity:.24; pointer-events:none; }
+  .pd-nut__main{ padding:12px 16px 16px !important; }
+  .pd-nut__table th, .pd-nut__table td{ padding:5px 0; }
+  .pd-nut__table th{ font-size:12.5px; }
+  .pd-nut__amt{ font-size:14.5px !important; padding-right:10px; }
+  .pd-nut__dv{ font-size:12px; width:3.2em; }
+  .pd-nut__table tr.is-sub th{ padding-left:12px; }
+  .pd-nut__table tr.is-sub .pd-nut__amt{ font-size:13.5px !important; }
+  .pd-nut__table tr.is-hl .pd-nut__amt{ font-size:17px !important; }
+  .pd-nut__table tr.is-hl th{ font-size:13px; }
+}
