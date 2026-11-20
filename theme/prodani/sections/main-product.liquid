@@ -106,8 +106,20 @@
                   {%- if pd_protein != blank -%}
                     <p class="pd-gal__ghost" aria-hidden="true">{{ pd_protein }}g</p>
                   {%- endif -%}
+                  {%- comment -%} Intrinsic size of each cut-out (same table as prodani-card), so the
+                      browser reserves the box before the image arrives. CSS sets the rendered size. {%- endcomment -%}
+                  {%- case pd_fl[4] -%}
+                    {%- when 'pd-cut-chocolate.webp' -%}{%- assign cw = 374 -%}{%- assign ch = 953 -%}
+                    {%- when 'pd-cut-hazelnut.webp' -%}{%- assign cw = 358 -%}{%- assign ch = 924 -%}
+                    {%- when 'pd-cut-carrot.webp' -%}{%- assign cw = 358 -%}{%- assign ch = 922 -%}
+                    {%- when 'pd-cut-pistachio.webp' -%}{%- assign cw = 388 -%}{%- assign ch = 950 -%}
+                    {%- when 'pd-cut-banana.webp' -%}{%- assign cw = 375 -%}{%- assign ch = 954 -%}
+                    {%- when 'pd-cut-cherry-white.webp' -%}{%- assign cw = 368 -%}{%- assign ch = 950 -%}
+                    {%- when 'pd-cut-apple.webp' -%}{%- assign cw = 369 -%}{%- assign ch = 945 -%}
+                    {%- else -%}{%- assign cw = 370 -%}{%- assign ch = 950 -%}
+                  {%- endcase -%}
                   <div class="pd-gal__cutbox">
-                    <img class="pd-gal__cut" src="{{ pd_fl[4] | asset_url }}" alt="{{ product.title | escape }}" fetchpriority="high">
+                    <img class="pd-gal__cut" src="{{ pd_fl[4] | asset_url }}" alt="{{ product.title | escape }}" width="{{ cw }}" height="{{ ch }}" fetchpriority="high">
                   </div>
                 </div>
               </div>

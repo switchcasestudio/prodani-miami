@@ -59,9 +59,9 @@
         {%- when 'pd-cut-banana.webp' -%}{%- assign cw = 375 -%}{%- assign ch = 954 -%}
         {%- when 'pd-cut-cherry-white.webp' -%}{%- assign cw = 368 -%}{%- assign ch = 950 -%}
         {%- when 'pd-cut-apple.webp' -%}{%- assign cw = 369 -%}{%- assign ch = 945 -%}
-        {%- else -%}{%- assign cw = nil -%}{%- assign ch = nil -%}
+        {%- else -%}{%- assign cw = 370 -%}{%- assign ch = 950 -%}{%- comment -%} any new upright cut-out: typical tray ratio {%- endcomment -%}
       {%- endcase -%}
-      <img class="pd-card__cut" src="{{ fl[4] | asset_url }}" alt="{{ product.title | escape }}"{% if cw %} width="{{ cw }}" height="{{ ch }}"{% endif %} loading="lazy">
+      <img class="pd-card__cut" src="{{ fl[4] | asset_url }}" alt="{{ product.title | escape }}" width="{{ cw }}" height="{{ ch }}" loading="lazy">
     {%- elsif product.featured_image != blank -%}
       {{ product.featured_image | image_url: width: 800
          | image_tag: loading: 'lazy', class: 'pd-card__img pd-card__img--main',
