@@ -128,3 +128,11 @@
 @media (hover:hover) and (pointer:fine){ .pd-story__drop > summary:hover b{ text-decoration:underline; text-underline-offset:4px; } }
 @media (max-width:620px){ .pd-story__drop > summary{ padding:12px 16px; } .pd-story__drop > p{ padding:0 16px 16px 16px; } }
 @media (prefers-reduced-motion:reduce){ .pd-story__chev{ transition:none; } }
+
+/* Round 4 (Moses 2026-11-19, #6): with the pillars closed as dropdowns, the video no
+   longer butts against the last row; it gets its own breathing room on stacked layouts.
+   Supersedes the one-stack rule above (same day, before the dropdowns). */
+@media (max-width:980px){
+  .pd-story:not(.pd-story--feature):not(:has(.pd-story__cta)) .pd-story__in{ row-gap:28px; }
+  .pd-story:not(.pd-story--feature):not(:has(.pd-story__cta)) .pd-story__media{ margin-top:0; }
+}
