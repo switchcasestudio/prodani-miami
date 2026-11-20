@@ -334,3 +334,36 @@ html{ scroll-padding-top:calc(var(--pd-nav-h) + 16px); }
 @media (min-width:960px) and (max-width:1080px){
   .pd-nav__link{ letter-spacing:.025em; }
 }
+
+/* ---- The hop (Moses 2026-11-19): the logo plays on hover (mouse) or tap, header and footer
+   alike. The letters ripple left to right, the i's dot pops, then the full stop jumps,
+   turns half a turn in the air and lands with a squash. About 0.9s, once per trigger;
+   prodani-header.js adds .is-hop and removes it when the stop lands. Transforms only. */
+.pd-logo{ overflow:visible; }
+.pd-logo__l, .pd-logo__dot, .pd-logo__stop{ transform-box:fill-box; transform-origin:50% 100%; }
+.pd-logo__stop{ transform-origin:50% 50%; }
+.pd-foot__mark{ cursor:pointer; -webkit-tap-highlight-color:transparent; }
+@media (prefers-reduced-motion: no-preference){
+  .pd-logo.is-hop .pd-logo__l{ animation:pd-logo-ripple .46s cubic-bezier(.33,1,.68,1) calc(var(--i) * 38ms) both; }
+  .pd-logo.is-hop .pd-logo__dot{ animation:pd-logo-pop .5s cubic-bezier(.33,1,.68,1) 230ms both; }
+  .pd-logo.is-hop .pd-logo__stop{ animation:pd-logo-jump .74s linear 300ms both; }
+  @keyframes pd-logo-ripple{
+    0%{ transform:none; }
+    40%{ transform:translateY(-16%); }
+    100%{ transform:none; }
+  }
+  @keyframes pd-logo-pop{
+    0%{ transform:none; }
+    45%{ transform:translateY(-150%) scale(1.15); }
+    100%{ transform:none; }
+  }
+  /* Up fast, hang, spin, drop, squash on the baseline, settle. */
+  @keyframes pd-logo-jump{
+    0%{ transform:none; animation-timing-function:cubic-bezier(.2,.7,.3,1); }
+    12%{ transform:translateY(8%) scale(1.12,.84); animation-timing-function:cubic-bezier(.2,.7,.3,1); }
+    48%{ transform:translateY(-190%) rotate(180deg); animation-timing-function:cubic-bezier(.6,0,.9,.5); }
+    78%{ transform:translateY(11%) rotate(180deg) scale(1.2,.78); animation-timing-function:cubic-bezier(.3,.7,.4,1); }
+    90%{ transform:translateY(-14%) rotate(180deg) scale(.96,1.04); }
+    100%{ transform:rotate(180deg); }
+  }
+}

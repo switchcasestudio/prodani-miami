@@ -94,6 +94,33 @@
   window.addEventListener('pageshow', function (e) { if (e.persisted || cameBack()) refreshCount(); });
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') refreshCount(); });
 
+  /* The logo hop (2026-11-19): a mouse plays it on entering the logo, a finger or a click
+     on pressing it. Header and footer logos alike. One play at a time; it ends when the
+     stop lands (prodani-header.css). Skipped under reduced motion. */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var hop = function (svg) {
+      if (!svg || svg.classList.contains('is-hop')) return;
+      svg.classList.add('is-hop');
+      var stop = svg.querySelector('.pd-logo__stop');
+      var done = function () { svg.classList.remove('is-hop'); };
+      if (stop) stop.addEventListener('animationend', done, { once: true });
+      setTimeout(done, 1400);               // in case the animation never runs
+    };
+    var logoOf = function (t) {
+      var host = t && t.closest && t.closest('.pd-nav__logo, .pd-foot__mark');
+      return host ? (host.matches('svg') ? host : host.querySelector('.pd-logo')) : null;
+    };
+    document.addEventListener('pointerover', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var host = e.target.closest && e.target.closest('.pd-nav__logo, .pd-foot__mark');
+      if (host && !(e.relatedTarget && host.contains(e.relatedTarget))) hop(logoOf(e.target));   // entering, not moving inside
+    }, { passive: true });
+    document.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') hop(logoOf(e.target));
+    }, { passive: true });
+    document.addEventListener('click', function (e) { hop(logoOf(e.target)); });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else { init(); }
