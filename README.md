@@ -1,73 +1,46 @@
-# Prodani Miami — Shopify Theme
+# Prodani Miami — Shopify theme
 
-Theme development and site-audit workspace for the **ProDani Miami** storefront (high-protein cakes and muffins, Miami).
+Theme source and tooling for the **Prodani Miami** storefront (high-protein cakes, Miami).
+Design and build: Switchcase Studio.
 
-## What this repo is
+> **This repo is public.** No credentials, tokens, store admin URLs, client documents or customer data belong here. `.gitignore` is deliberately over-broad. If you are unsure whether a file is safe, do not commit it.
 
-- The Shopify theme source, pulled from the live store via the Shopify CLI.
-- A site audit (`audit/`) — Lighthouse reports plus an on-page SEO crawl — and the findings written up in [`audit/AUDIT.md`](audit/AUDIT.md).
-- A running [`WORKLOG.md`](WORKLOG.md) of what changed each session.
-- A redesign concept in [`design/`](design/README.md) — a React build in the brand's own chocolate/pink/cream palette, running on the real catalog.
-
-> **This repo is public.** No credentials, tokens, store admin URLs, or customer data belong here. See `.gitignore` — it is deliberately over-broad. If you are unsure whether a file is safe, do not commit it.
-
-## Local dev workflow
-
-Requires [Shopify CLI](https://shopify.dev/docs/api/shopify-cli) and Node 18+.
-
-```bash
-# Authenticate (opens a browser; never commit the resulting .shopify/ dir)
-shopify auth login
-
-# Pull the live theme into this working copy
-shopify theme pull
-
-# Run a local dev server with hot reload against the live store data
-shopify theme dev
-
-# Push changes back — ALWAYS to an unpublished theme first
-shopify theme push --unpublished --theme "wip-<yourname>"
-```
-
-Only publish to the live theme after review. `shopify theme push` with no flags targets whatever theme is currently selected — check twice.
-
-## Running the audit
-
-```bash
-npx lighthouse https://prodanimiami.com \
-  --output=html --output=json \
-  --output-path=./audit/lighthouse-home \
-  --only-categories=performance,seo,accessibility,best-practices \
-  --chrome-flags="--headless=new"
-```
-
-Repeat for a collection page and a product page, changing the URL and the `--output-path` name. Results land in `audit/` as `lighthouse-<page>.html` / `.json`.
-
-Reports are single-run mobile emulation and vary ±5 points between runs — re-measure before and after any performance work rather than trusting one number.
-
-## Project structure
+## Structure
 
 ```
 .
-├── audit/
-│   ├── AUDIT.md              # The written report — start here
-│   ├── seo-crawl.json        # Extracted on-page SEO signals per template
-│   ├── lighthouse-home.*     # Lighthouse HTML + JSON, homepage
-│   ├── lighthouse-collection.*
-│   └── lighthouse-product.*
-├── WORKLOG.md                # Dated session log, newest first
-├── README.md
-└── .gitignore
+├── theme/
+│   ├── prodani/          # The Shopify theme (Online Store 2.0, Dawn 16 base) — what gets pushed to the store
+│   ├── scripts/          # preflight checks, publish, OG share cards, nutrition labels, QA helpers
+│   ├── prodani-motion/   # Remotion project: brand motion, page transition tokens, promo clips
+│   └── package.json      # npm scripts (dev, push:staging, push:live, preflight, ...)
+├── directions/           # Design-direction mockups (static HTML) and their render scripts
+├── casestudy/            # Case study build for switchcasestudio.com
+├── blog/                 # Journal articles (source text and images)
+├── brand/                # Earlier logo kit (superseded by the current wordmark in the theme)
+└── PRODUCT.md
 ```
 
-Once the theme is pulled, the standard Shopify directories (`assets/`, `config/`, `layout/`, `locales/`, `sections/`, `snippets/`, `templates/`) sit alongside the above. Note that `.gitignore` excludes `config/*.yml` (CLI auth) while keeping `config/settings_schema.json` and `config/settings_data.json`, which are theme source.
+## Theme workflow
 
-## Audit summary
+Requires [Shopify CLI](https://shopify.dev/docs/api/shopify-cli) and Node 20+. The store token lives in `theme/.env` (git-ignored).
 
-Full detail in [`audit/AUDIT.md`](audit/AUDIT.md). Headline: a **5.6 MB autoplaying hero video** accounts for 73% of the homepage payload and is the primary cause of a 7.8 s LCP.
+```bash
+cd theme
+npm install
+npm run dev            # local preview with hot reload
+npm run push:staging   # push to the unpublished staging theme
+npm run preflight      # automated checks against a preview theme
+```
 
-| Page | Performance | Accessibility | Best Practices | SEO |
-|---|---|---|---|---|
-| Home | 55 | 72 | 73 | 85 |
-| Collection | 74 | 74 | 77 | 92 |
-| Product | 45 | 74 | 77 | 92 |
+Work on a branch off `main`, push to staging, run preflight, review, then merge.
+Only the store owner's approval puts a change on the live theme (`npm run push:live`).
+
+## Motion
+
+```bash
+cd theme/prodani-motion
+npm install
+npm run build:theme    # regenerate the page-transition assets from src/motion-tokens.json
+npm run studio         # preview compositions
+```
