@@ -789,6 +789,50 @@
       {% render 'prodani-pdp-info', placement: 'below' %}
 
       {% render 'product-media-modal', variant_images: variant_images %}
+      {%- comment -%} Tweaks 8: the lightbox shows one image at a time (prodani-product.css "Lightbox").
+          Dawn's product-modal.js scrolls the row back to the start after opening, so this
+          moves it to the image that was clicked, then keeps the counter and arrows in step. {%- endcomment -%}
+      <script>
+        (function () {
+          var m = document.getElementById('ProductModal-{{ section.id }}');
+          if (!m) return;
+          var c = m.querySelector('.product-media-modal__content');
+          var nav = document.createElement('div');
+          nav.className = 'pd-lb__nav';
+          nav.innerHTML = '<button type="button" class="pd-lb__btn" data-d="-1" aria-label="Previous image">&larr;</button><span class="pd-lb__n" aria-live="polite"></span><button type="button" class="pd-lb__btn" data-d="1" aria-label="Next image">&rarr;</button>';
+          m.querySelector('.product-media-modal__dialog').appendChild(nav);
+          var n = nav.querySelector('.pd-lb__n'), prev = nav.querySelector('[data-d="-1"]'), next = nav.querySelector('[data-d="1"]');
+          function count() { return [].filter.call(c.children, function (e) { return e.offsetWidth > 0; }).length; }
+          function at() { return Math.round(c.scrollLeft / (c.clientWidth || 1)); }
+          function sync() {
+            var t = count(), i = Math.min(at(), t - 1);
+            n.textContent = (i + 1) + ' / ' + t;
+            nav.hidden = t < 2; prev.disabled = i <= 0; next.disabled = i >= t - 1;
+          }
+          function go(d) {
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            c.scrollTo({ left: (at() + d) * c.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+          }
+          // Dawn's media modal closes on any mouse pointerup inside it; the arrows must not.
+          nav.addEventListener('pointerup', function (e) { e.stopPropagation(); });
+          nav.addEventListener('click', function (e) { var b = e.target.closest('[data-d]'); if (b) go(+b.getAttribute('data-d')); });
+          c.addEventListener('scroll', function () { requestAnimationFrame(sync); }, { passive: true });
+          document.addEventListener('keydown', function (e) {
+            if (!m.hasAttribute('open')) return;
+            if (e.key === 'ArrowRight') { go(1); e.preventDefault(); }
+            if (e.key === 'ArrowLeft') { go(-1); e.preventDefault(); }
+          }, true);
+          new MutationObserver(function () {
+            if (!m.hasAttribute('open')) return;
+            setTimeout(function () {
+              var a = c.querySelector(':scope > .active');
+              if (a) c.scrollLeft = a.getBoundingClientRect().left - c.getBoundingClientRect().left + c.scrollLeft;
+              if (!m.contains(document.activeElement)) c.focus({ preventScroll: true });
+              sync();
+            }, 0);
+          }).observe(m, { attributes: true, attributeFilter: ['open'] });
+        })();
+      </script>
 
       {% assign popups = section.blocks | where: 'type', 'popup' %}
       {%- for block in popups -%}

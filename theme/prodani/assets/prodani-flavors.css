@@ -221,3 +221,11 @@ html .pd-flv__name{ font-size:clamp(48px, min(22cqi, 18svh), 160px); }
 @supports (height:100dvh){
   .pd-flv{ --stage-h: calc(100dvh - var(--pd-nav-h, 64px)); }
 }
+
+/* Tweaks 8: the link to the cake's page sits at the end of the facts row, on the labels' line. */
+.pd-flv__facts .pd-flv__more{ display:flex; align-items:flex-end; }
+.pd-flv__more a{ display:inline-flex; align-items:center; gap:6px; min-height:44px; margin-bottom:-14px; color:var(--cocoa);
+  text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; }
+.pd-flv__more a:hover{ text-decoration-color:var(--berry); }
+.pd-flv__more span{ text-decoration:none; display:inline-block; transition:transform .2s ease; }
+.pd-flv__more a:hover span{ transform:translateX(3px); }

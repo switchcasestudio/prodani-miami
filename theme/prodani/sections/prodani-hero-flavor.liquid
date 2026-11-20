@@ -123,7 +123,9 @@
     {%- if per_min > 0 -%}<p class="pd-fh__from">{{ fan_count | plus: 1 }} flavors · from {{ per_min | money }} a cake</p>{%- endif -%}
     <div class="pd-fh__cta">
       <a class="pd-btn" href="{{ section.settings.box_link | default: '#box' }}">{{ section.settings.box_label | default: 'Build your box' | escape }}</a>
-      <a class="pd-fh__alt" href="{{ p.url }}">{{ section.settings.cta_label | escape }}: {{ f[0] }} {{ f[1] }} · {{ p.price | money }}</a>
+      {%- comment -%} Tweaks 6 (Moses 2026-11-19): two buttons, like the flavor spotlight's (dark,
+          then outlined), instead of a button and an underlined link. {%- endcomment -%}
+      <a class="pd-btn pd-btn--ghost pd-fh__alt-btn" href="{{ p.url }}" aria-label="{{ section.settings.cta_label | escape }}: {{ f[0] }} {{ f[1] }}, {{ p.price | money }}">{{ f[0] }} {{ f[1] }} 5-pack · {{ p.price | money }}</a>
     </div>
     {%- if section.settings.macros != blank -%}
     <ul class="pd-fh__macros">

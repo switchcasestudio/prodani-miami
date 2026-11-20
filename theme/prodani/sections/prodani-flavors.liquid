@@ -96,6 +96,8 @@
             <ul class="pd-flv__facts">
               {%- if cals != blank -%}<li><b>{{ cals }}</b>Calories</li>{%- endif -%}
               {%- if each != blank -%}<li><b>{{ each }}</b>Per cake</li>{%- endif -%}
+              {%- comment -%} Tweaks 8 (Moses 2026-11-19): a direct link to the cake's page for the facts. {%- endcomment -%}
+              {%- if section.settings.info_label != blank -%}<li class="pd-flv__more"><a href="{{ product.url }}" aria-label="{{ section.settings.info_label | escape }}: {{ fl[0] }} {{ fl[1] }}">{{ section.settings.info_label | escape }} <span aria-hidden="true">&rarr;</span></a></li>{%- endif -%}
             </ul>
             <div class="pd-flv__cta">
               <a class="pd-btn" href="{{ product.url }}">{{ section.settings.cta_label | escape }} · {{ v.price | money }}</a>
@@ -148,6 +150,7 @@
     { "type": "text", "id": "heading", "label": "Label", "default": "The 7 flavors" },
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "flavors" },
     { "type": "text", "id": "cta_label", "label": "Main button", "default": "Shop the 5-pack" },
+    { "type": "text", "id": "info_label", "label": "Link to the cake's page", "info": "Shown after the calories and price. Leave empty to hide.", "default": "Nutrition facts" },
     { "type": "text", "id": "box_label", "label": "Second button", "info": "Drops one of this cake into the box builder on the same page. Leave empty to hide.", "default": "Add to a box" },
     { "type": "url", "id": "box_link", "label": "Second button link", "info": "Used when the page has no box builder." },
     { "type": "header", "content": "Coming soon line" },

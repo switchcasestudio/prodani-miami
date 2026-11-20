@@ -244,3 +244,8 @@
   .pd-fh__art{ width:calc((100% - 2 * var(--fh-x)) * .6); right:calc(var(--fh-x) - (100vw - 2 * var(--fh-x)) * .03); }
   .pd-fh__fan{ --fan-h:min(calc((100svh - 38px - var(--pd-nav-h)) * .68), calc((100vw - 2 * var(--fh-x)) * .43), 640px); }
 }
+
+/* Tweaks 6: the second action is an outlined button beside Build your box (stacked on phones). */
+.pd-fh__alt-btn{ background:transparent; }
+.pd-fh__cta{ gap:12px; }
+@media (max-width:900px), (max-aspect-ratio:1/1){ .pd-fh__cta{ gap:10px; } .pd-fh__alt-btn{ min-height:54px; } }

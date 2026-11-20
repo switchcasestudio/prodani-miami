@@ -118,6 +118,11 @@
           {{ section.settings.more_label | escape }}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
+        {%- comment -%} Tweaks 8 (Moses 2026-11-19: "add a button 'add a review'"): opens the same
+            panel with Judge.me's review form already open. {%- endcomment -%}
+        {%- if section.settings.write_label != blank -%}
+          <button type="button" class="pd-btn pd-btn--ghost pd-reviews__write" data-pd-reviews-write aria-haspopup="dialog" aria-controls="pd-reviews-panel">{{ section.settings.write_label | escape }}</button>
+        {%- endif -%}
       </div>
       <dialog class="pd-reviews__panel" id="pd-reviews-panel" aria-labelledby="pd-reviews-panel-title">
         <div class="pd-reviews__panel-head">
@@ -135,6 +140,19 @@
           var d=document.getElementById('pd-reviews-panel'), o=document.querySelector('[data-pd-reviews-open]');
           if(!d||!o||!d.showModal) return;
           o.addEventListener('click',function(){ d.showModal(); });
+          var w=document.querySelector('[data-pd-reviews-write]');
+          // Judge.me binds its form toggle once the widget has been on screen, so wait for the
+          // link to be live (up to ~2.5s), then open the form and bring it into view.
+          if(w) w.addEventListener('click',function(){
+            d.showModal();
+            var tries=0;
+            (function openForm(){
+              var l=d.querySelector('.jdgm-write-rev-link'), f=d.querySelector('.jdgm-form-wrapper');
+              if(f && f.offsetParent){ f.scrollIntoView({block:'start'}); return; }
+              if(l && l.offsetParent && tries>2) l.click();
+              if(++tries<12) setTimeout(openForm,220);
+            })();
+          });
           d.querySelector('[data-pd-reviews-close]').addEventListener('click',function(){ d.close(); });
           d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
         })();
@@ -162,6 +180,7 @@
       "info": "Renders the full Judge.me list inside a More reviews panel.", "default": true
     },
     { "type": "text", "id": "more_label", "label": "Expand label", "default": "Read all reviews" },
+    { "type": "text", "id": "write_label", "label": "Write-a-review button", "info": "Opens the reviews panel with the review form. Leave empty to hide.", "default": "Write a review" },
     { "type": "text", "id": "less_label", "label": "Collapse label", "default": "Show fewer" }
   ],
   "blocks": [

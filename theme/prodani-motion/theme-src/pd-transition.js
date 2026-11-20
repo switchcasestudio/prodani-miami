@@ -5,7 +5,8 @@
    Page 2: the <head> script found a fresh flag and added .pd-tr-arrive, so the panel
    already covers at first paint; the stop drop runs from inline CSS; this file waits for
    the page to be ready, then plays "Out". Tweaks 5 (Moses 2026-11-19: "way too much, only
-   HEAT AND EAT."): the panel shows only the line; the stop drops on arrival. */
+   HEAT AND EAT."): the panel shows only the line. Tweaks 8: on arrival the line plays the
+   logo's hop (letters ripple, the stop jumps and turns), then the panel fades out in place. */
 (function () {
   'use strict';
   var C = __CONFIG__;
@@ -33,7 +34,7 @@
     var t0 = performance.now() - (cap && cap.currentTime != null ? cap.currentTime : performance.now());
     function age() { return performance.now() - t0; }
     later(clear, Math.max(0, C.cap - age()));
-    // The stop drops during the hold (CSS); a slow page goes as soon as it is ready.
+    // The hop plays during the hold (CSS); a slow page goes as soon as it is ready.
     h.classList.add('pd-tr-ready');
     later(out, Math.max(0, C.holdEnd - age()));
   }
