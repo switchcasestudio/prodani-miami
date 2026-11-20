@@ -36,7 +36,6 @@ const css = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').repla
 const inlineCss = css(`
 .pd-tr{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2147483600;pointer-events:none;visibility:hidden;overflow:hidden}
 .pd-tr__panel{position:absolute;top:0;left:0;width:100%;height:100%;background:${c.ink};display:flex;align-items:center;justify-content:center;transform:translate3d(0,100%,0)}
-.pd-tr__field{position:absolute;top:0;left:0;width:100%;height:100%;display:block}
 .pd-tr__band{position:relative;z-index:1;width:100%;display:flex;justify-content:center;background:${c.ink};padding:calc(min(${LD.lineWidthVw}vw,${LD.lineMaxPx}px) * ${BAND_PAD}) 0}
 .pd-tr__line{display:block;width:min(${LD.lineWidthVw}vw,${LD.lineMaxPx}px);height:auto;overflow:visible}
 .pd-tr__word{fill:${c.white}}
@@ -46,10 +45,8 @@ const inlineCss = css(`
 html.pd-tr-arrive .pd-tr,html.pd-tr-leave .pd-tr{visibility:visible;animation:pd-tr-cap 1ms linear ${G.capMs}ms forwards}
 @keyframes pd-tr-cap{to{visibility:hidden;opacity:0}}
 html.pd-tr-arrive .pd-tr__panel{transform:none}
-/* Hold: the stop drops onto its place. */
-html.pd-tr-arrive .pd-tr__stop{opacity:0;animation:pd-tr-drop ${DROP}ms ${bz(r.stopDrop.easing)} ${DROP_DELAY}ms forwards}
+/* The stop is in place on arrival: it dropped on the page before (pd-transition.css). */
 @keyframes pd-tr-drop{from{transform:translateY(${LINE_DROP}px);opacity:1}to{transform:none;opacity:1}}
-/* Slow page: the field keeps pulsing until the page is ready (pd-transition.js). */
 /* Out: the panel carries on upward and leaves through the top. */
 html.pd-tr-out .pd-tr__panel{animation:pd-tr-up ${OUT}ms ${bz(r.out.easing)} forwards}
 @keyframes pd-tr-up{from{transform:none}to{transform:translate3d(0,-100%,0)}}
@@ -59,7 +56,8 @@ html.pd-tr-out .pd-tr__panel{animation:pd-tr-up ${OUT}ms ${bz(r.out.easing)} for
 const leaveCss = `/* ${GEN} */
 @media (prefers-reduced-motion: no-preference) {
   html.pd-tr-leave .pd-tr__panel { animation: pd-tr-in ${IN}ms ${bz(r.in.easing)} forwards; }
-  html.pd-tr-leave .pd-tr__stop { opacity: 0; animation: none; }
+  /* the stop drops in as the panel lands: HEAT AND EAT. */
+  html.pd-tr-leave .pd-tr__stop { opacity: 0; animation: pd-tr-drop ${DROP}ms ${bz(r.stopDrop.easing)} ${Math.max(0, IN - DROP)}ms forwards; }
   @keyframes pd-tr-in { from { transform: translate3d(0, 100%, 0); } to { transform: none; } }
 }
 `;
@@ -68,7 +66,7 @@ const leaveCss = `/* ${GEN} */
 const headJs = `<script>try{var s=sessionStorage,k='${G.flagKey}',t=s.getItem(k);s.removeItem(k);if(t&&Date.now()-t<${G.flagMaxAgeMs}&&matchMedia('(prefers-reduced-motion:no-preference)').matches)document.documentElement.classList.add('pd-tr-arrive')}catch(e){}</script>`;
 
 const snippet = `{%- comment -%} ${GEN}
-  Page transition "Rise", Heat and eat loader (round 4). Rendered twice from layout/theme.liquid:
+  Page transition "Rise" with HEAT AND EAT. (tweaks 5). Rendered twice from layout/theme.liquid:
   part 'head' in <head> (inline arrival CSS + flag script), default right after <body> (the panel).
   The panel is hidden by default and only shows after a real click (page 1) or a fresh
   sessionStorage flag (page 2). Content is never hidden. Skipped in the theme editor. {%- endcomment -%}
@@ -79,14 +77,13 @@ ${headJs}
 <link rel="stylesheet" href="{{ 'pd-transition.css' | asset_url }}" media="print" onload="this.media='all'">
 <script src="{{ 'pd-transition.js' | asset_url }}" defer="defer"></script>
 {%- else -%}
-<div class="pd-tr" aria-hidden="true"><div class="pd-tr__panel"><canvas class="pd-tr__field"></canvas><div class="pd-tr__band"><svg class="pd-tr__line" viewBox="0 ${LN.top} ${LINE_W} ${-LN.top}" focusable="false" xmlns="http://www.w3.org/2000/svg"><path class="pd-tr__word" d="${LN.path}"/><rect class="pd-tr__stop" x="${LN.advance + LN.gap}" y="${-LN.stop}" width="${LN.stop}" height="${LN.stop}"/></svg></div></div></div>
+<div class="pd-tr" aria-hidden="true"><div class="pd-tr__panel"><div class="pd-tr__band"><svg class="pd-tr__line" viewBox="0 ${LN.top} ${LINE_W} ${-LN.top}" focusable="false" xmlns="http://www.w3.org/2000/svg"><path class="pd-tr__word" d="${LN.path}"/><rect class="pd-tr__stop" x="${LN.advance + LN.gap}" y="${-LN.stop}" width="${LN.stop}" height="${LN.stop}"/></svg></div></div></div>
 {%- endif -%}
 {%- endunless -%}
 `;
 
 const config = {
   in: IN, holdEnd: HOLD, out: OUT, cap: G.capMs, fallback: G.navFallbackMs, key: G.flagKey,
-  field: LD.field, white: c.white,
 };
 const js = fs.readFileSync(path.join(project, 'theme-src/pd-transition.js'), 'utf8').replace('__CONFIG__', JSON.stringify(config));
 

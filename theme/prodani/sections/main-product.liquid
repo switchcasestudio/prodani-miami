@@ -843,6 +843,14 @@
   </product-component>
 </product-info>
 
+{%- comment -%} Tweaks 5 (Moses 2026-11-19): the nutrition-label photos (product media named
+    nutrition-*.png) were shot on #F3EFE6; this filter lifts exactly that colour to white and
+    leaves the black type black (each channel x 255 / its background value). Used by
+    prodani-product.css on img[src*="/nutrition-"]. {%- endcomment -%}
+{%- comment -%} Tweaks 5: Share leaves the foot of the buy column and sits on the photo's top
+    right corner (moved here so the block keeps its settings in the editor). {%- endcomment -%}
+<script>(function(){var s=document.querySelector('.product__info-container > share-button'),g=document.querySelector('.pd-gal--cut');if(s&&g){g.appendChild(s);}})();</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="pd-whiten" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1.0494 0 0 0 0 0 1.0669 0 0 0 0 0 1.1087 0 0 0 0 0 1 0"/></filter></svg>
 <script src="{{ 'prodani-steps.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
