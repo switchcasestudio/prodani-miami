@@ -52,7 +52,7 @@
       endcapture
       assign tb = tm | strip | split: '|'
       unless tb[4] == blank or tb[4] contains 'slices'
-        assign fan = fan | append: tb[4] | append: '~' | append: tb[0] | append: ','
+        assign fan = fan | append: tb[4] | append: '~' | append: tb[0] | append: ' ' | append: tb[1] | append: '~' | append: prod.url | append: ','
       endunless
     endif
   endfor
@@ -70,10 +70,12 @@
   --l is the line, --j the word's place in its line.
 {%- endcomment -%}
 <section class="pd-hero pd-fh">
+  {%- if section.settings.show_details -%}
   <div class="pd-fh__eyebrow">
     <span class="pd-tag pd-tag--berry">{{ section.settings.eyebrow | escape }}</span>
     <a class="pd-fh__flavor" href="{{ p.url }}">{{ f[0] }} {{ f[1] }}{% if protein != blank %} · {{ protein }}<span class="pd-fh__lc">g</span> protein{% endif %}{% if cals != blank %} · {{ cals }} cal{% endif %}</a>
   </div>
+  {%- endif -%}
   <h1 class="pd-fh__h">
     {%- for l in lines -%}
       {%- assign t = l | strip -%}
@@ -98,7 +100,7 @@
     {%- endfor -%}
   </h1>
   <div class="pd-fh__foot">
-    <p class="pd-fh__p">{{ section.settings.text | escape }}</p>
+    {%- if section.settings.show_details and section.settings.text != blank -%}<p class="pd-fh__p">{{ section.settings.text | escape }}</p>{%- endif -%}
     {%- comment -%}
       2026-11-19 (Moses, option A): the hero sells the mix. One solid button to the box
       builder; the flavor of the week stays one tap away as a text link, not a second
@@ -136,19 +138,31 @@
       raised and in front. --k is each tray's place from the middle (-3 to 3), --d its
       distance from it. Side trays load small; the middle one is the LCP image.
     {%- endcomment -%}
-    <div class="pd-fh__fan" aria-hidden="true">
+    {%- comment -%}
+      2026-11-19 round 2 (Moses: "bigger cakes, open the fan, make them a little
+      interactive, different enter pace"): every tray is its own link to its flavor. The
+      outer <a> holds the place in the fan (--k, rotate); the inner card does the moving:
+      it deals out from behind the middle tray at its own pace (--du, --dl), lifts on
+      hover or press and shows the flavor's name. Neighbours lean away from a hovered tray
+      (--push, set by prodani-fan.js). Paces come from a fixed list, so the entrance is
+      the same on every load.
+    {%- endcomment -%}
+    {%- assign paces = '1.25,0.95,1.15,0.9,1.3,1.05,1.0,1.2' | split: ',' -%}
+    {%- assign waits = '0.62,0.48,0.74,0.55,0.84,0.66,0.7,0.58' | split: ',' -%}
+    <div class="pd-fh__fan" data-pd-fan>
       {%- for t in fan -%}
         {%- assign bits = t | split: '~' -%}
         {%- if forloop.index0 < fan_half -%}{%- assign k = forloop.index0 | minus: fan_half -%}{%- else -%}{%- assign k = forloop.index0 | minus: fan_half | plus: 1 -%}{%- endif -%}
         {%- if forloop.index0 == fan_half -%}
-          <img class="pd-fh__tray pd-fh__tray--c" src="{{ f[4] | asset_url }}" alt="" width="370" height="950" fetchpriority="high" style="--k:0;--d:0">
+          <a class="pd-fh__tray pd-fh__tray--c" href="{{ p.url }}" style="--k:0;--d:0" data-k="0"><span class="pd-fh__card"><img src="{{ f[4] | asset_url }}" alt="{{ f[0] }} {{ f[1] }}" width="370" height="950" fetchpriority="high"><span class="pd-fh__tag" aria-hidden="true">{{ f[0] }} {{ f[1] }}</span></span></a>
         {%- endif -%}
-        <img class="pd-fh__tray" src="{{ bits[0] | asset_url }}" alt="" width="370" height="950" decoding="async" fetchpriority="low" style="--k:{{ k }};--d:{{ k | abs }}">
+        <a class="pd-fh__tray" href="{{ bits[2] }}" style="--k:{{ k }};--d:{{ k | abs }};--du:{{ paces[forloop.index0] }}s;--dl:{{ waits[forloop.index0] }}s" data-k="{{ k }}"><span class="pd-fh__card"><img src="{{ bits[0] | asset_url }}" alt="{{ bits[1] }}" width="370" height="950" decoding="async" fetchpriority="low"><span class="pd-fh__tag" aria-hidden="true">{{ bits[1] }}</span></span></a>
       {%- endfor -%}
-      {%- if fan.size == 0 -%}<img class="pd-fh__tray pd-fh__tray--c" src="{{ f[4] | asset_url }}" alt="" width="370" height="950" fetchpriority="high" style="--k:0;--d:0">{%- endif -%}
+      {%- if fan.size == 0 -%}<a class="pd-fh__tray pd-fh__tray--c" href="{{ p.url }}" style="--k:0;--d:0" data-k="0"><span class="pd-fh__card"><img src="{{ f[4] | asset_url }}" alt="{{ f[0] }} {{ f[1] }}" width="370" height="950" fetchpriority="high"><span class="pd-fh__tag" aria-hidden="true">{{ f[0] }} {{ f[1] }}</span></span></a>{%- endif -%}
     </div>
   </div>
 </section>
+<script src="{{ 'prodani-fan.js' | asset_url }}" defer></script>
 {%- if section.settings.show_marquee -%}
 <div class="pd-mq" aria-hidden="true"><div class="pd-mq__t">
   {%- for i in (1..2) -%}
@@ -169,6 +183,7 @@
     { "type": "product", "id": "product", "label": "Flavor in the spotlight" },
     { "type": "product", "id": "next_product", "label": "Second cake in the picture" },
     { "type": "product", "id": "third_product", "label": "Third cake in the picture" },
+    { "type": "checkbox", "id": "show_details", "label": "Show the badge, flavor line and text", "info": "Off since 2026-11-19: the cakes carry the hero.", "default": false },
     { "type": "text", "id": "eyebrow", "label": "Badge", "default": "Flavor of the week" },
     { "type": "text", "id": "headline", "label": "Headline", "info": "Sentences break onto their own lines. {protein} is replaced with the spotlight cake's protein.", "default": "{protein}g protein. 0g added sugar. It’s cake." },
     { "type": "textarea", "id": "text", "label": "Text" },
