@@ -23,30 +23,22 @@
           <h2 class="pd-spreads__h2" id="pd-trio-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
         </div>
       </div>
-      <ol class="pd-spreads__cards">
+      {%- comment -%} Tweaks 6 (Moses 2026-11-19): no jar photos and no full-screen height. The
+          trio is set as type, the way the spreads page opens (prodani-spreads.liquid): three
+          ruled cells, a colour chip and number, the name huge, then the kind. Tweaks 8: the jar photo
+          shows on hover only. {%- endcomment -%}
+      <ol class="pd-spreads__type pd-spreads__type--home">
         {%- for block in flavors -%}
-          <li class="pd-spreads__card" style="--accent:{{ block.settings.accent | default: '#6B3B28' }}" {{ block.shopify_attributes }}>
+          <li class="pd-spreads__type-cell" style="--accent:{{ block.settings.accent | default: '#6B3B28' }}" {{ block.shopify_attributes }}>
+            <span class="pd-spreads__type-n" aria-hidden="true">0{{ forloop.index }}</span>
+            <h3 class="pd-spreads__type-name">{{ block.settings.name | escape }}</h3>
+            {%- comment -%} Tweaks 8 (Moses 2026-11-19): hovering a spread reveals its jar photo. {%- endcomment -%}
             {%- if block.settings.image != blank -%}
-              <div class="pd-spreads__card-media">
-                {{ block.settings.image | image_url: width: 900
-                   | image_tag: loading: 'lazy', widths: '450, 700, 900',
-                     sizes: '(min-width: 750px) 30vw, 33vw', alt: block.settings.alt }}
-              </div>
+              {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 700, 900', sizes: '(min-width: 750px) 33vw, 100vw', alt: '', class: 'pd-spreads__type-img' }}
             {%- elsif block.settings.bundled != blank and block.settings.bundled != 'none' -%}
-              <div class="pd-spreads__card-media">
-                <img src="{{ 'prodani-spread-' | append: block.settings.bundled | append: '.jpg' | asset_url }}"
-                     alt="{{ block.settings.alt | default: block.settings.name | escape }}" width="400" height="500" loading="lazy">
-              </div>
+              <img class="pd-spreads__type-img" src="{{ 'prodani-spread-' | append: block.settings.bundled | append: '.jpg' | asset_url }}" alt="" width="400" height="500" loading="lazy">
             {%- endif -%}
-            <span class="pd-spreads__card-bar" aria-hidden="true"></span>
-            {%- comment -%} Home cards are short (Moses 2026-11-19: "too much for a product that
-                is coming soon"): the jar, the name and its three-word line. The flavor text,
-                the direction and the pairings stay on the spreads page; their settings are kept. {%- endcomment -%}
-            <h3 class="pd-spreads__card-title">
-              {{ block.settings.name | escape }}
-              {%- if block.settings.kind != blank -%}<span>{{ block.settings.kind | escape }}</span>{%- endif -%}
-            </h3>
-            {%- if block.settings.tagline != blank -%}<p class="pd-spreads__card-tag">{{ block.settings.tagline | escape }}</p>{%- endif -%}
+            <span class="pd-spreads__type-kind">{{ block.settings.kind | default: 'Spread' | escape }}{% if section.settings.soon_label != blank %} &middot; {{ section.settings.soon_label | escape }}{% endif %}</span>
           </li>
         {%- endfor -%}
       </ol>

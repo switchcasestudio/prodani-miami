@@ -599,6 +599,11 @@ img[src*="/nutrition-"]{ filter:url(#pd-whiten); }
   display:flex; align-items:center; border:var(--rule) solid var(--line); background:#fff; color:var(--cocoa); cursor:pointer; }
 .pd-gal--cut > share-button .share-button__button.hidden{ display:none; }
 .pd-gal--cut > share-button .share-button__button .svg-wrapper{ margin:0; width:18px; height:18px; }
+/* Tweaks 7 (Moses: "share button is off center"): Dawn gives the icon margin-right:1rem for a
+   text label; with no label that pushed it left. No margin, no summary marker, true centre. */
+.pd-gal--cut > share-button .share-button__button .icon-share{ margin:0; min-width:0; width:100%; height:100%; }
+.pd-gal--cut > share-button summary.share-button__button{ list-style:none; }
+.pd-gal--cut > share-button summary.share-button__button::-webkit-details-marker{ display:none; }
 .pd-gal--cut > share-button .share-button__button:hover{ background:var(--cocoa); color:#fff; }
 .pd-gal--cut > share-button .share-button__fallback{ right:0; left:auto; top:calc(100% + 6px); min-width:min(320px, 80vw); }
 
@@ -621,3 +626,36 @@ img[src*="/nutrition-"]{ filter:url(#pd-whiten); }
 .pd-order .pd-size__opt--box:hover{ background:var(--butter); }
 .pd-order .pd-size__opt--box:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; }
 .pd-order .pd-size{ gap:12px; }
+
+/* ======================= Lightbox (tweaks 8, Moses 2026-11-19: "the images are a big mess") =======================
+   Dawn stacked every image down one long scroll at its own size (a wide photo, then a tall
+   one in a frame, then the label). Now it is one image at a time: each fills the same
+   frame, fitted whole on white, and the row slides sideways (swipe, the arrows, or the
+   keyboard's left/right). A counter shows where you are. Script: main-product.liquid. */
+.product-media-modal{ background:#fff; }
+.product-media-modal__dialog{ height:100vh; height:100dvh; }
+.product-media-modal__content{ display:flex !important; flex-direction:row !important; align-items:stretch !important; justify-content:flex-start !important;
+  width:100%; height:100vh; height:100dvh; min-height:0 !important; max-height:none !important; padding:0 !important;
+  overflow-x:auto !important; overflow-y:hidden !important; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; scrollbar-width:none; background:#fff !important; }
+.product-media-modal__content::-webkit-scrollbar{ display:none; }
+.product-media-modal__content > *{ display:block !important; flex:0 0 100%; width:100% !important; max-width:none !important; height:100% !important;
+  max-height:none !important; margin:0 !important; scroll-snap-align:center; scroll-snap-stop:always; }
+.product-media-modal__content > .product__media-item--variant:not(:first-child){ display:none !important; }
+.product-media-modal__content > img.global-media-settings{ box-sizing:border-box; object-fit:contain; background:#fff;
+  padding:clamp(72px,11vh,110px) clamp(16px,7vw,120px) clamp(96px,13vh,128px) !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; }
+.product-media-modal__toggle{ width:48px; height:48px; padding:14px; border-radius:0; border:0; background:var(--cocoa); color:#fff; top:16px; right:16px; }
+.product-media-modal__toggle:hover{ background:var(--berry); }
+.pd-lb__nav{ position:fixed; left:50%; bottom:clamp(20px,4vh,40px); transform:translateX(-50%); z-index:2; display:flex; align-items:center; gap:18px; }
+.pd-lb__nav[hidden]{ display:none; }
+.pd-lb__btn{ width:52px; height:52px; display:grid; place-items:center; border:var(--rule) solid var(--line); background:#fff; color:var(--cocoa);
+  font-size:20px; line-height:1; cursor:pointer; transition:background .2s, color .2s; }
+.pd-lb__btn:hover:not(:disabled){ background:var(--cocoa); color:#fff; }
+.pd-lb__btn:disabled{ opacity:.3; cursor:default; }
+.pd-lb__n{ min-width:5ch; text-align:center; font-family:var(--mono); font-size:13px; font-weight:800; letter-spacing:.12em; color:var(--cocoa); }
+@media (prefers-reduced-motion: reduce){ .product-media-modal__content{ scroll-behavior:auto; } }
+
+/* Tweaks 8 (Moses 2026-11-19, image 67: "give the text padding left to match the text in the
+   boxed container"): everything in the buy column outside the order box is inset by the
+   box's border + padding (2px + 18px), so the badges, title, price, text, stats and trust
+   line start on the same line as "Step 1 of 3" and the cards inside the box. */
+.product__info-container > :not(.pd-order):not(share-button):not(script):not(style){ padding-inline:20px; }

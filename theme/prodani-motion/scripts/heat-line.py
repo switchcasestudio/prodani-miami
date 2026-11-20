@@ -1,6 +1,6 @@
 # Outlines a line of text from the theme font for the page loader (motion-tokens.json loader.line).
 # Needs fonttools + brotli (pip). Usage: python3 scripts/heat-line.py public/archivo-var-latin.woff2 "HEAT AND EAT"
-# Prints JSON with the path in whole font units, baseline at 0, y down.
+# Prints JSON with the path in whole font units, baseline at 0, y down; 'glyphs' has one path per letter.
 import sys, json
 from fontTools.ttLib import TTFont
 from fontTools.varLib.instancer import instantiateVariableFont
@@ -53,4 +53,5 @@ d = ' '.join(p for p in parts if p)
 d = re.sub(r'-?\d+\.\d+', lambda m: str(round(float(m.group()))), d)  # whole font units
 # bounds of the whole line
 from fontTools.pens.recordingPen import RecordingPen
-print(json.dumps({"upm": upm, "advance": x, "capHeight": getattr(inst['OS/2'], 'sCapHeight', None), "d": d, "len": len(d)}))
+glyphs = [re.sub(r'-?\d+\.\d+', lambda m: str(round(float(m.group()))), p) for p in parts if p]   # one path per letter (no spaces)
+print(json.dumps({"upm": upm, "advance": x, "capHeight": getattr(inst['OS/2'], 'sCapHeight', None), "d": d, "glyphs": glyphs, "len": len(d)}))

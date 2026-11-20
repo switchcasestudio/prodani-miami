@@ -452,3 +452,7 @@
    builder centred in it, so the next section never peeks in underneath. */
 .pd-box{ min-height:calc(100svh - var(--pd-nav-h, 64px)); display:flex; flex-direction:column; justify-content:center; }
 .pd-box > .pd-wrap{ width:100%; }
+
+/* Tweaks 8 (Moses 2026-11-19: "no need for 100VH for 'build your box' but keep some fair
+   margin / padding top-bottom"): the section is as tall as the builder, with even air. */
+.pd-box{ min-height:0; padding-block:clamp(56px,7vw,112px); }

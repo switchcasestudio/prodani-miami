@@ -184,3 +184,12 @@
 .pd-foot__card-media--cut{ position:relative; }
 .pd-foot__card-media--cut img{ position:absolute; left:50%; top:50%; height:clamp(220px,70vw,290px); width:auto; max-width:none;
   transform:translate(-50%,-50%) rotate(90deg); }
+
+/* Tweaks 6 (Moses 2026-11-19): the logo runs the full width of the footer; the menu
+   links are in Title Case ("Shop All", not "SHOP ALL") in the text face, on tighter
+   lines (phones keep a 32px tap row). */
+.pd-foot .pd-foot__mark, .pd-foot__brand .pd-foot__mark{ width:100%; max-width:none; }
+.pd-foot li{ min-height:26px; }
+.pd-foot li a{ font-family:var(--sans); font-size:15px; font-weight:600; letter-spacing:.005em; text-transform:capitalize; line-height:1.25; }
+.pd-foot__cols ul{ display:flex; flex-direction:column; gap:2px; }
+@media (max-width:749px){ .pd-foot li{ min-height:32px; } }
