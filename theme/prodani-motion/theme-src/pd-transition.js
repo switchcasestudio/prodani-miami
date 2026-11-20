@@ -4,7 +4,8 @@
    Page 1: a real click on an eligible same-origin link plays "In", then navigates.
    Page 2: the <head> script found a fresh flag and added .pd-tr-arrive, so the panel
    already covers at first paint; the stop drop runs from inline CSS; this file waits for
-   the page to be ready, then plays "Out" (or the slow-page fill first). */
+   the page to be ready, then plays "Out". Round 4: the panel shows the Heat and eat field
+   (canvas, drawn here) with HEAT AND EAT. in a band; the stop drops on arrival. */
 (function () {
   'use strict';
   var C = __CONFIG__;
@@ -16,17 +17,44 @@
 
   function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
   function clear() {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
     timers.forEach(clearTimeout); timers = [];
     scripted.forEach(function (a) { try { a.cancel(); } catch (e) {} }); scripted = [];
     CLASSES.forEach(function (c) { h.classList.remove(c); });
   }
   function q(s) { return root.querySelector(s); }
-  function play(el, frames, ms, ease) {
-    if (el && el.animate) scripted.push(el.animate(frames, { duration: ms, easing: ease, fill: 'forwards' }));
-  }
 
   /* Back/forward cache: never come back to a covered page. */
   addEventListener('pageshow', function (e) { if (e.persisted) { going = false; clear(); } });
+
+  /* ---------- The field: i-stem bars in a heat wave (round 4, "Heat and eat") ----------
+     Drawn on a canvas while the panel shows; the bars rise from the bottom of their row,
+     each on its own phase, so the wave runs diagonally across the field. On arrival the
+     field rises in from the bottom left (the panel was already covering at first paint). */
+  var cv = q('.pd-tr__field'), raf = 0;
+  function field(rise) {
+    if (raf || !cv || !cv.getContext) return;
+    var F = C.field, x = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, F.maxDpr);
+    var W = innerWidth, H = innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    x.setTransform(dpr, 0, 0, dpr, 0, 0); x.fillStyle = C.white;
+    var cols = W > H ? F.colsLandscape : F.colsPortrait, p = W / cols, bw = F.barW * p, bh = bw * F.stemRatio,
+      rp = bh * F.rowPitch, rows = Math.ceil(H / rp) + 1, top = (H - rows * rp) / 2, t0 = performance.now();
+    function draw(now) {
+      var t = now - t0, i, j, k, s, yb;
+      x.clearRect(0, 0, W, H);
+      for (j = 0; j < rows; j++) for (i = 0; i < cols; i++) {
+        k = 1;
+        if (rise) { k = Math.min(1, Math.max(0, (t - (i + rows - 1 - j) / (cols + rows) * F.riseInMs) / 240)); k = 1 - Math.pow(1 - k, 3); }
+        if (k <= 0) continue;
+        s = k * (F.low + (1 - F.low) * (0.5 + 0.5 * Math.sin(2 * Math.PI * t / F.periodMs - (i * F.phaseI + j * F.phaseJ))));
+        yb = top + (j + 1) * rp;
+        x.fillRect((i + 0.5) * p - bw / 2, yb - bh * s, bw, bh * s);
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    raf = requestAnimationFrame(draw);
+  }
 
   /* ---------- Page 2: arriving ---------- */
   function arrive() {
@@ -35,21 +63,10 @@
     var t0 = performance.now() - (cap && cap.currentTime != null ? cap.currentTime : performance.now());
     function age() { return performance.now() - t0; }
     later(clear, Math.max(0, C.cap - age()));
-    var wait = C.holdEnd - age();
-    if (wait > 0) { h.classList.add('pd-tr-ready'); later(out, wait); return; }
-    // Slow page: the stem has been filling since the hold ended. Finish the fill,
-    // drop the i's dot, then leave. If the hard cap is too close, just leave.
-    if (C.cap - age() < C.fill + C.drop + C.out) { out(); return; }
-    var fill = q('.pd-tr__fill'), m = /matrix\(([^)]+)\)/.exec(getComputedStyle(fill).transform);
-    var s = m ? parseFloat(m[1].split(',')[3]) || 0 : 0;
-    play(fill, [{ transform: 'scaleY(' + s + ')' }, { transform: 'scaleY(1)' }], C.fill, C.fillEase);
-    later(function () {
-      play(q('.pd-tr__dot'), [
-        { transform: 'translateY(' + C.from + 'px)', opacity: 1 },
-        { transform: 'none', opacity: 1 }
-      ], C.drop, C.dropEase);
-      later(out, C.drop);
-    }, C.fill);
+    field(true);
+    // The stop drops during the hold (CSS); a slow page goes as soon as it is ready.
+    h.classList.add('pd-tr-ready');
+    later(out, Math.max(0, C.holdEnd - age()));
   }
   function out() { h.classList.add('pd-tr-out'); later(clear, C.out + 40); }
 
@@ -106,6 +123,7 @@
     try {
       clear();
       h.classList.add('pd-tr-leave');
+      field(false);
       later(go, C.in);
     } finally {
       setTimeout(go, C.fallback); // navigation happens even if anything above threw

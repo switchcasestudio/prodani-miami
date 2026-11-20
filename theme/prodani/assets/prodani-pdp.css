@@ -388,3 +388,21 @@
   .pd-nut__table tr.is-hl .pd-nut__amt{ font-size:17px !important; }
   .pd-nut__table tr.is-hl th{ font-size:13px; }
 }
+
+/* ======================= Round 4 (Moses 2026-11-19) ======================= */
+/* #3 The stats are one line, not a 2x2 table: "20g protein · 180 calories · 0g added
+   sugar · gluten free". The figure stays in the display face, the label beside it. */
+.pd-macros{ display:flex !important; flex-wrap:wrap; align-items:baseline; gap:6px 0; border:0 !important; margin:0; padding:0; }
+.pd-macro{ display:inline-flex !important; flex:0 0 auto !important; align-items:baseline; gap:5px; padding:0 !important; border:0 !important; background:none !important; min-width:0; grid-column:auto !important; }
+.pd-macro + .pd-macro::before{ content:"\00B7"; margin:0 8px; color:var(--cocoa); font-weight:800; }
+.pd-macro__n{ font-size:22px !important; line-height:1; }
+.pd-macro__l{ margin:0 !important; font-size:10.5px; letter-spacing:.08em; color:var(--cocoa); white-space:nowrap; }
+.pd-macro--gf .pd-macro__n{ display:none; }
+
+/* #4 Nutrition: room between the amount and its % (20g   40%). */
+.pd-nut__amt{ padding-right:0 !important; }
+.pd-nut__dv{ padding-left:18px !important; width:auto !important; min-width:3.4em; box-sizing:content-box; }
+.pd-nut__table tr.is-hl .pd-nut__dv{ padding-left:18px !important; }
+@media (max-width:420px){ .pd-macros{ flex-wrap:nowrap; } .pd-macro{ gap:4px; } .pd-macro__n{ font-size:17px !important; } .pd-macro__l{ font-size:9px; letter-spacing:.04em; } .pd-macro + .pd-macro::before{ margin:0 5px; } }
+@media (max-width:360px){ .pd-macros{ flex-wrap:wrap; } }
+@media (max-width:420px){ .pd-macro--gf .pd-macro__n{ display:inline; } .pd-macro--gf .pd-macro__l{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; } }

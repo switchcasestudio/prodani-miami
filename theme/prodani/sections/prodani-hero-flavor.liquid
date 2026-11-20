@@ -159,6 +159,10 @@
         <a class="pd-fh__tray" href="{{ bits[2] }}" style="--k:{{ k }};--d:{{ k | abs }};--du:{{ paces[forloop.index0] }}s;--dl:{{ waits[forloop.index0] }}s" data-k="{{ k }}"><span class="pd-fh__card"><img src="{{ bits[0] | asset_url }}" alt="{{ bits[1] }}" width="370" height="950" decoding="async" fetchpriority="low"><span class="pd-fh__tag" aria-hidden="true">{{ bits[1] }}</span></span></a>
       {%- endfor -%}
       {%- if fan.size == 0 -%}<a class="pd-fh__tray pd-fh__tray--c" href="{{ p.url }}" style="--k:0;--d:0" data-k="0"><span class="pd-fh__card"><img src="{{ f[4] | asset_url }}" alt="{{ f[0] }} {{ f[1] }}" width="370" height="950" fetchpriority="high"><span class="pd-fh__tag" aria-hidden="true">{{ f[0] }} {{ f[1] }}</span></span></a>{%- endif -%}
+      {%- comment -%} Round 4: each card deals in only once its image has decoded, so the
+          cake and its shadow (a box-shadow on the card) always arrive together. Fallback:
+          2.5s, then the card goes anyway. {%- endcomment -%}
+      <script>(function(f){if(!f)return;[].forEach.call(f.querySelectorAll('.pd-fh__card'),function(c){var i=c.querySelector('img');if(!i)return;c.classList.add('is-wait');var go=function(){c.classList.remove('is-wait')};setTimeout(go,2500);(i.decode?i.decode():Promise.reject()).then(go,function(){if(i.complete)go();else i.addEventListener('load',go)})})})(document.currentScript.parentNode)</script>
     </div>
   </div>
 </section>
