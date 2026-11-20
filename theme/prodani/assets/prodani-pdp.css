@@ -406,3 +406,6 @@
 @media (max-width:420px){ .pd-macros{ flex-wrap:nowrap; } .pd-macro{ gap:4px; } .pd-macro__n{ font-size:17px !important; } .pd-macro__l{ font-size:9px; letter-spacing:.04em; } .pd-macro + .pd-macro::before{ margin:0 5px; } }
 @media (max-width:360px){ .pd-macros{ flex-wrap:wrap; } }
 @media (max-width:420px){ .pd-macro--gf .pd-macro__n{ display:inline; } .pd-macro--gf .pd-macro__l{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; } }
+
+/* Tweaks 5: the shared-kitchen allergen statement under the product's own allergen line. */
+.pd-details__facility{ margin:12px 0 0 !important; font-size:14px !important; font-weight:600 !important; line-height:1.5; color:var(--ink-soft) !important; max-width:68ch; }

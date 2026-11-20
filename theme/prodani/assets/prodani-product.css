@@ -571,3 +571,53 @@ html.pd-steps-in-view .pd-sticky-atc.is-visible{ transform:translateY(110%); vis
 .pd-order > .product-form__quantity{ flex:0 0 auto; }
 .pd-order > div:has(> product-form){ display:contents; } /* as in the column: the buttons sit beside the quantity, pickup runs full width below */
 .pd-order[data-step="qty"] > .product-form__quantity{ margin-top:0 !important; }
+
+/* ======================= Tweaks 5 (Moses 2026-11-19) ======================= */
+/* The cake, tilted and bigger. On desktop the stage fills the hero cell (no sticky stage
+   that could slide under the thumbnails and cut the cake); the gallery column is as tall
+   as the buy column, so the composition has no empty band under either. */
+.pd-gal--cut .pd-gal__stage .pd-gal__cut{ height:92% !important; max-width:none; rotate:-9deg; }
+@media (max-width:989px){ .pd-gal--cut .pd-gal__stage{ height:clamp(420px, 92vw, 680px) !important; } }
+@media (min-width:990px){
+  .pd-gal--cut .pd-gal__hero{ position:relative; flex:1 1 auto; min-height:520px; }
+  .pd-gal--cut .pd-gal__stage{ position:absolute !important; inset:0 !important; top:0 !important; height:auto !important; min-height:0 !important; }
+}
+/* The nutrition-label photos on white (the filter is in main-product.liquid). */
+img[src*="/nutrition-"]{ filter:url(#pd-whiten); }
+/* No pink ring on the "active" thumbnail: the small photos only open the lightbox. */
+.pd-gal--cut .product__media-item.is-active, .pd-gal--cut .product__media-item:hover{ box-shadow:none !important; }
+
+/* The buy column uses its full width (Dawn capped it at 600px); the order box with it. */
+.product__info-container{ max-width:none !important; position:relative; }
+.product__info-container .product__description{ max-width:62ch; }
+
+/* Share: a small icon on the photo's top right corner (moved there by main-product.liquid),
+   not a row at the foot of the buy column. */
+.pd-gal--cut{ position:relative; top:auto !important; } /* an old desktop rule set top for a sticky gallery */
+.pd-gal--cut > share-button{ position:absolute !important; top:12px; right:12px; z-index:3; width:auto !important; margin:0 !important; }
+.pd-gal--cut > share-button .share-button__button{ font-size:0; width:44px; height:44px; min-height:44px; padding:0; justify-content:center;
+  display:flex; align-items:center; border:var(--rule) solid var(--line); background:#fff; color:var(--cocoa); cursor:pointer; }
+.pd-gal--cut > share-button .share-button__button.hidden{ display:none; }
+.pd-gal--cut > share-button .share-button__button .svg-wrapper{ margin:0; width:18px; height:18px; }
+.pd-gal--cut > share-button .share-button__button:hover{ background:var(--cocoa); color:#fff; }
+.pd-gal--cut > share-button .share-button__fallback{ right:0; left:auto; top:calc(100% + 6px); min-width:min(320px, 80vw); }
+
+/* Magenta, not the light pink, on the product page (Moses: "keep the magenta"). */
+.product .pd-badges .pd-tag--pink{ background:var(--berry); border-color:var(--berry); color:#fff; }
+.product .price--large .pd-pack{ background:var(--berry); color:#fff; }
+.pd-size__go{ background:var(--berry); color:#fff; }
+.pd-trust li::before{ background:var(--berry); }
+
+/* Step 1 as two buttons: the 5-pack (dark) and Build a box (outlined). */
+.pd-order .pd-size__opt--box{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:4px 16px; min-height:72px; padding:14px 20px;
+  border:var(--rule) solid var(--cocoa); background:#fff; color:var(--cocoa); text-decoration:none; transition:background .2s ease; }
+.pd-order .pd-size__opt--box .pd-size__t{ grid-column:1; font-family:var(--script); font-weight:900; font-stretch:70%; text-transform:uppercase;
+  font-size:24px; line-height:1; text-decoration:none; }
+.pd-order .pd-size__opt--box .pd-size__t::before{ content:none; }
+.pd-order .pd-size__opt--box .pd-size__t span{ display:none; }
+.pd-order .pd-size__opt--box .pd-size__p{ grid-column:1; flex-basis:auto; font-size:13px; opacity:.8; }
+.pd-order .pd-size__opt--box::after{ content:"\2192"; grid-column:2; grid-row:1 / span 2; display:grid; place-items:center; width:44px; height:44px;
+  border:var(--rule) solid var(--cocoa); font-size:22px; font-weight:800; }
+.pd-order .pd-size__opt--box:hover{ background:var(--butter); }
+.pd-order .pd-size__opt--box:focus-visible{ outline:3px solid var(--berry); outline-offset:3px; }
+.pd-order .pd-size{ gap:12px; }

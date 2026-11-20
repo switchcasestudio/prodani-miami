@@ -82,6 +82,10 @@
         <div class="pd-details__body">
         {%- if allergens != '' -%}
           <p class="pd-details__warn">{{ allergens }}</p>
+          {%- comment -%} Shared-kitchen statement (Moses 2026-11-19: the cakes are made in a
+              facility that handles nuts; take no responsibility beyond that). Wording to be
+              confirmed by Dani; it shows under every product's own allergen line. {%- endcomment -%}
+          <p class="pd-details__facility">Made in a kitchen that also handles nuts and other common allergens. Any cake may contain traces of them, and we cannot guarantee that a product is free of any allergen. If you have a food allergy, please check with your doctor before eating.</p>
         {%- else -%}
           <p class="is-sample">Sample — allergen statement appears here once
             <code>prodani.allergens</code> is set in admin (ticket T2/T4).</p>
