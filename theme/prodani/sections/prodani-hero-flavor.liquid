@@ -7,8 +7,6 @@
 -%}
 {%- capture fm -%}{% render 'prodani-flavor-map', handle: handle %}{%- endcapture -%}
 {%- assign f = fm | strip | split: '|' -%}
-{%- capture nm -%}{% render 'prodani-flavor-map', handle: next_p.handle %}{%- endcapture -%}
-{%- assign n = nm | strip | split: '|' -%}
 {%- comment -%}
   Macro Bold hero (2026-11-10, recomposed 2026-11-18): the numbers are the headline.
   The headline reads the spotlight product's protein live; {protein} in the setting is
@@ -43,7 +41,6 @@
       endunless
     endif
   endfor
-  assign v = p.selected_or_first_available_variant
   assign fan = ''
   for prod in collections['personal-protein-cakes'].products
     if prod.handle != p.handle
