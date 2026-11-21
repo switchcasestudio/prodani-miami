@@ -14,10 +14,7 @@ Design and build: Switchcase Studio.
 │   ├── scripts/          # preflight checks, publish, OG share cards, nutrition labels, QA helpers
 │   ├── prodani-motion/   # Remotion project: brand motion, page transition tokens, promo clips
 │   └── package.json      # npm scripts (dev, push:staging, push:live, preflight, ...)
-├── directions/           # Design-direction mockups (static HTML) and their render scripts
-├── casestudy/            # Case study build for switchcasestudio.com
 ├── blog/                 # Journal articles (source text and images)
-├── brand/                # Earlier logo kit (superseded by the current wordmark in the theme)
 └── PRODUCT.md
 ```
 
